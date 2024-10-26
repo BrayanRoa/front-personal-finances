@@ -1,0 +1,59 @@
+<div class="card">
+    <div class="table-header-wrapper">
+        <div>
+            <form [formGroup]="myForm" (ngSubmit)="onRowSelectChange()">
+                <!-- YEAR -->
+                <p-dropdown [options]="years" optionLabel="year" placeholder="Select a Year" formControlName="year" />
+                <!-- MONTH -->
+                <p-dropdown [options]="months" optionLabel="name" placeholder="Select a Month"
+                    formControlName="month" />
+                <p-button label="Filter" type="submit" />
+            </form>
+        </div>
+        <p-iconField iconPosition="left">
+            <p-inputIcon styleClass="pi pi-search" />
+            <input type="text" pInputText placeholder="Search" [formControl]="searchControl" />
+        </p-iconField>
+    </div>
+    <p-table [value]="transactions" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[10, 20, 30]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Repeat</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-transaction>
+            <tr>
+                <td>{{ transaction.category.name}}</td>
+                <td>{{ transaction.description }}</td>
+                <td>{{ transaction.amount | currency }}</td>
+                <td>{{ transaction.date | date:'longDate':'UTC' }}</td>
+                <td *ngIf="transaction.type === 'INCOME';else outflow">
+                    <div class="test">
+                        <p-tag severity="success" value="INCOME" />
+                    </div>
+                </td>
+                <ng-template #outflow>
+                    <td>
+                        <p-tag severity="danger" value="OUTFLOW" />
+                    </td>
+                </ng-template>
+                <td *ngIf="transaction.repeat === 'NEVER'; else notimes">
+                    <p-tag icon="pi pi-check" [rounded]="true"/>
+                </td>
+                <ng-template #notimes>
+                    <td>
+                        <p-tag icon="pi pi-times" [rounded]="true"/>
+                    </td>
+                </ng-template>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="meta.totalRecords"
+        [rowsPerPageOptions]="[10, 20, 30]" />
+
+</div>

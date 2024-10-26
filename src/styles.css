@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+/* @import "primeng/resources/themes/lara-dark-indigo/theme.css";
+@import "primeng/resources/primeng.css"; */
+@import "primeicons/primeicons.css";    
+* {
+    box-sizing: border-box;
+    /* margin: 0;
+    padding: 0; */
+}
+
+body{
+    margin: 0px;
+}

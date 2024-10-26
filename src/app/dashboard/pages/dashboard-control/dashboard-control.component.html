@@ -1,0 +1,16 @@
+<app-header-information class="header"></app-header-information>
+<app-cards-information class="cards"></app-cards-information>
+<div class="grid-container">
+    <!-- <app-list-transactions [transactions]="transactions" [meta]="meta" class="item item1"></app-list-transactions> -->
+    <app-list-transactions *ngIf="meta" 
+    (getPage)="onObtenerPagina($event)"
+    (onRowSelect)="onRowSelected($event)"
+    [transactions]="transactions" 
+    [meta]="meta" class="item item1">
+    </app-list-transactions>
+    <app-list-categories class="item item2"></app-list-categories>
+    <div class="item item3">Grafica de ingresos anuales</div>
+    <div class="item item4">Grafica de egresos anuales</div>
+    <div class="item item5">Item 5</div>
+    <div class="item item6">Item 6</div>
+</div>

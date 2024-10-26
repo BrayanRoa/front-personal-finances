@@ -1,0 +1,80 @@
+.header {
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px;
+    gap: 20px
+}
+
+.menu-item {
+    display: block;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.menu-item:hover {
+    background-color: #5a8aa2;
+}
+
+.icon-text {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.text {
+    visibility: hidden;
+    /* Mantiene el espacio reservado pero oculta el contenido */
+    opacity: 0;
+    /* Inicialmente invisible */
+    transition: visibility 0s, opacity 0.3s;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+
+
+.item {
+    background-color: wheat;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* Primera fila */
+.item1 {
+    grid-column: span 3;
+    /* Ocupa las dos primeras columnas */
+}
+
+/* Segunda fila */
+.item3 {
+    grid-column: span 2;
+    width: auto;
+    /* Ocupa las dos últimas columnas */
+}
+
+.item4 {
+    grid-column: span 2;
+}
+
+.item5 {
+    grid-column: span 3;
+}
