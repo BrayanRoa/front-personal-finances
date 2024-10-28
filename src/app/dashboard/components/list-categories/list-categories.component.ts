@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CategoryCountData } from '../../interfaces/category.interface';
 
 @Component({
   selector: 'app-list-categories',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './list-categories.component.css'
 })
 export class ListCategoriesComponent {
-  public products: any[] = [];
+  @Input() countTransactions: CategoryCountData[] = [];
+  
 }

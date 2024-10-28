@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.dev';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../interfaces/transaction.interface';
+import { TransactionResponse } from '../interfaces/transaction.interface';
+import { CategoryCountResponse } from '../interfaces/category.interface';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionsService {
@@ -12,7 +13,7 @@ export class TransactionsService {
 
     constructor(public http: HttpClient) { }
 
-    getTransactions(params: any): Observable<ApiResponse> {
+    getTransactions(params: any): Observable<TransactionResponse> {
 
         const headers = new HttpHeaders()
             .set('Content-Type', 'application/json')
@@ -20,7 +21,8 @@ export class TransactionsService {
 
         // Crear HttpParams desde el objeto params
         const httpParams = new HttpParams({ fromObject: params });
+        console.log({httpParams});
         // Pasar HttpParams a http.get()
-        return this.http.get<ApiResponse>(`${this.baseUrl}`, { params: httpParams, headers: headers });
+        return this.http.get<TransactionResponse>(`${this.baseUrl}`, { params: httpParams, headers: headers });
     }
 }

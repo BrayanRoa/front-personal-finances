@@ -49,7 +49,9 @@
 
 
 .item {
-    background-color: wheat;
+    /* background-color: wheat; */
+    /* background-color: #3C3D37; */
+    background-color: #697565;
     color: white;
     padding: 5px;
     text-align: center;

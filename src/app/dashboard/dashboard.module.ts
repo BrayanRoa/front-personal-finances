@@ -19,6 +19,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
 import { BadgeModule } from 'primeng/badge';
+import { AccordionModule } from 'primeng/accordion';
 @NgModule({
     imports: [
         RouterModule,
@@ -34,6 +35,7 @@ import { BadgeModule } from 'primeng/badge';
         InputIconModule,
         TagModule,
         BadgeModule,
+        AccordionModule,
         ReactiveFormsModule
     ],
     exports: [

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MetaData, Transaction } from '../../interfaces/transaction.interface';
-import { Table } from 'primeng/table';
+import { Transaction } from '../../interfaces/transaction.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { filter } from 'rxjs';
+import { MetaData } from '../../interfaces/common-response.interface';
 
 interface Month {
   name: string;
@@ -29,7 +29,7 @@ export class ListTransactionsComponent {
 
   @Input() transactions: Transaction[] = [];
   @Input() meta!: MetaData;
-  @Output() getPage = new EventEmitter<{ page: number,search?:string, year: number, month: number }>();
+  @Output() getPage = new EventEmitter<{ page: number, search?: string, year: number, month: number }>();
   @Output() onRowSelect = new EventEmitter<{ page: number, year: number, month: number }>();
 
   public myForm: FormGroup = this.fb.group({
@@ -66,22 +66,22 @@ export class ListTransactionsComponent {
     });
   }
 
-  public doSearch(param:string) {
-    const year = this.myForm.get('year')?.value;
+  public doSearch(param: string) {
+    const year = (this.myForm.get('year')?.value).year;
     const month = (this.myForm.get('month')?.value).code;
-    const page = this.meta.currentPage 
+    const page = this.meta.currentPage
     this.getPage.emit({ page, year, month, search: param });
   }
 
   onPageChange(event: any) {
-    const year = this.myForm.get('year')?.value;
+    const year = (this.myForm.get('year')?.value).year;
     const month = (this.myForm.get('month')?.value).code;
     const page = event.page + 1;
     this.getPage.emit({ page, year, month });
   }
 
   onRowSelectChange() {
-    const year = this.myForm.get('year')?.value;
+    const year = (this.myForm.get('year')?.value).year;
     const month = (this.myForm.get('month')?.value).code;
     const page = this.meta.currentPage
     this.onRowSelect.emit({ page, year, month });

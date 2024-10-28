@@ -1,14 +1,14 @@
-<p-table [value]="products" >
+<p-table [value]="countTransactions" >
     <ng-template pTemplate="header">
         <tr>
-            <th>Code</th>
             <th>Name</th>
+            <th># transactions</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template pTemplate="body" let-transaction>
         <tr>
-            <td>{{ product.code }}</td>
-            <td>{{ product.name }}</td>
+            <td>{{ transaction.name }}</td>
+            <td>{{ transaction.transactionCount }}</td>
         </tr>
     </ng-template>
 </p-table>

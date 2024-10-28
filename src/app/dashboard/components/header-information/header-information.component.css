@@ -9,7 +9,8 @@
 .info-money {
     width: 100vw;
     display: flex;
-    background-color: #49708a;
+    /* background-color: #49708a; */
+    background-color: #697565;
     gap: 10px;
     margin: 5px;
     align-items: center;

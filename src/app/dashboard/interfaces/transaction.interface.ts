@@ -1,10 +1,10 @@
-export interface ApiResponse {
-    status: number;
-    statusMsg: string;
-    data: ResponseData;
+import { CommonResponse, MetaData } from "./common-response.interface";
+
+export interface TransactionResponse extends CommonResponse {
+    data: TransactionData;
 }
 
-export interface ResponseData {
+export interface TransactionData {
     transactions: Transaction[];
     totalIncome: number;
     totalExpenses: number;
@@ -49,11 +49,4 @@ interface Category {
     updated_at: string;
     deleted_at: string | null;
     userId: string;
-}
-
-export interface MetaData {
-    totalRecords: number;
-    totalPages: number;
-    currentPage: number;
-    next_page: boolean;
 }
