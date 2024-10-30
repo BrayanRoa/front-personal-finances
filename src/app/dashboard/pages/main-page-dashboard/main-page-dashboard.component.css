@@ -64,4 +64,185 @@
     background-color: #ECDFCC;
 }
 
+/*  */
 
+.barra-lateral {
+    width: 250px;
+    height: 100%;
+    overflow: hidden;
+    padding: 20px, 15px;
+    background-color: var(--color-barra-lateral);
+    transition: width 0.5s ease, background-color 0.5s ease;
+    padding: 10px;
+}
+
+.mini-barra-lateral {
+    width: 80px;
+    overflow: hidden;
+}
+
+.barra-lateral span {
+    font-size: 20x;
+    font-size: 18px;
+    text-align: left;
+    opacity: 1;
+    width: 100px;
+    white-space: nowrap;
+    /* IMPORTANTE, ESTO HACE QUE CUANDO LA BARRA DE CIERRA NO SE VEA UN SALTO DE LINEA EN EL BOTON*/
+    transition: opacity 0.5s ease, width 0.5s ease;
+}
+
+.barra-lateral span.oculto {
+    opacity: 0;
+    width: 0;
+}
+
+/* NOMBRE DE LA PÁGINA */
+.barra-lateral .name-page {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    color: var(--color-texto);
+    margin-bottom: 40px;
+}
+
+.barra-lateral .name-page i {
+    min-width: 50px;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.barra-lateral .name-page span {
+    margin-left: 5px;
+    font-size: 25x;
+    transition: opacity 0.5s ease;
+}
+
+.barra-lateral .name-page span.oculto {
+    opacity: 0;
+}
+
+
+/* BOTON */
+
+.barra-lateral .boton {
+    width: 100%;
+    height: 45px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    transition: background-color 0.5s ease;
+}
+
+.barra-lateral .boton i {
+    min-width: 50px;
+    font-size: 25px;
+}
+
+/* MENU DE NAVEGACION */
+
+.barra-lateral .navegacion li {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.barra-lateral .navegacion a {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 10px;
+    /* background-color: var(--color-barra-lateral); */
+    color: var(--color-texto-menu)
+}
+
+.barra-lateral .navegacion a:hover {
+    background-color: rgb(238, 238, 238);
+    color: rgb(0, 0, 0)
+}
+
+.barra-lateral .navegacion i {
+    display: flex;
+    justify-content: center;
+    min-width: 50px;
+    font-size: 20px;
+}
+
+/* LINEA */
+.linea {
+    width: 100%;
+    height: 1px;
+    background-color: rgb(241, 241, 241);
+    margin-bottom: 20px;
+}
+
+/* MODO OSCURO */
+
+.barra-lateral .modo-oscuro {
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.barra-lateral .modo-oscuro .info {
+    width: 150px;
+    min-width: 0px;
+    height: 45px;
+    overflow: hidden;;
+    display: flex;
+    align-items: center;
+    color: var(--color-texto-menu);
+}
+
+.barra-lateral .modo-oscuro i {
+    width: 50px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* SWICTH */
+
+.barra-lateral .modo-oscuro .switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.barra-lateral .modo-oscuro .base {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 35px;
+    height: 20px;
+    background-color: var(--color-switch-base);
+    border-radius: 50px;
+}
+
+.barra-lateral .modo-oscuro .circulo {
+    position: absolute;
+    width: 18px;
+    height: 90%;
+    background-color: var(--color-switch-circulo);
+    border-radius: 50%;
+    left: 2px;
+    transition: left 0.5s ease;
+}
+
+.barra-lateral .modo-oscuro .circulo.prendido{
+    left: 15px;
+}

@@ -1,5 +1,5 @@
-<div class="container">
-    <div class="sidebar">
+<div class="container" #container>
+    <!-- <div class="sidebar">
         <div class="image">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYKqRlFkPxHHqUXbChNO8XKtgeOkjI_J6gYg&s"
                 alt="">
@@ -8,7 +8,7 @@
             <li>
                 <a href="" class="menu-item">
                     <div class="icon-text">
-                        <i class="icon">&#128100;</i> <!-- Icono de usuario -->
+                        <i class="icon">&#128100;</i> 
                         <span class="text">Perfil</span>
                     </div>
                 </a>
@@ -17,7 +17,7 @@
             <li>
                 <a href="" class="menu-item">
                     <div class="icon-text">
-                        <i class="icon">&#128100;</i> <!-- Icono de usuario -->
+                        <i class="icon">&#128100;</i> 
                         <span class="text">Configuración</span>
                     </div>
                 </a>
@@ -26,7 +26,7 @@
             <li>
                 <a href="" class="menu-item">
                     <div class="icon-text">
-                        <i class="icon">&#128100;</i> <!-- Icono de usuario -->
+                        <i class="icon">&#128100;</i> 
                         <span class="text">Nosotros</span>
                     </div>
                 </a>
@@ -35,12 +35,79 @@
             <li>
                 <a href="" class="menu-item">
                     <div class="icon-text">
-                        <i class="icon">&#128100;</i> <!-- Icono de usuario -->
+                        <i class="icon">&#128100;</i> 
                         <span class="text">Ayuda</span>
                     </div>
                 </a>
             </li>
         </ul>
+    </div>
+    <!--  -->
+    <div class="barra-lateral" #mini_barra_lateral>
+        <div class="name-page">
+            <i class="pi pi-check" #icon (click)="handleClick()"></i>
+            <span #mySpan>Apex</span>
+        </div>
+        <button class="boton">
+            <i class="pi pi-users" ></i>
+            <span #mySpan>Create new</span>
+        </button>
+
+        <nav class="navegacion">
+            <ul>
+                <li>
+                    <a href="#">
+                        <i class="pi pi-users"></i>
+                        <span #mySpan>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="pi pi-home"></i>
+                        <span #mySpan>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="pi pi-home"></i>
+                        <span #mySpan>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="pi pi-home"></i>
+                        <span #mySpan>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="pi pi-home"></i>
+                        <span #mySpan>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="pi pi-home"></i>
+                        <span #mySpan>Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="linea"></div>
+
+        <div class="modo-oscuro">
+            <div class="info">
+                <i class="pi pi-moon"></i>
+                <span #mySpan>Dark Mode</span>
+            </div>
+            <div class="switch" #switch (click)="onDarkMode()">
+                <div class="base">
+                    <div class="circulo" #circulo></div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="main">
         <router-outlet></router-outlet>

@@ -1,22 +1,26 @@
 <p-accordion [activeIndex]="0">
-    <p-accordionTab header="Transactions by month">
+    <p-accordionTab header="Transactions By Month">
         <div class="card">
             <div class="table-header-wrapper">
-                <div>
+                <!-- <div>
                     <form [formGroup]="myForm" (ngSubmit)="onRowSelectChange()">
-                        <!-- YEAR -->
-                        <p-dropdown [options]="years" optionLabel="year" placeholder="Year"
-                            formControlName="year" />
-                        <!-- MONTH -->
-                        <p-dropdown [options]="months" optionLabel="name" placeholder="Month"
-                            formControlName="month" />
+                        <p-dropdown [options]="years" optionLabel="Bank" placeholder="Bank" formControlName="Bank" />
+                    </form>
+                </div> -->
+                <!-- <div>
+                    <form [formGroup]="myForm" (ngSubmit)="onRowSelectChange()">
+                        <p-dropdown [options]="years" optionLabel="year" placeholder="Year" formControlName="year" />
+                        <p-dropdown [options]="months" optionLabel="name" placeholder="Month" formControlName="month" />
                         <p-button label="Filter" type="submit" />
                     </form>
-                </div>
+                </div> -->
                 <p-iconField iconPosition="left">
                     <p-inputIcon styleClass="pi pi-search" />
                     <input type="text" pInputText placeholder="Search" [formControl]="searchControl" />
                 </p-iconField>
+                <div>
+                    <p-button label="New Transaction" severity="success" />
+                </div>
             </div>
             <p-table [value]="transactions" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[10, 20, 30]">
                 <ng-template pTemplate="header">

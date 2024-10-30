@@ -1,12 +1,44 @@
 /* @import "primeng/resources/themes/lara-dark-indigo/theme.css";
 @import "primeng/resources/primeng.css"; */
-@import "primeicons/primeicons.css";    
+@import "primeicons/primeicons.css";
+
 * {
     box-sizing: border-box;
     /* margin: 0;
     padding: 0; */
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: medium;
 }
 
-body{
+body {
     margin: 0px;
+}
+
+
+:root {
+    --color-barra-lateral: rgb(255, 255, 255);
+    --color-texto: rgb(0, 0, 0);
+    --color-texto-menu: rgb(134, 136, 144);
+    --color-menu-hover: rgb(238, 238, 238);
+    --color-menu-hover-texto: rgb(0, 0, 0);
+    --color-boton: rgb(0, 0, 0);
+    --color-boton-texto: rgb(255, 255, 255);
+    --color-linea: rgb(241, 241, 241);
+    --color-switch-base: rgb(201, 202, 206);
+    --color-switch-circulo: rgb(241, 241, 241)
+}
+
+.dark-mode {
+    --color-barra-lateral: rgb(44, 45, 49);
+    --color-texto: rgb(255, 255, 255);
+    --color-texto-menu: rgb(110, 110, 117);
+    --color-menu-hover: rgb(0, 0, 0);
+    --color-menu-hover-texto: rgb(238, 238, 238);
+    --color-boton: rgb(255, 255, 255);
+    --color-boton-texto: rgb(0, 0, 0);
+    --color-linea: rgb(71, 70, 78);
+    --color-switch-base: rgb(39,205,64);
+    --color-switch-circulo: rgb(255,255,255);
 }

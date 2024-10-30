@@ -29,8 +29,8 @@ export class ListTransactionsComponent {
 
   @Input() transactions: Transaction[] = [];
   @Input() meta!: MetaData;
-  @Output() getPage = new EventEmitter<{ page: number, search?: string, year: number, month: number }>();
-  @Output() onRowSelect = new EventEmitter<{ page: number, year: number, month: number }>();
+  @Output() getPage = new EventEmitter<{ page: number, per_page: number, search?: string, year: number, month: number }>();
+  @Output() onRowSelect = new EventEmitter<{ page: number, per_page: number, year: number, month: number }>();
 
   public myForm: FormGroup = this.fb.group({
     year: [new Date().getFullYear(), [Validators.required]],
@@ -70,21 +70,21 @@ export class ListTransactionsComponent {
     const year = (this.myForm.get('year')?.value).year;
     const month = (this.myForm.get('month')?.value).code;
     const page = this.meta.currentPage
-    this.getPage.emit({ page, year, month, search: param });
+    this.getPage.emit({ page, per_page: 10, year, month, search: param });
   }
 
   onPageChange(event: any) {
     const year = (this.myForm.get('year')?.value).year;
     const month = (this.myForm.get('month')?.value).code;
     const page = event.page + 1;
-    this.getPage.emit({ page, year, month });
+    this.getPage.emit({ page, per_page: event.rows, year, month });
   }
 
   onRowSelectChange() {
     const year = (this.myForm.get('year')?.value).year;
     const month = (this.myForm.get('month')?.value).code;
     const page = this.meta.currentPage
-    this.onRowSelect.emit({ page, year, month });
+    this.onRowSelect.emit({ page, per_page: 10, year, month });
   }
 
 }
