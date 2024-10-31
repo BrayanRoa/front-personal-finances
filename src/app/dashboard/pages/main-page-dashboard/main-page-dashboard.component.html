@@ -1,57 +1,15 @@
 <div class="container" #container>
-    <!-- <div class="sidebar">
-        <div class="image">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYKqRlFkPxHHqUXbChNO8XKtgeOkjI_J6gYg&s"
-                alt="">
-        </div>
-        <ul>
-            <li>
-                <a href="" class="menu-item">
-                    <div class="icon-text">
-                        <i class="icon">&#128100;</i> 
-                        <span class="text">Perfil</span>
-                    </div>
-                </a>
-            </li>
-
-            <li>
-                <a href="" class="menu-item">
-                    <div class="icon-text">
-                        <i class="icon">&#128100;</i> 
-                        <span class="text">Configuración</span>
-                    </div>
-                </a>
-            </li>
-
-            <li>
-                <a href="" class="menu-item">
-                    <div class="icon-text">
-                        <i class="icon">&#128100;</i> 
-                        <span class="text">Nosotros</span>
-                    </div>
-                </a>
-            </li>
-
-            <li>
-                <a href="" class="menu-item">
-                    <div class="icon-text">
-                        <i class="icon">&#128100;</i> 
-                        <span class="text">Ayuda</span>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <!--  -->
     <div class="barra-lateral" #mini_barra_lateral>
-        <div class="name-page">
-            <i class="pi pi-check" #icon (click)="handleClick()"></i>
-            <span #mySpan>Apex</span>
+        <div>
+            <div class="name-page">
+                <i class="pi pi-discord" #icon (click)="handleClick()"></i>
+                <span #mySpan>Apex</span>
+            </div>
+            <button class="boton">
+                <i class="pi pi-users"></i>
+                <span #mySpan>Create new</span>
+            </button>
         </div>
-        <button class="boton">
-            <i class="pi pi-users" ></i>
-            <span #mySpan>Create new</span>
-        </button>
 
         <nav class="navegacion">
             <ul>
@@ -94,16 +52,29 @@
             </ul>
         </nav>
 
-        <div class="linea"></div>
+        <div>
+            <div class="linea"></div>
 
-        <div class="modo-oscuro">
-            <div class="info">
-                <i class="pi pi-moon"></i>
-                <span #mySpan>Dark Mode</span>
+            <div class="modo-oscuro">
+                <div class="info">
+                    <i class="pi pi-moon"></i>
+                    <span #mySpan>Dark Mode</span>
+                </div>
+                <div class="switch" #switch (click)="onDarkMode()">
+                    <div class="base">
+                        <div class="circulo" #circulo></div>
+                    </div>
+                </div>
             </div>
-            <div class="switch" #switch (click)="onDarkMode()">
-                <div class="base">
-                    <div class="circulo" #circulo></div>
+
+            <div class="usuario">
+                <img src="../../../../assets/default-avatar.png" alt="">
+                <div class="info-usuario">
+                    <div class="nombre-email">
+                        <span class="nombre" #mySpan>Brayan</span>
+                        <span class="email" #mySpan>brayanroa38gmail.com</span>
+                    </div>
+                    <i class="pi pi-ellipsis-v"></i>
                 </div>
             </div>
         </div>

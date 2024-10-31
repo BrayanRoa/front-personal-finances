@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
 import { BadgeModule } from 'primeng/badge';
 import { AccordionModule } from 'primeng/accordion';
+import { SplitButtonModule } from 'primeng/splitbutton';
 @NgModule({
     imports: [
         RouterModule,
@@ -36,6 +37,7 @@ import { AccordionModule } from 'primeng/accordion';
         TagModule,
         BadgeModule,
         AccordionModule,
+        SplitButtonModule,
         ReactiveFormsModule
     ],
     exports: [

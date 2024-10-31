@@ -1,6 +1,4 @@
-
-
-.logout {
+/* .logout {
     padding: 15px 15px;
     display: flex;
     justify-content: end;
@@ -9,42 +7,96 @@
 .info-money {
     width: 100vw;
     display: flex;
-    /* background-color: #49708a; */
     background-color: #697565;
     gap: 10px;
     margin: 5px;
     align-items: center;
     border-radius: 10px;
-    padding: 15px;
+}
+
+.info-money .money {
+    padding: 10px;
 }
 
 .profile-button {
+    width: 100%;
+    height: auto;
     display: flex;
     align-items: center;
-    padding: 10px 20px;
+    justify-content: center;
     border: none;
-    border-radius: 30px;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
+    border-radius: 10px;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    transition: background-color 0.5s ease;
 }
 
 .profile-button:hover {
     background-color: #45a049;
 }
 
-.name {
-    font-weight: bold;
+.wrap-info-bank {
+    width: 100px;
+} */
+
+
+.header{
+    /* margin-top: 5px; */
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
 }
 
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    object-fit: cover;
+.header .wrap-info-money {
+    width: 85%;
+    /* border: 2px solid black; */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.header .wrap-info-money .info-money {
+    width: 50%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--color-menu-hover);
+    margin: 5px;
+    border-radius: 10px;
+}
+
+
+.header .wrap-info-bank {
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header .wrap-info-bank .info-bank{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-bank .boton {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    transition: background-color 0.5s ease;
+}
+
+.info-bank .boton i {
+    min-width: 50px;
+    font-size: 25px;
 }
