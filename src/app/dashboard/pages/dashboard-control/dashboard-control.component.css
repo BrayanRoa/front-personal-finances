@@ -1,0 +1,154 @@
+.header {
+    text-align: center;
+}
+
+.months {
+    padding: 20px;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.menu-item {
+    display: block;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.menu-item:hover {
+    background-color: #5a8aa2;
+}
+
+.icon-text {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.text {
+    visibility: hidden;
+    /* Mantiene el espacio reservado pero oculta el contenido */
+    opacity: 0;
+    /* Inicialmente invisible */
+    transition: visibility 0s, opacity 0.3s;
+}
+
+.container{
+    padding: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    /* padding: 20px; */
+}
+
+
+
+.item {
+    /* background-color: wheat; */
+    /* background-color: #3C3D37; */
+    background-color: var(--color-cards-background);
+    color: white;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* Primera fila */
+.item1 {
+    grid-column: span 3;
+    /* Ocupa las dos primeras columnas */
+}
+.item2{
+    grid-column: span 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Segunda fila */
+.item3 {
+    grid-column: span 2;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Ocupa las dos últimas columnas */
+}
+
+.item4 {
+    grid-column: span 2;
+}
+
+.item5 {
+    grid-column: span 3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.year-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 20px;
+}
+
+.months-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+/* .month-button {
+    padding: 10px 15px;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.month-button:hover {
+    background-color: #357abd;
+} */
+
+.year-button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.year-button:hover {
+    background-color: #357abd;
+}
+
+.current-year {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}

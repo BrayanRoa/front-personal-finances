@@ -1,1 +1,107 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+
+* {
+    box-sizing: border-box;
+    /* margin: 0;
+    padding: 0; */
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: medium;
+}
+
+body {
+    margin: 0px;
+}
+
+
+:root {
+    /* BARRA LATERAL */
+    --color-barra-lateral: #ffffff;
+    --color-texto: rgb(0, 0, 0);
+
+    /* MENU */
+    --color-texto-menu: rgb(134, 136, 144);
+    --color-menu-hover: rgb(238, 238, 238);
+    --color-menu-hover-texto: rgb(0, 0, 0);
+    --color-boton: #133E87;
+    --color-boton-texto: rgb(255, 255, 255);
+    --color-linea: rgb(180, 180, 180);
+    --color-switch-base: rgb(201, 202, 206);
+    --color-switch-circulo: rgb(241, 241, 241);
+    --color-scroll: rgb(192, 192, 192);
+    --color-scroll-hover: rgb(134, 134, 134);
+
+    /* BOTONES */
+
+    --color-boton-primary-background: rgb(0, 0, 0);
+    --color-boton-primary-text: rgb(255, 255, 255);
+
+    --color-boton-secondary-background: #40534C;
+    /* para los add */
+    --color-boton-secondary-text: rgb(255, 255, 255);
+
+    --color-boton-terciary-background: #384B70;
+
+    --color-font-container: #eff3f8;
+
+    /* CARDS */
+
+    --color-cards-background: white;
+    --color-text-card-one: #2497d6;
+    --url-image-footer: url('assets/users.svg');
+
+    --color-text-card-two: #de911d;
+    --url-image-footer-two: url('assets/locations.svg');
+
+    --color-text-card-three: #27ab83;
+    --url-image-footer-three: url('assets/rate.svg');
+
+    --color-text-card-four: #ba6ff4;
+    --url-image-footer-four: url('assets/interactions.svg');
+
+}
+
+.dark-mode {
+    /* BARRA LATERAL */
+    --color-barra-lateral: #293b51;
+    --color-texto: rgb(255, 255, 255);
+
+    /* MENU */
+    --color-texto-menu: rgb(255, 255, 255);
+    --color-menu-hover: rgb(0, 0, 0);
+    --color-menu-hover-texto: rgb(238, 238, 238);
+    --color-boton: #608BC1;
+    --color-boton-texto: rgb(0, 0, 0);
+    --color-linea: rgb(90, 90, 90);
+    --color-switch-base: rgb(39, 205, 64);
+    --color-switch-circulo: rgb(255, 255, 255);
+    --color-scroll: rgb(68, 69, 74);
+    --color-scroll-hover: rgb(85, 85, 85);
+
+    /* BOTON */
+    --color-boton-primary-background: rgb(255, 255, 255);
+    --color-boton-primary-text: rgb(0, 0, 0);
+
+    --color-boton-secondary-background: #78A083;
+    --color-boton-secondary-text: rgb(0, 0, 0);
+
+    --color-boton-terciary-background: #FCFAEE;
+
+    /* FONDO DE LA APP */
+    --color-font-container: #162a41;
+
+    /* CARDS */
+    --color-cards-background: #293b51;
+    --color-text-card-one: #2497d6;
+    --url-image-footer: url('assets/users-dark.svg');
+
+    --color-text-card-two: #de911d;
+    --url-image-footer-two: url('assets/locations-dark.svg');
+
+    --color-text-card-three: #27ab83;
+    --url-image-footer-three: url('assets/rate-dark.svg');
+
+    --color-text-card-four: #ba6ff4;
+    --url-image-footer-four: url('assets/interactions-dark.svg');
+}

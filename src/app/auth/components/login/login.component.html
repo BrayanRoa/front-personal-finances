@@ -1,0 +1,39 @@
+<h2>Welcome!!!</h2>
+
+<form [formGroup]="myForm" (ngSubmit)="onLogin()" *ngIf="loading; else loadingScreen">
+
+    <div class="single-input">
+        <input 
+        type="text" 
+        class="input" 
+        formControlName="email" 
+        required>
+        <label for="email">Email</label>
+    </div>
+    <div class="single-input">
+        <input 
+        type="password" 
+        class="input" 
+        formControlName="password" 
+        required>
+        <label for="password">Password</label>
+    </div>
+
+    <div class="wrap-button">
+        <p-button label="Send" type="submit" [disabled]="myForm.invalid"/>
+    </div>
+    <div class="more-info">
+        <p>¿Aun no tienes una cuenta?</p>
+        <a href="">Ingresa aquí</a>
+    </div>
+
+
+</form>
+
+<ng-template #loadingScreen>
+    <div class="loader">
+        <p-progressSpinner ariaLabel="loading" />
+    </div>
+</ng-template>
+
+<p-messages [(value)]="errorMessage" [enableService]="false"/>

@@ -1,0 +1,102 @@
+<p-accordion [activeIndex]="0">
+    <p-accordionTab header="nombre banco - Transactions By Month - mes/año">
+        <div class="card">
+            <div class="table-header-wrapper">
+                <!-- <p-iconField iconPosition="left">
+                    <p-inputIcon styleClass="pi pi-search" />
+                    <input type="text" pInputText placeholder="Search" [formControl]="searchControl" />
+                </p-iconField> -->
+
+                <p-iconField iconPosition="left">
+                    <p-inputIcon styleClass="pi pi-search" />
+                    <input type="text" placeholder="Search..." (input)="onSearch($event)" />
+                </p-iconField>
+
+                <!-- <div class="boton">
+                    <p-button (click)="showDialog()"
+                        [style]="{'background-color': 'var(--color-boton-secondary-background)', 'color': 'var(--color-boton-primary-text)', 'height':'45px', 'width':'100%'}">
+                        <i class="pi pi-money-bill" style="font-size: 1.5rem"></i>
+                        <span #mySpan>New Transaction</span>
+                    </p-button>
+                </div> -->
+
+                <!-- Botón para abrir el modal -->
+                <!-- <button (click)="showModal()">Abrir Modal</button> -->
+
+                <!-- Modal -->
+                <!-- <div class="modal" *ngIf="visible" >
+                    <div class="modal-content" (click)="$event.stopPropagation()">
+                        <div>
+                            <span class="close" (click)="a()">&times;</span>
+                            <h2>Add Transaction</h2>
+                        </div>
+                        <app-form-transaction (visible)="closeModal($event)"></app-form-transaction>
+                    </div>
+                </div> -->
+
+
+
+                <!-- <p-button (onClick)="showDialog()" label="Show" />
+                <p-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }"
+                    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+                    <app-form-transaction (visible)="closeModal($event)"></app-form-transaction>
+                </p-dialog> -->
+
+
+            </div>
+            <p-table [value]="transactions" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[10, 20, 30]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="category" style="width:20%">
+                            Category <p-sortIcon field="code" />
+                        </th>
+                        <th pSortableColumn="description">
+                            Description <p-sortIcon field="code" />
+                        </th>
+                        <th pSortableColumn="amount">
+                            Amount <p-sortIcon field="code" />
+                        </th>
+                        <th pSortableColumn="date">
+                            Date <p-sortIcon field="code" />
+                        </th>
+                        <th pSortableColumn="type">
+                            Type <p-sortIcon field="code" />
+                        </th>
+                        <th pSortableColumn="repeat">
+                            Repeat <p-sortIcon field="code" />
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-transaction>
+                    <tr>
+                        <td>{{ transaction.category.name}}</td>
+                        <td>{{ transaction.description }}</td>
+                        <td>{{ transaction.amount | currency }}</td>
+                        <td>{{ transaction.date | date:'longDate':'UTC' }}</td>
+                        <td *ngIf="transaction.type === 'INCOME';else outflow">
+                            <div class="test">
+                                <p-tag severity="success" value="INCOME" />
+                            </div>
+                        </td>
+                        <ng-template #outflow>
+                            <td>
+                                <p-tag severity="danger" value="OUTFLOW" />
+                            </td>
+                        </ng-template>
+                        <td *ngIf="transaction.repeat === 'NEVER'; else notimes">
+                            <p-tag icon="pi pi-check" [rounded]="true" />
+                        </td>
+                        <ng-template #notimes>
+                            <td>
+                                <p-tag icon="pi pi-times" [rounded]="true" />
+                            </td>
+                        </ng-template>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
+                [totalRecords]="meta.totalRecords || 100" [rowsPerPageOptions]="[10, 20, 30]" />
+
+        </div>
+    </p-accordionTab>
+</p-accordion>
