@@ -1,8 +1,4 @@
-import { CommonResponse, MetaData } from "../../../shared/interfaces/common-response.interface";
-
-export interface TransactionResponse extends CommonResponse {
-    data: TransactionData;
-}
+import { MetaData } from "../../../shared/interfaces/common-response.interface";
 
 export interface TransactionData {
     transactions: Transaction[];

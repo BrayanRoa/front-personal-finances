@@ -69,17 +69,14 @@
 }
 .item2{
     grid-column: span 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 /* Segunda fila */
 .item3 {
     grid-column: span 2;
-    width: auto;
-    display: flex;
+    /* width: auto; */
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
     /* Ocupa las dos últimas columnas */
 }
 

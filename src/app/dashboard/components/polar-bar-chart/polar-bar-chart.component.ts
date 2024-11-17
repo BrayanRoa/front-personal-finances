@@ -1,25 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { graphPolarity } from '../../interfaces/dashboard/summary-wallets.interface';
 
 @Component({
-  selector: 'app-polar-bar-chart',
-  templateUrl: './polar-bar-chart.component.html',
-  styleUrl: './polar-bar-chart.component.css'
+    selector: 'app-polar-bar-chart',
+    templateUrl: './polar-bar-chart.component.html',
+    styleUrl: './polar-bar-chart.component.css'
 })
-export class PolarBarChartComponent {
+export class PolarBarChartComponent implements OnChanges {
+    data: any;
+    @Input() dataPolar!: graphPolarity[]
 
-  data: any;
 
     options: any;
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes["dataPolar"] && changes["dataPolar"].currentValue) {
+            this.updateChartData();
+        }
+    }
 
-    ngOnInit() {
+
+    updateChartData() {
+
         const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
+        const textColor = documentStyle.getPropertyValue('--color-text-card-three'); // color de los nombre de las categoras
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-        
+
+        const a = this.dataPolar.map(f => {
+            return f.name
+        })
+        console.log(a);
+
         this.data = {
             datasets: [
                 {
-                    data: [11, 16, 7, 3, 14],
+                    data: this.dataPolar.map(f => { return f.transactionCount }),
                     backgroundColor: [
                         documentStyle.getPropertyValue('--red-500'),
                         documentStyle.getPropertyValue('--green-500'),
@@ -30,9 +44,9 @@ export class PolarBarChartComponent {
                     label: 'My dataset'
                 }
             ],
-            labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
+            labels: this.dataPolar.map(label => { return label.name })
         };
-        
+
         this.options = {
             plugins: {
                 legend: {

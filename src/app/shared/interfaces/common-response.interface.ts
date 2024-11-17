@@ -1,6 +1,7 @@
-export interface CommonResponse {
+export interface ApiResponse<T> {
     status: number;
     statusMsg: string;
+    data: T
 }
 
 export interface MetaData {

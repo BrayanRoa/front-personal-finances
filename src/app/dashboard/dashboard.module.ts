@@ -31,7 +31,9 @@ import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
 import { VerticalBarChartComponent } from './components/vertical-bar-chart/vertical-bar-chart.component';
 import { PolarBarChartComponent } from './components/polar-bar-chart/polar-bar-chart.component';
-
+import { BanksInformationComponent } from './components/banks-information/banks-information.component';
+import { BudgetsInformationComponent } from './components/budgets-information/budgets-information.component';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { PolarBarChartComponent } from './components/polar-bar-chart/polar-bar-c
     TransactionTableComponent,
     WalletCardComponent,
     VerticalBarChartComponent,
-    PolarBarChartComponent
+    PolarBarChartComponent,
+    BanksInformationComponent,
+    BudgetsInformationComponent
   ],
   imports: [
     CommonModule,
@@ -69,6 +73,7 @@ import { PolarBarChartComponent } from './components/polar-bar-chart/polar-bar-c
     DropdownModule,
     TableModule,
     ChartModule,
+    ProgressBarModule
   ],
   exports: [
     MainPageComponent,

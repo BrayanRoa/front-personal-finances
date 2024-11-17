@@ -1,40 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TransactionResponse } from '../interfaces/transactions/getAll.interface';
 import { BaseService } from '../../shared/service/base-service.service';
+import { ApiResponse } from '../../shared/interfaces/common-response.interface';
+import { budgetInformation, graphPolarity, graphVerticalData, summaryWalletsResponse } from '../interfaces/dashboard/summary-wallets.interface';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService extends BaseService {
-    endpoint: string = `${this.baseUrl}/transaction`;
+
+    endpoint: string = `${this.baseUrl}/dashboard`;
 
     constructor(public http: HttpClient) {
         super();
     }
 
-    getTransactions(options: {
-        walletId: number;
-        page: number;
-        per_page: number;
-        searchTerm?: string;
-        month: number;
-        year: number;
-    }): Observable<TransactionResponse> {
-        const params = this.buildParams({
-            walletId: options.walletId,
-            page: options.page,
-            per_page: options.per_page,
-            month: options.month,
-            year: options.year,
-            search: options.searchTerm
-        });
+    summaryWallets(): Observable<ApiResponse<summaryWalletsResponse>> {
+        return this.http.get<ApiResponse<summaryWalletsResponse>>(`${this.endpoint}/summary-wallets`,
+            { headers: this.getHeaders() }
+        );
+    }
 
-        const fullUrl = `${this.endpoint}`;
-        console.log('Request URL:', fullUrl);
+    graphVertical(year: string): Observable<ApiResponse<graphVerticalData[]>> {
+        return this.http.get<ApiResponse<graphVerticalData[]>>(`${this.endpoint}/summary-transaction-month/${year}`,
+            { headers: this.getHeaders() }
+        );
+    }
 
-        return this.http.get<TransactionResponse>(fullUrl, {
-            params,
-            headers: this.getHeaders()
-        });
+    graphPolarity(): Observable<ApiResponse<graphPolarity[]>> {
+        return this.http.get<ApiResponse<graphPolarity[]>>(`${this.endpoint}/summary-category-transaction`,
+            { headers: this.getHeaders() }
+        )
+    }
+
+    budgetInformation(): Observable<ApiResponse<budgetInformation[]>> {
+        return this.http.get<ApiResponse<budgetInformation[]>>(`${this.endpoint}/summary-budget-information`,
+            { headers: this.getHeaders() }
+        )
     }
 }

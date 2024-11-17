@@ -1,31 +1,7 @@
-<!-- <app-header-information [banks]="banks" class="header"></app-header-information> -->
-<!-- <app-header-information *ngIf="banks.length > 0" [banks]="banks" class="header"
-    (selectBanck)="getPage($event)"></app-header-information>
-
-<app-cards-information class="cards"></app-cards-information> -->
-
-<!-- BARRA DE MEESES -->
-<!-- <div class="year-bar">
-
-    <p-button icon="pi pi-angle-left" [outlined]="true" (click)="changeYear(-1)"
-        [style]="{'background-color': 'var(--color-boton-terciary-background)', 'padding':'10px', 'color': 'var(--color-boton-primary-text)', 'height':'45px', 'width':'100%'}" />
-    <div class="months-container">
-
-        <p-button *ngFor="let month of months" size="small" (click)="selectMonth(month.value)"
-            [style]="{'background-color': 'var(--color-boton-terciary-background)', 'padding':'10px', 'color': 'var(--color-boton-primary-text)', 'height':'45px', 'width':'100%'}">
-            <span #mySpan>{{ month.label }}</span>
-        </p-button>
-    </div>
-    <p-button icon="pi pi-angle-right" severity="secondary" [outlined]="true" (click)="changeYear(1)"
-        [style]="{'background-color': 'var(--color-boton-terciary-background)', 'padding':'10px', 'color': 'var(--color-boton-primary-text)', 'height':'45px', 'width':'100%'}" />
-
-</div> -->
-
-
 <div class="container">
 
     <!-- <app-user-header></app-user-header> -->
-    <app-wallet-card></app-wallet-card>
+    <app-wallet-card [walletSummary]="summaryWallets"></app-wallet-card>
 
     <div class="grid-container">
         <!-- <div class="item item1">
@@ -34,11 +10,12 @@
             </app-transaction-table>
         </div> -->
 
-        <app-vertical-bar-chart class="item item1"></app-vertical-bar-chart>
-        <app-polar-bar-chart class="item item2"></app-polar-bar-chart>
+        <app-vertical-bar-chart class="item item1" [dataGraph]="verticalGraph"></app-vertical-bar-chart>
+        <app-polar-bar-chart class="item item2" [dataPolar]="polarityGraph"></app-polar-bar-chart>
         <!-- <div class="item item2">Listado de categorias</div> -->
-        <div class="item item3">Grafica de ingresos anuales</div>
-        <div class="item item4">Grafica de egresos anuales</div>
+
+        <app-budgets-information class="item item3" [budgetData]="budgetInformation"></app-budgets-information>
+        <app-banks-information class="item item4"></app-banks-information>
         <div class="item item5">Item 5</div>
         <div class="item item6">Item 6</div>
     </div>
