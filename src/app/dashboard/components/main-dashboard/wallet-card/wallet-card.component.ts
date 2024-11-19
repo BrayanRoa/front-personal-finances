@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Transaction } from '../../interfaces/transactions/getAll.interface';
-import { summaryWalletsResponse } from '../../interfaces/dashboard/summary-wallets.interface';
+import { Transaction } from '../../../interfaces/transactions/getAll.interface';
+import { summaryWalletsResponse } from '../../../interfaces/dashboard/summary-wallets.interface';
 
 @Component({
   selector: 'app-wallet-card',

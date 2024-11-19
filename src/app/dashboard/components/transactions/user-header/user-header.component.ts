@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MONTHS, SelectInterface } from '../../../shared/constants/constants';
+import { MONTHS, SelectInterface } from '../../../../shared/constants/constants';
 
 interface City {
   name: string;

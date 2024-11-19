@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { Transaction } from '../../interfaces/transactions/getAll.interface';
-import { MetaData } from '../../../shared/interfaces/common-response.interface';
+import { Transaction } from '../../../interfaces/transactions/getAll.interface';
+import { MetaData } from '../../../../shared/interfaces/common-response.interface';
 
 @Component({
   selector: 'app-transaction-table',

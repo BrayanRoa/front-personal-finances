@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { budgetData } from '../../interfaces/dashboard/summary-wallets.interface';
-import { MetaData } from '../../../shared/interfaces/common-response.interface';
+import { budgetData } from '../../../interfaces/dashboard/summary-wallets.interface';
+import { MetaData } from '../../../../shared/interfaces/common-response.interface';
 
 interface Product {
   code: string;

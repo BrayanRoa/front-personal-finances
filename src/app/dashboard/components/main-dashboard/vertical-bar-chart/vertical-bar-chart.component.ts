@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { graphVerticalData } from '../../interfaces/dashboard/summary-wallets.interface';
+import { graphVerticalData } from '../../../interfaces/dashboard/summary-wallets.interface';
 
 @Component({
   selector: 'app-vertical-bar-chart',

@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthMainPageComponent } from '../auth/pages/auth-main-page/auth-main-page.component';
 import { DashboardControlComponent } from './pages/dashboard-control/dashboard-control.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
-import { TransactionTableComponent } from './components/transaction-table/transaction-table.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
 
 const routes: Routes = [
     {
@@ -16,15 +15,14 @@ const routes: Routes = [
             },
             {
                 path: 'transactions',
-                component: TransactionTableComponent
+                component: TransactionsComponent
             },
-            {
-                path: '**',
-                redirectTo: ''
-            }
+            { path: '', redirectTo: 'control', pathMatch: 'full' },
+            // Ruta comodín para manejar páginas no encontradas
+            { path: '**', redirectTo: 'control' }
         ]
     },
-    
+
 ]
 
 @NgModule({

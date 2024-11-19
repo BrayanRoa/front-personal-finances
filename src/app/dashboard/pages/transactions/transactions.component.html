@@ -1,0 +1,9 @@
+<div class="container">
+    <app-user-header></app-user-header>
+    <app-transactions-card></app-transactions-card>
+    <!-- <app-transaction-table></app-transaction-table> -->
+
+    <app-transaction-table [transactions]="transactions" [meta]="metaData" (paginate)="onPageChange($event)"
+        (search)="onSearch($event)">
+    </app-transaction-table>
+</div>

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { BanksInformation } from '../../interfaces/wallet/wallet.interface';
+import { BanksInformation } from '../../../interfaces/wallet/wallet.interface';
 
 @Component({
   selector: 'app-banks-information',

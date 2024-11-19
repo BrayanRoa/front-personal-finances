@@ -24,18 +24,20 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DashboardControlComponent } from './pages/dashboard-control/dashboard-control.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { UserHeaderComponent } from './components/user-header/user-header.component';
-import { TransactionTableComponent } from './components/transaction-table/transaction-table.component';
-import { WalletCardComponent } from './components/wallet-card/wallet-card.component';
+import { UserHeaderComponent } from './components/transactions/user-header/user-header.component';
+import { TransactionTableComponent } from './components/transactions/transaction-table/transaction-table.component';
+import { WalletCardComponent } from './components/main-dashboard/wallet-card/wallet-card.component';
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
-import { VerticalBarChartComponent } from './components/vertical-bar-chart/vertical-bar-chart.component';
-import { PolarBarChartComponent } from './components/polar-bar-chart/polar-bar-chart.component';
-import { BanksInformationComponent } from './components/banks-information/banks-information.component';
-import { BudgetsInformationComponent } from './components/budgets-information/budgets-information.component';
+import { VerticalBarChartComponent } from './components/main-dashboard/vertical-bar-chart/vertical-bar-chart.component';
+import { PolarBarChartComponent } from './components/main-dashboard/polar-bar-chart/polar-bar-chart.component';
+import { BanksInformationComponent } from './components/main-dashboard/banks-information/banks-information.component';
+import { BudgetsInformationComponent } from './components/main-dashboard/budgets-information/budgets-information.component';
 import { ProgressBarModule } from 'primeng/progressbar';
 
 import { ContextMenuModule } from 'primeng/contextmenu';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { TransactionsCardComponent } from './components/transactions/transactions-card/transactions-card.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { ContextMenuModule } from 'primeng/contextmenu';
     VerticalBarChartComponent,
     PolarBarChartComponent,
     BanksInformationComponent,
-    BudgetsInformationComponent
+    BudgetsInformationComponent,
+    TransactionsComponent,
+    TransactionsCardComponent
   ],
   imports: [
     CommonModule,

@@ -21,14 +21,6 @@ export class DashboardControlComponent implements OnInit {
   metaBudgets!: MetaData
   banksInformation!: BanksInformation[]
 
-  transactions: Transaction[] = [];
-  metaData: MetaData = {
-    totalRecords: 0,
-    totalPages: 0,
-    currentPage: 1,
-    next_page: true
-  };
-
   // private optionsSubject = new BehaviorSubject({
   //   page: this.metaData.currentPage,
   //   size: this.pageSize,
@@ -54,25 +46,6 @@ export class DashboardControlComponent implements OnInit {
     console.log("llegue", data);
     this.loadBudgetInformation(data.page, data.per_page);
   }
-
-  // onSearch(searchTerm: string): void {
-  //   this.loadTransactions(1, 10, searchTerm);
-  // }
-
-  // private loadTransactions(page: number = 1, per_page: number = 10, searchTerm: string = ''): void {
-  //   const month = 8
-  //   const year = 2024;
-  //   this.dashboardService.getTransactions({ walletId: 1, page, per_page, month: 10, year: 2024, searchTerm }).subscribe({
-  //     next: (transactions: TransactionResponse) => {
-  //       this.transactions = transactions.data.transactions;
-  //       this.metaData = transactions.data.meta;
-
-  //     },
-  //     error: (error:any) => { //TODO: COLOCAR AQUI UN TIPADO 
-  //       console.error('Error fetching transactions:', error);
-  //     }
-  //   })
-  // }
 
   //* CARDS
   loadSummaryWallets() {
