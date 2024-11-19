@@ -32,8 +32,8 @@ export class DashboardService extends BaseService {
         )
     }
 
-    budgetInformation(): Observable<ApiResponse<budgetInformation[]>> {
-        return this.http.get<ApiResponse<budgetInformation[]>>(`${this.endpoint}/summary-budget-information`,
+    budgetInformation(page: number, per_page: number): Observable<ApiResponse<budgetInformation>> {
+        return this.http.get<ApiResponse<budgetInformation>>(`${this.endpoint}/summary-budget-information?page=${page}&per_page=${per_page}`,
             { headers: this.getHeaders() }
         )
     }

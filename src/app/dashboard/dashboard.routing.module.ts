@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthMainPageComponent } from '../auth/pages/auth-main-page/auth-main-page.component';
 import { DashboardControlComponent } from './pages/dashboard-control/dashboard-control.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { TransactionTableComponent } from './components/transaction-table/transaction-table.component';
 
 const routes: Routes = [
     {
@@ -12,6 +13,10 @@ const routes: Routes = [
             {
                 path: 'control',
                 component: DashboardControlComponent
+            },
+            {
+                path: 'transactions',
+                component: TransactionTableComponent
             },
             {
                 path: '**',

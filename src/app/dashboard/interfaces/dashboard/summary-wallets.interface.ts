@@ -1,3 +1,5 @@
+import { MetaData } from "../../../shared/interfaces/common-response.interface"
+
 export interface summaryWalletsResponse {
     totalIncome: number,
     totalExpenses: number,
@@ -17,6 +19,11 @@ export interface graphPolarity {
 }
 
 export interface budgetInformation {
+    budgets: budgetData[],
+    meta: MetaData
+}
+
+export interface budgetData {
     name: string,
     repeat: string,
     limit_amount: number,

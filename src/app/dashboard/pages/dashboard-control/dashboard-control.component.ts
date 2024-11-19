@@ -3,7 +3,9 @@ import { Transaction } from '../../interfaces/transactions/getAll.interface';
 import { ApiResponse, MetaData } from '../../../shared/interfaces/common-response.interface';
 import { BehaviorSubject } from 'rxjs';
 import { DashboardService } from '../../services/dashboard.service';
-import { budgetInformation, graphPolarity, graphVerticalData, summaryWalletsResponse } from '../../interfaces/dashboard/summary-wallets.interface';
+import { budgetData, budgetInformation, graphPolarity, graphVerticalData, summaryWalletsResponse } from '../../interfaces/dashboard/summary-wallets.interface';
+import { WalletService } from '../../services/wallet.service';
+import { BanksInformation } from '../../interfaces/wallet/wallet.interface';
 
 @Component({
   selector: 'app-dashboard-control',
@@ -15,7 +17,9 @@ export class DashboardControlComponent implements OnInit {
   summaryWallets!: summaryWalletsResponse; ///
   verticalGraph: graphVerticalData[] = []
   polarityGraph: graphPolarity[] = [];
-  budgetInformation!: budgetInformation[];
+  budgetInformation!: budgetData[];
+  metaBudgets!: MetaData
+  banksInformation!: BanksInformation[]
 
   transactions: Transaction[] = [];
   metaData: MetaData = {
@@ -33,20 +37,23 @@ export class DashboardControlComponent implements OnInit {
   // });
 
   constructor(
-    private readonly dashboardService: DashboardService
+    private readonly dashboardService: DashboardService,
+    private readonly walletService: WalletService
   ) { }
 
   ngOnInit(): void {
     this.loadSummaryWallets();
     this.loadGraphVertical();
     this.loadGraphPolarity();
-    this.loadBudgetInformation();
+    this.loadBudgetInformation(1,5);
+    this.loadBanksInformations()
     // this.loadTransactions(1, 10);
   }
 
-  // onPageChange(data: { page: number, per_page: number }): void {
-  //   this.loadTransactions(data.page, data.per_page);
-  // }
+  onPageChange(data: { page: number, per_page: number }): void {
+    console.log("llegue", data);
+    this.loadBudgetInformation(data.page, data.per_page);
+  }
 
   // onSearch(searchTerm: string): void {
   //   this.loadTransactions(1, 10, searchTerm);
@@ -67,10 +74,12 @@ export class DashboardControlComponent implements OnInit {
   //   })
   // }
 
+  //* CARDS
   loadSummaryWallets() {
     this.dashboardService.summaryWallets().subscribe({
       next: (response: ApiResponse<summaryWalletsResponse>) => {
         this.summaryWallets = response.data; // Asigna el campo `data` al objeto `summaryWallets`
+        console.log("CARDS");
         console.log(this.summaryWallets);
       },
       error: (error: any) => {
@@ -79,14 +88,16 @@ export class DashboardControlComponent implements OnInit {
     });
   }
 
+  //* GRAFICO DE BARRAS
   loadGraphVertical() {
     // TODO: AQUI COLOCAR EL AÑO DINAMICO, SI NO SE ENVIA COLOCAR EL AÑO ACTUAL
     const year = new Date().getFullYear();
 
     this.dashboardService.graphVertical(year.toString()).subscribe({
       next: (response: ApiResponse<graphVerticalData[]>) => {
-        console.log(response.data);
         this.verticalGraph = response.data; // Asigna el campo `data` al objeto `verticalGraph`
+        console.log("GRAFICO DE BARRAS");
+        console.log(response.data);
       },
       error: (error: any) => {
         console.error('Error fetching graph vertical:', error);
@@ -94,6 +105,21 @@ export class DashboardControlComponent implements OnInit {
     });
   }
 
+  //* GRAFICO DE DONA PARA LOS BANCOS
+  loadBanksInformations() {
+    this.walletService.banksInformation().subscribe({
+      next: (response: ApiResponse<BanksInformation[]>) => {
+        this.banksInformation = response.data; // Asigna el campo `data` al objeto `banksInformation`
+        console.log("DONA");
+        console.log(response.data);
+      },
+      error: (error: any) => {
+        console.error('Error fetching banks information:', error);
+      }
+    });
+  }
+
+  //* GRAFICO PARA LAS CATEGORIAS
   loadGraphPolarity() {
     // TODO: AQUI COLOCAR EL A��O DINAMICO, SI NO SE ENVIA COLOCAR EL A��O ACTUAL
 
@@ -108,11 +134,14 @@ export class DashboardControlComponent implements OnInit {
     });
   }
 
-  loadBudgetInformation() {
-    this.dashboardService.budgetInformation().subscribe({
-      next: (response: ApiResponse<budgetInformation[]>) => {
+  //* INFORMACI�N DEL BUDGET
+  loadBudgetInformation(page:number, per_page:number) {
+    this.dashboardService.budgetInformation(page, per_page).subscribe({
+      next: (response: ApiResponse<budgetInformation>) => {
+        this.budgetInformation = response.data.budgets; // Asigna el campo `data` al objeto `budgetInformation`
+        this.metaBudgets = response.data.meta
+        console.log("TABLA DE BUDGETS");
         console.log(response.data);
-        this.budgetInformation = response.data; // Asigna el campo `data` al objeto `budgetInformation`
       },
       error: (error: any) => {
         console.error('Error fetching budget information:', error);

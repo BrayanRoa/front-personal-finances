@@ -25,15 +25,16 @@ export class PolarBarChartComponent implements OnChanges {
         const textColor = documentStyle.getPropertyValue('--color-text-card-three'); // color de los nombre de las categoras
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-        const a = this.dataPolar.map(f => {
-            return f.name
-        })
-        console.log(a);
+        // const a = this.dataPolar.map(f => {
+        //     return f.name
+        // })
 
         this.data = {
             datasets: [
                 {
-                    data: this.dataPolar.map(f => { return f.transactionCount }),
+                    data: this.dataPolar
+                        .filter(f => f.transactionCount > 0) // Condición: Solo incluir transacciones con transactionCount > 0
+                        .map(f => f.transactionCount),      // Mapeo: Extraer transactionCount
                     backgroundColor: [
                         documentStyle.getPropertyValue('--red-500'),
                         documentStyle.getPropertyValue('--green-500'),
@@ -44,7 +45,10 @@ export class PolarBarChartComponent implements OnChanges {
                     label: 'My dataset'
                 }
             ],
-            labels: this.dataPolar.map(label => { return label.name })
+            labels: this.dataPolar
+                .filter(f => f.transactionCount > 0) // Condición: Solo incluir transacciones con transactionCount > 0
+                .map(f => f.name),      // Mapeo: Extraer transactionCount
+
         };
 
         this.options = {

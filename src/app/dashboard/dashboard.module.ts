@@ -35,6 +35,8 @@ import { BanksInformationComponent } from './components/banks-information/banks-
 import { BudgetsInformationComponent } from './components/budgets-information/budgets-information.component';
 import { ProgressBarModule } from 'primeng/progressbar';
 
+import { ContextMenuModule } from 'primeng/contextmenu';
+
 @NgModule({
   declarations: [
     MainPageComponent,
@@ -73,7 +75,8 @@ import { ProgressBarModule } from 'primeng/progressbar';
     DropdownModule,
     TableModule,
     ChartModule,
-    ProgressBarModule
+    ProgressBarModule,
+    ContextMenuModule
   ],
   exports: [
     MainPageComponent,

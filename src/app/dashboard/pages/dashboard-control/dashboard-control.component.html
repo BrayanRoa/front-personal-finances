@@ -11,11 +11,13 @@
         </div> -->
 
         <app-vertical-bar-chart class="item item1" [dataGraph]="verticalGraph"></app-vertical-bar-chart>
-        <app-polar-bar-chart class="item item2" [dataPolar]="polarityGraph"></app-polar-bar-chart>
+
+        <app-banks-information class="item item2" [bankData]="banksInformation"></app-banks-information>
+
+        <app-polar-bar-chart class="item item3" [dataPolar]="polarityGraph"></app-polar-bar-chart>
         <!-- <div class="item item2">Listado de categorias</div> -->
 
-        <app-budgets-information class="item item3" [budgetData]="budgetInformation"></app-budgets-information>
-        <app-banks-information class="item item4"></app-banks-information>
+        <app-budgets-information class="item item4" [budgetData]="budgetInformation" [meta]="metaBudgets" (paginate)="onPageChange($event)"></app-budgets-information>
         <div class="item item5">Item 5</div>
         <div class="item item6">Item 6</div>
     </div>

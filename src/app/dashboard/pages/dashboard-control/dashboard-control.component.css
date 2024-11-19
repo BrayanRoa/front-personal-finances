@@ -43,7 +43,7 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 20px;
     /* padding: 20px; */
 }
@@ -51,8 +51,6 @@
 
 
 .item {
-    /* background-color: wheat; */
-    /* background-color: #3C3D37; */
     background-color: var(--color-cards-background);
     color: white;
     padding: 5px;
@@ -64,8 +62,7 @@
 
 /* Primera fila */
 .item1 {
-    grid-column: span 3;
-    /* Ocupa las dos primeras columnas */
+    grid-column: span 5;
 }
 .item2{
     grid-column: span 1;
@@ -73,15 +70,11 @@
 /* Segunda fila */
 .item3 {
     grid-column: span 2;
-    /* width: auto; */
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-    /* Ocupa las dos últimas columnas */
+    width: auto;
 }
 
 .item4 {
-    grid-column: span 2;
+    grid-column: span 4;
 }
 
 .item5 {
