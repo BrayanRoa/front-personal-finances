@@ -9,10 +9,14 @@ import { MetaData } from '../../../../shared/interfaces/common-response.interfac
 })
 export class TransactionTableComponent {
 
+  // modal
+  visible: boolean = false;
+
   first: number = 0;
   rows: number = 10;
   @Input() transactions: Transaction[] = [];
   @Input() meta!: MetaData
+
   @Output() search = new EventEmitter<string>();
   @Output() paginate = new EventEmitter<{ page: number, per_page: number }>();
   @Output() filter = new EventEmitter<{ month: number, year: number }>();
@@ -36,6 +40,10 @@ export class TransactionTableComponent {
     } else {
       this.search.emit('');
     }
+  }
+
+  showModal(){
+    this.visible = true;
   }
 
 

@@ -104,4 +104,5 @@ body {
 
     --color-text-card-four: #ba6ff4;
     --url-image-footer-four: url('assets/interactions-dark.svg');
+    --primary-color:var(--color-boton)
 }

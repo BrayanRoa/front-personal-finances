@@ -1,0 +1,11 @@
+.table-header-wrapper {
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.search{
+    padding: 5px;
+    border-radius: 5px;
+}

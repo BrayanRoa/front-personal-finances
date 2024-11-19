@@ -2,15 +2,11 @@
     <p-accordionTab header="nombre banco - Transactions By Month - mes/año">
         <div class="card">
             <div class="table-header-wrapper">
-                <!-- <p-iconField iconPosition="left">
+                <p-iconField iconPosition="left" class="search">
                     <p-inputIcon styleClass="pi pi-search" />
-                    <input type="text" pInputText placeholder="Search" [formControl]="searchControl" />
-                </p-iconField> -->
-
-                <p-iconField iconPosition="left">
-                    <p-inputIcon styleClass="pi pi-search" />
-                    <input type="text" placeholder="Search..." (input)="onSearch($event)" />
+                    <input type="text" pInputText placeholder="Search"  />
                 </p-iconField>
+
 
                 <!-- <div class="boton">
                     <p-button (click)="showDialog()"
@@ -36,17 +32,21 @@
 
 
 
-                <!-- <p-button (onClick)="showDialog()" label="Show" />
-                <p-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }"
+                <p-button (onClick)="showModal()" label="Add Transaction" />
+                <p-dialog header="New Transaction" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }"
                     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
-                    <app-form-transaction (visible)="closeModal($event)"></app-form-transaction>
-                </p-dialog> -->
+                    <!-- <app-form-transaction (visible)="closeModal($event)"></app-form-transaction> -->
+                    <app-form-transaction></app-form-transaction>
+                </p-dialog>
 
 
             </div>
             <p-table [value]="transactions" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[10, 20, 30]">
                 <ng-template pTemplate="header">
                     <tr>
+                        <th pSortableColumn="name" style="width:20%">
+                            Name <p-sortIcon field="code" />
+                        </th>
                         <th pSortableColumn="category" style="width:20%">
                             Category <p-sortIcon field="code" />
                         </th>
@@ -69,6 +69,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-transaction>
                     <tr>
+                        <td>{{ transaction.name}}</td>
                         <td>{{ transaction.category.name}}</td>
                         <td>{{ transaction.description }}</td>
                         <td>{{ transaction.amount | currency }}</td>
