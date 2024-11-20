@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, SimpleChanges } from '@angular/core';
 import { Transaction } from '../../../interfaces/transactions/getAll.interface';
 import { MetaData } from '../../../../shared/interfaces/common-response.interface';
 
@@ -9,16 +9,20 @@ import { MetaData } from '../../../../shared/interfaces/common-response.interfac
 })
 export class TransactionTableComponent {
 
+  // modal
+  visible: boolean = false;
+
   first: number = 0;
   rows: number = 10;
   @Input() transactions: Transaction[] = [];
   @Input() meta!: MetaData
+
   @Output() search = new EventEmitter<string>();
   @Output() paginate = new EventEmitter<{ page: number, per_page: number }>();
   @Output() filter = new EventEmitter<{ month: number, year: number }>();
 
-
   onPageChange(event: any) {
+    console.log("TRANSACTION TABLE");
     this.first = event.first;
     this.rows = event.rows;
     this.paginate.emit({
@@ -36,6 +40,10 @@ export class TransactionTableComponent {
     } else {
       this.search.emit('');
     }
+  }
+
+  showModal(){
+    this.visible = true;
   }
 
 

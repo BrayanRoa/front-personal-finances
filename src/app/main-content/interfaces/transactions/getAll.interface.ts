@@ -14,6 +14,7 @@ export interface Transaction {
     deleted_at: string | null;
     date: string;
     amount: number;
+    name:string;
     description: string;
     type: string;
     repeat: string;
