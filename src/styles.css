@@ -60,6 +60,8 @@ body {
     --color-text-card-four: #ba6ff4;
     --url-image-footer-four: url('assets/interactions.svg');
 
+    --color-hover-table: #f1f5f9;
+
 }
 
 .dark-mode {
@@ -104,5 +106,8 @@ body {
 
     --color-text-card-four: #ba6ff4;
     --url-image-footer-four: url('assets/interactions-dark.svg');
-    --primary-color:var(--color-boton)
+    --primary-color:var(--color-boton);
+
+    --color-hover-table: #64748b;
+
 }

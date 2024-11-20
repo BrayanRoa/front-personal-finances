@@ -27,7 +27,7 @@ export class TransactionTableComponent {
     this.rows = event.rows;
     this.paginate.emit({
       page: event.page + 1, // para sincronizar correctamente con el paginador de PrimeNG
-      per_page: this.rows,
+      per_page: event.per_page,
     });
   }
 

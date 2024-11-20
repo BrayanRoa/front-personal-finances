@@ -20,15 +20,15 @@ export class TransactionsComponent {
 
 
   constructor(private transactionService: TransactionService) {
-    this.loadTransactions();
+    this.loadTransactions(1, 5);
   }
 
   onSearch(searchTerm: string): void {
-    this.loadTransactions(1, 10, searchTerm);
+    this.loadTransactions(1, 5, searchTerm);
   }
 
   onPageChange(data:{page:number, per_page:number}){
-    console.log("TRANSACTION");
+    console.log("TRANSACTION", data.page, data.per_page);
     this.loadTransactions(data.page, data.per_page)
   }
 

@@ -2,6 +2,13 @@
     padding: 20px;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    /* padding: 20px; */
+}
+
 .item {
     background-color: var(--color-cards-background);
     color: white;
@@ -10,4 +17,12 @@
     border-radius: 5px;
     height: auto;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.item1 {
+    grid-column: span 4;
+}
+
+.item2 {
+    grid-column: span 2;
 }
