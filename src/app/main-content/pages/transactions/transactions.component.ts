@@ -28,17 +28,18 @@ export class TransactionsComponent {
   }
 
   onPageChange(data:{page:number, per_page:number}){
+    console.log("TRANSACTION");
     this.loadTransactions(data.page, data.per_page)
   }
 
   private loadTransactions(page: number = 1, per_page: number = 10, searchTerm: string = ''): void {
     const month = 8
     const year = 2024;
-    this.transactionService.getTransactions({ walletId: 1, page, per_page, month: 10, year: 2024, searchTerm }).subscribe({
+    this.transactionService.getTransactions({ walletId: 1, page, per_page, month: 11, year: 2024, searchTerm }).subscribe({
       next: (transactions: ApiResponse<TransactionData>) => {
         this.transactions = transactions.data.transactions;
         this.metaData = transactions.data.meta;
-
+        console.log(this.transactions);
       },
       error: (error: any) => { //TODO: COLOCAR AQUI UN TIPADO 
         console.error('Error fetching transactions:', error);

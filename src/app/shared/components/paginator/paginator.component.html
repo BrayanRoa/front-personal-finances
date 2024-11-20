@@ -1,0 +1,11 @@
+<div class="paginator">
+    <p-button icon="pi pi-angle-left" (onClick)="previousPage()" [rounded]="true" [text]="true"></p-button>
+    <div>
+        <button *ngFor="let number of generateRange(meta.totalPages)" [class.active]="number === meta.currentPage-1"
+            (click)="selectPage(number)">
+            {{ number+1 }}
+        </button>
+    </div>
+    <p-button icon="pi pi-angle-right" (onClick)="nextPage()" [rounded]="true" [text]="true" [class.disabled]="currentPage == totalRecords"></p-button>
+    <!-- <div (click)="nextPage()" [class.disabled]="currentPage == totalRecords">➡</div> -->
+</div>

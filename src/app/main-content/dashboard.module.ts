@@ -39,6 +39,7 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { TransactionsCardComponent } from './components/transactions/transactions-card/transactions-card.component';
 import { FormTransactionComponent } from './components/transactions/form-transaction/form-transaction.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -60,8 +61,6 @@ import { FormTransactionComponent } from './components/transactions/form-transac
     RouterModule,
     HttpClientModule,
     DashboardRoutingModule,
-
-    // OrderListModule,
     ButtonModule,
     InputTextModule,
     MultiSelectModule,
@@ -82,7 +81,8 @@ import { FormTransactionComponent } from './components/transactions/form-transac
     TableModule,
     ChartModule,
     ProgressBarModule,
-    ContextMenuModule
+    ContextMenuModule,
+    SharedModule
   ],
   exports: [
     MainPageComponent,
