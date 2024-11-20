@@ -22,7 +22,7 @@ button {
 }
 
 button.active {
-    background-color: #eff6ff;
+    background-color: var(--color-menu-hover);
 }
 
 button:hover {

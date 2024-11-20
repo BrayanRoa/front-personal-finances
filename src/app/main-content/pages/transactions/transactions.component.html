@@ -3,9 +3,13 @@
     <app-transactions-card></app-transactions-card>
     <!-- <app-transaction-table></app-transaction-table> -->
 
-    <div class="item">
-        <app-transaction-table class="table-transaction" [transactions]="transactions" [meta]="metaData" (paginate)="onPageChange($event)"
-            (search)="onSearch($event)">
-        </app-transaction-table>
+    <div class="grid-container">
+        <div class="item item1">
+            <app-transaction-table class="table-transaction" [transactions]="transactions" [meta]="metaData"
+                (paginate)="onPageChange($event)" (search)="onSearch($event)">
+            </app-transaction-table>
+        </div>
+        <div class="item item2"></div>
     </div>
+
 </div>
