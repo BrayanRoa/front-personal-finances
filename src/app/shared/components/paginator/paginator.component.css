@@ -1,0 +1,41 @@
+.paginator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    /* margin-top: 10px;
+    margin-bottom: 20px; */
+    padding-top: 10px;
+    padding-bottom: 20px;
+    background-color: var(--color-cards-background);
+}
+
+button {
+    width: 40px;
+    height: 40px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: transparent;
+    color: var(--color-texto);
+    cursor: pointer;
+    border: none;
+}
+
+button.active {
+    background-color: #eff6ff;
+}
+
+button:hover {
+    background-color: var(--color-menu-hover);
+}
+
+div {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+div.disabled {
+    color: gray;
+    pointer-events: none;
+    cursor: not-allowed;
+}

@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+    loadChildren: () => import('./main-content/dashboard.module').then(m => m.DashboardModule),
     // canMatch: [canMatchGuard],
     canActivate: [canActivateGuard],
   },

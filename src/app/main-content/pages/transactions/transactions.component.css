@@ -1,0 +1,13 @@
+.container {
+    padding: 20px;
+}
+
+.item {
+    background-color: var(--color-cards-background);
+    color: white;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

@@ -38,6 +38,8 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { TransactionsCardComponent } from './components/transactions/transactions-card/transactions-card.component';
+import { FormTransactionComponent } from './components/transactions/form-transaction/form-transaction.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -51,15 +53,14 @@ import { TransactionsCardComponent } from './components/transactions/transaction
     BanksInformationComponent,
     BudgetsInformationComponent,
     TransactionsComponent,
-    TransactionsCardComponent
+    TransactionsCardComponent,
+    FormTransactionComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     HttpClientModule,
     DashboardRoutingModule,
-
-    // OrderListModule,
     ButtonModule,
     InputTextModule,
     MultiSelectModule,
@@ -80,7 +81,8 @@ import { TransactionsCardComponent } from './components/transactions/transaction
     TableModule,
     ChartModule,
     ProgressBarModule,
-    ContextMenuModule
+    ContextMenuModule,
+    SharedModule
   ],
   exports: [
     MainPageComponent,
