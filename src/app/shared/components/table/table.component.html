@@ -1,0 +1,70 @@
+<!-- <table>
+    <thead>
+        <tr>
+            <th *ngFor="let column of columns">{{ column.header }}</th>
+            <th *ngIf="actions?.length">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of data">
+            <td *ngFor="let column of columns">
+                {{ row[column.field] }}
+            </td>
+            <td *ngIf="actions?.length">
+                <button *ngFor="let action of actions" (click)="action.callback(row)">
+                    {{ action.label }}
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table> -->
+
+<!-- FUNCIONA BIEN,PERO SIN ELEMENTOS DE PRIME NG -->
+<!-- <div class="table-container">
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th *ngFor="let column of columns">{{ column.header }}</th>
+                <th *ngIf="actions?.length">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of data">
+                <td *ngFor="let column of columns">
+                    {{ row[column.field] }}
+                </td>
+                <td *ngIf="actions?.length" class="wrapper-bottons">
+                    <div *ngFor="let action of actions">
+                        <button pButton (click)="action.callback(row)" [ngClass]="getButtonClass(action.label)">
+                            {{ action.label }}
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->
+
+
+<table class="custom-table">
+    <thead>
+        <tr>
+            <th *ngFor="let column of columns">{{ column.header }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of data">
+            <td *ngFor="let column of columns">
+                <!-- Si hay un template definido para la columna, úsalo -->
+                <ng-container *ngIf="cellTemplates[column.field]; else defaultCell">
+                    <ng-container
+                        *ngTemplateOutlet="cellTemplates[column.field]; context: { $implicit: getNestedProperty(row, column.field) }">
+                    </ng-container>
+                </ng-container>
+                <!-- Si no hay un template, mostrar texto por defecto -->
+                <ng-template #defaultCell>{{ getNestedProperty(row, column.field) }}</ng-template>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<app-paginator [meta]="meta" (pageSelected)="onPageChange($event)"></app-paginator>
