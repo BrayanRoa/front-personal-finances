@@ -18,6 +18,13 @@ export class TransactionsComponent {
     next_page: true
   };
 
+  tableColumns = [
+    { field: 'name', header: 'Name' },
+    { field: 'category.name', header: 'Category' },
+    { field: 'amount', header: 'Amount' },
+    { field: 'date', header: 'Date' },
+    { field: 'type', header: 'Type' },
+  ];
 
   constructor(private transactionService: TransactionService) {
     this.loadTransactions(1, 5);
@@ -27,7 +34,7 @@ export class TransactionsComponent {
     this.loadTransactions(1, 5, searchTerm);
   }
 
-  onPageChange(data:{page:number, per_page:number}){
+  onPageChange(data: { page: number, per_page: number }) {
     console.log("TRANSACTION", data.page, data.per_page);
     this.loadTransactions(data.page, data.per_page)
   }

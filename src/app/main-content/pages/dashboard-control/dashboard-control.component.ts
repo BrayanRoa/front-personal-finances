@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Transaction } from '../../interfaces/transactions/getAll.interface';
 import { ApiResponse, MetaData } from '../../../shared/interfaces/common-response.interface';
-import { BehaviorSubject } from 'rxjs';
 import { DashboardService } from '../../services/dashboard.service';
 import { budgetData, budgetInformation, graphPolarity, graphVerticalData, summaryWalletsResponse } from '../../interfaces/dashboard/summary-wallets.interface';
 import { WalletService } from '../../services/wallet.service';
@@ -21,12 +19,17 @@ export class DashboardControlComponent implements OnInit {
   metaBudgets!: MetaData
   banksInformation!: BanksInformation[]
 
-  // private optionsSubject = new BehaviorSubject({
-  //   page: this.metaData.currentPage,
-  //   size: this.pageSize,
-  //   searchTerm: this.searchTerm,
-  //   filterParams: this.filterParams,
-  // });
+  // PRUEBAS PARA TABLAS DINAMICAS
+  tableColumns = [
+    { field: 'name', header: 'Name' },
+    { field: 'limit_amount', header: 'Limit Amount' },
+    { field: 'percentage', header: 'Percentage' },
+  ];
+
+  actions = [
+    { label: 'Edit', callback: (row: any) => this.editRow(row) },
+    { label: 'Delete', callback: (row: any) => this.deleteRow(row) },
+  ];
 
   constructor(
     private readonly dashboardService: DashboardService,
@@ -37,9 +40,18 @@ export class DashboardControlComponent implements OnInit {
     this.loadSummaryWallets();
     this.loadGraphVertical();
     this.loadGraphPolarity();
-    this.loadBudgetInformation(1,5);
+    this.loadBudgetInformation(1, 5);
     this.loadBanksInformations()
     // this.loadTransactions(1, 10);
+  }
+
+
+  editRow(row: any) {
+    console.log('Editing row:', row);
+  }
+
+  deleteRow(row: any) {
+    console.log('Deleting row:', row);
   }
 
   onPageChange(data: { page: number, per_page: number }): void {
@@ -108,7 +120,7 @@ export class DashboardControlComponent implements OnInit {
   }
 
   //* INFORMACI�N DEL BUDGET
-  loadBudgetInformation(page:number, per_page:number) {
+  loadBudgetInformation(page: number, per_page: number) {
     this.dashboardService.budgetInformation(page, per_page).subscribe({
       next: (response: ApiResponse<budgetInformation>) => {
         this.budgetInformation = response.data.budgets; // Asigna el campo `data` al objeto `budgetInformation`
