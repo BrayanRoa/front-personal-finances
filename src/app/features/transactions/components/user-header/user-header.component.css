@@ -1,0 +1,95 @@
+.container {
+    display: flex;
+    align-items: center;
+    /* Alinea verticalmente los elementos */
+    justify-content: space-between;
+    /* Espacia los extremos */
+    padding: 10px;
+    /* Espaciado interno */
+    background-color: var(--color-cards-background);
+    /* Fondo opcional */
+    gap: 10px;
+    /* Espacio entre los elementos */
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.logo {
+    flex: 0 0 auto;
+    /* Tamaño fijo */
+    width: 100px;
+    /* Ajusta según tu logo */
+    text-align: center;
+}
+
+.middle {
+    flex: 1;
+    /* Ocupa todo el espacio disponible */
+    text-align: start;
+    /* Centra el contenido dentro */
+}
+
+.middle p{
+    color: var(--color-texto);
+}
+
+.dropdowns {
+    display: flex;
+    gap: 10px;
+    /* Espacio entre los dropdowns */
+    align-items: center;
+    /* Asegura alineación vertical */
+
+    margin-right: 10px;
+}
+
+
+/*  */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-width: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    display: block;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+/*  */

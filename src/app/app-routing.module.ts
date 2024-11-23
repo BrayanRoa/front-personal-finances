@@ -6,18 +6,18 @@ import { canActivateGuard } from './auth/guard/auth.guard';
 const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./main-content/dashboard.module').then(m => m.DashboardModule),
+    path: 'main',
+    loadChildren: () => import('./layout/layout.module').then((m) => m.LayoutModule),
     // canMatch: [canMatchGuard],
-    canActivate: [canActivateGuard],
+    canActivate: [canActivateGuard], // Protege todo el layout con el guard
   },
   {
     path: '**',
-    redirectTo: 'auth'
-  }
+    redirectTo: 'auth', // Ruta por defecto para redireccionar
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

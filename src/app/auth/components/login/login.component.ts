@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../core/service/auth.service';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 
@@ -34,7 +34,7 @@ export class LoginComponent {
         console.log(data);
         setTimeout(() => {
           this.loading = true; // Oculta el spinner de carga
-          this.router.navigate(['/dashboard/control']);
+          this.router.navigate(['/main/dashboard']);
         }, 3000);
       },
       error: (error) => {
