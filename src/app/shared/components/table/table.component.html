@@ -50,6 +50,7 @@
     <thead>
         <tr>
             <th *ngFor="let column of columns">{{ column.header }}</th>
+            <th *ngIf="actions">Actions</th> <!-- Columna para las acciones -->
         </tr>
     </thead>
     <tbody>
@@ -64,6 +65,14 @@
                 <!-- Si no hay un template, mostrar texto por defecto -->
                 <ng-template #defaultCell>{{ getNestedProperty(row, column.field) }}</ng-template>
             </td>
+            <td *ngIf="actions">
+                <p-button
+                  *ngFor="let action of actions"
+                  [icon]="action.icon"
+                  [label]="action.label"
+                  (onClick)="action.callback(row)">
+                </p-button>
+              </td>
         </tr>
     </tbody>
 </table>

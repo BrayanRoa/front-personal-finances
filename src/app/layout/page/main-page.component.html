@@ -1,0 +1,118 @@
+<div class="container-test" #container>
+    <div class="barra-lateral" #mini_barra_lateral>
+        <div>
+            <div class="name-page">
+                <i class="pi pi-discord" #icon (click)="handleClick()"></i>
+                <span #mySpan>Apex</span>
+            </div>
+
+            <!-- BOTON AND MODAL  -->
+            <div class="card flex justify-content-center">
+
+                <button class="boton" pRipple pButton (click)="showDialog()"
+                    [style]="{'background-color': 'var(--color-boton-primary-background)', 'color': 'var(--color-boton-primary-text)', 'margin-bottom':'20px', 'margin-top':'5px', 'height':'45px', 'width':'100%'}">
+                    <i class="pi pi-users" style="font-size: 1.5rem"></i>
+                    <span #mySpan >Create Bank</span>
+                </button>
+
+                <p-dialog header="Create New Wallet" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+                    <!-- <span class="p-text-secondary block mb-5">Update your information.</span> -->
+                    <form [formGroup]="myForm" (ngSubmit)="onSaveNewWallet()">
+                        <div class="flex align-items-center gap-3 mb-3">
+                            <label class="font-semibold w-6rem">Name</label>
+                            <input formControlName="name" pInputText class="flex-auto" autocomplete="off" />
+                        </div>
+                        <div class="flex align-items-center gap-3 mb-5">
+                            <label class="font-semibold w-6rem">Description</label>
+                            <input formControlName="description" pInputText class="flex-auto" autocomplete="off" />
+                        </div>
+                        <div class="flex align-items-center gap-3 mb-5">
+                            <label class="font-semibold w-6rem">Balance</label>
+                            <input type="number" formControlName="balance" pInputText class="flex-auto" autocomplete="off" />
+                        </div>
+
+                        <div class="flex justify-content-end gap-2">
+                            <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
+                            <p-button label="Save" type="submit" (onClick)="visible = false" [disabled]="myForm.invalid" />
+                        </div>
+                    </form>
+                </p-dialog>
+            </div>
+            <!-- END BOTON AND MODAL -->
+        </div>
+
+        <nav class="navegacion">
+            <ul>
+                <li routerLink="/main/dashboard/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    <a >
+                        <i class="pi pi-users"></i>
+                        <span #mySpan>Dashboard</span>
+                    </a>
+                </li>
+                <li routerLink="transactions" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    <a >
+                        <i class="pi pi-calendar-plus"></i>
+                        <span #mySpan>Transactions</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="pi pi-receipt"></i>
+                        <span #mySpan>Notes</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="pi pi-home"></i>
+                        <span #mySpan>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="pi pi-home"></i>
+                        <span #mySpan>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="pi pi-home"></i>
+                        <span #mySpan>Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div>
+            <div class="linea"></div>
+
+            <div class="modo-oscuro">
+                <div class="info">
+                    <i class="pi pi-moon"></i>
+                    <span #mySpan>Dark Mode</span>
+                </div>
+                <div class="switch" #switch (click)="onDarkMode()">
+                    <div class="base">
+                        <div class="circulo" #circulo></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="usuario">
+                <img src="../../../../assets/default-avatar.png" alt="">
+                <div class="info-usuario">
+                    <div class="nombre-email">
+                        <span class="nombre" #mySpan>Brayan</span>
+                        <span class="email" #mySpan>brayanroa38gmail.com</span>
+                    </div>
+                    <i class="pi pi-ellipsis-v"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="main">
+        <!-- <app-user-header></app-user-header> -->
+        
+        <router-outlet></router-outlet>
+    </div>
+</div>
