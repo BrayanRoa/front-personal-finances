@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="title">
+        <h3>Transacctions By Month - Year: {{month}}</h3>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropdown-toggle" (click)="toggleDropdown()">
+            Select Year
+        </button>
+        <ul class="dropdown-menu" [class.show]="isDropdownOpen()">
+            <li><a class="dropdown-item" (click)="selectOption(2023)">2023</a></li>
+            <li><a class="dropdown-item" (click)="selectOption(2024)">2024</a>
+            </li>
+            <li><a class="dropdown-item" (click)="selectOption(2025)">2025</a></li>
+        </ul>
+    </div>
+</div>
+<p-chart type="bar" [data]="data" [options]="options" />
