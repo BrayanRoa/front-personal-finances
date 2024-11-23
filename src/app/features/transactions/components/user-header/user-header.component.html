@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="logo">LOGO</div>
+    <div class="middle">
+        <p>Bank: {{month}} - Year: {{month}}</p>
+    </div>
+    <div class="dropdowns">
+
+        <div class="dropdown">
+            <button class="dropdown-toggle" (click)="toggleDropdown()">
+                Bank
+            </button>
+            <ul class="dropdown-menu" [class.show]="isDropdownOpen()">
+                <li><a class="dropdown-item" (click)="selectOption('Action')">Action</a></li>
+                <li><a class="dropdown-item" (click)="selectOption('Another action')">Another action</a></li>
+                <li><a class="dropdown-item" (click)="selectOption('Something else')">Something else here</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropdown-toggle" (click)="toggleDropdownTwo()">
+                Year
+            </button>
+            <ul class="dropdown-menu" [class.show]="isDropdownOpenTwo()">
+                <li><a class="dropdown-item" (click)="selectOption('2024')">2024</a></li>
+                <li><a class="dropdown-item" (click)="selectOption('2025')">2025</a></li>
+                <li><a class="dropdown-item" (click)="selectOption('2026')">2026</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

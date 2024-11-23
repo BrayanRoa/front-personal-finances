@@ -10,7 +10,7 @@ export class TableComponent {
 
   @Input() columns: { field: string, header: string }[] = []; // Definición de columnas
   @Input() data: any[] = []; // Datos de la tabla
-  @Input() actions?: { label: string, callback: (row: any) => void }[]; // Acciones personalizadas
+  @Input() actions?: { label: string, icon?: string, callback: (row: any) => void }[];
 
   @Input() meta!: MetaData
   @Output() paginate = new EventEmitter<{ page: number, per_page: number }>();
