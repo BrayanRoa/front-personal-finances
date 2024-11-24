@@ -13,6 +13,7 @@ export class TableComponent {
   @Input() actions?: { label: string, icon?: string, callback: (row: any) => void }[];
 
   @Input() meta!: MetaData
+  @Input() numberRegistersByPage!: number
   @Output() paginate = new EventEmitter<{ page: number, per_page: number }>();
 
   // TemplateRef es un tipo especial en Angular que representa una plantilla reutilizable.
