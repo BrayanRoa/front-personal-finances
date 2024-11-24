@@ -1,51 +1,3 @@
-<!-- <table>
-    <thead>
-        <tr>
-            <th *ngFor="let column of columns">{{ column.header }}</th>
-            <th *ngIf="actions?.length">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let row of data">
-            <td *ngFor="let column of columns">
-                {{ row[column.field] }}
-            </td>
-            <td *ngIf="actions?.length">
-                <button *ngFor="let action of actions" (click)="action.callback(row)">
-                    {{ action.label }}
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table> -->
-
-<!-- FUNCIONA BIEN,PERO SIN ELEMENTOS DE PRIME NG -->
-<!-- <div class="table-container">
-    <table class="custom-table">
-        <thead>
-            <tr>
-                <th *ngFor="let column of columns">{{ column.header }}</th>
-                <th *ngIf="actions?.length">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let row of data">
-                <td *ngFor="let column of columns">
-                    {{ row[column.field] }}
-                </td>
-                <td *ngIf="actions?.length" class="wrapper-bottons">
-                    <div *ngFor="let action of actions">
-                        <button pButton (click)="action.callback(row)" [ngClass]="getButtonClass(action.label)">
-                            {{ action.label }}
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div> -->
-
-
 <table class="custom-table">
     <thead>
         <tr>
@@ -54,26 +6,37 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let row of data">
-            <td *ngFor="let column of columns">
-                <!-- Si hay un template definido para la columna, úsalo -->
-                <ng-container *ngIf="cellTemplates[column.field]; else defaultCell">
-                    <ng-container
-                        *ngTemplateOutlet="cellTemplates[column.field]; context: { $implicit: getNestedProperty(row, column.field) }">
+        <ng-container *ngIf="data.length > 0; else defaultContent">
+            <tr *ngFor="let row of data">
+                <td *ngFor="let column of columns">
+                    <!-- Si hay un template definido para la columna, úsalo -->
+                    <ng-container *ngIf="cellTemplates[column.field]; else defaultCell">
+                        <ng-container
+                            *ngTemplateOutlet="cellTemplates[column.field]; context: { $implicit: getNestedProperty(row, column.field) }">
+                        </ng-container>
                     </ng-container>
-                </ng-container>
-                <!-- Si no hay un template, mostrar texto por defecto -->
-                <ng-template #defaultCell>{{ getNestedProperty(row, column.field) }}</ng-template>
-            </td>
-            <td *ngIf="actions">
-                <p-button
-                  *ngFor="let action of actions"
-                  [icon]="action.icon"
-                  [label]="action.label"
-                  (onClick)="action.callback(row)">
-                </p-button>
-              </td>
-        </tr>
+                    <!-- Si no hay un template, mostrar texto por defecto -->
+                    <ng-template #defaultCell>{{ getNestedProperty(row, column.field) }}</ng-template>
+                </td>
+                <td *ngIf="actions">
+                    <p-button *ngFor="let action of actions" [icon]="action.icon" [label]="action.label"
+                        (onClick)="action.callback(row)">
+                    </p-button>
+                </td>
+            </tr>
+        </ng-container>
+        <ng-template #defaultContent>
+            <tr>
+                <!-- `colspan` asegura que el contenido abarque todas las columnas -->
+                <td [attr.colspan]="columns.length + (actions ? 1 : 0)" class="empty-state">
+                    <div>
+                        <img src="../../../../assets/2953962.jpg" alt="No data available" class="empty-image">
+                        <p class="empty-message">No hay datos disponibles en este momento.</p>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
     </tbody>
 </table>
-<app-paginator [meta]="meta" (pageSelected)="onPageChange($event)"></app-paginator>
+<app-paginator [meta]="meta" (pageSelected)="onPageChange($event)"
+    [numberRegisters]="numberRegistersByPage"></app-paginator>

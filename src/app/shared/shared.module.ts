@@ -5,11 +5,15 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { ButtonModule } from 'primeng/button';
 import { TableComponent } from './components/table/table.component';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { ButtonComponent } from './components/bottons/button/button.component';
+import { DropDownComponent } from './components/bottons/drop-down/drop-down.component';
 
 @NgModule({
   declarations: [
     PaginatorComponent,
-    TableComponent
+    TableComponent,
+    ButtonComponent,
+    DropDownComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +23,9 @@ import { ProgressBarModule } from 'primeng/progressbar';
   ],
   exports: [
     PaginatorComponent,
-    TableComponent
+    TableComponent,
+    ButtonComponent,
+    DropDownComponent,
   ]
 })
 export class SharedModule { }

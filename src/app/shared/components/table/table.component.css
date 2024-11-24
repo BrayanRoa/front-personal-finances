@@ -93,9 +93,9 @@ p-button {
     padding: 0px;
 }
 
-.wrapper-bottons{
+.wrapper-bottons {
     display: flex;
-    
+
 }
 
 .edit-button {
@@ -113,4 +113,22 @@ button {
     border-radius: 5px;
     width: auto;
     height: auto;
+}
+
+/* image by default */
+.empty-state {
+    text-align: center;
+    padding: 20px;
+}
+
+.empty-state img.empty-image {
+    max-width: 150px;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.empty-state p.empty-message {
+    font-size: 16px;
+    color: var(--color-text-muted);
+    margin: 0;
 }

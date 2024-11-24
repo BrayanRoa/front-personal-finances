@@ -1,33 +1,42 @@
 <div class="container">
 
-    <app-wallet-card [walletSummary]="summaryWallets"></app-wallet-card>
+    <app-wallet-card [walletSummary]="walletSummary"></app-wallet-card>
 
     <div class="grid-container">
 
-        <app-vertical-bar-chart class="item item1" [dataGraph]="verticalGraph"></app-vertical-bar-chart>
+        <app-vertical-bar-chart class="item item1" [dataGraph]="barChartData"></app-vertical-bar-chart>
 
-        <app-banks-information class="item item2" [bankData]="banksInformation"></app-banks-information>
+        <app-banks-information class="item item2" [bankData]="bankDetails"></app-banks-information>
 
-        <app-polar-bar-chart class="item item3" [dataPolar]="polarityGraph"></app-polar-bar-chart>
+        <app-polar-bar-chart class="item item3" [dataPolar]="pieChartData"></app-polar-bar-chart>
 
+        <div class="item item4">
+            <div class="title-container">
+                <div class="title">
+                    <h3>Active Budgets</h3>
+                </div>
 
-        <app-table class="item item4" [data]="budgetInformation" 
-            [columns]="tableColumns" 
-            [meta]="metaBudgets"
-            (paginate)="onPageChange($event)" 
-            [actions]="actions" 
-            [cellTemplates]="{
+                <div class="dropdown">
+                    <app-drop-down 
+                        [titleDropDown]="'Select Budgets'">
+                    </app-drop-down>
+                </div>
+            </div>
+            <app-table [data]="budgets" [meta]="metaBudgets" [numberRegistersByPage]="5" [columns]="tableColumns"
+                (paginate)="onPageChange($event)" [actions]="actions" [cellTemplates]="{
                 percentage:progressTemplate,
                 limit_amount: currencyTemplate,
             }"></app-table>
 
-        <ng-template #progressTemplate let-value>
-            <p-progressBar [value]="value"></p-progressBar>
-        </ng-template>
+            <ng-template #progressTemplate let-value>
+                <p-progressBar [value]="value"></p-progressBar>
+            </ng-template>
 
-        <ng-template #currencyTemplate let-value>
-            {{ value | currency:'USD':'symbol':'1.2-2' }}
-        </ng-template>
+            <ng-template #currencyTemplate let-value>
+                {{ value | currency:'USD':'symbol':'1.2-2' }}
+            </ng-template>
+
+        </div>
 
 
         <!-- Template para los iconos -->

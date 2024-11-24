@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { BanksInformationComponent } from './components/banks-information/banks-information.component';
-import { BudgetsInformationComponent } from './components/budgets-information/budgets-information.component';
 import { PolarBarChartComponent } from './components/polar-bar-chart/polar-bar-chart.component';
 import { VerticalBarChartComponent } from './components/vertical-bar-chart/vertical-bar-chart.component';
 import { WalletCardComponent } from './components/wallet-card/wallet-card.component';
@@ -20,7 +19,6 @@ import { SharedModule } from '../../shared/shared.module';
   declarations: [
     DashboardControlComponent,
     BanksInformationComponent,
-    BudgetsInformationComponent,
     PolarBarChartComponent,
     VerticalBarChartComponent,
     WalletCardComponent
