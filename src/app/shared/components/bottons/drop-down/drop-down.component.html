@@ -1,0 +1,12 @@
+<div class="dropdown">
+    <button class="dropdown-toggle" (click)="toggleDropdown()">
+        {{titleDropDown}}
+    </button>
+    <ul class="dropdown-menu" [class.show]="isDropdownOpen()">
+        <li *ngFor="let option of optionsDropDown">
+            <a class="dropdown-item" (click)="selectOption({ id: option.id, name: option.name })">
+                {{ option.name }}
+            </a>
+        </li>
+    </ul>
+</div>

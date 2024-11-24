@@ -2,41 +2,40 @@ import { Component, OnInit } from '@angular/core';
 import { ApiResponse, MetaData } from '../../../shared/interfaces/common-response.interface';
 import { DashboardService } from '../services/dashboard.service';
 import { budgetData, budgetInformation, graphPolarity, graphVerticalData, summaryWalletsResponse } from '../../../shared/interfaces/dashboard/summary-wallets.interface';
-import { WalletService } from '../../../shared/service/wallet.service';
+import { WalletService } from '../../../core/service/wallet.service';
 import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.interface';
+
+interface TableColumn {
+  field: string;
+  header: string;
+}
+
 
 @Component({
   selector: 'app-dashboard-control',
   templateUrl: './dashboard-control.component.html',
-  styleUrl: './dashboard-control.component.css'
+  styleUrls: ['./dashboard-control.component.css']
 })
 export class DashboardControlComponent implements OnInit {
+  walletSummary!: summaryWalletsResponse;
+  barChartData: graphVerticalData[] = [];
+  pieChartData: graphPolarity[] = [];
+  budgets!: budgetData[];
+  metaBudgets!: MetaData;
+  bankDetails!: BanksInformation[];
 
-  summaryWallets!: summaryWalletsResponse; ///
-  verticalGraph: graphVerticalData[] = []
-  polarityGraph: graphPolarity[] = [];
-  budgetInformation!: budgetData[];
-  metaBudgets!: MetaData
-  banksInformation!: BanksInformation[]
+  readonly DEFAULT_PAGE = 1;
+  readonly DEFAULT_PER_PAGE = 5;
 
-  // PRUEBAS PARA TABLAS DINAMICAS
-  tableColumns = [
+  tableColumns: TableColumn[] = [
     { field: 'name', header: 'Name' },
     { field: 'limit_amount', header: 'Limit Amount' },
     { field: 'percentage', header: 'Percentage' },
   ];
 
   actions = [
-    {
-      label: 'Edit',
-      icon: 'pi pi-pencil',
-      callback: (row: any) => this.editRow(row),
-    },
-    {
-      label: 'Delete',
-      icon: 'pi pi-trash',
-      callback: (row: any) => this.deleteRow(row),
-    },
+    { label: '', icon: 'pi pi-pencil', callback: (row: any) => this.editRow(row) },
+    { label: '', icon: 'pi pi-trash', callback: (row: any) => this.deleteRow(row) },
   ];
 
   constructor(
@@ -45,101 +44,69 @@ export class DashboardControlComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadSummaryWallets();
-    this.loadGraphVertical();
-    this.loadGraphPolarity();
-    this.loadBudgetInformation(1, 5);
-    this.loadBanksInformations()
-    // this.loadTransactions(1, 10);
+    this.loadDashboardData();
   }
 
+  private loadDashboardData(): void {
+    this.loadWalletSummary();
+    this.loadBarChartData();
+    this.loadPieChartData();
+    this.loadBudgets(this.DEFAULT_PAGE, this.DEFAULT_PER_PAGE);
+    this.loadBankDetails();
+  }
 
-  editRow(row: any) {
+  private loadWalletSummary(): void {
+    this.dashboardService.summaryWallets().subscribe({
+      next: (response) => { this.walletSummary = response.data; },
+      error: (error) => this.handleError(error, 'Error fetching wallet summary'),
+    });
+  }
+
+  private loadBarChartData(): void {
+    const year = new Date().getFullYear();
+    this.dashboardService.graphVertical(year.toString()).subscribe({
+      next: (response) => { this.barChartData = response.data; },
+      error: (error) => this.handleError(error, 'Error fetching bar chart data'),
+    });
+  }
+
+  private loadPieChartData(): void {
+    this.dashboardService.graphPolarity().subscribe({
+      next: (response) => { this.pieChartData = response.data; },
+      error: (error) => this.handleError(error, 'Error fetching pie chart data'),
+    });
+  }
+
+  private loadBudgets(page: number, per_page: number): void {
+    this.dashboardService.budgetInformation(page, per_page).subscribe({
+      next: (response) => {
+        this.budgets = response.data.budgets;
+        this.metaBudgets = response.data.meta;
+      },
+      error: (error) => this.handleError(error, 'Error fetching budgets'),
+    });
+  }
+
+  private loadBankDetails(): void {
+    this.walletService.getBanksInformation().subscribe({
+      next: (response) => { this.bankDetails = response.data; },
+      error: (error) => this.handleError(error, 'Error fetching bank details'),
+    });
+  }
+
+  private handleError(error: any, message: string): void {
+    console.error(`${message}:`, error);
+  }
+
+  editRow(row: any): void {
     console.log('Editing row:', row);
   }
 
-  deleteRow(row: any) {
+  deleteRow(row: any): void {
     console.log('Deleting row:', row);
   }
 
-  onPageChange(data: { page: number, per_page: number }): void {
-    console.log("llegue", data);
-    this.loadBudgetInformation(data.page, data.per_page);
+  onPageChange({ page, per_page }: { page: number; per_page: number }): void {
+    this.loadBudgets(page, per_page);
   }
-
-  //* CARDS
-  loadSummaryWallets() {
-    this.dashboardService.summaryWallets().subscribe({
-      next: (response: ApiResponse<summaryWalletsResponse>) => {
-        this.summaryWallets = response.data; // Asigna el campo `data` al objeto `summaryWallets`
-        console.log("CARDS");
-        console.log(this.summaryWallets);
-      },
-      error: (error: any) => {
-        console.error('Error fetching summary wallets:', error);
-      }
-    });
-  }
-
-  //* GRAFICO DE BARRAS
-  loadGraphVertical() {
-    // TODO: AQUI COLOCAR EL AÑO DINAMICO, SI NO SE ENVIA COLOCAR EL AÑO ACTUAL
-    const year = new Date().getFullYear();
-
-    this.dashboardService.graphVertical(year.toString()).subscribe({
-      next: (response: ApiResponse<graphVerticalData[]>) => {
-        this.verticalGraph = response.data; // Asigna el campo `data` al objeto `verticalGraph`
-        console.log("GRAFICO DE BARRAS");
-        console.log(response.data);
-      },
-      error: (error: any) => {
-        console.error('Error fetching graph vertical:', error);
-      }
-    });
-  }
-
-  //* GRAFICO DE DONA PARA LOS BANCOS
-  loadBanksInformations() {
-    this.walletService.banksInformation().subscribe({
-      next: (response: ApiResponse<BanksInformation[]>) => {
-        this.banksInformation = response.data; // Asigna el campo `data` al objeto `banksInformation`
-        console.log("DONA");
-        console.log(response.data);
-      },
-      error: (error: any) => {
-        console.error('Error fetching banks information:', error);
-      }
-    });
-  }
-
-  //* GRAFICO PARA LAS CATEGORIAS
-  loadGraphPolarity() {
-    // TODO: AQUI COLOCAR EL A��O DINAMICO, SI NO SE ENVIA COLOCAR EL A��O ACTUAL
-
-    this.dashboardService.graphPolarity().subscribe({
-      next: (response: ApiResponse<graphPolarity[]>) => {
-        console.log(response.data);
-        this.polarityGraph = response.data; // Asigna el campo `data` al objeto `verticalGraph`
-      },
-      error: (error: any) => {
-        console.error('Error fetching graph polar:', error);
-      }
-    });
-  }
-
-  //* INFORMACI�N DEL BUDGET
-  loadBudgetInformation(page: number, per_page: number) {
-    this.dashboardService.budgetInformation(page, per_page).subscribe({
-      next: (response: ApiResponse<budgetInformation>) => {
-        this.budgetInformation = response.data.budgets; // Asigna el campo `data` al objeto `budgetInformation`
-        this.metaBudgets = response.data.meta
-        console.log("TABLA DE BUDGETS");
-        console.log(response.data);
-      },
-      error: (error: any) => {
-        console.error('Error fetching budget information:', error);
-      }
-    });
-  }
-
 }

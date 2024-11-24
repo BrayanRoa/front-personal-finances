@@ -1,26 +1,11 @@
-h3 {
-    color: var(--color-text-card-one);
-    font: bold;
-}
 
-.container{
-    display: flex;
-    justify-content: space-between;
-    margin-right: 10px;
-}
-                
-.container .title{
-    margin-left: 10px;
-}
-
-.container .dropdown {
+.dropdown {
     position: relative;
-    display: flex;
-    align-items: center;
+    display: inline-block;
 }
 
 .dropdown-toggle {
-    background-color: var(--color-text-card-one);
+    background-color: #6c757d;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -33,15 +18,17 @@ h3 {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: var(--color-cards-background);
+    background-color: white;
     border: 1px solid #ccc;
     border-radius: 4px;
     min-width: auto;
+    max-height: 150px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     padding: 0;
     margin: 0;
     list-style: none;
+    overflow-y: scroll;
 }
 
 .dropdown-menu.show {
@@ -51,11 +38,13 @@ h3 {
 .dropdown-item {
     padding: 10px 20px;
     text-decoration: none;
-    color: var(--color-texto);
+    color: #333;
     display: block;
     cursor: pointer;
 }
 
 .dropdown-item:hover {
-    background-color: var(--color-hover-table);
+    background-color: #f8f9fa;
 }
+
+/*  */

@@ -1,15 +1,15 @@
 export interface SelectInterface {
-    label: string;
-    value: string;
+    name: string;
+    id: string;
 }
 
 export const MONTHS: SelectInterface[] = [
-    { label: 'January', value: '1' }, { label: 'February', value: '2' },
-    { label: 'March', value: '3' }, { label: 'April', value: '4' },
-    { label: 'May', value: '5' }, { label: 'June', value: '6' },
-    { label: 'July', value: '7' }, { label: 'August', value: '8' },
-    { label: 'September', value: '9' }, { label: 'October', value: '10' },
-    { label: 'November', value: '11' }, { label: 'December', value: '12' }
+    { name: 'January', id: '1' }, { name: 'February', id: '2' },
+    { name: 'March', id: '3' }, { name: 'April', id: '4' },
+    { name: 'May', id: '5' }, { name: 'June', id: '6' },
+    { name: 'July', id: '7' }, { name: 'August', id: '8' },
+    { name: 'September', id: '9' }, { name: 'October', id: '10' },
+    { name: 'November', id: '11' }, { name: 'December', id: '12' }
 ];
 
 export const PAGE: number = 1

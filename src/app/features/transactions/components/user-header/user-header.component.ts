@@ -1,33 +1,41 @@
-import { Component, signal } from '@angular/core';
-
-interface City {
-  name: string;
-  code: string;
-}
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { BanksInformation } from '../../../../shared/interfaces/wallet/wallet.interface';
+import { dropDowsn } from '../../../../shared/components/bottons/drop-down/drop-down.component';
 
 @Component({
   selector: 'app-user-header',
   templateUrl: './user-header.component.html',
   styleUrl: './user-header.component.css'
 })
-export class UserHeaderComponent {
+export class UserHeaderComponent implements OnInit {
 
-  isDropdownOpen = signal<boolean>(false);
-  isDropdownOpenTwo = signal<boolean>(false);
-  month: string = "January"
+  @Input() wallets: BanksInformation[] = []
+  walletSelected: string = ""
 
-  toggleDropdown(): void {
-    this.isDropdownOpen.set(!this.isDropdownOpen());
+  @Input() years: dropDowsn[] = []
+  yearSelect: number = new Date().getFullYear()
+
+  @Output() wallet = new EventEmitter<(number)>
+  @Output() year = new EventEmitter<(number)>
+
+  constructor() { }
+
+  ngOnInit(): void {
+    // Inicializar el walletSelected con el primer elemento del arreglo de wallets
+    this.walletSelected = this.wallets[0].name
+    this.wallet.emit(this.wallets[0].id)
+
   }
 
-  toggleDropdownTwo(): void {
-    this.isDropdownOpenTwo.set(!this.isDropdownOpenTwo());
+  onBankChange(options: dropDowsn) {
+    console.log("OJO", options);
+    this.walletSelected = options.name
+    this.wallet.emit(+options.id)
   }
 
-  selectOption(option: string): void {
-    console.log('Option selected:', option);
-    this.month = option;
-    this.isDropdownOpen.set(false); // Cierra el menú al seleccionar una opción
+  onYearChange(options: dropDowsn) {
+    console.log(options);
+    this.yearSelect = +options.id
+    this.year.emit(+options.id)
   }
-
 }
