@@ -6,5 +6,10 @@
             {{ number+1 }}
         </button>
     </div>
-    <p-button icon="pi pi-angle-right" (onClick)="nextPage()" [rounded]="true" [text]="true" ></p-button>
+    <p-button icon="pi pi-angle-right" (onClick)="nextPage()" [rounded]="true" [text]="true"></p-button>
+
+    <!-- <div>
+        <app-drop-down [titleDropDown]="'# Items'" [optionsDropDown]="numberPages" (onChange)="onPerPageChange($event)">
+        </app-drop-down>
+    </div> -->
 </div>

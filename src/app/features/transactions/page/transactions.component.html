@@ -1,38 +1,52 @@
 <div class="container">
-    <app-user-header></app-user-header>
+    <!-- Componente Header -->
+    <app-user-header 
+        (wallet)="onBankSelected($event)" 
+        [wallets]="walletsData()" 
+        (year)="onYearSelected($event)" 
+        [years]="years()">
+    </app-user-header>
 
+    <!-- Resumen de transacciones -->
     <app-transactions-card></app-transactions-card>
-    <!-- <app-transaction-table></app-transaction-table> -->
 
     <div class="grid-container">
-
+        <!-- Tabla de transacciones -->
         <div class="item item1">
-
-            <!-- OJO ESTO SE REPITE EN ALGUNAS TABLAS POR LO QUE PUEDE SER UN COMPONENTE GENERICO -->
-            <div class="container-info">
+            <div class="title-container">
                 <div class="title">
-                    <h3 class="title-table">Transacctions By Month: {{month}}</h3>
+                    <h3>Transactions By Month - {{ nameMonthSelected() }}</h3>
                 </div>
 
+                <!-- Selector de Mes -->
                 <div class="dropdown">
-                    <button class="dropdown-toggle" (click)="toggleDropdown()">
-                        Select Month
-                    </button>
-                    <ul class="dropdown-menu" [class.show]="isDropdownOpen()">
-                        <li><a class="dropdown-item" (click)="selectOption('January')">January</a></li>
-                        <li><a class="dropdown-item" (click)="selectOption('January')">January</a>
-                        </li>
-                        <li><a class="dropdown-item" (click)="selectOption('January')">January</a></li>
-                    </ul>
+                    <app-drop-down 
+                        [titleDropDown]="'Month'" 
+                        [optionsDropDown]="months" 
+                        (onChange)="onMonthChange($event)">
+                    </app-drop-down>
                 </div>
             </div>
 
-            <app-table [columns]="tableColumns" [data]="transactions" [meta]="metaData"
-                (paginate)="onPageChange($event)" [actions]="actions"
-                [cellTemplates]="{type: tagTemplate, date:dateTemplate, amount:amountTemplate, category:categoryTemplate}"></app-table>
+            <!-- Tabla con columnas dinámicas -->
+            <app-table 
+                [columns]="tableColumns" 
+                [data]="transactions" 
+                [meta]="metaData"
+                [numberRegistersByPage]="10"
+                (paginate)="onPageChange($event)" 
+                [actions]="actions"
+                [cellTemplates]="{
+                    type: tagTemplate, 
+                    date: dateTemplate, 
+                    amount: amountTemplate, 
+                    category: categoryTemplate
+                }">
+            </app-table>
 
+            <!-- Plantillas para celdas -->
             <ng-template #tagTemplate let-value>
-                <td *ngIf="value === 'INCOME';else outflow">
+                <td *ngIf="value === 'INCOME'; else outflow">
                     <div class="test">
                         <p-tag severity="success" value="INCOME" />
                     </div>
@@ -57,8 +71,7 @@
             </ng-template>
         </div>
 
-
+        <!-- Segunda columna -->
         <div class="item item2"></div>
     </div>
-
 </div>

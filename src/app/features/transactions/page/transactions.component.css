@@ -2,14 +2,13 @@
     padding: 20px;
 }
 
-.grid-container {
+.container .grid-container {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 20px;
-    /* padding: 20px; */
 }
 
-.item {
+.container .grid-container .item {
     background-color: var(--color-cards-background);
     color: white;
     padding: 5px;
@@ -19,23 +18,37 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.item1 {
+.container .grid-container .item1 {
     grid-column: span 4;
 }
 
-.item2 {
-    grid-column: span 2;
-}
-
-
-.container-info{
+.container .grid-container .item1 .title-container {
     display: flex;
     justify-content: space-between;
     margin-right: 10px;
 }
 
-.container .title{
+.container .grid-container .item1 .title-container .title {
     margin-left: 10px;
+}
+
+.container .grid-container .item1 .title-container h3 {
+    color: var(--color-text-card-one);
+    font-weight: bold;
+}
+
+.container .grid-container .item1 .title-container .dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.container .grid-container .item2 {
+    grid-column: span 2;
+}
+
+.container .title-table {
+    color: var(--color-text-card-one);
 }
 
 .container .dropdown {
@@ -44,7 +57,7 @@
     align-items: center;
 }
 
-.dropdown-toggle {
+.container .dropdown-toggle {
     background-color: var(--color-text-card-one);
     color: white;
     border: none;
@@ -53,7 +66,7 @@
     border-radius: 4px;
 }
 
-.dropdown-menu {
+.container .dropdown-menu {
     display: none;
     position: absolute;
     top: 100%;
@@ -69,11 +82,11 @@
     list-style: none;
 }
 
-.dropdown-menu.show {
+.container .dropdown-menu.show {
     display: block;
 }
 
-.dropdown-item {
+.container .dropdown-menu .dropdown-item {
     padding: 10px 20px;
     text-decoration: none;
     color: #333;
@@ -81,10 +94,6 @@
     cursor: pointer;
 }
 
-.dropdown-item:hover {
+.container .dropdown-menu .dropdown-item:hover {
     background-color: #f8f9fa;
-}
-
-.title-table{
-    color: var(--color-text-card-one);
 }

@@ -39,4 +39,8 @@ export class TransactionService extends BaseService {
             headers: this.getHeaders()
         });
     }
+
+    getYears(): Observable<ApiResponse<number[]>> {
+        return this.http.get<ApiResponse<number[]>>(`${this.endpoint}/get-years`, { headers: this.getHeaders() });
+    }
 }
