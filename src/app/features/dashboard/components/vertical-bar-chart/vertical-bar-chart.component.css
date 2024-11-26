@@ -1,6 +1,6 @@
 h3 {
     color: var(--color-text-card-one);
-    font: bold;
+    font-weight: bold;
 }
 
 .container{

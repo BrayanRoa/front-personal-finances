@@ -1,50 +1,71 @@
-
+/* Dropdown */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
+/* Botón del dropdown */
 .dropdown-toggle {
-    background-color: #6c757d;
-    color: white;
+    background-color: var(--color-text-card-four);
+    color: var(--color-texto);
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 4px;
 }
 
+/* Menú del dropdown */
 .dropdown-menu {
     display: none;
     position: absolute;
     top: 100%;
-    left: 0;
-    background-color: white;
+    right: 0;
+    /* Cambiar de 'left: 0' a 'right: 0' para que se abra hacia la izquierda */
+    background-color: var(--color-cards-background);
     border: 1px solid #ccc;
     border-radius: 4px;
     min-width: auto;
+    /* Puedes ajustar el ancho de acuerdo a tus necesidades */
     max-height: 150px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     padding: 0;
     margin: 0;
     list-style: none;
-    overflow-y: scroll;
+    overflow-y: auto;
+    /* Habilitar el scroll solo cuando sea necesario */
 }
 
+/* Mostrar el menú al hacer click */
 .dropdown-menu.show {
     display: block;
 }
 
+/* Estilo de los elementos del menú */
 .dropdown-item {
     padding: 10px 20px;
     text-decoration: none;
-    color: #333;
+    color: var(--color-texto);
     display: block;
     cursor: pointer;
 }
 
+/* Estilo de los elementos del menú al hacer hover */
 .dropdown-item:hover {
-    background-color: #f8f9fa;
+    background-color: var(--color-hover-table);
 }
 
-/*  */
+/* Personalización de la barra de desplazamiento */
+.dropdown-menu::-webkit-scrollbar {
+    width: 6px;  /* Ancho de la barra de desplazamiento */
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2); /* Color del "pulgar" (parte móvil de la barra) */
+    border-radius: 3px; /* Radio de la esquina del pulgar */
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color de la pista de la barra de desplazamiento */
+    border-radius: 3px; /* Radio de las esquinas de la pista */
+}

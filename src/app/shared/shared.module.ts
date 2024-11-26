@@ -8,6 +8,8 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ButtonComponent } from './components/bottons/button/button.component';
 import { DropDownComponent } from './components/bottons/drop-down/drop-down.component';
 
+
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @NgModule({
   declarations: [
     PaginatorComponent,
@@ -19,7 +21,7 @@ import { DropDownComponent } from './components/bottons/drop-down/drop-down.comp
     CommonModule,
     ButtonModule,
     ProgressBarModule,
-
+    ProgressSpinnerModule
   ],
   exports: [
     PaginatorComponent,
