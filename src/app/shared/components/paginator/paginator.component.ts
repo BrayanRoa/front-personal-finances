@@ -42,4 +42,12 @@ export class PaginatorComponent {
       this.selectPage(page);
     }
   }
+
+  firstPage() {
+    this.selectPage(0);
+  }
+
+  lastPage() {
+    this.selectPage(this.meta.totalPages-1)
+  }
 }

@@ -33,6 +33,10 @@
 
 .item2 {
     grid-column: span 1;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
 }
 
 /* Segunda fila */
@@ -133,7 +137,7 @@
 }
 
 .item4 .title-container h3 {
-    color: var(--color-text-card-one);
+    color: var(--color-text-card-four);
     font-weight: bold;
 }
 
@@ -141,4 +145,41 @@
     position: relative;
     display: flex;
     align-items: center;
+}
+
+
+@media (max-width: 1200px) {
+    .item1 {
+        grid-column: span 6;
+    }
+
+    .item2 {
+        grid-column: span 3;
+    }
+
+    .item3 {
+        grid-column: span 3;
+    }
+
+    .item4 {
+        grid-column: span 6;
+    }
+
+    .item5 {
+        grid-column: span 3;
+    }
+}
+
+@media (max-width: 950px) {
+    .item2 {
+        grid-column: span 6;
+    }
+
+    .item3 {
+        grid-column: span 6;
+    }
+
+    .item4 {
+        grid-column: span 6;
+    }
 }

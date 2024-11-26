@@ -1,15 +1,21 @@
 <div class="paginator">
-    <p-button icon="pi pi-angle-left" (onClick)="previousPage()" [rounded]="true" [text]="true"></p-button>
-    <div>
+    <div class="info-data">
+        <ng-container *ngIf="meta.totalPages > 0; else default">
+            Showing {{meta.currentPage}} of {{meta.totalPages}} pages
+        </ng-container>
+
+        <ng-template #default>
+            Showing {{0}} of {{meta.totalPages}} pages
+        </ng-template>
+    </div>
+    <div class="buttons">
+        <p-button icon="pi pi-angle-double-left" (onClick)="firstPage()" [rounded]="true" [text]="true"></p-button>
+        <p-button icon="pi pi-angle-left" (onClick)="previousPage()" [rounded]="true" [text]="true"></p-button>
         <button *ngFor="let number of generateRange(meta.totalPages)" [class.active]="number === meta.currentPage-1"
             (click)="selectPage(number)">
             {{ number+1 }}
         </button>
+        <p-button icon="pi pi-angle-right" (onClick)="nextPage()" [rounded]="true" [text]="true"></p-button>
+        <p-button icon="pi pi-angle-double-right" (onClick)="lastPage()" [rounded]="true" [text]="true"></p-button>
     </div>
-    <p-button icon="pi pi-angle-right" (onClick)="nextPage()" [rounded]="true" [text]="true"></p-button>
-
-    <!-- <div>
-        <app-drop-down [titleDropDown]="'# Items'" [optionsDropDown]="numberPages" (onChange)="onPerPageChange($event)">
-        </app-drop-down>
-    </div> -->
 </div>

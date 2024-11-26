@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './layout/layout.module';
 import { AuthModule } from './auth/auth.module';
-
+import { RippleModule } from 'primeng/ripple';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +17,8 @@ import { AuthModule } from './auth/auth.module';
     AppRoutingModule,
     AuthModule,
     LayoutModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RippleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

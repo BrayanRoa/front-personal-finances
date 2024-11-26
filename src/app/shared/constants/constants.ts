@@ -14,3 +14,4 @@ export const MONTHS: SelectInterface[] = [
 
 export const PAGE: number = 1
 export const PER_PAGE: number = 10
+export const NOT_FOUND_MSG: string = 'No data available at this time.'
