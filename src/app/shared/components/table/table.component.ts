@@ -31,15 +31,13 @@ export class TableComponent implements OnInit {
     }, 1000)
   }
   onPageChange(event: any) {
-    console.log("TRANSACTION TABLE");
     this.paginate.emit({
-      page: event.page + 1, // para sincronizar correctamente con el paginador de PrimeNG
+      page: event.page, // para sincronizar correctamente con el paginador de PrimeNG
       per_page: event.per_page,
     });
   }
 
   getButtonClass(actionLabel: string): string {
-    console.log("LABEL", actionLabel);
     if (actionLabel === 'Edit') {
       return 'edit-button';  // Clase para el botón de editar (azul)
     } else if (actionLabel === 'Delete') {
