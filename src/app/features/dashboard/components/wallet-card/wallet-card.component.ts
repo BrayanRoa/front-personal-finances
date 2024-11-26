@@ -11,8 +11,13 @@ export class WalletCardComponent implements OnChanges{
   
   // @Input() transactions: Transaction[] = [];
   
-  @Input() walletSummary!:summaryWalletsResponse
-  
+  @Input() walletSummary: summaryWalletsResponse = {
+    totalIncome: 0,
+    totalExpenses: 0,
+    budgetsActives: 0,
+    totalTransactions: 0
+  };
+    
   ngOnChanges(changes: SimpleChanges): void {
     if(changes["walletSummary"] && changes["walletSummary"].currentValue){
       

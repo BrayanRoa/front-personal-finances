@@ -49,13 +49,9 @@ export class PaginatorComponent {
   }
 
   generateOptions() {
-    console.log("META", this.meta);
     this.options = [];
     for (let index = 1; index <= this.meta.totalPages; index++) {
-      console.log("index: ", index);
-      console.log("pages", this.meta.totalPages);
       const data = this.perPage() * index; // Usa el valor actual del signal perPage
-      console.log("dataaaa", data);
       this.options.push({ id: data, name: data.toString() });
     }
   }

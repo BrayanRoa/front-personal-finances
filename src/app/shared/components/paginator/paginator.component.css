@@ -1,13 +1,14 @@
 .paginator {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: end;
     gap: 5px;
     /* margin-top: 10px;
     margin-bottom: 20px; */
     padding-top: 10px;
     padding-bottom: 20px;
     background-color: var(--color-cards-background);
+    margin-right: 10px;
 }
 
 .paginator .info-data{
