@@ -1,4 +1,4 @@
-<div class="paginator">
+<div class="paginator" *ngIf="meta">
     <div class="info-data">
         <ng-container *ngIf="meta.totalPages > 0; else default">
             Showing {{meta.currentPage}} of {{meta.totalPages}} pages
