@@ -48,6 +48,7 @@ export class TransactionsComponent implements OnInit {
     { field: 'amount', header: 'Amount' },
     { field: 'date', header: 'Date' },
     { field: 'type', header: 'Type' },
+    { field: 'repeat', header: 'Repeat' },
   ];
 
   actions = [

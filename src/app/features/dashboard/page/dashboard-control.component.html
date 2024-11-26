@@ -4,11 +4,12 @@
 
     <div class="grid-container">
 
-        <app-vertical-bar-chart class="item item1" [dataGraph]="barChartData"></app-vertical-bar-chart>
+        <app-vertical-bar-chart class="item item1" [dataGraph]="barChartData()" [dataYears]="years()"
+            (onYearSelected)="onChangeYear($event)"></app-vertical-bar-chart>
 
-        <app-banks-information class="item item2" [bankData]="bankDetails"></app-banks-information>
+        <app-banks-information class="item item2" [bankData]="bankDetails()"></app-banks-information>
 
-        <app-polar-bar-chart class="item item3" [dataPolar]="pieChartData"></app-polar-bar-chart>
+        <app-polar-bar-chart class="item item3" [dataPolar]="pieChartData()"></app-polar-bar-chart>
 
         <div class="item item4">
             <div class="title-container">
@@ -17,12 +18,11 @@
                 </div>
 
                 <div class="dropdown">
-                    <app-drop-down 
-                        [titleDropDown]="'Select Budgets'">
+                    <app-drop-down [titleDropDown]="'Select Budgets'" [optionsDropDown]="years()">
                     </app-drop-down>
                 </div>
             </div>
-            <app-table [data]="budgets" [meta]="metaBudgets" [numberRegistersByPage]="5" [columns]="tableColumns"
+            <app-table [data]="budgets()" [meta]="metaBudgets" [numberRegistersByPage]="5" [columns]="tableColumns"
                 (paginate)="onPageChange($event)" [actions]="actions" [cellTemplates]="{
                 percentage:progressTemplate,
                 limit_amount: currencyTemplate,
