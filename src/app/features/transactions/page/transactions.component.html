@@ -1,9 +1,6 @@
 <div class="container">
     <!-- Componente Header -->
-    <app-user-header 
-        (wallet)="onBankSelected($event)" 
-        [wallets]="walletsData()" 
-        (year)="onYearSelected($event)" 
+    <app-user-header (wallet)="onBankSelected($event)" [wallets]="walletsData()" (year)="onYearSelected($event)"
         [years]="years()">
     </app-user-header>
 
@@ -20,27 +17,20 @@
 
                 <!-- Selector de Mes -->
                 <div class="dropdown">
-                    <app-drop-down 
-                        [titleDropDown]="'Month'" 
-                        [optionsDropDown]="months" 
+                    <app-drop-down [titleDropDown]="'Month'" [optionsDropDown]="months"
                         (onChange)="onMonthChange($event)">
                     </app-drop-down>
                 </div>
             </div>
 
             <!-- Tabla con columnas dinámicas -->
-            <app-table 
-                [columns]="tableColumns" 
-                [data]="transactions" 
-                [meta]="metaData"
-                [numberRegistersByPage]="10"
-                (paginate)="onPageChange($event)" 
-                [actions]="actions"
-                [cellTemplates]="{
+            <app-table [columns]="tableColumns" [data]="transactions" [meta]="metaData" [numberRegistersByPage]="10"
+                (paginate)="onPageChange($event)" [actions]="actions" [cellTemplates]="{
                     type: tagTemplate, 
                     date: dateTemplate, 
                     amount: amountTemplate, 
-                    category: categoryTemplate
+                    category: categoryTemplate,
+                    repeat: repeatTemplate,
                 }">
             </app-table>
 
@@ -68,6 +58,21 @@
 
             <ng-template #categoryTemplate let-value>
                 <td>{{ value }}</td>
+            </ng-template>
+
+            <ng-template #repeatTemplate let-value>
+                <td *ngIf="value === 'NEVER'; else otherRepeat">
+                    <div class="center">
+                        <p-tag icon="pi pi-circle-fill" severity="warning" value="{{value}}" />
+                    </div>
+                </td>
+                <ng-template #otherRepeat>
+                    <td>
+                        <div class="center">
+                            <p-tag icon="pi pi-clock" severity="success" value="{{value}}" />
+                        </div>
+                    </td>
+                </ng-template>
             </ng-template>
         </div>
 

@@ -26,6 +26,7 @@ export class DropDownComponent {
 
   selectOption(option: dropDowsn): void {
     this.optionsSelected = option.name;
+    this.titleDropDown = option.name;
     this.onChange.emit({ id: option.id, name: option.name }); // Emitimos el evento al padre para actualizar el valor seleccionado en el componente padre.
     this.isDropdownOpen.set(false); // Cierra el menú al seleccionar una opción
   }

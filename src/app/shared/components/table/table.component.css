@@ -37,7 +37,7 @@
 
 /* Encabezado */
 .custom-table thead tr {
-    background-color: #007bff;
+    background-color: var(--color-text-card-one);
     /* Color azul elegante */
     color: #fff;
     text-transform: uppercase;
@@ -131,4 +131,10 @@ button {
     font-size: 16px;
     color: var(--color-text-muted);
     margin: 0;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

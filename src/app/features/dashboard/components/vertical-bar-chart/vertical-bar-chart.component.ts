@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, signal, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, signal, SimpleChanges } from '@angular/core';
 import { graphVerticalData } from '../../../../shared/interfaces/dashboard/summary-wallets.interface';
+import { dropDowsn } from '../../../../shared/components/bottons/drop-down/drop-down.component';
 
 @Component({
   selector: 'app-vertical-bar-chart',
@@ -8,13 +9,16 @@ import { graphVerticalData } from '../../../../shared/interfaces/dashboard/summa
 })
 export class VerticalBarChartComponent implements OnChanges {
 
-  isDropdownOpen = signal<boolean>(false);
-  month: number = new Date().getFullYear()
+  // isDropdownOpen = signal<boolean>(false);
+  // month: number = new Date().getFullYear()
+  @Input() dataYears: dropDowsn[] = []
+  yearSelected: number = new Date().getFullYear();
+  @Output() onYearSelected = new EventEmitter<number>();
 
   data: any;
+  options: any;
   @Input() dataGraph!: graphVerticalData[]
 
-  options: any;
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['dataGraph'] && changes['dataGraph'].currentValue) {
       this.updateChartData();
@@ -92,15 +96,8 @@ export class VerticalBarChartComponent implements OnChanges {
     };
   }
 
-  toggleDropdown(): void {
-    this.isDropdownOpen.set(!this.isDropdownOpen());
+  onChangeYear(options: { id: number | string, name: string }) {
+    this.yearSelected = +options.id;
+    this.onYearSelected.emit(+options.id)
   }
-
-  selectOption(option: number): void {
-    console.log('Option selected:', option);
-    this.month = option;
-    this.isDropdownOpen.set(false); // Cierra el menú al seleccionar una opción
-  }
-
-
 }

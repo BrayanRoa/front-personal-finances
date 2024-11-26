@@ -6,32 +6,46 @@
         </tr>
     </thead>
     <tbody>
-        <ng-container *ngIf="data.length > 0; else defaultContent">
-            <tr *ngFor="let row of data">
-                <td *ngFor="let column of columns">
-                    <!-- Si hay un template definido para la columna, úsalo -->
-                    <ng-container *ngIf="cellTemplates[column.field]; else defaultCell">
-                        <ng-container
-                            *ngTemplateOutlet="cellTemplates[column.field]; context: { $implicit: getNestedProperty(row, column.field) }">
+        <ng-container *ngIf="!isLoading; else loadingState">
+            <ng-container *ngIf="data.length > 0; else defaultContent">
+                <tr *ngFor="let row of data">
+                    <td *ngFor="let column of columns">
+                        <!-- Si hay un template definido para la columna, úsalo -->
+                        <ng-container *ngIf="cellTemplates[column.field]; else defaultCell">
+                            <ng-container
+                                *ngTemplateOutlet="cellTemplates[column.field]; context: { $implicit: getNestedProperty(row, column.field) }">
+                            </ng-container>
                         </ng-container>
-                    </ng-container>
-                    <!-- Si no hay un template, mostrar texto por defecto -->
-                    <ng-template #defaultCell>{{ getNestedProperty(row, column.field) }}</ng-template>
-                </td>
-                <td *ngIf="actions">
-                    <p-button *ngFor="let action of actions" [icon]="action.icon" [label]="action.label"
-                        (onClick)="action.callback(row)">
-                    </p-button>
-                </td>
-            </tr>
+                        <!-- Si no hay un template, mostrar texto por defecto -->
+                        <ng-template #defaultCell>{{ getNestedProperty(row, column.field) }}</ng-template>
+                    </td>
+                    <td *ngIf="actions">
+                        <p-button *ngFor="let action of actions" [icon]="action.icon" [label]="action.label"
+                            (onClick)="action.callback(row)">
+                        </p-button>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #defaultContent>
+                <tr>
+                    <!-- `colspan` asegura que el contenido abarque todas las columnas -->
+                    <td [attr.colspan]="columns.length + (actions ? 1 : 0)" class="empty-state">
+                        <div>
+                            <img src="../../../../assets/2953962.jpg" alt="No data available" class="empty-image">
+                            <p class="empty-message">{{msg_not_found}}</p>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
         </ng-container>
-        <ng-template #defaultContent>
+
+        <!-- Indicador de carga -->
+        <ng-template #loadingState>
             <tr>
-                <!-- `colspan` asegura que el contenido abarque todas las columnas -->
-                <td [attr.colspan]="columns.length + (actions ? 1 : 0)" class="empty-state">
-                    <div>
-                        <img src="../../../../assets/2953962.jpg" alt="No data available" class="empty-image">
-                        <p class="empty-message">No hay datos disponibles en este momento.</p>
+                <td [attr.colspan]="columns.length + (actions ? 1 : 0)">
+                    <div class="loading-spinner">
+                        <p-progressSpinner ariaLabel="loading" />
+                        <p>Cargando datos...</p>
                     </div>
                 </td>
             </tr>
@@ -39,4 +53,4 @@
     </tbody>
 </table>
 <app-paginator [meta]="meta" (pageSelected)="onPageChange($event)"
-    [numberRegisters]="numberRegistersByPage"></app-paginator>
+    [numberRegistersByDefault]="numberRegistersByPage"></app-paginator>
