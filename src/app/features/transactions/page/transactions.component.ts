@@ -104,12 +104,12 @@ export class TransactionsComponent implements OnInit {
     this.loadTransactions();
   }
 
-  onSearch(searchTerm: string): void {
-    this.loadTransactions({ searchTerm });
+  onSearch(option: { page: number, per_page: number, search: string }): void {
+    this.loadTransactions({ searchTerm: option.search });
   }
 
-  onPageChange(data: { page: number; per_page: number }): void {
-    this.loadTransactions({ page: data.page, per_page: data.per_page });
+  onPageChange(data: { page: number; per_page: number, search: string }): void {
+    this.loadTransactions({ page: data.page, per_page: data.per_page, searchTerm: data.search });
   }
 
   private loadTransactions(params?: Partial<LoadTransactionParams>): void {
@@ -125,9 +125,10 @@ export class TransactionsComponent implements OnInit {
       searchTerm: '',
       ...params, // Sobrescribimos los valores con los parámetros que nos pasen
     };
-    console.log("AAAAAAAAAAAAAAAAAAAAA",finalParams);
+    console.log("AAAAAAAAAAAAAAAAAAAAA", finalParams);
     this.transactionService.getTransactions(finalParams).subscribe({
       next: (transactions: ApiResponse<TransactionData>) => {
+        console.log("ZZZZZ", transactions.data);
         this.transactions = transactions.data.transactions;
         this.metaData = transactions.data.meta;
       },

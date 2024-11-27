@@ -4,6 +4,9 @@
     display: inline-block;
 }
 
+span{
+    margin-left: 10px;
+}
 /* Botón del dropdown */
 .dropdown-toggle {
     background-color: var(--color-text-card-four);
@@ -12,6 +15,9 @@
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-self: space-between;
 }
 
 /* Menú del dropdown */
