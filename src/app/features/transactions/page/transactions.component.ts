@@ -6,6 +6,7 @@ import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.inter
 import { ActivatedRoute } from '@angular/router';
 import { dropDowsn } from '../../../shared/components/bottons/drop-down/drop-down.component';
 import { MONTHS, PAGE, PER_PAGE } from '../../../shared/constants/constants';
+import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
 
 interface LoadTransactionParams {
   page: number;
@@ -51,18 +52,20 @@ export class TransactionsComponent implements OnInit {
     { field: 'repeat', header: 'Repeat' },
   ];
 
-  actions = [
+  actions: actionsButton[] = [
     {
       label: '',
-      // label: 'Edit',
+      type: 'button',
       icon: 'pi pi-pencil',
-      callback: (row: any) => this.editRow(row),
+      color: 'primary',
+      callback: (row: number | string) => this.editRow(row),
     },
     {
       label: '',
-      // label: 'Delete',
+      type: 'button',
       icon: 'pi pi-trash',
-      callback: (row: any) => this.deleteRow(row),
+      color: 'danger',
+      callback: (row: number | string) => this.deleteRow(row),
     },
   ];
 
@@ -158,7 +161,15 @@ export class TransactionsComponent implements OnInit {
     console.log('Editing row:', row);
   }
 
-  deleteRow(row: any) {
-    console.log('Deleting row:', row);
+  deleteRow(id: number | string) {
+    this.transactionService.deleteTransaction(id).subscribe({
+      next: (response) => {
+        console.log('Deleted transaction:', response);
+        this.loadTransactions();
+      },
+      error: (error: any) => {
+        console.error('Error deleting transaction:', error);
+      },
+    })
   }
 }
