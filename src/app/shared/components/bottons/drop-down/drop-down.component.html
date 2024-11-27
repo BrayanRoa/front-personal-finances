@@ -1,6 +1,7 @@
 <div class="dropdown">
     <button pRipple class="dropdown-toggle" (click)="toggleDropdown()">
         {{titleDropDown}}
+        <span class="pi pi-chevron-down"></span>
     </button>
     <ul class="dropdown-menu" [class.show]="isDropdownOpen()">
         <li *ngFor="let option of optionsDropDown">

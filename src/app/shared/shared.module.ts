@@ -10,6 +10,7 @@ import { DropDownComponent } from './components/bottons/drop-down/drop-down.comp
 
 
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     PaginatorComponent,
@@ -21,7 +22,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     CommonModule,
     ButtonModule,
     ProgressBarModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    FormsModule
   ],
   exports: [
     PaginatorComponent,

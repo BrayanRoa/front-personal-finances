@@ -88,31 +88,8 @@
     }
 }
 
-p-button {
+p-button{
     margin-right: 5px;
-    padding: 0px;
-}
-
-.wrapper-bottons {
-    display: flex;
-
-}
-
-.edit-button {
-    background-color: blue;
-    color: white;
-}
-
-.delete-button {
-    background-color: red;
-    color: white;
-}
-
-button {
-    padding: 5px;
-    border-radius: 5px;
-    width: auto;
-    height: auto;
 }
 
 /* image by default */
@@ -133,8 +110,70 @@ button {
     margin: 0;
 }
 
-.center{
+
+/* SEARCH */
+.input-wrapper {
+    width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: end;
+    /* Centra verticalmente el contenido */
+    margin-bottom: 10px;
+    position: relative;
+    /* Necesario para posicionar el icono dentro del contenedor */
+}
+
+.input-wrapper input {
+    max-width: 250px;
+    /* Usa el ancho completo */
+    padding: 10px 40px 10px 15px;
+    /* Ajusta el padding derecho para no sobrelapar con el icono */
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: var(--color-cards-background);
+    color: var(--color-texto);
+}
+
+/* Botón "X" */
+.input-wrapper a {
+    position: absolute;
+    right: 10px;
+    /* Ubica el icono dentro del input */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+/* Cambia el color del icono al pasar el mouse */
+.input-wrapper a:hover {
+    color: red;
+    font-size: bold;
+}
+
+/* Cambios en el borde y sombra al enfocar */
+.input-wrapper input:focus {
+    border-color: #007bff;
+    /* Azul suave */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    /* Sombra más marcada */
+}
+
+/* Placeholder estilizado */
+.input-wrapper input::placeholder {
+    color: #aaa;
+    /* Color gris claro */
+    font-style: italic;
+    /* Estilo cursivo */
+}
+
+/* Placeholder para tema oscuro */
+.input-wrapper input.dark-theme::placeholder {
+    color: #bbb;
+    /* Placeholder gris claro */
 }

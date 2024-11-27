@@ -1,3 +1,11 @@
+<div class="input-wrapper">
+    <input type="text" [(ngModel)]="inputSearch" (input)="checkInput()" placeholder="Search...">
+    <a href="" (click)="clearSearch($event)">
+        <i class="pi pi-times"></i>
+    </a>
+</div>
+
+
 <table class="custom-table">
     <thead>
         <tr>
