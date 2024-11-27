@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../../../shared/service/base-service.service';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../../../shared/interfaces/common-response.interface';
+import { ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -42,5 +42,9 @@ export class TransactionService extends BaseService {
 
     getYears(): Observable<ApiResponse<number[]>> {
         return this.http.get<ApiResponse<number[]>>(`${this.endpoint}/get-years`, { headers: this.getHeaders() });
+    }
+
+    deleteTransaction(id: number | string): Observable<CommonResponse> {
+        return this.http.delete<CommonResponse>(`${this.endpoint}/${id}`, { headers: this.getHeaders() });
     }
 }

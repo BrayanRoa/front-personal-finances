@@ -1,4 +1,4 @@
-import { Component, effect, EventEmitter, Input, OnInit, Output, signal, TemplateRef } from '@angular/core';
+import { Component, effect, EventEmitter, Input, OnInit, Output, signal, TemplateRef, ViewChild } from '@angular/core';
 import { MetaData } from '../../interfaces/common-response.interface';
 import { NOT_FOUND_MSG } from '../../constants/constants';
 
@@ -8,77 +8,102 @@ import { NOT_FOUND_MSG } from '../../constants/constants';
   styleUrl: './table.component.css'
 })
 export class TableComponent implements OnInit {
-
+  // ** Inputs **
   @Input() columns: { field: string, header: string }[] = []; // Definición de columnas
   @Input() data: any[] = []; // Datos de la tabla
-  @Input() actions?: { label: string, icon?: string, callback: (row: any) => void }[];
-  @Input() cellTemplates: { [key: string]: TemplateRef<any> } = {}; // Recibir templates personalizados para las columnas
-  // TemplateRef es un tipo especial en Angular que representa una plantilla reutilizable.
+  @Input() actions?: {
+    label: string,
+    icon?: string,
+    color: 'primary' | 'secondary' | 'danger' | 'success',
+    callback: (row: any) => void
+  }[]; // Acciones para cada fila
+  @Input() cellTemplates: { [key: string]: TemplateRef<any> } = {}; // Templates personalizados
+  @Input() meta!: MetaData; // Metadatos de paginación
+  @Input() numberRegistersByPage!: number; // Registros por página
+  @ViewChild('appPaginator') paginatorComponent!: any; // Referencia al PaginatorComponent
 
-  @Input() meta!: MetaData
-  @Input() numberRegistersByPage!: number
+
+  // ** Outputs **
   @Output() paginate = new EventEmitter<{ page: number, per_page: number, search: string }>();
-  search = signal<string>("")
 
-  isLoading = true;
-  msg_not_found: string = NOT_FOUND_MSG
-
-  inputSearch: string = '';
+  // ** Estado interno **
+  search = signal<string>(""); // Búsqueda en tiempo real
+  inputSearch: string = ''; // Entrada del campo de búsqueda
+  isLoading = true; // Indica si se está cargando la tabla
+  msgNotFound: string = NOT_FOUND_MSG; // Mensaje de "no encontrado"
 
   constructor() {
+    // Reactividad de la búsqueda
     effect(() => {
-      const currentSearch = this.search();
       this.paginate.emit({
-        page: 1, // Reinicia siempre a la página 1 cuando cambia el search
+        page: 1, // Reinicia a la página 1 en cada búsqueda
         per_page: this.numberRegistersByPage,
-        search: currentSearch
+        search: this.search()
       });
     });
-
   }
 
   ngOnInit(): void {
+    this.simulateLoading();
+  }
+
+  // ** Métodos de ciclo de vida y auxiliares **
+  private simulateLoading(): void {
     setTimeout(() => {
       this.isLoading = false;
       if (this.data.length === 0) {
-        this.msg_not_found = NOT_FOUND_MSG;
+        this.msgNotFound = NOT_FOUND_MSG;
       }
-    }, 1000)
+    }, 1000);
   }
-  onPageChange(event: any) {
+
+  // ** Métodos públicos **
+  handlePageChange(event: any): void {
+    console.log("TABLE PAGINATOR", event);
     this.paginate.emit({
-      page: event.page, // para sincronizar correctamente con el paginador de PrimeNG
+      page: event.page,
       per_page: event.per_page,
       search: this.search()
     });
   }
 
-  checkInput() {
+  handleSearchInputChange(): void {
     if (this.inputSearch.length >= 3) {
-      this.search.set(this.inputSearch); // Actualiza el valor
+      this.search.set(this.inputSearch); // Actualiza búsqueda
     } else if (this.inputSearch.length === 0) {
-      this.search.set(''); // Resetea a un valor vacío si corresponde
+      this.search.set(''); // Resetea búsqueda
     }
   }
 
   clearSearch(event: Event): void {
-    event.preventDefault(); // Previene la acción por defecto del enlace
-    this.inputSearch = ''; // Limpia el contenido del input
-    this.checkInput(); // Llama a tu lógica para manejar el cambio
+    event.preventDefault();
+    this.inputSearch = ''; // Limpia el input
+    this.handleSearchInputChange();
   }
 
+  handleRowAction(id: number | string, icon?: string): void {
+    const action = this.actions?.find(action => action.icon === icon);
+    if (action) {
+      if (action.icon === 'pi pi-trash') {
+        action.callback(id);
+        this.meta.totalRecords -= 1
+
+        if (this.paginatorComponent) {
+          this.paginatorComponent.resetPage(); // Reinicia la página en el paginator
+        }
+      }
+    }
+  }
 
   getButtonClass(actionLabel: string): string {
-    if (actionLabel === 'Edit') {
-      return 'edit-button';  // Clase para el botón de editar (azul)
-    } else if (actionLabel === 'Delete') {
-      return 'delete-button';  // Clase para el botón de eliminar (rojo)
-    }
-    return '';  // Si no es 'Edit' ni 'Delete', no asigna clase
+    const buttonClasses: { [key: string]: string } = {
+      Edit: 'edit-button', // Clase para editar
+      Delete: 'delete-button' // Clase para eliminar
+    };
+    return buttonClasses[actionLabel] || '';
   }
 
   getNestedProperty(obj: any, path: string): any {
     return path.split('.').reduce((acc, part) => acc && acc[part], obj);
   }
-
 }
