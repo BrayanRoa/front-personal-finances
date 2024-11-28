@@ -11,7 +11,7 @@ export interface MetaData {
     next_page: boolean;
 }
 
-export interface CommonResponseCreate {
+export interface CommonResponse {
     status: number;
     statusMsg: string;
     data:string

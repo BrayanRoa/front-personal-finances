@@ -7,6 +7,7 @@ import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.inter
 import { dropDowsn } from '../../../shared/components/bottons/drop-down/drop-down.component';
 import { TransactionService } from '../../transactions/services/transaction.service';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
+import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
 
 interface TableColumn {
   field: string;
@@ -38,9 +39,9 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     { field: 'percentage', header: 'Percentage' },
   ];
 
-  actions = [
-    { label: '', icon: 'pi pi-pencil', callback: (row: any) => this.editRow(row) },
-    { label: '', icon: 'pi pi-trash', callback: (row: any) => this.deleteRow(row) },
+  actions:actionsButton[] = [
+    { label: '', icon: 'pi pi-pencil', type:"button", color:"primary", callback: (row: any) => this.editRow(row) },
+    { label: '', icon: 'pi pi-trash', type:"button", color:"danger", callback: (row: any) => this.deleteRow(row) },
   ];
 
   constructor(
@@ -67,7 +68,7 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
   private loadWalletSummary(): void {
     this.dashboardService.summaryWallets().subscribe({
       next: (response) => { this.walletSummary = response.data; },
-      error: (error) => this.handleError(error, 'Error fetching wallet summary'),
+      error: (error) => this.handleResponse(error, 'Error fetching wallet summary'),
     });
   }
 
@@ -75,14 +76,14 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     const yearDefault = this.selectedYear();
     this.dashboardService.graphVertical(yearDefault.toString()).subscribe({
       next: (response) => { this.barChartData.set(response.data) },
-      error: (error) => this.handleError(error, 'Error fetching bar chart data'),
+      error: (error) => this.handleResponse(error, 'Error fetching bar chart data'),
     });
   }
 
   private loadPieChartData(): void {
     this.dashboardService.graphPolarity().subscribe({
       next: (response) => { this.pieChartData.set(response.data) },
-      error: (error) => this.handleError(error, 'Error fetching pie chart data'),
+      error: (error) => this.handleResponse(error, 'Error fetching pie chart data'),
     });
   }
 
@@ -92,14 +93,14 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
         this.budgets.set(response.data.budgets);
         this.metaBudgets = response.data.meta;
       },
-      error: (error) => this.handleError(error, 'Error fetching budgets'),
+      error: (error) => this.handleResponse(error, 'Error fetching budgets'),
     });
   }
 
   private loadBankDetails(): void {
     this.walletService.getBanksInformation().subscribe({
       next: (response) => { this.bankDetails.set(response.data) },
-      error: (error) => this.handleError(error, 'Error fetching bank details'),
+      error: (error) => this.handleResponse(error, 'Error fetching bank details'),
     });
   }
 
@@ -109,7 +110,7 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
         const years = response.data.map((year) => ({ id: year, name: year.toString() }))
         this.years.set(years)
       },
-      error: (error) => this.handleError(error, 'Error fetching years'),
+      error: (error) => this.handleResponse(error, 'Error fetching years'),
     })
   }
 

@@ -1,11 +1,14 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { TransactionService } from '../services/transaction.service';
 import { Transaction, TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
-import { MetaData, ApiResponse } from '../../../shared/interfaces/common-response.interface';
+import { MetaData, ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.interface';
 import { ActivatedRoute } from '@angular/router';
 import { dropDowsn } from '../../../shared/components/bottons/drop-down/drop-down.component';
 import { MONTHS, PAGE, PER_PAGE } from '../../../shared/constants/constants';
+import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
+import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
+import { confirmDelete } from '../../../shared/components/sweet-alert-modal/sweet-alert-modal';
 
 interface LoadTransactionParams {
   page: number;
@@ -21,7 +24,7 @@ interface LoadTransactionParams {
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css'
 })
-export class TransactionsComponent implements OnInit {
+export class TransactionsComponent extends BaseComponent implements OnInit {
 
   selectedBankId = signal<number | null>(null); // Signal para el banco seleccionado
   selectedYear = signal<number | null>(null); // Signal para el año seleccionado
@@ -51,25 +54,29 @@ export class TransactionsComponent implements OnInit {
     { field: 'repeat', header: 'Repeat' },
   ];
 
-  actions = [
+  actions: actionsButton[] = [
     {
       label: '',
-      // label: 'Edit',
+      type: 'button',
       icon: 'pi pi-pencil',
-      callback: (row: any) => this.editRow(row),
+      color: 'primary',
+      callback: (row: number | string) => this.editRow(row),
     },
     {
       label: '',
-      // label: 'Delete',
+      type: 'button',
       icon: 'pi pi-trash',
-      callback: (row: any) => this.deleteRow(row),
+      color: 'danger',
+      callback: (row: number | string) => this.deleteRow(row),
     },
   ];
 
   constructor(
     private transactionService: TransactionService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+    super()
+  }
 
   ngOnInit(): void {
     this.loadYears();
@@ -158,7 +165,19 @@ export class TransactionsComponent implements OnInit {
     console.log('Editing row:', row);
   }
 
-  deleteRow(row: any) {
-    console.log('Deleting row:', row);
+  deleteRow(id: number | string) {
+    confirmDelete().then((isConfirmed) => {
+      if(isConfirmed){
+        this.transactionService.deleteTransaction(id).subscribe({
+          next: (response) => {
+            this.handleResponse(response.status, response.data);
+            this.loadTransactions()
+          },
+          error: (error: CommonResponse) => {
+            this.handleResponse(error.status, error.data);
+          },
+        })
+      }
+    })
   }
 }

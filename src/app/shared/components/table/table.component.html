@@ -1,5 +1,5 @@
 <div class="input-wrapper">
-    <input type="text" [(ngModel)]="inputSearch" (input)="checkInput()" placeholder="Search...">
+    <input type="text" [(ngModel)]="inputSearch" (input)="handleSearchInputChange()" placeholder="Search...">
     <a href="" (click)="clearSearch($event)">
         <i class="pi pi-times"></i>
     </a>
@@ -28,9 +28,14 @@
                         <ng-template #defaultCell>{{ getNestedProperty(row, column.field) }}</ng-template>
                     </td>
                     <td *ngIf="actions">
-                        <p-button *ngFor="let action of actions" [icon]="action.icon" [label]="action.label"
+                        <!-- <p-button *ngFor="let action of actions" [icon]="action.icon" [label]="action.label"
                             (onClick)="action.callback(row)">
-                        </p-button>
+                        </p-button> -->
+
+                        <app-button *ngFor="let action of actions" label="{{action.label}}" icon="{{action.icon}}"
+                            [color]="action.color" [isDisabled]="false"
+                            (onClick)="handleRowAction(row.id, action.icon)">
+                        </app-button>
                     </td>
                 </tr>
             </ng-container>
@@ -40,7 +45,7 @@
                     <td [attr.colspan]="columns.length + (actions ? 1 : 0)" class="empty-state">
                         <div>
                             <img src="../../../../assets/2953962.jpg" alt="No data available" class="empty-image">
-                            <p class="empty-message">{{msg_not_found}}</p>
+                            <p class="empty-message">{{msgNotFound}}</p>
                         </div>
                     </td>
                 </tr>
@@ -60,5 +65,5 @@
         </ng-template>
     </tbody>
 </table>
-<app-paginator [meta]="meta" (pageSelected)="onPageChange($event)"
-    [numberRegistersByDefault]="numberRegistersByPage"></app-paginator>
+<app-paginator #appPaginator [meta]="meta" (pageSelected)="handlePageChange($event)"
+    [numberRegistersByDefault]="numberRegistersByPage" ></app-paginator>
