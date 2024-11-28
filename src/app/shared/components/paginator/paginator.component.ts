@@ -22,6 +22,7 @@ export class PaginatorComponent {
   constructor() {
     // Efecto para emitir cambios al padre cuando se actualicen los signals
     effect(() => {
+      console.log("hollaaaa");
       this.pageSelected.emit({
         page: this.page(),
         per_page: this.perPage()
@@ -56,8 +57,13 @@ export class PaginatorComponent {
     }
   }
 
+  resetPage() {
+    this.page.set(1); // Reinicia el signal de la página a 1
+  }
+
   // Cambiar página
   selectPage(page: number) {
+    console.log("page",this.page())
     this.page.set(page); // Actualizamos el signal de página
   }
 
@@ -69,9 +75,12 @@ export class PaginatorComponent {
 
   // Avanza al siguiente conjunto de páginas
   nextPage() {
+    console.log("ANTES",this.page());
     if (this.meta.currentPage < this.meta.totalPages) {
+      console.log("SI ENTREE");
       this.page.set(this.meta.currentPage + 1);
     }
+    console.log("DESPUES",this.page());
   }
 
   // Retrocede al conjunto anterior de páginas

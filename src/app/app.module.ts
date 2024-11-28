@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './layout/layout.module';
 import { AuthModule } from './auth/auth.module';
 import { RippleModule } from 'primeng/ripple';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/interceptor/auth.interceptro';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +22,9 @@ import { RippleModule } from 'primeng/ripple';
     BrowserAnimationsModule,
     RippleModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

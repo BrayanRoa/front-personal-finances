@@ -1,1 +1,4 @@
-<p>button works!</p>
+<button [type]="type" [class]="['btn', 'btn-' + color]" [disabled]="isDisabled" (click)="handleClick($event)">
+    <i *ngIf="icon" [class]="icon" aria-hidden="true"></i>
+    <span *ngIf="label">{{ label }}</span>
+</button>
