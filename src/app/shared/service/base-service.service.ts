@@ -11,8 +11,7 @@ export class BaseService {
     // Método para obtener headers
     getHeaders() {
         return new HttpHeaders()
-            .set('Content-Type', 'application/json')
-            .set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+            .set('Content-Type', 'application/json'); // No necesitas manejar el token aquí
     }
 
     // Método para construir parámetros de URL

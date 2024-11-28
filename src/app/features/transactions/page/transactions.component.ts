@@ -1,12 +1,14 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { TransactionService } from '../services/transaction.service';
 import { Transaction, TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
-import { MetaData, ApiResponse } from '../../../shared/interfaces/common-response.interface';
+import { MetaData, ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.interface';
 import { ActivatedRoute } from '@angular/router';
 import { dropDowsn } from '../../../shared/components/bottons/drop-down/drop-down.component';
 import { MONTHS, PAGE, PER_PAGE } from '../../../shared/constants/constants';
 import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
+import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
+import { confirmDelete } from '../../../shared/components/sweet-alert-modal/sweet-alert-modal';
 
 interface LoadTransactionParams {
   page: number;
@@ -22,7 +24,7 @@ interface LoadTransactionParams {
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css'
 })
-export class TransactionsComponent implements OnInit {
+export class TransactionsComponent extends BaseComponent implements OnInit {
 
   selectedBankId = signal<number | null>(null); // Signal para el banco seleccionado
   selectedYear = signal<number | null>(null); // Signal para el año seleccionado
@@ -72,7 +74,9 @@ export class TransactionsComponent implements OnInit {
   constructor(
     private transactionService: TransactionService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+    super()
+  }
 
   ngOnInit(): void {
     this.loadYears();
@@ -162,14 +166,18 @@ export class TransactionsComponent implements OnInit {
   }
 
   deleteRow(id: number | string) {
-    this.transactionService.deleteTransaction(id).subscribe({
-      next: (response) => {
-        console.log('Deleted transaction:', response);
-        this.loadTransactions();
-      },
-      error: (error: any) => {
-        console.error('Error deleting transaction:', error);
-      },
+    confirmDelete().then((isConfirmed) => {
+      if(isConfirmed){
+        this.transactionService.deleteTransaction(id).subscribe({
+          next: (response) => {
+            this.handleResponse(response.status, response.data);
+            this.loadTransactions()
+          },
+          error: (error: CommonResponse) => {
+            this.handleResponse(error.status, error.data);
+          },
+        })
+      }
     })
   }
 }

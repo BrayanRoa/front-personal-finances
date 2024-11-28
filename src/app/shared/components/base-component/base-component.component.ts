@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { showModal } from '../sweet-alert-modal/sweet-alert-modal';
 
 @Component({
   selector: 'app-base-component',
@@ -7,8 +8,19 @@ import { Component } from '@angular/core';
 })
 export class BaseComponent {
 
-  handleError(error: any, message: string): void {
-    console.error(`${message}:`, error);
+  // handleError(error: any, message: string): void {
+    
+  // }
+
+  handleResponse(code:number, message:string): void {
+    if(code===200){
+      showModal({
+        title: 'Success',
+        text: message,
+        icon: 'success',
+        confirmButtonText: 'Accept'
+      })
+    }
   }
 
 }
