@@ -34,10 +34,15 @@ export class TransactionService extends BaseService {
         const fullUrl = `${this.endpoint}`;
         console.log('Request URL:', fullUrl);
 
+        // return this.http.get<ApiResponse<TransactionData>>(fullUrl, {
+        //     params,
+        //     headers: this.getHeaders()
+        // });
+
         return this.http.get<ApiResponse<TransactionData>>(fullUrl, {
             params,
-            headers: this.getHeaders()
         });
+
     }
 
     getYears(): Observable<ApiResponse<number[]>> {

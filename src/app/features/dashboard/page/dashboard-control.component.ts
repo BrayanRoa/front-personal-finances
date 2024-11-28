@@ -68,7 +68,7 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
   private loadWalletSummary(): void {
     this.dashboardService.summaryWallets().subscribe({
       next: (response) => { this.walletSummary = response.data; },
-      error: (error) => this.handleError(error, 'Error fetching wallet summary'),
+      error: (error) => this.handleResponse(error, 'Error fetching wallet summary'),
     });
   }
 
@@ -76,14 +76,14 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     const yearDefault = this.selectedYear();
     this.dashboardService.graphVertical(yearDefault.toString()).subscribe({
       next: (response) => { this.barChartData.set(response.data) },
-      error: (error) => this.handleError(error, 'Error fetching bar chart data'),
+      error: (error) => this.handleResponse(error, 'Error fetching bar chart data'),
     });
   }
 
   private loadPieChartData(): void {
     this.dashboardService.graphPolarity().subscribe({
       next: (response) => { this.pieChartData.set(response.data) },
-      error: (error) => this.handleError(error, 'Error fetching pie chart data'),
+      error: (error) => this.handleResponse(error, 'Error fetching pie chart data'),
     });
   }
 
@@ -93,14 +93,14 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
         this.budgets.set(response.data.budgets);
         this.metaBudgets = response.data.meta;
       },
-      error: (error) => this.handleError(error, 'Error fetching budgets'),
+      error: (error) => this.handleResponse(error, 'Error fetching budgets'),
     });
   }
 
   private loadBankDetails(): void {
     this.walletService.getBanksInformation().subscribe({
       next: (response) => { this.bankDetails.set(response.data) },
-      error: (error) => this.handleError(error, 'Error fetching bank details'),
+      error: (error) => this.handleResponse(error, 'Error fetching bank details'),
     });
   }
 
@@ -110,7 +110,7 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
         const years = response.data.map((year) => ({ id: year, name: year.toString() }))
         this.years.set(years)
       },
-      error: (error) => this.handleError(error, 'Error fetching years'),
+      error: (error) => this.handleResponse(error, 'Error fetching years'),
     })
   }
 
