@@ -1,13 +1,13 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { ApiResponse, MetaData } from '../../../shared/interfaces/common-response.interface';
+import { MetaData } from '../../../shared/interfaces/common-response.interface';
 import { DashboardService } from '../services/dashboard.service';
-import { budgetData, budgetInformation, graphPolarity, graphVerticalData, summaryWalletsResponse } from '../../../shared/interfaces/dashboard/summary-wallets.interface';
+import { budgetData, graphPolarity, graphVerticalData, summaryWalletsResponse } from '../../../shared/interfaces/dashboard/summary-wallets.interface';
 import { WalletService } from '../../../core/service/wallet.service';
 import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.interface';
-import { dropDowsn } from '../../../shared/components/bottons/drop-down/drop-down.component';
 import { TransactionService } from '../../transactions/services/transaction.service';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
+import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
 
 interface TableColumn {
   field: string;
@@ -20,14 +20,14 @@ interface TableColumn {
   styleUrls: ['./dashboard-control.component.css']
 })
 export class DashboardControlComponent extends BaseComponent implements OnInit {
-  
+
   walletSummary!: summaryWalletsResponse;
   barChartData = signal<graphVerticalData[]>([]);
   pieChartData = signal<graphPolarity[]>([]);
   budgets = signal<budgetData[]>([]);
   metaBudgets!: MetaData;
   bankDetails = signal<BanksInformation[]>([]);
-  years = signal<dropDowsn[]>([]);
+  years = signal<DropdownOption[]>([]);
   selectedYear = signal<number>(new Date().getFullYear()); // Año inicial por defecto
 
   readonly DEFAULT_PAGE = 1;
@@ -39,9 +39,9 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     { field: 'percentage', header: 'Percentage' },
   ];
 
-  actions:actionsButton[] = [
-    { label: '', icon: 'pi pi-pencil', type:"button", color:"primary", callback: (row: any) => this.editRow(row) },
-    { label: '', icon: 'pi pi-trash', type:"button", color:"danger", callback: (row: any) => this.deleteRow(row) },
+  actions: actionsButton[] = [
+    { label: '', icon: 'pi pi-pencil', type: "button", color: "primary", callback: (row: any) => this.editRow(row) },
+    { label: '', icon: 'pi pi-trash', type: "button", color: "danger", callback: (row: any) => this.deleteRow(row) },
   ];
 
   constructor(

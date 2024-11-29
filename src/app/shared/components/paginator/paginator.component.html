@@ -17,6 +17,6 @@
         </button>
         <p-button icon="pi pi-angle-right" (onClick)="nextPage()" [rounded]="true" [text]="true"></p-button>
         <p-button icon="pi pi-angle-double-right" (onClick)="lastPage()" [rounded]="true" [text]="true"></p-button>
-        <app-drop-down [titleDropDown]="'#'" [optionsDropDown]="options" (onChange)="selectPerPage($event)"></app-drop-down>
+        <app-drop-down [titleDropDown]="titleDropdow()" [optionsDropDown]="options" (onChange)="selectPerPage($event)"></app-drop-down>
     </div>
 </div>

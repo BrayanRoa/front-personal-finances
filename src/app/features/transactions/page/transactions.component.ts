@@ -4,11 +4,11 @@ import { Transaction, TransactionData } from '../../../shared/interfaces/transac
 import { MetaData, ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.interface';
 import { ActivatedRoute } from '@angular/router';
-import { dropDowsn } from '../../../shared/components/bottons/drop-down/drop-down.component';
 import { MONTHS, PAGE, PER_PAGE } from '../../../shared/constants/constants';
 import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 import { confirmDelete } from '../../../shared/components/sweet-alert-modal/sweet-alert-modal';
+import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
 
 interface LoadTransactionParams {
   page: number;
@@ -30,10 +30,13 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   selectedYear = signal<number | null>(null); // Signal para el año seleccionado
   selectedMonth = signal<number>(new Date().getMonth() + 1); // Signal para el mes seleccionado
   nameMonthSelected = signal<string>(''); // Nombre del mes seleccionado
-  years = signal<dropDowsn[]>([]);
+  years = signal<DropdownOption[]>([]);
   walletsData = signal<BanksInformation[]>([]);
 
   months = MONTHS;
+
+  eventTrigger = false; // Estado que se pasará al hijo
+
 
   // DATA SHARED
   transactions: Transaction[] = [];
@@ -167,11 +170,13 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   deleteRow(id: number | string) {
     confirmDelete().then((isConfirmed) => {
-      if(isConfirmed){
+      if (isConfirmed) {
         this.transactionService.deleteTransaction(id).subscribe({
           next: (response) => {
             this.handleResponse(response.status, response.data);
             this.loadTransactions()
+            this.eventTrigger = !this.eventTrigger;
+            console.log("cambie", this.eventTrigger);
           },
           error: (error: CommonResponse) => {
             this.handleResponse(error.status, error.data);

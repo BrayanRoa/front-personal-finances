@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BanksInformation } from '../../../../shared/interfaces/wallet/wallet.interface';
-import { dropDowsn } from '../../../../shared/components/bottons/drop-down/drop-down.component';
+import { DropdownOption } from '../../../../shared/components/bottons/drop-down/drop-down.component';
 
 @Component({
   selector: 'app-user-header',
@@ -12,7 +12,7 @@ export class UserHeaderComponent implements OnInit {
   @Input() wallets: BanksInformation[] = []
   walletSelected: string = ""
 
-  @Input() years: dropDowsn[] = []
+  @Input() years: DropdownOption[] = []
   yearSelect: number = new Date().getFullYear()
 
   @Output() wallet = new EventEmitter<(number)>
@@ -27,13 +27,13 @@ export class UserHeaderComponent implements OnInit {
 
   }
 
-  onBankChange(options: dropDowsn) {
+  onBankChange(options: DropdownOption) {
     console.log("OJO", options);
     this.walletSelected = options.name
     this.wallet.emit(+options.id)
   }
 
-  onYearChange(options: dropDowsn) {
+  onYearChange(options: DropdownOption) {
     console.log(options);
     this.yearSelect = +options.id
     this.year.emit(+options.id)

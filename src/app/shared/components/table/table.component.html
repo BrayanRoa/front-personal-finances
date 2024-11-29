@@ -1,14 +1,7 @@
-<div class="input-wrapper">
-    <input type="text" [(ngModel)]="inputSearch" (input)="handleSearchInputChange()" placeholder="Search...">
-    <a href="" (click)="clearSearch($event)">
-        <i class="pi pi-times"></i>
-    </a>
-</div>
-
-
 <table class="custom-table">
     <thead>
         <tr>
+            <th>#</th> <!-- Nueva columna para numeración -->
             <th *ngFor="let column of columns">{{ column.header }}</th>
             <th *ngIf="actions">Actions</th> <!-- Columna para las acciones -->
         </tr>
@@ -16,22 +9,18 @@
     <tbody>
         <ng-container *ngIf="!isLoading; else loadingState">
             <ng-container *ngIf="data.length > 0; else defaultContent">
-                <tr *ngFor="let row of data">
+                <tr *ngFor="let row of data; index as i">
+                    <!-- Cálculo del índice global -->
+                    <td>{{ getGlobalIndex(i) }}</td>
                     <td *ngFor="let column of columns">
-                        <!-- Si hay un template definido para la columna, úsalo -->
                         <ng-container *ngIf="cellTemplates[column.field]; else defaultCell">
                             <ng-container
                                 *ngTemplateOutlet="cellTemplates[column.field]; context: { $implicit: getNestedProperty(row, column.field) }">
                             </ng-container>
                         </ng-container>
-                        <!-- Si no hay un template, mostrar texto por defecto -->
                         <ng-template #defaultCell>{{ getNestedProperty(row, column.field) }}</ng-template>
                     </td>
                     <td *ngIf="actions">
-                        <!-- <p-button *ngFor="let action of actions" [icon]="action.icon" [label]="action.label"
-                            (onClick)="action.callback(row)">
-                        </p-button> -->
-
                         <app-button *ngFor="let action of actions" label="{{action.label}}" icon="{{action.icon}}"
                             [color]="action.color" [isDisabled]="false"
                             (onClick)="handleRowAction(row.id, action.icon)">
@@ -41,23 +30,21 @@
             </ng-container>
             <ng-template #defaultContent>
                 <tr>
-                    <!-- `colspan` asegura que el contenido abarque todas las columnas -->
                     <td [attr.colspan]="columns.length + (actions ? 1 : 0)" class="empty-state">
                         <div>
                             <img src="../../../../assets/2953962.jpg" alt="No data available" class="empty-image">
-                            <p class="empty-message">{{msgNotFound}}</p>
+                            <p class="empty-message">{{ msgNotFound }}</p>
                         </div>
                     </td>
                 </tr>
             </ng-template>
         </ng-container>
 
-        <!-- Indicador de carga -->
         <ng-template #loadingState>
             <tr>
                 <td [attr.colspan]="columns.length + (actions ? 1 : 0)">
                     <div class="loading-spinner">
-                        <p-progressSpinner ariaLabel="loading" />
+                        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
                         <p>Cargando datos...</p>
                     </div>
                 </td>
@@ -66,4 +53,4 @@
     </tbody>
 </table>
 <app-paginator #appPaginator [meta]="meta" (pageSelected)="handlePageChange($event)"
-    [numberRegistersByDefault]="numberRegistersByPage" ></app-paginator>
+    [numberRegistersByDefault]="numberRegistersByPage"></app-paginator>

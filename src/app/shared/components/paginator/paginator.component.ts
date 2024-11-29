@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges, signal, effect } from '@angular/core';
 import { MetaData } from '../../interfaces/common-response.interface';
-import { dropDowsn } from '../bottons/drop-down/drop-down.component';
+import { DropdownOption } from '../bottons/drop-down/drop-down.component';
 
 @Component({
   selector: 'app-paginator',
@@ -13,7 +13,8 @@ export class PaginatorComponent {
   @Input() numberRegistersByDefault!: number; // Valor inicial para registros por página
   @Output() pageSelected = new EventEmitter<{ page: number, per_page: number }>();
 
-  options: dropDowsn[] = [];
+  options: DropdownOption[] = [];
+  titleDropdow = signal<string>('#')
 
   // Signals para el estado reactivo
   page = signal<number>(1);
@@ -39,7 +40,7 @@ export class PaginatorComponent {
     // Genera opciones si cambia la meta
     if (changes['meta'] && this.meta?.totalRecords) {
       this.generateRange(this.meta.totalPages);
-      if(this.options.length === 0){
+      if (this.options.length === 0) {
         this.generateOptions();
       }
     }
@@ -55,32 +56,32 @@ export class PaginatorComponent {
       const data = this.perPage() * index; // Usa el valor actual del signal perPage
       this.options.push({ id: data, name: data.toString() });
     }
+    this.titleDropdow.set(this.options[0].name);
   }
 
   resetPage() {
+    this.titleDropdow.set(this.options[0].name); // Resetea el título del menú desplegable con el primer elemento
     this.page.set(1); // Reinicia el signal de la página a 1
+    this.perPage.set(this.numberRegistersByDefault)
   }
 
   // Cambiar página
   selectPage(page: number) {
-    console.log("page",this.page())
     this.page.set(page); // Actualizamos el signal de página
   }
 
   // Cambiar el número de registros por página
-  selectPerPage(option:{id: string | number, name: string}) {
+  selectPerPage(option: { id: string | number, name: string }) {
     this.page.set(1)
     this.perPage.set(+option.id); // Actualizamos el signal de registros por página
+    this.titleDropdow.set(option.name);
   }
 
   // Avanza al siguiente conjunto de páginas
   nextPage() {
-    console.log("ANTES",this.page());
     if (this.meta.currentPage < this.meta.totalPages) {
-      console.log("SI ENTREE");
       this.page.set(this.meta.currentPage + 1);
     }
-    console.log("DESPUES",this.page());
   }
 
   // Retrocede al conjunto anterior de páginas

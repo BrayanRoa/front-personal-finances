@@ -1,4 +1,4 @@
-import { Component, effect, EventEmitter, Input, OnInit, Output, signal, TemplateRef, ViewChild } from '@angular/core';
+import { Component, effect, EventEmitter, Input, OnChanges, OnInit, Output, signal, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { MetaData } from '../../interfaces/common-response.interface';
 import { NOT_FOUND_MSG } from '../../constants/constants';
 
@@ -7,10 +7,11 @@ import { NOT_FOUND_MSG } from '../../constants/constants';
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
   // ** Inputs **
-  @Input() columns: { field: string, header: string }[] = []; // Definición de columnas
   @Input() data: any[] = []; // Datos de la tabla
+  @Input() meta!: MetaData; // Metadatos de paginación
+  @Input() columns: { field: string, header: string }[] = []; // Definición de columnas
   @Input() actions?: {
     label: string,
     icon?: string,
@@ -18,10 +19,10 @@ export class TableComponent implements OnInit {
     callback: (row: any) => void
   }[]; // Acciones para cada fila
   @Input() cellTemplates: { [key: string]: TemplateRef<any> } = {}; // Templates personalizados
-  @Input() meta!: MetaData; // Metadatos de paginación
   @Input() numberRegistersByPage!: number; // Registros por página
   @ViewChild('appPaginator') paginatorComponent!: any; // Referencia al PaginatorComponent
 
+  @Input() eventTrigger!: boolean;
 
   // ** Outputs **
   @Output() paginate = new EventEmitter<{ page: number, per_page: number, search: string }>();
@@ -41,6 +42,13 @@ export class TableComponent implements OnInit {
         search: this.search()
       });
     });
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['eventTrigger']) {
+      console.log("AJA CAMBIE", changes['eventTrigger']);
+      this.meta.totalRecords -= 1
+      this.paginatorComponent.resetPage(); // Reinicia la página en el paginator
+    }
   }
 
   ngOnInit(): void {
@@ -84,15 +92,20 @@ export class TableComponent implements OnInit {
   handleRowAction(id: number | string, icon?: string): void {
     const action = this.actions?.find(action => action.icon === icon);
     if (action) {
-      if (action.icon === 'pi pi-trash') {
-        action.callback(id);
-        this.meta.totalRecords -= 1
+      action.callback(id);
 
-        if (this.paginatorComponent) {
-          this.paginatorComponent.resetPage(); // Reinicia la página en el paginator
-        }
-      }
     }
+  }
+
+  updateData(action: boolean) {
+    // if (action.icon === 'pi pi-trash') {
+    if (action) {
+      this.meta.totalRecords -= 1
+      // if (this.paginatorComponent) {
+      this.paginatorComponent.resetPage(); // Reinicia la página en el paginator
+    }
+    // }
+    // }
   }
 
   getButtonClass(actionLabel: string): string {
@@ -106,4 +119,11 @@ export class TableComponent implements OnInit {
   getNestedProperty(obj: any, path: string): any {
     return path.split('.').reduce((acc, part) => acc && acc[part], obj);
   }
+
+  getGlobalIndex(index: number): number {
+    const currentPage = this.meta?.currentPage || 1; // Página actual
+    const perPage = this.numberRegistersByPage || 10; // Registros por página
+    return (currentPage - 1) * perPage + (index + 1); // Cálculo del índice global
+}
+
 }
