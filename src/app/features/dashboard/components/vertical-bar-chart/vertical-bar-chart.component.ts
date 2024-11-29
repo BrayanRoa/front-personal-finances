@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, signal, SimpleChanges } from '@angular/core';
 import { graphVerticalData } from '../../../../shared/interfaces/dashboard/summary-wallets.interface';
-import { dropDowsn } from '../../../../shared/components/bottons/drop-down/drop-down.component';
+import { DropdownOption } from '../../../../shared/components/bottons/drop-down/drop-down.component';
 
 @Component({
   selector: 'app-vertical-bar-chart',
@@ -11,7 +11,7 @@ export class VerticalBarChartComponent implements OnChanges {
 
   // isDropdownOpen = signal<boolean>(false);
   // month: number = new Date().getFullYear()
-  @Input() dataYears: dropDowsn[] = []
+  @Input() dataYears: DropdownOption[] = []
   yearSelected: number = new Date().getFullYear();
   @Output() onYearSelected = new EventEmitter<number>();
 
