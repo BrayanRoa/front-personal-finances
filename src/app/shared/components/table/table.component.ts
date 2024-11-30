@@ -124,6 +124,6 @@ export class TableComponent implements OnInit, OnChanges {
     const currentPage = this.meta?.currentPage || 1; // Página actual
     const perPage = this.numberRegistersByPage || 10; // Registros por página
     return (currentPage - 1) * perPage + (index + 1); // Cálculo del índice global
-}
+  }
 
 }
