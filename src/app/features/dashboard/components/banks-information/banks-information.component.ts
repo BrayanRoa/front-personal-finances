@@ -22,7 +22,7 @@ export class BanksInformationComponent implements OnChanges {
 
   updateChar() {
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColor = documentStyle.getPropertyValue('--primary-color');
 
     this.data = {
       labels: this.bankData.map(bankData => { return bankData.name }),

@@ -8,12 +8,10 @@ import { VerticalBarChartComponent } from './components/vertical-bar-chart/verti
 import { WalletCardComponent } from './components/wallet-card/wallet-card.component';
 import { DashboardControlComponent } from './page/dashboard-control.component';
 
-import { ProgressBarModule } from 'primeng/progressbar';
-import { ChartModule } from 'primeng/chart';
-import { TableModule } from 'primeng/table';
-import { PaginatorModule } from 'primeng/paginator';
+
 // For dynamic progressbar demo
 import { SharedModule } from '../../shared/shared.module';
+import { PrimeNgModule } from '../../prime-ng/prime-ng.module';
 
 @NgModule({
   declarations: [
@@ -26,11 +24,8 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    ProgressBarModule,
     SharedModule,
-    ChartModule,
-    TableModule,
-    PaginatorModule
+    PrimeNgModule
   ],
   exports: [
     DashboardControlComponent

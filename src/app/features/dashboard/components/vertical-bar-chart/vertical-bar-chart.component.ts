@@ -37,7 +37,7 @@ export class VerticalBarChartComponent implements OnChanges {
       .map(d => d.total);               // Mapea a sus totales
 
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColor = documentStyle.getPropertyValue('--primary-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 

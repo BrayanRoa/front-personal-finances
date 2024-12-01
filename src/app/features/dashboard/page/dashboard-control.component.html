@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
 
     <app-wallet-card [walletSummary]="walletSummary"></app-wallet-card>
 
@@ -38,18 +38,65 @@
 
         </div>
 
-
-        <!-- Template para los iconos -->
-        <!-- <ng-template #iconTemplate let-value>
-            <i [class]="value"></i> <!-- Renderiza clases de íconos dinámicos -->
-        <!-- </ng-template> -->
-
-        <!-- Template para las acciones -->
-        <!-- <ng-template #actionsTemplate let-row="row">
-            <button class="btn btn-primary">Edit</button>
-            <button class="btn btn-danger">Delete</button>
-        </ng-template>  -->
         <div class="item item5">Item 5</div>
         <div class="item item6">Item 6</div>
+    </div>
+</div> -->
+
+<div class="grid">
+
+    <div class="col-12 md:col-12">
+        <app-wallet-card [walletSummary]="walletSummary"></app-wallet-card>
+    </div>
+
+
+    <div class="col-12 md:col-8">
+        <!-- <div class="text-center p-3 border-round-sm bg-primary font-bold"> -->
+        <p-panel header="Transaction By Month">
+            <app-vertical-bar-chart class="" [dataGraph]="barChartData()" [dataYears]="years()"
+                (onYearSelected)="onChangeYear($event)"></app-vertical-bar-chart>
+        </p-panel>
+
+        <!-- </div> -->
+    </div>
+    <div class="col-12 md:col-4">
+        <p-panel header="Bank Information" class="">
+            <app-banks-information class="flex flex-column align-items-center justify-content-center"
+                [bankData]="bankDetails()"></app-banks-information>
+        </p-panel>
+    </div>
+
+    <div class="col-12 md:col-4">
+        <p-panel header="Transaction By Category">
+            <app-polar-bar-chart class="flex flex-column align-items-center justify-content-center"
+                [dataPolar]="pieChartData()"></app-polar-bar-chart>
+        </p-panel>
+    </div>
+
+    <div class="col-12 md:col-8">
+
+        <p-panel header="Transaction By Category">
+            <div class="title-container">
+
+                <!-- <div class="dropdown">
+                    <app-drop-down [titleDropDown]="'Select Budgets'" [optionsDropDown]="years()">
+                    </app-drop-down>
+                </div> -->
+            </div>
+            <app-table [data]="budgets()" [meta]="metaBudgets" [numberRegistersByPage]="5" [columns]="tableColumns"
+                (paginate)="onPageChange($event)" [actions]="actions" [cellTemplates]="{
+                percentage:progressTemplate,
+                limit_amount: currencyTemplate,
+            }"></app-table>
+
+            <ng-template #progressTemplate let-value>
+                <p-progressBar [value]="value"></p-progressBar>
+            </ng-template>
+
+            <ng-template #currencyTemplate let-value>
+                {{ value | currency:'USD':'symbol':'1.2-2' }}
+            </ng-template>
+
+        </p-panel>
     </div>
 </div>
