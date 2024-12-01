@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { LoginComponent } from './components/login/login.component';
 import { AuthMainPageComponent } from './pages/auth-main-page/auth-main-page.component';
@@ -14,27 +14,19 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessagesModule } from 'primeng/messages';
 
-@NgModule({
-    imports: [
-        RouterModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        CommonModule,
-        AuthRoutingModule,
-
-        // PrimeNG modules
-        ButtonModule,
-        ProgressSpinnerModule,
-        MessagesModule
-    ],
-    exports: [
+@NgModule({ exports: [
         AuthMainPageComponent
     ],
     declarations: [
         AuthMainPageComponent,
         LoginComponent,
         RegisterComponent,
-    ],
-    providers: [],
-})
+    ], imports: [RouterModule,
+        ReactiveFormsModule,
+        CommonModule,
+        AuthRoutingModule,
+        // PrimeNG modules
+        ButtonModule,
+        ProgressSpinnerModule,
+        MessagesModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AuthModule { }

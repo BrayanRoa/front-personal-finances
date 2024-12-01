@@ -8,7 +8,7 @@ import { DropDownComponent } from './components/bottons/drop-down/drop-down.comp
 
 
 import { FormsModule } from '@angular/forms';
-import { PrimeNgModule } from '../prime-ng/prime-ng.module';
+// import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 @NgModule({
   declarations: [
     PaginatorComponent,
@@ -19,7 +19,7 @@ import { PrimeNgModule } from '../prime-ng/prime-ng.module';
   imports: [
     CommonModule,
     FormsModule, 
-    PrimeNgModule
+    // PrimeNgModule
   ],
   exports: [
     PaginatorComponent,
