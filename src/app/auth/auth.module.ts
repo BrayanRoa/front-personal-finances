@@ -9,10 +9,8 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthMainPageComponent } from './pages/auth-main-page/auth-main-page.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthRoutingModule } from './auth.routing.module';
+import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 
-import { ButtonModule } from 'primeng/button';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
     imports: [
@@ -21,11 +19,7 @@ import { MessagesModule } from 'primeng/messages';
         HttpClientModule,
         CommonModule,
         AuthRoutingModule,
-
-        // PrimeNG modules
-        ButtonModule,
-        ProgressSpinnerModule,
-        MessagesModule
+        PrimeNgModule
     ],
     exports: [
         AuthMainPageComponent
