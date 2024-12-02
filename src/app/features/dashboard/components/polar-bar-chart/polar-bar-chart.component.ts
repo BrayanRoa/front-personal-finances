@@ -22,8 +22,8 @@ export class PolarBarChartComponent implements OnChanges {
     updateChartData() {
 
         const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--color-text-card-three'); // color de los nombre de las categoras
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        const textColor = documentStyle.getPropertyValue('--text-color'); // color de los nombre de las categoras
+        const surfaceBorder = documentStyle.getPropertyValue('--surface-900');
 
         // const a = this.dataPolar.map(f => {
         //     return f.name
