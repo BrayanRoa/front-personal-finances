@@ -39,7 +39,7 @@ export class VerticalBarChartComponent implements OnChanges {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    const surfaceBorder = documentStyle.getPropertyValue('--primary-color');
 
     this.data = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -48,7 +48,7 @@ export class VerticalBarChartComponent implements OnChanges {
           label: 'Income',
           backgroundColor: documentStyle.getPropertyValue('--blue-500'),
           borderColor: documentStyle.getPropertyValue('--blue-500'),
-          data: incomes
+          data: incomes,
         },
         {
           label: 'Outflow',
