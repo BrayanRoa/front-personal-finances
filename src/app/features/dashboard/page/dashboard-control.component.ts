@@ -8,6 +8,8 @@ import { TransactionService } from '../../transactions/services/transaction.serv
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
 import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
+import { Subscription } from 'rxjs';
+import { ThemeService } from '../../../core/service/theme.service';
 
 interface TableColumn {
   field: string;
@@ -44,16 +46,37 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     { label: '', icon: 'pi pi-trash', type: "button", color: "danger", callback: (row: any) => this.deleteRow(row) },
   ];
 
+  private themeSubscription!: Subscription;
+
   constructor(
     private readonly dashboardService: DashboardService,
     private readonly walletService: WalletService,
-    private readonly transactionService: TransactionService
+    private readonly transactionService: TransactionService,
+    private themeService:ThemeService
   ) {
     super()
   }
 
   ngOnInit(): void {
     this.loadDashboardData();
+
+    // Escuchar cambios de tema
+    this.themeSubscription = this.themeService.themeChange$.subscribe(() => {
+      this.refreshCharts(); // Actualizar los gráficos
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
+  }
+
+  private refreshCharts(): void {
+    // Recarga o actualiza los datos necesarios para los gráficos
+    this.loadBarChartData();
+    this.loadPieChartData();
+    this.loadBankDetails()
   }
 
   private loadDashboardData(): void {
