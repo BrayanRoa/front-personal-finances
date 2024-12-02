@@ -35,7 +35,16 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              {
+                "input": "src/themes/vela-blue.css",
+                "bundleName": "vela-blue",
+                "inject": false
+              },
+              {
+                "input": "src/themes/saga-blue.css",
+                "bundleName": "saga-blue",
+                "inject": false
+              },
               "node_modules/primeng/resources/primeng.min.css",
               "src/styles.css"
             ],

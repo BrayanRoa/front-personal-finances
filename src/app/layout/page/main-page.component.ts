@@ -1,5 +1,6 @@
 import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ThemeService } from '../../core/service/theme.service';
 
 @Component({
   selector: 'app-main-page',
@@ -23,14 +24,29 @@ export class MainPageComponent {
     balance: [0, [Validators.required]],
   })
 
+  themes = [
+    {
+      id: 'saga-blue',
+      label: 'saga-blue'
+    },
+    {
+      id: 'vela-blue',
+      label: 'vela-blue'
+    },
+  ];
+
+  selectedTheme: { id: string; label: string } = this.themes[0];
+
   constructor(
     private fb: FormBuilder,
+    private themeService: ThemeService
     // private walletService: WalletService
   ) { }
 
   showDialog() {
     this.visible = true;
   }
+
 
   handleClick() {
     // se agrega esta clase al hacer click
@@ -41,6 +57,12 @@ export class MainPageComponent {
   }
 
   onDarkMode() {
+    if (this.selectedTheme.id === this.themes[0].id) {
+      this.selectedTheme = this.themes[1];
+    } else {
+      this.selectedTheme = this.themes[0];
+    }
+    this.themeService.switchTheme(this.selectedTheme.id);
     this.container.nativeElement.classList.toggle('dark-mode')
     this.circulo.nativeElement.classList.toggle('prendido')
   }
