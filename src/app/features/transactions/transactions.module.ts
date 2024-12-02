@@ -9,10 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { TransactionsComponent } from './page/transactions.component';
 
-import { InputNumberModule } from 'primeng/inputnumber';
-import { DropdownModule } from 'primeng/dropdown';
-import { TagModule } from 'primeng/tag';
 import { UserHeaderComponent } from './components/user-header/user-header.component';
+import { PrimeNgModule } from '../../prime-ng/prime-ng.module';
 
 
 @NgModule({
@@ -25,11 +23,9 @@ import { UserHeaderComponent } from './components/user-header/user-header.compon
   imports: [
     CommonModule,
     TransactionsRoutingModule,
-    InputNumberModule,
-    DropdownModule,
     ReactiveFormsModule,
     SharedModule,
-    TagModule,
+    PrimeNgModule
   ],
   exports: [
     TransactionsComponent
