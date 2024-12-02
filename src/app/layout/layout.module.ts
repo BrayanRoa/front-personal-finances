@@ -6,12 +6,10 @@ import { RouterModule } from '@angular/router';
 
 import { MainPageComponent } from './page/main-page.component';
 
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { DropdownModule } from 'primeng/dropdown';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardModule } from '../features/dashboard/dashboard.module';
+import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 
 
 @NgModule({
@@ -25,9 +23,7 @@ import { DashboardModule } from '../features/dashboard/dashboard.module';
     DashboardModule,
     ReactiveFormsModule,
     RouterModule,
-    ButtonModule,
-    DialogModule,
-    DropdownModule,
+    PrimeNgModule
   ],
   exports: [
     MainPageComponent
