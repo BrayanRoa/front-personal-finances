@@ -1,185 +1,21 @@
-/* ===== HEADER ===== */
-.header {
-    text-align: center;
-}
 
-/* ===== CONTENEDOR PRINCIPAL ===== */
-.container {
-    padding: 20px;
-}
 
-/* ===== GRID ===== */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 20px;
-}
 
-/* ===== ITEMS ===== */
-.item {
-    background-color: var(--color-cards-background);
-    color: white;
-    padding: 5px;
-    text-align: center;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
 
-/* ===== REGLAS PERSONALIZADAS PARA LAS FILAS ===== */
-/* Primera fila */
-.item1 {
-    grid-column: span 5;
-}
 
-.item2 {
-    grid-column: span 1;
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
-}
-
-/* Segunda fila */
-.item3 {
-    grid-column: span 2;
-}
-
-.item4 {
-    grid-column: span 4;
-}
-
-.item5 {
-    grid-column: span 3;
-}
-
-/* ===== ICONOS Y TEXTO ===== */
-.icon-text {
-    display: flex;
-    align-items: center;
-}
-
-.icon {
-    font-size: 24px;
-    margin-right: 10px;
-}
-
-.text {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.3s;
-}
-
-/* ===== AÑO Y MESES ===== */
-.year-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    gap: 10px;
-    padding: 20px;
-}
-
-.months-container {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.year-button {
-    background-color: #4a90e2;
-    color: white;
-    border: none;
+.grid{
+    margin: 0px;
     padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s ease;
 }
 
-.year-button:hover {
-    background-color: #357abd;
-}
-
-.current-year {
-    margin-top: 10px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-/* ===== MESES (OPCIONAL SCROLL) ===== */
-.months {
-    padding: 20px;
-    width: 100%;
-    overflow-x: scroll;
-}
-
-/* ===== MENÚ ===== */
-.menu-item {
-    display: block;
+.custom-panel .p-panel-header {
+    background-color: #4CAF50;
     color: white;
-    text-decoration: none;
-    transition: background-color 0.3s;
+    font-size: 1.5rem;
 }
 
-.menu-item:hover {
-    background-color: #5a8aa2;
-}
-
-/* ===== ELEMENTOS ESPECÍFICOS PARA ITEM 4 ===== */
-.item4 .title-container {
-    display: flex;
-    justify-content: space-between;
-    margin-right: 10px;
-}
-
-.item4 .title-container .title {
-    margin-left: 10px;
-}
-
-.item4 .title-container h3 {
-    color: var(--color-text-card-four);
+span{
+    color: var(--color-text-card-two);
     font-weight: bold;
-}
-
-.item4 .title-container .dropdown {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-
-@media (max-width: 1200px) {
-    .item1 {
-        grid-column: span 6;
-    }
-
-    .item2 {
-        grid-column: span 3;
-    }
-
-    .item3 {
-        grid-column: span 3;
-    }
-
-    .item4 {
-        grid-column: span 6;
-    }
-
-    .item5 {
-        grid-column: span 3;
-    }
-}
-
-@media (max-width: 950px) {
-    .item2 {
-        grid-column: span 6;
-    }
-
-    .item3 {
-        grid-column: span 6;
-    }
-
-    .item4 {
-        grid-column: span 6;
-    }
+    font-size: large;
 }
