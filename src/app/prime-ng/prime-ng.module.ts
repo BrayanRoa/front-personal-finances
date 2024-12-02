@@ -12,6 +12,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { TagModule } from 'primeng/tag';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessagesModule } from 'primeng/messages';
+import { PanelModule } from 'primeng/panel';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { MessagesModule } from 'primeng/messages';
     InputNumberModule,
     TagModule,
     ProgressSpinnerModule,
-    MessagesModule
+    MessagesModule,
+    PanelModule
   ]
 })
 export class PrimeNgModule { }
