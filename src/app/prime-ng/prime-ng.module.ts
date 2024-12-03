@@ -16,7 +16,9 @@ import { PanelModule } from 'primeng/panel';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { BadgeModule } from 'primeng/badge';
 import { SplitButtonModule } from 'primeng/splitbutton';
-
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextModule } from 'primeng/inputtext';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @NgModule({
   exports: [
@@ -34,7 +36,10 @@ import { SplitButtonModule } from 'primeng/splitbutton';
     PanelModule,
     PanelMenuModule,
     BadgeModule,
-    SplitButtonModule
+    SplitButtonModule,
+    CalendarModule,
+    InputTextModule,
+    FloatLabelModule
   ]
 })
 export class PrimeNgModule { }
