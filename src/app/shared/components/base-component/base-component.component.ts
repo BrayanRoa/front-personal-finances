@@ -13,11 +13,19 @@ export class BaseComponent {
   // }
 
   handleResponse(code:number, message:string): void {
-    if(code===200){
+    if(code===200 || code === 201 ){
       showModal({
         title: 'Success',
         text: message,
         icon: 'success',
+        confirmButtonText: 'Accept'
+      })
+    }
+    if(code === 400){
+      showModal({
+        title: 'Error',
+        text: message,
+        icon: 'error',
         confirmButtonText: 'Accept'
       })
     }
