@@ -15,7 +15,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() actions?: {
     label: string,
     icon?: string,
-    color: 'primary' | 'secondary' | 'danger' | 'success',
+    color: 'help' | 'info' | 'danger' | 'warning' | 'secondary' | 'success' | 'contrast' | 'primary',
     callback: (row: any) => void
   }[]; // Acciones para cada fila
   @Input() cellTemplates: { [key: string]: TemplateRef<any> } = {}; // Templates personalizados

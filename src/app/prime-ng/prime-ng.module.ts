@@ -13,6 +13,9 @@ import { TagModule } from 'primeng/tag';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessagesModule } from 'primeng/messages';
 import { PanelModule } from 'primeng/panel';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { BadgeModule } from 'primeng/badge';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 
 @NgModule({
@@ -28,7 +31,10 @@ import { PanelModule } from 'primeng/panel';
     TagModule,
     ProgressSpinnerModule,
     MessagesModule,
-    PanelModule
+    PanelModule,
+    PanelMenuModule,
+    BadgeModule,
+    SplitButtonModule
   ]
 })
 export class PrimeNgModule { }

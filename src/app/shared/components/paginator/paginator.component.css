@@ -7,7 +7,7 @@
     margin-bottom: 20px; */
     padding-top: 10px;
     padding-bottom: 20px;
-    background-color: var(--color-cards-background);
+    /* background-color: var(--color-cards-background); */
     margin-right: 10px;
 }
 
@@ -32,7 +32,7 @@ button {
 }
 
 button.active {
-    background-color: var(--color-menu-hover);
+    background-color: var(--gray-300);
 }
 
 button:hover {

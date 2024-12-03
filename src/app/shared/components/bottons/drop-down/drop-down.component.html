@@ -1,5 +1,5 @@
 <div class="dropdown">
-    <button pRipple class="dropdown-toggle" (click)="toggleDropdown()">
+    <button [severity]="severity" pButton pRipple class="dropdown-toggle" (click)="toggleDropdown()">
         {{titleDropDown}}
         <span class="pi pi-chevron-down"></span>
     </button>

@@ -1,4 +1,4 @@
-.container {
+/* .container {
     padding: 20px;
 }
 
@@ -96,4 +96,21 @@
 
 .container .dropdown-menu .dropdown-item:hover {
     background-color: #f8f9fa;
+} */
+
+
+
+.grid{
+    margin: 0;
+    padding: 10px;
+}
+
+
+span {
+    font-weight: bold;
+    font-size: large;
+}
+
+.item1 {
+    color: var(--color-text-card-one);
 }
