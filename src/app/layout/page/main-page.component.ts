@@ -3,13 +3,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThemeService } from '../../core/service/theme.service';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
+import { FormFieldConfig } from '../../shared/interfaces/generic-components/form.interface';
+import { WalletService } from '../../core/service/wallet.service';
+import { BanksInformation } from '../../shared/interfaces/wallet/wallet.interface';
+import { BaseComponent } from '../../shared/components/base-component/base-component.component';
+import { CommonResponse } from '../../shared/interfaces/common-response.interface';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css'
 })
-export class MainPageComponent {
+export class MainPageComponent extends BaseComponent {
 
   visible: boolean = false;
   @ViewChild('icon') myElement!: ElementRef;
@@ -20,11 +25,11 @@ export class MainPageComponent {
   // Uso de QueryList para obtener una lista de elementos
   @ViewChildren('mySpan') mySpans!: QueryList<ElementRef>;
 
-  public myForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required]],
-    description: ['', [Validators.required]],
-    balance: [0, [Validators.required]],
-  })
+  // public myForm: FormGroup = this.fb.group({
+  //   name: ['', [Validators.required]],
+  //   description: ['', [Validators.required]],
+  //   balance: [0, [Validators.required]],
+  // })
 
   themes = [
     {
@@ -39,12 +44,26 @@ export class MainPageComponent {
 
   selectedTheme: { id: string; label: string } = this.themes[0];
 
+  formConfig: FormFieldConfig[] = [
+    { type: 'text', label: 'Name', name: 'name', validations: [{ required: true }] },
+    { type: 'text', label: 'Description', name: 'description', validations: [{ required: true }] },
+    {
+      type: 'text', label: 'Balance', name: 'balance', value: 0, validations: [{ required: true }], mask: {
+        mask: 'separator.2',
+        prefix: '$',
+        thousandSeparator: ','
+      },
+    },
+  ]
+
   constructor(
-    private fb: FormBuilder,
+    // private fb: FormBuilder,
     private themeService: ThemeService,
-    private router:Router
-    // private walletService: WalletService
-  ) { }
+    private router: Router,
+    private walletService: WalletService
+  ) {
+    super()
+  }
 
   showDialog() {
     this.visible = true;
@@ -70,22 +89,19 @@ export class MainPageComponent {
     this.circulo.nativeElement.classList.toggle('prendido')
   }
 
-  onSaveNewWallet() {
-    console.log(this.myForm.value);
-    // this.walletService.addWallet(this.myForm.value).subscribe({
-    //   next: (data) => {
-    //     Swal.fire({
-    //       title: data.data,
-    //       icon: "success"
-    //     });
-    //   },
-    //   error: (error) => {
-    //     Swal.fire({
-    //       title: error.error.data,
-    //       icon: "error"
-    //     });
-    //   }
-    // })
+  onSaveNewWallet(form: FormGroup) {
+
+    const formData: BanksInformation = form.value;
+
+    this.walletService.createBank(formData).subscribe({
+      next: (response) => {
+        this.handleResponse(response.status, response.data)
+        this.visible = false;
+      },
+      error: (response) => {
+        this.handleResponse(response.error.status, response.error.data)
+      }
+    })
   }
 
   numberValue: string = '';
@@ -113,7 +129,7 @@ export class MainPageComponent {
         label: 'Dashboard',
         icon: 'pi pi-envelope',
         badge: '5',
-        command: ()=>{
+        command: () => {
           this.router.navigate(['/main/dashboard']);
         },
         routerLinkActiveOptions: true
@@ -121,7 +137,7 @@ export class MainPageComponent {
       {
         label: 'Transactions',
         icon: 'pi pi-chart-bar',
-        command: ()=>{
+        command: () => {
           this.router.navigate(['/main/transactions']);
         },
         routerLinkActiveOptions: true
