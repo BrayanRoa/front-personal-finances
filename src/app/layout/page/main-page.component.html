@@ -16,7 +16,9 @@
 
 
                 <p-dialog header="Create New Wallet" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-                    <form [formGroup]="myForm" (ngSubmit)="onSaveNewWallet()">
+                    <app-dynamic-form [fields]="formConfig" (sendForm)="onSaveNewWallet($event)"></app-dynamic-form>
+                    
+                    <!-- <form [formGroup]="myForm" (ngSubmit)="onSaveNewWallet()">
                         <div class="field">
                             <label for="name">Name</label>
                             <input type="text" pInputText formControlName="name"
@@ -40,7 +42,7 @@
                                 [disabled]="myForm.invalid" />
                         </div>
 
-                    </form>
+                    </form> -->
                 </p-dialog>
             </div>
             <!-- END BOTON AND MODAL -->
