@@ -6,7 +6,7 @@
     /* Espacia los extremos */
     padding: 10px;
     /* Espaciado interno */
-    background-color: var(--color-cards-background);
+    background-color: var(--surface-e);
     /* Fondo opcional */
     gap: 10px;
     /* Espacio entre los elementos */

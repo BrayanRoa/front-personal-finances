@@ -37,10 +37,11 @@
 
 /* Encabezado */
 .custom-table thead tr {
-    background-color: var(--color-text-card-one);
+    background-color: var(--primary-color);
     /* Color azul elegante */
-    color: #fff;
+    color: var(--surface-0);
     text-transform: uppercase;
+    font-weight: bold;
 }
 
 .custom-table th {
@@ -48,9 +49,9 @@
     font-size: 14px;
 }
 
-.custom-table tbody {
+/* .custom-table tbody {
     background-color: var(--color-cards-background);
-}
+} */
 
 /* Filas del cuerpo */
 .custom-table tbody tr {

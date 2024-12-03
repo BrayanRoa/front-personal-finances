@@ -9,6 +9,7 @@ import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 import { confirmDelete } from '../../../shared/components/sweet-alert-modal/sweet-alert-modal';
 import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
+import { MenuItem } from 'primeng/api';
 
 interface LoadTransactionParams {
   page: number;
@@ -34,6 +35,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   walletsData = signal<BanksInformation[]>([]);
 
   months = MONTHS;
+  items!: MenuItem[];
 
   eventTrigger = false; // Estado que se pasará al hijo
 
@@ -79,6 +81,13 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     super()
+
+    this.items = this.months.map((month) => {
+      return {
+        label: month.name,
+        command: () => this.onMonthChange(month),
+      };
+    });
   }
 
   ngOnInit(): void {

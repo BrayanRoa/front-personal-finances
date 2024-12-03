@@ -14,6 +14,7 @@ export class DropDownComponent {
 
   @Input() titleDropDown: string = ""
   @Input() optionsDropDown: DropdownOption[] = []
+  @Input() severity: 'help' | 'info' | 'danger' | 'warning' | 'secondary' | 'success' | 'contrast' | 'primary' = 'primary';
 
   @Output() onChange = new EventEmitter<({ id: number | string, name: string })>;
 

@@ -17,7 +17,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     overflow: hidden;
-    background-color: var(--color-cards-background);
+    background-color: var(--surface-e);
 }
 
 
@@ -102,7 +102,7 @@
     /* Mueve la imagen hacia abajo, alineando el borde superior */
     background-repeat: no-repeat;
     /* Evita que la imagen se repita */
-    background-color: var(--color-cards-background);
+    background-color: var(--surface-e);
 }
 
 .card .total-outflow {
@@ -116,7 +116,7 @@
     /* Mueve la imagen hacia abajo, alineando el borde superior */
     background-repeat: no-repeat;
     /* Evita que la imagen se repita */
-    background-color: var(--color-cards-background);
+    background-color: var(--surface-e);
 }
 
 .card .budgets {
@@ -130,7 +130,7 @@
     /* Mueve la imagen hacia abajo, alineando el borde superior */
     background-repeat: no-repeat;
     /* Evita que la imagen se repita */
-    background-color: var(--color-cards-background);
+    background-color: var(--surface-e);
 }
 
 .card .total-transactions {
@@ -144,7 +144,7 @@
     /* Mueve la imagen hacia abajo, alineando el borde superior */
     background-repeat: no-repeat;
     /* Evita que la imagen se repita */
-    background-color: var(--color-cards-background);
+    background-color: var(--surface-e);
 }
 
 

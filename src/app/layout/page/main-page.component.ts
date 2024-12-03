@@ -1,6 +1,8 @@
 import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThemeService } from '../../core/service/theme.service';
+import { MenuItem } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -39,7 +41,8 @@ export class MainPageComponent {
 
   constructor(
     private fb: FormBuilder,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private router:Router
     // private walletService: WalletService
   ) { }
 
@@ -83,6 +86,85 @@ export class MainPageComponent {
     //     });
     //   }
     // })
+  }
+
+
+
+  items!: MenuItem[];
+
+  ngOnInit() {
+    this.items = [
+      {
+        label: 'Dashboard',
+        icon: 'pi pi-envelope',
+        badge: '5',
+        command: ()=>{
+          this.router.navigate(['/main/dashboard']);
+        },
+        routerLinkActiveOptions: true
+      },
+      {
+        label: 'Transactions',
+        icon: 'pi pi-chart-bar',
+        command: ()=>{
+          this.router.navigate(['/main/transactions']);
+        },
+        routerLinkActiveOptions: true
+
+        // items: [
+        //   {
+        //     label: 'Sales',
+        //     icon: 'pi pi-chart-line',
+        //     badge: '3'
+        //   },
+        //   {
+        //     label: 'Products',
+        //     icon: 'pi pi-list',
+        //     badge: '6'
+        //   }
+        // ]
+      },
+      {
+        label: 'Budgets',
+        icon: 'pi pi-user',
+        items: [
+          {
+            label: 'Settings',
+            icon: 'pi pi-cog',
+            shortcut: '⌘+O'
+          },
+          {
+            label: 'Privacy',
+            icon: 'pi pi-shield',
+            shortcut: '⌘+P'
+          }
+        ]
+      }
+    ];
+  }
+
+  isActive(routerLink: string): boolean {
+    // Compara la URL actual con el routerLink del elemento
+    return this.router.url === routerLink;
+  }
+
+  toggleAll() {
+    const expanded = !this.areAllItemsExpanded();
+    this.items = this.toggleAllRecursive(this.items, expanded);
+  }
+
+  private toggleAllRecursive(items: MenuItem[], expanded: boolean): MenuItem[] {
+    return items.map((menuItem) => {
+      menuItem.expanded = expanded;
+      if (menuItem.items) {
+        menuItem.items = this.toggleAllRecursive(menuItem.items, expanded);
+      }
+      return menuItem;
+    });
+  }
+
+  private areAllItemsExpanded(): boolean {
+    return this.items.every((menuItem) => menuItem.expanded);
   }
 
 }

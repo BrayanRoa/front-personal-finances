@@ -22,7 +22,7 @@
                     </td>
                     <td *ngIf="actions">
                         <app-button *ngFor="let action of actions" label="{{action.label}}" icon="{{action.icon}}"
-                            [color]="action.color" [isDisabled]="false"
+                            [severity]="action.color" [isDisabled]="false"
                             (onClick)="handleRowAction(row.id, action.icon)">
                         </app-button>
                     </td>
@@ -42,7 +42,7 @@
 
         <ng-template #loadingState>
             <tr>
-                <td [attr.colspan]="columns.length + (actions ? 1 : 0)">
+                <td [attr.colspan]="(columns.length+1) + (actions ? 1 : 0)">
                     <div class="loading-spinner">
                         <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
                         <p>Cargando datos...</p>

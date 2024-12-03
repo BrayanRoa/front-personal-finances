@@ -15,7 +15,7 @@
 .main {
     transition: background-color 0.3s;
     overflow-y: auto;
-    background-color: var(--color-font-container);
+    background-color: var(--surface-d);
 }
 
 /*  */
@@ -28,7 +28,7 @@
     height: 100%;
     overflow: hidden;
     padding: 20px, 15px;
-    background-color: var(--color-barra-lateral);
+    background-color: var(--surface-a);
     transition: width 0.5s ease, background-color 0.5s ease;
     padding: 10px;
 }
@@ -131,7 +131,7 @@
 .barra-lateral .navegacion li {
     list-style: none;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     margin-bottom: 5px;
 }
@@ -142,9 +142,8 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    border-radius: 10px;
     color: var(--color-texto-menu)
-}
+} 
 
 .barra-lateral .navegacion a:hover {
     background-color: rgb(238, 238, 238);
@@ -294,5 +293,5 @@
 .active {
     background-color: var(--color-menu-hover);
     color: rgb(0, 0, 0);
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }

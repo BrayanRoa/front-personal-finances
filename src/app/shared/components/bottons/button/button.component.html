@@ -1,4 +1,4 @@
-<button [type]="type" [class]="['btn', 'btn-' + color]" [disabled]="isDisabled" (click)="handleClick($event)">
+<button pButton pRipple [type]="type" class="btn" [severity]="severity" [disabled]="isDisabled" (click)="handleClick($event)">
     <i *ngIf="icon" [class]="icon" aria-hidden="true"></i>
     <span *ngIf="label">{{ label }}</span>
 </button>

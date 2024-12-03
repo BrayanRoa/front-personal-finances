@@ -10,8 +10,8 @@ span {
 
 /* Botón del dropdown */
 .dropdown-toggle {
-    background-color: var(--color-text-card-four);
-    color: var(--color-texto);
+    /* background-color: var(--color-text-card-four); */
+    color: var(--color-boton-primary-text);
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -19,6 +19,7 @@ span {
     display: flex;
     align-items: center;
     justify-self: space-between;
+    height: 38px;
 }
 
 /* Menú del dropdown */

@@ -2,33 +2,49 @@
     <div class="col-12 h-full">
         <app-wallet-card [walletSummary]="walletSummary"></app-wallet-card>
     </div>
-    <div class="col-12 md:col-7 lg:col-8 ">
 
+    <div class="col-12 md:col-7 lg:col-8 ">
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span>Transactions By Month</span>
-                    <!-- <button class="p-button p-button-rounded p-button-primary">Action</button> -->
+                    <span class="item1">Transactions By Month</span>
                 </div>
             </ng-template>
             <app-vertical-bar-chart [dataGraph]="barChartData()" [dataYears]="years()"
                 (onYearSelected)="onChangeYear($event)">
             </app-vertical-bar-chart>
         </p-panel>
-
     </div>
+
     <div class="col-12 md:col-5 lg:col-4 ">
-        <p-panel header="Banks Information" [toggleable]="true">
+        <p-panel [toggleable]="true">
+            <ng-template pTemplate="header">
+                <div class="custom-header">
+                    <span class="item2">Banks Information</span>
+                </div>
+            </ng-template>
             <app-banks-information class="item item2" [bankData]="bankDetails()"></app-banks-information>
         </p-panel>
     </div>
+
     <div class="col-12 md:col-4 lg:col-4 ">
-        <p-panel header="Transaction By Category" [toggleable]="true" class="h-full">
+        <p-panel [toggleable]="true">
+            <ng-template pTemplate="header">
+                <div class="custom-header">
+                    <span class="item3">Transactions By Category</span>
+                </div>
+            </ng-template>
             <app-polar-bar-chart class="item item3" [dataPolar]="pieChartData()"></app-polar-bar-chart>
         </p-panel>
     </div>
+
     <div class="col-12 md:col-8 lg:col-8 ">
-        <p-panel header="Active Budgets" [toggleable]="true" class="h-full">
+        <p-panel [toggleable]="true">
+            <ng-template pTemplate="header">
+                <div class="custom-header">
+                    <span class="item4">Active Budgets</span>
+                </div>
+            </ng-template>
             <app-table [data]="budgets()" [meta]="metaBudgets" [numberRegistersByPage]="5" [columns]="tableColumns"
                 (paginate)="onPageChange($event)" [actions]="actions" [cellTemplates]="{
             percentage:progressTemplate,
@@ -41,6 +57,8 @@
 
             <ng-template #currencyTemplate let-value>
                 {{ value | currency:'USD':'symbol':'1.2-2' }}
-            </ng-template> </p-panel>
+            </ng-template>
+        </p-panel>
     </div>
+
 </div>
