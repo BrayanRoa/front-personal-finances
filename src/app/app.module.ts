@@ -10,6 +10,10 @@ import { AuthModule } from './auth/auth.module';
 import { RippleModule } from 'primeng/ripple';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/interceptor/auth.interceptro';
+
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,9 +24,11 @@ import { AuthInterceptor } from './auth/interceptor/auth.interceptro';
     AuthModule,
     LayoutModule,
     BrowserAnimationsModule,
-    RippleModule
+    RippleModule,
+    NgxMaskDirective
   ],
   providers: [
+    provideNgxMask(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

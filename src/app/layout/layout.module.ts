@@ -10,7 +10,8 @@ import { MainPageComponent } from './page/main-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardModule } from '../features/dashboard/dashboard.module';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
-
+import { SharedModule } from '../shared/shared.module';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -23,10 +24,13 @@ import { PrimeNgModule } from '../prime-ng/prime-ng.module';
     DashboardModule,
     ReactiveFormsModule,
     RouterModule,
-    PrimeNgModule
+    PrimeNgModule,
+    SharedModule,
+    NgxMaskDirective
   ],
   exports: [
     MainPageComponent
-  ]
+  ],
+  providers: [provideNgxMask()],
 })
 export class LayoutModule { }
