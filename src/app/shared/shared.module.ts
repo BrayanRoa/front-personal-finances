@@ -9,26 +9,35 @@ import { DropDownComponent } from './components/bottons/drop-down/drop-down.comp
 
 
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
+import { FormComponent } from './components/form/form.component';
+
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+
 @NgModule({
   declarations: [
     PaginatorComponent,
     TableComponent,
     ButtonComponent,
-    DropDownComponent
+    DropDownComponent,
+    FormComponent
   ],
   imports: [
     CommonModule,
     ProgressSpinnerModule,
     FormsModule,
-    PrimeNgModule
+    PrimeNgModule,
+    ReactiveFormsModule,
+    NgxMaskDirective
   ],
   exports: [
     PaginatorComponent,
     TableComponent,
     ButtonComponent,
     DropDownComponent,
-  ]
+    FormComponent
+  ],
+  providers: [provideNgxMask()]
 })
 export class SharedModule { }
