@@ -88,6 +88,21 @@ export class MainPageComponent {
     // })
   }
 
+  numberValue: string = '';
+
+  formatNumber(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value.replace(/,/g, ''); // Remueve las comas existentes
+    if (!isNaN(Number(value))) {
+      input.value = Number(value).toLocaleString('en-US'); // Agrega separadores de miles
+    }
+  }
+
+  removeFormatting(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.replace(/,/g, ''); // Limpia el valor para un envío limpio
+  }
+
 
 
   items!: MenuItem[];
