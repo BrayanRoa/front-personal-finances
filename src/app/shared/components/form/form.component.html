@@ -1,27 +1,35 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div *ngFor="let field of fields" class="form-group">
-        <label>{{ field.label }}</label>
+    <div class="formgrid grid">
 
-        <!-- Input genérico con o sin máscara -->
-        <ng-container *ngIf="field.type !== 'select'; else selectTemplate">
-            <input
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary mb-2 w-full"
-                [type]="field.type" [formControlName]="field.name" [placeholder]="field.label" [mask]="field.mask?.mask"
-                [prefix]="field.mask?.prefix!" [thousandSeparator]="field.mask?.thousandSeparator!" />
-        </ng-container>
+        <div *ngFor="let field of fields" [class]="'field col-12 ' + field.sizeResponsive">
+            <label>{{ field.label }}</label>
 
-        <!-- Select -->
-        <ng-template #selectTemplate>
-            <select [formControlName]="field.name"
-                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary mb-2 w-full">
-                <option *ngFor="let option of field.options" [value]="option.value">
-                    {{ option.label }}
-                </option>
-            </select>
-        </ng-template>
+            <!-- Input genérico con o sin máscara -->
+            <ng-container *ngIf="field.type !== 'select'; else selectTemplate">
+                <input
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    [type]="field.type" [formControlName]="field.name" [placeholder]="field.label"
+                    [mask]="field.mask?.mask" [prefix]="field.mask?.prefix!"
+                    [thousandSeparator]="field.mask?.thousandSeparator!" />
+            </ng-container>
+
+            <!-- Select -->
+            <ng-template #selectTemplate>
+
+                <select [formControlName]="field.name"
+                    class="custom-select text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <option *ngFor="let option of field.options" [value]="option.value">
+                        {{ option.label }}
+                    </option>
+                </select>
+            </ng-template>
+        </div>
     </div>
 
-    <button pButton severity="help" type="submit">
-        Submit
+    <button pButton severity="help" type="submit" class="mr-2" [disabled]="form.invalid">
+        {{submitButton}}
+    </button>
+    <button pButton severity="danger" type="button" (click)="onCancel()">
+        {{cancelButton}}
     </button>
 </form>

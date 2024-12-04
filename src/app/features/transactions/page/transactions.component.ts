@@ -10,6 +10,7 @@ import { BaseComponent } from '../../../shared/components/base-component/base-co
 import { confirmDelete } from '../../../shared/components/sweet-alert-modal/sweet-alert-modal';
 import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
 import { MenuItem } from 'primeng/api';
+import { FormFieldConfig } from '../../../shared/interfaces/generic-components/form.interface';
 
 interface LoadTransactionParams {
   page: number;
@@ -75,6 +76,54 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
       callback: (row: number | string) => this.deleteRow(row),
     },
   ];
+
+  // MODAL
+  public visible: boolean = false;
+
+  // CAMPOS DEL FORMULARIO - el sizeResponsive aplica los valores de 1 a 12 como se hace en bootstrap
+  formConfig: FormFieldConfig[] = [
+    { type: 'text', label: 'Name', name: 'name', validations: [{ required: true }], sizeResponsive:'md:col-3' },
+    { type: 'text', label: 'Description', name: 'description', validations: [{ required: false }], sizeResponsive:'md:col-6' },
+    {
+      type: 'text', label: 'Amount', name: 'amount', value: 0, validations: [{ required: true }], mask: {
+        mask: 'separator.2',
+        prefix: '$',
+        thousandSeparator: ','
+      },
+      sizeResponsive:'md:col-3'
+    },
+    { type: 'date', label: 'Date', name: 'date', value: new Date(), validations: [{ required: true }], sizeResponsive:'md:col-3' },
+    {
+      type: 'select', label: 'Type', name: 'type', options: [
+        { label: 'Income', value: 'INCOME' },
+        { label: 'Expense', value: 'EXPENSE' },
+      ], validations: [{ required: true }], sizeResponsive:'md:col-3'
+    },
+    {
+      type: 'select', label: 'Repeat', name: 'repeat', options: [
+        { label: 'No Repeat', value: 'NEVER' },
+        { label: 'Every Day', value: 'EVERY DAY' },
+        { label: 'Every Two Days', value: 'EVERY TWO DAYS' },
+        { label: 'Every Working Day', value: 'EVERY WORKING DAY' },
+        { label: 'Every Week', value: 'EVERY WEEK' },
+        { label: 'Every Week', value: 'EVERY WEEK' },
+        { label: 'Every Two Weeks', value: 'EVERY TWO WEEKS' },
+        { label: 'Every Month', value: 'EVERY MONTH' },
+        { label: 'Every Two Months', value: 'EVERY TWO MONTHS' },
+        { label: 'Every Three Months', value: 'EVERY THREE MONTHS' },
+        { label: 'Every Six Months', value: 'EVERY SIX MONTHS' },
+        { label: 'Every Year', value: 'EVERY YEAR' },
+      ], validations: [{ required: true }], sizeResponsive:'md:col-6'
+    },
+    {
+      type:'select', label: 'Category', name: 'categoryId', options: [], validations: [{ required: true }], sizeResponsive:'md:col-6'
+    },
+    {
+      type:'select', label: 'Wallet', name: 'walletId', options: [], validations: [{ required: true }], sizeResponsive:'md:col-6'
+    },
+  ]
+
+
 
   constructor(
     private transactionService: TransactionService,
@@ -193,5 +242,13 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
         })
       }
     })
+  }
+
+  showDialog() {
+    this.visible = true;
+  }
+
+  closeModal() {
+    this.visible = false;
   }
 }
