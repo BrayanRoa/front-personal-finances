@@ -5,6 +5,7 @@ import { FormFieldConfig } from '../../shared/interfaces/generic-components/form
 import { CoreService } from '../../core/service/core.service';
 import { BanksInformation } from '../../shared/interfaces/wallet/wallet.interface';
 import { BaseComponent } from '../../shared/components/base-component/base-component.component';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -85,7 +86,11 @@ export class MainPageComponent extends BaseComponent {
 
     const formData: BanksInformation = form.value;
 
-    this.coreService.createBank(formData).subscribe({
+    this.coreService.createBank(formData).pipe(
+      finalize(() => {
+        this.visible = false
+      })
+    ).subscribe({
       next: (response) => {
         this.handleResponse(response.status, response.data)
         this.visible = false;

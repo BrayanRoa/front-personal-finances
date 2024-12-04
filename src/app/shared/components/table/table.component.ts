@@ -16,7 +16,7 @@ export class TableComponent implements OnInit, OnChanges {
     label: string,
     icon?: string,
     color: 'help' | 'info' | 'danger' | 'warning' | 'secondary' | 'success' | 'contrast' | 'primary',
-    callback: (row: any) => void
+    callback: (row: any, data: any) => void
   }[]; // Acciones para cada fila
   @Input() cellTemplates: { [key: string]: TemplateRef<any> } = {}; // Templates personalizados
   @Input() numberRegistersByPage!: number; // Registros por página
@@ -90,9 +90,11 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   handleRowAction(id: number | string, icon?: string): void {
+    // TODO: AQUI DEBO ENVIAR EL REGISTRO SOLO CUANDO SEA UN UPDATE PARA UN DELETE NO
+    console.log("POR EEL CLICK", id, icon);
     const action = this.actions?.find(action => action.icon === icon);
     if (action) {
-      action.callback(id);
+      action.callback(id, this.data.filter(action => action.id === id)[0]);
 
     }
   }
