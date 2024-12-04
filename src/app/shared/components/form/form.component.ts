@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormFieldConfig } from '../../interfaces/generic-components/form.interface';
 import { Validators, ValidatorFn } from '@angular/forms';
@@ -13,6 +13,7 @@ export class FormComponent {
   @Input() fields: FormFieldConfig[] = [];
   @Input() submitButton = 'Submit';
   @Input() cancelButton = 'Cancel';
+  @Input() data: any
 
   @Input() md_responsive!: 'md:col-6' | 'md:col-3' | '';
   // md_responsive: 'md:col-6' = "md:col-6"
@@ -27,7 +28,17 @@ export class FormComponent {
 
   ngOnInit(): void {
     this.createForm();
+
+    // aplicar aqui un ngchanges
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data'] && changes['data'].currentValue) {
+      // this.updateChartData();
+      this.populateFormData();
+    }
+  }
+
 
   createForm(): void {
     const group: any = {};
@@ -38,8 +49,6 @@ export class FormComponent {
       ];
     });
     this.form = this.fb.group(group);
-
-    console.log("structue",this.form);
   }
 
   getErrors(fieldName: string): string[] {
@@ -85,6 +94,10 @@ export class FormComponent {
   onCancel(): void {
     this.form.reset();
     this.cancel.emit();
+  }
+
+  populateFormData(){
+    this.form.patchValue(this.data);
   }
 
 }

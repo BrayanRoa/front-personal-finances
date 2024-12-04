@@ -51,20 +51,3 @@ export const TABLE_COLUMNS = [
     { field: 'type', header: 'Type' },
     { field: 'repeat', header: 'Repeat' },
 ];
-
-export const ACTIONS: actionsButton[] = [
-    {
-        label: '',
-        type: 'button',
-        icon: 'pi pi-pencil',
-        color: 'primary',
-        callback: (row: number | string) => { }, // El callback puede mantenerse genérico si no es reutilizable.
-    },
-    {
-        label: '',
-        type: 'button',
-        icon: 'pi pi-trash',
-        color: 'danger',
-        callback: (row: number | string) => { },
-    },
-];

@@ -26,10 +26,13 @@
         </div>
     </div>
 
-    <button pButton severity="help" type="submit" class="mr-2" [disabled]="form.invalid">
-        {{submitButton}}
-    </button>
-    <button pButton severity="danger" type="button" (click)="onCancel()">
-        {{cancelButton}}
-    </button>
+    <div class="flex justify-content-end">
+
+        <button pButton severity="help" type="submit" class="mr-2" [disabled]="form.invalid">
+            {{submitButton}}
+        </button>
+        <button pButton severity="danger" type="button" (click)="onCancel()">
+            {{cancelButton}}
+        </button>
+    </div>
 </form>

@@ -41,7 +41,8 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     { field: 'percentage', header: 'Percentage' },
   ];
 
-  actions: actionsButton[] = [
+  // TODO: CAMBIAE ESE ANY POR EL TIPO DE DATO PARA EDITAR EL REGISTRO
+  actions: actionsButton<any>[] = [
     { label: '', icon: 'pi pi-pencil', type: "button", color: "primary", callback: (row: any) => this.editRow(row) },
     { label: '', icon: 'pi pi-trash', type: "button", color: "danger", callback: (row: any) => this.deleteRow(row) },
   ];
@@ -52,7 +53,7 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     private readonly dashboardService: DashboardService,
     private readonly coreService: CoreService,
     private readonly transactionService: TransactionService,
-    private themeService:ThemeService
+    private themeService: ThemeService
   ) {
     super()
   }

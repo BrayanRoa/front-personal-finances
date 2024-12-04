@@ -27,23 +27,32 @@ interface LoadTransactionParams {
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
-  styleUrl: './transactions.component.css'
+  styleUrls: ['./transactions.component.css']
 })
 export class TransactionsComponent extends BaseComponent implements OnInit {
 
-  selectedBankId = signal<number | null>(null); // Signal para el banco seleccionado
-  selectedYear = signal<number | null>(null); // Signal para el año seleccionado
-  selectedMonth = signal<number>(new Date().getMonth() + 1); // Signal para el mes seleccionado
-  nameMonthSelected = signal<string>(''); // Nombre del mes seleccionado
+  // Signals
+  selectedBankId = signal<number | null>(null);
+  selectedYear = signal<number | null>(null);
+  selectedMonth = signal<number>(new Date().getMonth() + 1);
+  nameMonthSelected = signal<string>('');
   years = signal<DropdownOption[]>([]);
   walletsData = signal<BanksInformation[]>([]);
-  categoryData = signal<CategoryInterface[]>([])
+  categoryData = signal<CategoryInterface[]>([]);
 
+  // Selected Transaction for editing
+  transactionSelected!: Transaction;
+
+  // Constants
   months = MONTHS;
 
-  eventTrigger = false; // Estado que se pasará al hijo
+  // Modal Visibility
+  public visible: boolean = false;
 
-  // DATA SHARED
+  // Form Structure
+  formConfig = FORM_CONFIG;
+
+  // Data Shared
   transactions: Transaction[] = [];
   metaData: MetaData = {
     totalRecords: 0,
@@ -52,7 +61,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     next_page: true
   };
 
-  // STRUCTURE TO DEFINE TABLE
+  // Table Columns
   tableColumns = [
     { field: 'name', header: 'Name' },
     { field: 'category.name', header: 'Category' },
@@ -62,13 +71,14 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     { field: 'repeat', header: 'Repeat' },
   ];
 
-  actions: actionsButton[] = [
+  // Actions for buttons in table
+  actions: actionsButton<Transaction>[] = [
     {
       label: '',
       type: 'button',
       icon: 'pi pi-pencil',
       color: 'primary',
-      callback: (row: number | string) => this.editRow(row),
+      callback: (row: number | string, transaction: Transaction) => this.editRow(row, transaction),
     },
     {
       label: '',
@@ -79,18 +89,15 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     },
   ];
 
-  // MODAL
-  public visible: boolean = false;
-
-  // FORM STRUCTURE
-  formConfig = FORM_CONFIG;
+  // Event Trigger
+  eventTrigger = false;
 
   constructor(
     private transactionService: TransactionService,
     private route: ActivatedRoute,
     private coreService: CoreService
   ) {
-    super()
+    super();
   }
 
   ngOnInit(): void {
@@ -105,11 +112,11 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
       this.selectedBankId.set(this.walletsData()[0]?.id || null);
     }
 
-    this.loadTransactions(); // Cargamos las transacciones iniciales
-    this.loadCategories(); // Cargamos las categorias al abrir el modal de creación o edición
+    this.loadTransactions();
+    this.loadCategories();
   }
 
-
+  // Event Handlers for Bank, Year, Month
   onBankSelected(bankId: number): void {
     this.selectedBankId.set(bankId);
     this.loadTransactions();
@@ -135,6 +142,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     this.loadTransactions({ page: data.page, per_page: data.per_page, searchTerm: data.search });
   }
 
+  // Private Methods to Load Data
   private loadTransactions(params?: Partial<LoadTransactionParams>): void {
     const walletId = this.selectedBankId();
     if (!walletId) return;
@@ -146,12 +154,11 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
       year: this.selectedYear() || new Date().getFullYear(),
       month: this.selectedMonth(),
       searchTerm: '',
-      ...params, // Sobrescribimos los valores con los parámetros que nos pasen
+      ...params,
     };
-    console.log("AAAAAAAAAAAAAAAAAAAAA", finalParams);
+
     this.transactionService.getTransactions(finalParams).subscribe({
       next: (transactions: ApiResponse<TransactionData>) => {
-        console.log("ZZZZZ", transactions.data);
         this.transactions = transactions.data.transactions;
         this.metaData = transactions.data.meta;
       },
@@ -168,7 +175,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
           id: year,
           name: year.toString(),
         }));
-        this.years.set(yearsList); // Actualizamos la Signal
+        this.years.set(yearsList); // Update signal with years data
       },
       error: (error: any) => {
         console.error('Error fetching years:', error);
@@ -179,8 +186,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   loadCategories(): void {
     this.coreService.getCategories().subscribe({
       next: (response) => {
-        console.log("object", response);
-        this.categoryData.set(response.data)
+        this.categoryData.set(response.data);
       },
       error: (error: any) => {
         console.error('Error fetching categories:', error);
@@ -188,47 +194,45 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     });
   }
 
+  // Modal and Transaction Editing Methods
+  editRow(row: any, transaction: Transaction) {
+    this.showDialog();
 
-  editRow(row: any) {
-    console.log('Editing row:', row);
-  }
+    const transactionPayload: Transaction = {
+      ...transaction,
+      date: new Date(transaction.date).toISOString().split('T')[0],
+      walletId: +transaction.walletId,
+      categoryId: +transaction.categoryId,
+    };
 
-  deleteRow(id: number | string) {
-    confirmDelete().then((isConfirmed) => {
-      if (isConfirmed) {
-        this.transactionService.deleteTransaction(id).subscribe({
-          next: (response) => {
-            this.handleResponse(response.status, response.data);
-            this.loadTransactions()
-            this.eventTrigger = !this.eventTrigger;
-          },
-          error: (error: CommonResponse) => {
-            this.handleResponse(error.status, error.data);
-          },
-        })
-      }
-    })
+    this.transactionSelected = transactionPayload;
   }
 
   showDialog() {
     this.formConfig.forEach(data => {
       if (data.name === 'walletId') {
-        data.options = this.walletsData().map(data => {
-          return { label: data.name, value: data.id };
-        })
+        data.options = this.walletsData().map(data => ({
+          label: data.name,
+          value: data.id,
+        }));
       }
       if (data.name === 'categoryId') {
-        data.options = this.categoryData().map(data => {
-          return { label: data.name, value: data.id };
-        })
+        data.options = this.categoryData().map(data => ({
+          label: data.name,
+          value: data.id,
+        }));
       }
-    })
+    });
+
     this.visible = true;
+  }
+
+  closeModal() {
+    this.visible = false;
   }
 
   saveTransaction(form: FormGroup) {
     if (!form.valid) {
-      // this.handleResponse('error', { message: 'Please fill all required fields.' });
       return;
     }
 
@@ -256,8 +260,21 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     });
   }
 
-
-  closeModal() {
-    this.visible = false;
+  // Delete Transaction
+  deleteRow(id: number | string) {
+    confirmDelete().then((isConfirmed) => {
+      if (isConfirmed) {
+        this.transactionService.deleteTransaction(id).subscribe({
+          next: (response) => {
+            this.handleResponse(response.status, response.data);
+            this.loadTransactions();
+            this.eventTrigger = !this.eventTrigger;
+          },
+          error: (error: CommonResponse) => {
+            this.handleResponse(error.status, error.data);
+          },
+        });
+      }
+    });
   }
 }
