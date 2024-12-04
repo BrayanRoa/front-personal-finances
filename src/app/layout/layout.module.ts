@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardModule } from '../features/dashboard/dashboard.module';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { SharedModule } from '../shared/shared.module';
-// import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -26,7 +25,6 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule,
     PrimeNgModule,
     SharedModule,
-    // NgxMaskDirective
   ],
   exports: [
     MainPageComponent

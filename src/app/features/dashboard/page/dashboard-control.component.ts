@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { MetaData } from '../../../shared/interfaces/common-response.interface';
 import { DashboardService } from '../services/dashboard.service';
 import { budgetData, graphPolarity, graphVerticalData, summaryWalletsResponse } from '../../../shared/interfaces/dashboard/summary-wallets.interface';
-import { WalletService } from '../../../core/service/wallet.service';
+import { CoreService } from '../../../core/service/core.service';
 import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.interface';
 import { TransactionService } from '../../transactions/services/transaction.service';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
@@ -50,7 +50,7 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
 
   constructor(
     private readonly dashboardService: DashboardService,
-    private readonly walletService: WalletService,
+    private readonly coreService: CoreService,
     private readonly transactionService: TransactionService,
     private themeService:ThemeService
   ) {
@@ -121,7 +121,7 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
   }
 
   private loadBankDetails(): void {
-    this.walletService.getBanksInformation().subscribe({
+    this.coreService.getBanksInformation().subscribe({
       next: (response) => { this.bankDetails.set(response.data) },
       error: (error) => this.handleResponse(error, 'Error fetching bank details'),
     });

@@ -10,5 +10,5 @@ export interface FormFieldConfig {
         prefix?: string; //
         thousandSeparator?: string; //
     },
-    sizeResponsive?: 'md:col-6' | 'md:col-3' | 'col-12'; //
+    sizeResponsive?: 'md:col-6' | 'md:col-4' | 'md:col-3' | 'col-12'; //
 }
