@@ -161,7 +161,8 @@
 
 .barra-lateral .navegacion a:hover {
     background-color: rgb(238, 238, 238);
-    color: rgb(0, 0, 0)
+    color: rgb(0, 0, 0);
+    border-radius: 10px
 }
 
 .barra-lateral .navegacion i {
@@ -305,11 +306,7 @@
 
 
 .active {
-    background-color: var(--color-menu-hover);
+    background-color: var(--gray-300);
     color: rgb(0, 0, 0);
-    /* border-radius: 10px; */
-}
-
-.test{
-    width: 100%;
+    border-radius: 10px;
 }

@@ -1,0 +1,12 @@
+.custom-select {
+    max-height: 80px;
+    /* Establece la altura máxima */
+    overflow-y: scroll;
+    /* Habilita el scroll solo si es necesario */
+    -webkit-appearance: none;
+    /* Elimina estilos predeterminados del navegador */
+    -moz-appearance: none;
+    /* Elimina estilos predeterminados del navegador */
+    appearance: none;
+    /* Elimina estilos predeterminados */
+}

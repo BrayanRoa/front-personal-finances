@@ -1,13 +1,10 @@
 import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ThemeService } from '../../core/service/theme.service';
-import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
 import { FormFieldConfig } from '../../shared/interfaces/generic-components/form.interface';
 import { WalletService } from '../../core/service/wallet.service';
 import { BanksInformation } from '../../shared/interfaces/wallet/wallet.interface';
 import { BaseComponent } from '../../shared/components/base-component/base-component.component';
-import { CommonResponse } from '../../shared/interfaces/common-response.interface';
 
 @Component({
   selector: 'app-main-page',
@@ -16,7 +13,6 @@ import { CommonResponse } from '../../shared/interfaces/common-response.interfac
 })
 export class MainPageComponent extends BaseComponent {
 
-  visible: boolean = false;
   @ViewChild('icon') myElement!: ElementRef;
   @ViewChild('mini_barra_lateral') barraLateral!: ElementRef;
   @ViewChild('switch') palanca!: ElementRef;
@@ -24,13 +20,11 @@ export class MainPageComponent extends BaseComponent {
   @ViewChild('circulo') circulo!: ElementRef;
   // Uso de QueryList para obtener una lista de elementos
   @ViewChildren('mySpan') mySpans!: QueryList<ElementRef>;
+  
+  // VARIABLE DEL MODAL
+  visible: boolean = false;
 
-  // public myForm: FormGroup = this.fb.group({
-  //   name: ['', [Validators.required]],
-  //   description: ['', [Validators.required]],
-  //   balance: [0, [Validators.required]],
-  // })
-
+  // TEMAS DE PRIME NG DISPONIBLES
   themes = [
     {
       id: 'saga-blue',
@@ -44,6 +38,7 @@ export class MainPageComponent extends BaseComponent {
 
   selectedTheme: { id: string; label: string } = this.themes[0];
 
+  // CONFIGURACIÓN DEL FORMULARIO
   formConfig: FormFieldConfig[] = [
     { type: 'text', label: 'Name', name: 'name', validations: [{ required: true }] },
     { type: 'text', label: 'Description', name: 'description', validations: [{ required: true }] },
@@ -57,9 +52,7 @@ export class MainPageComponent extends BaseComponent {
   ]
 
   constructor(
-    // private fb: FormBuilder,
     private themeService: ThemeService,
-    private router: Router,
     private walletService: WalletService
   ) {
     super()
@@ -68,7 +61,6 @@ export class MainPageComponent extends BaseComponent {
   showDialog() {
     this.visible = true;
   }
-
 
   handleClick() {
     // se agrega esta clase al hacer click
@@ -104,98 +96,8 @@ export class MainPageComponent extends BaseComponent {
     })
   }
 
-  numberValue: string = '';
-
-  formatNumber(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const value = input.value.replace(/,/g, ''); // Remueve las comas existentes
-    if (!isNaN(Number(value))) {
-      input.value = Number(value).toLocaleString('en-US'); // Agrega separadores de miles
-    }
-  }
-
-  removeFormatting(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    input.value = input.value.replace(/,/g, ''); // Limpia el valor para un envío limpio
-  }
-
-
-
-  items!: MenuItem[];
-
-  ngOnInit() {
-    this.items = [
-      {
-        label: 'Dashboard',
-        icon: 'pi pi-envelope',
-        badge: '5',
-        command: () => {
-          this.router.navigate(['/main/dashboard']);
-        },
-        routerLinkActiveOptions: true
-      },
-      {
-        label: 'Transactions',
-        icon: 'pi pi-chart-bar',
-        command: () => {
-          this.router.navigate(['/main/transactions']);
-        },
-        routerLinkActiveOptions: true
-
-        // items: [
-        //   {
-        //     label: 'Sales',
-        //     icon: 'pi pi-chart-line',
-        //     badge: '3'
-        //   },
-        //   {
-        //     label: 'Products',
-        //     icon: 'pi pi-list',
-        //     badge: '6'
-        //   }
-        // ]
-      },
-      {
-        label: 'Budgets',
-        icon: 'pi pi-user',
-        items: [
-          {
-            label: 'Settings',
-            icon: 'pi pi-cog',
-            shortcut: '⌘+O'
-          },
-          {
-            label: 'Privacy',
-            icon: 'pi pi-shield',
-            shortcut: '⌘+P'
-          }
-        ]
-      }
-    ];
-  }
-
-  isActive(routerLink: string): boolean {
-    // Compara la URL actual con el routerLink del elemento
-    return this.router.url === routerLink;
-  }
-
-  toggleAll() {
-    const expanded = !this.areAllItemsExpanded();
-    this.items = this.toggleAllRecursive(this.items, expanded);
-  }
-
-  private toggleAllRecursive(items: MenuItem[], expanded: boolean): MenuItem[] {
-    return items.map((menuItem) => {
-      menuItem.expanded = expanded;
-      if (menuItem.items) {
-        menuItem.items = this.toggleAllRecursive(menuItem.items, expanded);
-      }
-      return menuItem;
-    });
-  }
-
-  private areAllItemsExpanded(): boolean {
-    return this.items.every((menuItem) => menuItem.expanded);
+  closemodal(){
+    this.visible = false;
   }
 
 }

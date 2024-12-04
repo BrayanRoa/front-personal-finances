@@ -16,40 +16,15 @@
 
 
                 <p-dialog header="Create New Wallet" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-                    <app-dynamic-form [fields]="formConfig" (sendForm)="onSaveNewWallet($event)"></app-dynamic-form>
+                    <app-dynamic-form [fields]="formConfig" [submitButton]="'Save'" (sendForm)="onSaveNewWallet($event)" (cancel)="closemodal()"></app-dynamic-form>
                     
-                    <!-- <form [formGroup]="myForm" (ngSubmit)="onSaveNewWallet()">
-                        <div class="field">
-                            <label for="name">Name</label>
-                            <input type="text" pInputText formControlName="name"
-                                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary mb-2 w-full" />
-                        </div>
-                        <div class="field">
-                            <label for="description">Description</label>
-                            <input type="text" formControlName="description"
-                                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary mb-2 w-full" />
-                        </div>
-                        <div class="field mb-5">
-                            <label for="balance">Balance</label>
-                            <input type="text" mask="separator.2" prefix="$" thousandSeparator=","
-                                placeholder="Enter amount" formControlName="balance"
-                                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary mb-2 w-full" />
-                        </div>
-
-                        <div class="flex justify-content-end gap-2">
-                            <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
-                            <p-button label="Save" type="submit" (onClick)="visible = false"
-                                [disabled]="myForm.invalid" />
-                        </div>
-
-                    </form> -->
                 </p-dialog>
             </div>
             <!-- END BOTON AND MODAL -->
         </div>
 
         <nav class="navegacion">
-            <p-panelMenu [model]="items" styleClass="md:w-14.5rem">
+            <!-- <p-panelMenu [model]="items" styleClass="md:w-14.5rem">
                 <ng-template pTemplate="item" let-item>
                     <a pRipple class="flex align-items-center justify-content-start py-2 cursor-pointer"
                         [class.active]="isActive(item.routerLink)"
@@ -60,11 +35,11 @@
                         </span>
                     </a>
                 </ng-template>
-            </p-panelMenu>
+            </p-panelMenu> -->
 
 
 
-            <!-- <ul>
+            <ul>
                 <li routerLink="/main/dashboard/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                     <a >
                         <i class="pi pi-users"></i>
@@ -101,7 +76,7 @@
                         <span #mySpan>Dashboard</span>
                     </a>
                 </li>
-            </ul> -->
+            </ul>
         </nav>
 
         <div>

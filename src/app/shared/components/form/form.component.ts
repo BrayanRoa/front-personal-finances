@@ -11,7 +11,16 @@ import { Validators, ValidatorFn } from '@angular/forms';
 export class FormComponent {
 
   @Input() fields: FormFieldConfig[] = [];
+  @Input() submitButton = 'Submit';
+  @Input() cancelButton = 'Cancel';
+
+  @Input() md_responsive!: 'md:col-6' | 'md:col-3' | '';
+  // md_responsive: 'md:col-6' = "md:col-6"
+  // @Input() submitDisabled = false;
+  // @Input() cancelButtonVisible = true;
+  // @Input() showErrors = true;
   @Output() sendForm = new EventEmitter<FormGroup>();
+  @Output() cancel = new EventEmitter<void>()
   form!: FormGroup;
 
   constructor(private fb: FormBuilder) { }
@@ -67,7 +76,12 @@ export class FormComponent {
 
   onSubmit(): void {
     this.sendForm.emit(this.form)
-    console.log(this.form.value);
+    this.form.reset();
+  }
+
+  onCancel(): void {
+    this.form.reset();
+    this.cancel.emit();
   }
 
 }
