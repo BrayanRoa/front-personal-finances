@@ -107,7 +107,8 @@
                 <!-- MODAL -->
                 <p-dialog header="Add New Transaction" [modal]="true" [(visible)]="visible"
                     [style]="{ width: '50rem' }">
-                    <app-dynamic-form [fields]="formConfig" [submitButton]="'Save'" [md_responsive]="'md:col-6'" (cancel)="closeModal()"></app-dynamic-form>
+                    <app-dynamic-form [fields]="formConfig" [submitButton]="'Save'" [md_responsive]="'md:col-6'"
+                        (cancel)="closeModal()" (sendForm)="saveTransaction($event)"></app-dynamic-form>
                 </p-dialog>
             </div>
 

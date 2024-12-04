@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../../../shared/service/base-service.service';
 import { Observable } from 'rxjs';
 import { ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
-import { TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
+import { Transaction, TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService extends BaseService {
@@ -34,11 +34,6 @@ export class TransactionService extends BaseService {
         const fullUrl = `${this.endpoint}`;
         console.log('Request URL:', fullUrl);
 
-        // return this.http.get<ApiResponse<TransactionData>>(fullUrl, {
-        //     params,
-        //     headers: this.getHeaders()
-        // });
-
         return this.http.get<ApiResponse<TransactionData>>(fullUrl, {
             params,
         });
@@ -51,5 +46,9 @@ export class TransactionService extends BaseService {
 
     deleteTransaction(id: number | string): Observable<CommonResponse> {
         return this.http.delete<CommonResponse>(`${this.endpoint}/${id}`, { headers: this.getHeaders() });
+    }
+
+    createTransaction(transaction: Transaction): Observable<CommonResponse> {
+        return this.http.post<CommonResponse>(`${this.endpoint}`, transaction, { headers: this.getHeaders() });
     }
 }

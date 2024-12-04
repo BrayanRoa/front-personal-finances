@@ -2,7 +2,7 @@ import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angu
 import { FormGroup } from '@angular/forms';
 import { ThemeService } from '../../core/service/theme.service';
 import { FormFieldConfig } from '../../shared/interfaces/generic-components/form.interface';
-import { WalletService } from '../../core/service/wallet.service';
+import { CoreService } from '../../core/service/core.service';
 import { BanksInformation } from '../../shared/interfaces/wallet/wallet.interface';
 import { BaseComponent } from '../../shared/components/base-component/base-component.component';
 
@@ -20,7 +20,7 @@ export class MainPageComponent extends BaseComponent {
   @ViewChild('circulo') circulo!: ElementRef;
   // Uso de QueryList para obtener una lista de elementos
   @ViewChildren('mySpan') mySpans!: QueryList<ElementRef>;
-  
+
   // VARIABLE DEL MODAL
   visible: boolean = false;
 
@@ -53,7 +53,7 @@ export class MainPageComponent extends BaseComponent {
 
   constructor(
     private themeService: ThemeService,
-    private walletService: WalletService
+    private coreService: CoreService
   ) {
     super()
   }
@@ -85,7 +85,7 @@ export class MainPageComponent extends BaseComponent {
 
     const formData: BanksInformation = form.value;
 
-    this.walletService.createBank(formData).subscribe({
+    this.coreService.createBank(formData).subscribe({
       next: (response) => {
         this.handleResponse(response.status, response.data)
         this.visible = false;
@@ -96,7 +96,7 @@ export class MainPageComponent extends BaseComponent {
     })
   }
 
-  closemodal(){
+  closemodal() {
     this.visible = false;
   }
 

@@ -8,23 +8,23 @@ export interface TransactionData {
 }
 
 export interface Transaction {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    deleted_at: string | null;
+    id?: number;
+    created_at?: string;
+    updated_at?: string;
+    deleted_at?: string | null;
     date: string;
     amount: number;
     name:string;
     description: string;
     type: string;
     repeat: string;
-    userId: string;
+    userId?: string;
     walletId: number;
     categoryId: number;
     active: boolean;
-    next_date: string | null;
-    wallet: Wallet;
-    category: Category;
+    next_date?: string | null;
+    wallet?: Wallet;
+    category?: Category;
 }
 
 interface Wallet {

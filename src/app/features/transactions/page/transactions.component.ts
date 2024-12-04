@@ -9,8 +9,11 @@ import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 import { confirmDelete } from '../../../shared/components/sweet-alert-modal/sweet-alert-modal';
 import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
-import { MenuItem } from 'primeng/api';
-import { FormFieldConfig } from '../../../shared/interfaces/generic-components/form.interface';
+import { FORM_CONFIG } from '../statics/transaction.config';
+import { CoreService } from '../../../core/service/core.service';
+import { CategoryInterface } from '../../../shared/interfaces/category/category.interface';
+import { FormGroup } from '@angular/forms';
+import { finalize } from 'rxjs';
 
 interface LoadTransactionParams {
   page: number;
@@ -34,12 +37,11 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   nameMonthSelected = signal<string>(''); // Nombre del mes seleccionado
   years = signal<DropdownOption[]>([]);
   walletsData = signal<BanksInformation[]>([]);
+  categoryData = signal<CategoryInterface[]>([])
 
   months = MONTHS;
-  items!: MenuItem[];
 
   eventTrigger = false; // Estado que se pasará al hijo
-
 
   // DATA SHARED
   transactions: Transaction[] = [];
@@ -80,63 +82,15 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   // MODAL
   public visible: boolean = false;
 
-  // CAMPOS DEL FORMULARIO - el sizeResponsive aplica los valores de 1 a 12 como se hace en bootstrap
-  formConfig: FormFieldConfig[] = [
-    { type: 'text', label: 'Name', name: 'name', validations: [{ required: true }], sizeResponsive:'md:col-3' },
-    { type: 'text', label: 'Description', name: 'description', validations: [{ required: false }], sizeResponsive:'md:col-6' },
-    {
-      type: 'text', label: 'Amount', name: 'amount', value: 0, validations: [{ required: true }], mask: {
-        mask: 'separator.2',
-        prefix: '$',
-        thousandSeparator: ','
-      },
-      sizeResponsive:'md:col-3'
-    },
-    { type: 'date', label: 'Date', name: 'date', value: new Date(), validations: [{ required: true }], sizeResponsive:'md:col-3' },
-    {
-      type: 'select', label: 'Type', name: 'type', options: [
-        { label: 'Income', value: 'INCOME' },
-        { label: 'Expense', value: 'EXPENSE' },
-      ], validations: [{ required: true }], sizeResponsive:'md:col-3'
-    },
-    {
-      type: 'select', label: 'Repeat', name: 'repeat', options: [
-        { label: 'No Repeat', value: 'NEVER' },
-        { label: 'Every Day', value: 'EVERY DAY' },
-        { label: 'Every Two Days', value: 'EVERY TWO DAYS' },
-        { label: 'Every Working Day', value: 'EVERY WORKING DAY' },
-        { label: 'Every Week', value: 'EVERY WEEK' },
-        { label: 'Every Week', value: 'EVERY WEEK' },
-        { label: 'Every Two Weeks', value: 'EVERY TWO WEEKS' },
-        { label: 'Every Month', value: 'EVERY MONTH' },
-        { label: 'Every Two Months', value: 'EVERY TWO MONTHS' },
-        { label: 'Every Three Months', value: 'EVERY THREE MONTHS' },
-        { label: 'Every Six Months', value: 'EVERY SIX MONTHS' },
-        { label: 'Every Year', value: 'EVERY YEAR' },
-      ], validations: [{ required: true }], sizeResponsive:'md:col-6'
-    },
-    {
-      type:'select', label: 'Category', name: 'categoryId', options: [], validations: [{ required: true }], sizeResponsive:'md:col-6'
-    },
-    {
-      type:'select', label: 'Wallet', name: 'walletId', options: [], validations: [{ required: true }], sizeResponsive:'md:col-6'
-    },
-  ]
-
-
+  // FORM STRUCTURE
+  formConfig = FORM_CONFIG;
 
   constructor(
     private transactionService: TransactionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private coreService: CoreService
   ) {
     super()
-
-    this.items = this.months.map((month) => {
-      return {
-        label: month.name,
-        command: () => this.onMonthChange(month),
-      };
-    });
   }
 
   ngOnInit(): void {
@@ -152,6 +106,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     }
 
     this.loadTransactions(); // Cargamos las transacciones iniciales
+    this.loadCategories(); // Cargamos las categorias al abrir el modal de creación o edición
   }
 
 
@@ -221,6 +176,18 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     });
   }
 
+  loadCategories(): void {
+    this.coreService.getCategories().subscribe({
+      next: (response) => {
+        console.log("object", response);
+        this.categoryData.set(response.data)
+      },
+      error: (error: any) => {
+        console.error('Error fetching categories:', error);
+      },
+    });
+  }
+
 
   editRow(row: any) {
     console.log('Editing row:', row);
@@ -234,7 +201,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
             this.handleResponse(response.status, response.data);
             this.loadTransactions()
             this.eventTrigger = !this.eventTrigger;
-            console.log("cambie", this.eventTrigger);
           },
           error: (error: CommonResponse) => {
             this.handleResponse(error.status, error.data);
@@ -245,8 +211,51 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   }
 
   showDialog() {
+    this.formConfig.forEach(data => {
+      if (data.name === 'walletId') {
+        data.options = this.walletsData().map(data => {
+          return { label: data.name, value: data.id };
+        })
+      }
+      if (data.name === 'categoryId') {
+        data.options = this.categoryData().map(data => {
+          return { label: data.name, value: data.id };
+        })
+      }
+    })
     this.visible = true;
   }
+
+  saveTransaction(form: FormGroup) {
+    if (!form.valid) {
+      // this.handleResponse('error', { message: 'Please fill all required fields.' });
+      return;
+    }
+
+    const transactionPayload: Transaction = {
+      ...form.value,
+      active: !!form.value.repeat,
+      walletId: +form.value.walletId,
+      categoryId: +form.value.categoryId,
+    };
+
+    this.transactionService.createTransaction(transactionPayload).pipe(
+      finalize(() => {
+        this.visible = false;
+      })
+    ).subscribe({
+      next: (response) => {
+        this.handleResponse(response.status, response.data);
+        this.eventTrigger = !this.eventTrigger;
+        this.loadTransactions();
+      },
+      error: (error: CommonResponse) => {
+        console.error('Error creating transaction:', error);
+        this.handleResponse(error.status, error.data);
+      },
+    });
+  }
+
 
   closeModal() {
     this.visible = false;

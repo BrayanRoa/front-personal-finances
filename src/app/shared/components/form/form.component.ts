@@ -38,6 +38,8 @@ export class FormComponent {
       ];
     });
     this.form = this.fb.group(group);
+
+    console.log("structue",this.form);
   }
 
   getErrors(fieldName: string): string[] {
@@ -75,6 +77,7 @@ export class FormComponent {
 
 
   onSubmit(): void {
+    console.log("#$%%$###", this.form);
     this.sendForm.emit(this.form)
     this.form.reset();
   }
