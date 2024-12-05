@@ -45,7 +45,6 @@ export class TableComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['eventTrigger']) {
-      console.log("AJA CAMBIE", changes['eventTrigger']);
       this.meta.totalRecords -= 1
       this.paginatorComponent.resetPage(); // Reinicia la página en el paginator
     }
@@ -67,7 +66,6 @@ export class TableComponent implements OnInit, OnChanges {
 
   // ** Métodos públicos **
   handlePageChange(event: any): void {
-    console.log("TABLE PAGINATOR", event);
     this.paginate.emit({
       page: event.page,
       per_page: event.per_page,

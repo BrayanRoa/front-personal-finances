@@ -19,6 +19,9 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+
 
 @NgModule({
   exports: [
@@ -39,7 +42,9 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     SplitButtonModule,
     CalendarModule,
     InputTextModule,
-    FloatLabelModule
+    FloatLabelModule,
+    IconFieldModule,
+    InputIconModule
   ]
 })
 export class PrimeNgModule { }

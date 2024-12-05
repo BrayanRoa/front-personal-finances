@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form!" (ngSubmit)="onSubmit()">
     <div class="formgrid grid">
 
         <div *ngFor="let field of fields" [class]="'field col-12 ' + field.sizeResponsive">
@@ -28,8 +28,8 @@
 
     <div class="flex justify-content-end">
 
-        <button pButton severity="help" type="submit" class="mr-2" [disabled]="form.invalid">
-            {{submitButton}}
+        <button pButton severity="success" type="submit" class="mr-2" [disabled]="form.invalid" >
+            {{submitButton | titlecase}}
         </button>
         <button pButton severity="danger" type="button" (click)="onCancel()">
             {{cancelButton}}

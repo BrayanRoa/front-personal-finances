@@ -2,7 +2,7 @@ import { FormFieldConfig } from '../../../shared/interfaces/generic-components/f
 
 export const FORM_CONFIG: FormFieldConfig[] = [
     { type: 'text', label: 'Name', name: 'name', validations: [{ required: true }], sizeResponsive: 'md:col-3' },
-    { type: 'text', label: 'Description', name: 'description', validations: [{ required: false }], sizeResponsive: 'md:col-6' },
+    { type: 'text', label: 'Description', name: 'description', validations: [], sizeResponsive: 'md:col-6' },
     {
         type: 'text', label: 'Amount', name: 'amount', value: 0, validations: [{ required: true }], mask: {
             mask: 'separator.2',
@@ -19,7 +19,7 @@ export const FORM_CONFIG: FormFieldConfig[] = [
         ], validations: [{ required: true }], sizeResponsive: 'md:col-4'
     },
     {
-        type: 'select', label: 'Repeat', name: 'repeat', options: [
+        type: 'select', label: 'Repeat', name: 'repeat', value: { label: 'No Repeat', value: 'NEVER' }, options: [
             { label: 'No Repeat', value: 'NEVER' },
             { label: 'Every Day', value: 'EVERY DAY' },
             { label: 'Every Two Days', value: 'EVERY TWO DAYS' },
@@ -34,10 +34,13 @@ export const FORM_CONFIG: FormFieldConfig[] = [
         ], validations: [{ required: true }], sizeResponsive: 'md:col-4'
     },
     {
-        type: 'select', label: 'Category', name: 'categoryId', options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
+        type: 'select', label: 'Category', name: 'categoryId', value:{
+            label: 'Select Category',
+            value: '',
+        }, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
     },
     {
-        type: 'select', label: 'Wallet', name: 'walletId', options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
+        type: 'select', label: 'Wallet', name: 'walletId', value:{}, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
     },    // Más configuraciones...
 ];
 

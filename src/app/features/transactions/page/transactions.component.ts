@@ -13,7 +13,7 @@ import { FORM_CONFIG } from '../statics/transaction.config';
 import { CoreService } from '../../../core/service/core.service';
 import { CategoryInterface } from '../../../shared/interfaces/category/category.interface';
 import { FormGroup } from '@angular/forms';
-import { finalize, Observable } from 'rxjs';
+import { debounceTime, finalize, Observable, Subject } from 'rxjs';
 
 interface LoadTransactionParams {
   page: number;
@@ -21,7 +21,7 @@ interface LoadTransactionParams {
   walletId: number;
   year: number;
   month: number;
-  searchTerm?: string;
+  searchTerm: string;
 }
 
 @Component({
@@ -30,9 +30,6 @@ interface LoadTransactionParams {
   styleUrls: ['./transactions.component.css']
 })
 export class TransactionsComponent extends BaseComponent implements OnInit {
-
-  nameButton: string = 'save';
-  idTransactionSelected = signal<number>(0)
 
   // Signals
   selectedBankId = signal<number | null>(null);
@@ -54,6 +51,8 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   // Form Structure
   formConfig = FORM_CONFIG;
+  nameButton: string = 'save';
+  idTransactionSelected = signal<number>(0)
 
   // Data Shared
   transactions: Transaction[] = [];
@@ -95,12 +94,24 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   // Event Trigger
   eventTrigger = false;
 
+  // search
+  inputSubject = new Subject<string>();
+
+
   constructor(
     private transactionService: TransactionService,
     private route: ActivatedRoute,
     private coreService: CoreService
   ) {
     super();
+
+    this.inputSubject.pipe(debounceTime(300)).subscribe((value) => {
+      if (value.length >= 3) {
+        this.onSearch(value)
+      } else if (value.length < 3) {
+        this.onSearch("")
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -137,8 +148,13 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     this.loadTransactions();
   }
 
-  onSearch(option: { page: number, per_page: number, search: string }): void {
-    this.loadTransactions({ searchTerm: option.search });
+  onInputChangeWithDebounce(event: Event) {
+    const input = (event.target as HTMLInputElement).value;
+    this.inputSubject.next(input);
+  }
+
+  onSearch(searchTerm: string): void {
+    this.loadTransactions({ searchTerm });
   }
 
   onPageChange(data: { page: number; per_page: number, search: string }): void {
@@ -240,7 +256,10 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
 
   showDialog() {
+    console.log("opciones antes", this.formConfig);
     this.loadOptions()
+    console.log("opciones despues", this.formConfig);
+
     // Configurar las opciones antes de abrir el diálogo
     this.visible = true;
   }
@@ -248,6 +267,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   closeModal() {
     this.visible = false;
   }
+
 
   saveTransaction(event: { data: FormGroup; action: string }) {
     if (!this.isFormValid(event.data)) return;
@@ -258,7 +278,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
       walletId: +event.data.value.walletId,
       categoryId: +event.data.value.categoryId,
     };
-
     const action$ = event.action === 'update'
       ? this.transactionService.updateTransaction(this.idTransactionSelected(), transactionPayload)
       : this.transactionService.createTransaction(transactionPayload);
@@ -283,7 +302,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   private isFormValid(form: FormGroup): boolean {
     if (!form.valid) {
-      console.error('Form is invalid:', form.errors);
+      // console.error('Form is invalid:', form.errors);
       return false;
     }
     return true;

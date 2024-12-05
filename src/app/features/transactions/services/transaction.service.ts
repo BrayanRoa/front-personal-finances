@@ -32,7 +32,7 @@ export class TransactionService extends BaseService {
         });
 
         const fullUrl = `${this.endpoint}`;
-        console.log('Request URL:', fullUrl);
+        // console.log('Request URL:', fullUrl);
 
         return this.http.get<ApiResponse<TransactionData>>(fullUrl, {
             params,

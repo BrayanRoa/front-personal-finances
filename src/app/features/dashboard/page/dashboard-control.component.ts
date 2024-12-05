@@ -147,11 +147,11 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
   }
 
   editRow(row: any): void {
-    console.log('Editing row:', row);
+    // console.log('Editing row:', row);
   }
 
   deleteRow(row: any): void {
-    console.log('Deleting row:', row);
+    // console.log('Deleting row:', row);
   }
 
 }

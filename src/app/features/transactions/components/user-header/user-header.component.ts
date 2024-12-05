@@ -28,13 +28,13 @@ export class UserHeaderComponent implements OnInit {
   }
 
   onBankChange(options: DropdownOption) {
-    console.log("OJO", options);
+    // console.log("OJO", options);
     this.walletSelected = options.name
     this.wallet.emit(+options.id)
   }
 
   onYearChange(options: DropdownOption) {
-    console.log(options);
+    // console.log(options);
     this.yearSelect = +options.id
     this.year.emit(+options.id)
   }
