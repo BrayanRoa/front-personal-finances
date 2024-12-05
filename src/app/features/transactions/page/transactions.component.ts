@@ -13,7 +13,7 @@ import { FORM_CONFIG } from '../statics/transaction.config';
 import { CoreService } from '../../../core/service/core.service';
 import { CategoryInterface } from '../../../shared/interfaces/category/category.interface';
 import { FormGroup } from '@angular/forms';
-import { finalize } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 
 interface LoadTransactionParams {
   page: number;
@@ -30,6 +30,9 @@ interface LoadTransactionParams {
   styleUrls: ['./transactions.component.css']
 })
 export class TransactionsComponent extends BaseComponent implements OnInit {
+
+  nameButton: string = 'save';
+  idTransactionSelected = signal<number>(0)
 
   // Signals
   selectedBankId = signal<number | null>(null);
@@ -78,7 +81,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
       type: 'button',
       icon: 'pi pi-pencil',
       color: 'primary',
-      callback: (row: number | string, transaction: Transaction) => this.editRow(row, transaction),
+      callback: (id: number, transaction: Transaction) => this.editRow(id, transaction),
     },
     {
       label: '',
@@ -195,35 +198,50 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   }
 
   // Modal and Transaction Editing Methods
-  editRow(row: any, transaction: Transaction) {
-    this.showDialog();
+  async editRow(id: number, transaction: Transaction) {
+    this.idTransactionSelected.set(id);
 
-    const transactionPayload: Transaction = {
-      ...transaction,
-      date: new Date(transaction.date).toISOString().split('T')[0],
-      walletId: +transaction.walletId,
-      categoryId: +transaction.categoryId,
-    };
+    // Configurar opciones
+    await this.loadOptions()
 
-    this.transactionSelected = transactionPayload;
+    setTimeout(() => {
+      const transactionPayload: Transaction = {
+        ...transaction,
+        date: new Date(transaction.date).toISOString().split('T')[0],
+        walletId: +transaction.walletId,
+        categoryId: +transaction.categoryId,
+      };
+
+      this.transactionSelected = transactionPayload;
+      this.nameButton = 'update';
+      this.visible = true;
+    });
   }
 
-  showDialog() {
-    this.formConfig.forEach(data => {
-      if (data.name === 'walletId') {
-        data.options = this.walletsData().map(data => ({
-          label: data.name,
-          value: data.id,
-        }));
-      }
-      if (data.name === 'categoryId') {
-        data.options = this.categoryData().map(data => ({
-          label: data.name,
-          value: data.id,
-        }));
-      }
-    });
+  loadOptions() {
+    return new Promise<void>((resolve, reject) => {
+      this.formConfig.forEach(data => {
+        if (data.name === 'walletId') {
+          data.options = this.walletsData().map(wallet => ({
+            label: wallet.name,
+            value: wallet.id,
+          }));
+        }
+        if (data.name === 'categoryId') {
+          data.options = this.categoryData().map(category => ({
+            label: category.name,
+            value: category.id,
+          }));
+        }
+      });
+      resolve();
+    })
+  }
 
+
+  showDialog() {
+    this.loadOptions()
+    // Configurar las opciones antes de abrir el diálogo
     this.visible = true;
   }
 
@@ -231,19 +249,25 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     this.visible = false;
   }
 
-  saveTransaction(form: FormGroup) {
-    if (!form.valid) {
-      return;
-    }
+  saveTransaction(event: { data: FormGroup; action: string }) {
+    if (!this.isFormValid(event.data)) return;
 
     const transactionPayload: Transaction = {
-      ...form.value,
-      active: !!form.value.repeat,
-      walletId: +form.value.walletId,
-      categoryId: +form.value.categoryId,
+      ...event.data.value,
+      active: !!event.data.value.repeat,
+      walletId: +event.data.value.walletId,
+      categoryId: +event.data.value.categoryId,
     };
 
-    this.transactionService.createTransaction(transactionPayload).pipe(
+    const action$ = event.action === 'update'
+      ? this.transactionService.updateTransaction(this.idTransactionSelected(), transactionPayload)
+      : this.transactionService.createTransaction(transactionPayload);
+
+    this.handleTransaction(action$);
+  }
+
+  private handleTransaction(action$: Observable<ApiResponse<any>>) {
+    action$.pipe(
       finalize(() => {
         this.visible = false;
       })
@@ -253,12 +277,23 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
         this.eventTrigger = !this.eventTrigger;
         this.loadTransactions();
       },
-      error: (error: CommonResponse) => {
-        console.error('Error creating transaction:', error);
-        this.handleResponse(error.status, error.data);
-      },
+      error: (error: CommonResponse) => this.handleError(error),
     });
   }
+
+  private isFormValid(form: FormGroup): boolean {
+    if (!form.valid) {
+      console.error('Form is invalid:', form.errors);
+      return false;
+    }
+    return true;
+  }
+
+  private handleError(error: CommonResponse) {
+    this.handleResponse(error.status, error.data);
+    console.error('Detailed error log:', error);
+  }
+
 
   // Delete Transaction
   deleteRow(id: number | string) {

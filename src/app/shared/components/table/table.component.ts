@@ -93,9 +93,8 @@ export class TableComponent implements OnInit, OnChanges {
     // TODO: AQUI DEBO ENVIAR EL REGISTRO SOLO CUANDO SEA UN UPDATE PARA UN DELETE NO
     console.log("POR EEL CLICK", id, icon);
     const action = this.actions?.find(action => action.icon === icon);
-    if (action) {
+    if (action?.icon=== 'pi pi-pencil') {
       action.callback(id, this.data.filter(action => action.id === id)[0]);
-
     }
   }
 

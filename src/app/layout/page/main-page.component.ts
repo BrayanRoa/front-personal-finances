@@ -82,9 +82,9 @@ export class MainPageComponent extends BaseComponent {
     this.circulo.nativeElement.classList.toggle('prendido')
   }
 
-  onSaveNewWallet(form: FormGroup) {
-
-    const formData: BanksInformation = form.value;
+  onSaveNewWallet(event:{data: FormGroup, action:string}) {
+    
+    const formData: BanksInformation = event.data.value;
 
     this.coreService.createBank(formData).pipe(
       finalize(() => {

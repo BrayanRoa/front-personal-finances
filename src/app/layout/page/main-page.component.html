@@ -16,7 +16,7 @@
 
 
                 <p-dialog header="Create New Wallet" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-                    <app-dynamic-form [fields]="formConfig" [submitButton]="'Save'" (sendForm)="onSaveNewWallet($event)" (cancel)="closemodal()"></app-dynamic-form>
+                    <app-dynamic-form [fields]="formConfig" [submitButton]="'save'" (sendForm)="onSaveNewWallet($event)" (cancel)="closemodal()"></app-dynamic-form>
                     
                 </p-dialog>
             </div>

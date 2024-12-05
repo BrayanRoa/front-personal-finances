@@ -101,13 +101,13 @@
                 <app-drop-down class="mr-2" [severity]="'help'" [titleDropDown]="'Month'" [optionsDropDown]="months"
                     (onChange)="onMonthChange($event)">
                 </app-drop-down>
-                <button pButton pRipple label="Add Transaction" class="p-button-success"
+                <button pButton pRipple label="Add Transaction" class="p-button-success" icon="pi pi-plus"
                     (click)="showDialog()"></button>
 
                 <!-- MODAL -->
                 <p-dialog header="Add New Transaction" [modal]="true" [(visible)]="visible"
                     [style]="{ width: '50rem' }">
-                    <app-dynamic-form [fields]="formConfig" [submitButton]="'Save'" [md_responsive]="'md:col-6'"
+                    <app-dynamic-form [fields]="formConfig" [submitButton]="nameButton" [md_responsive]="'md:col-6'"
                         [data]="transactionSelected" (cancel)="closeModal()"
                         (sendForm)="saveTransaction($event)"></app-dynamic-form>
                 </p-dialog>
