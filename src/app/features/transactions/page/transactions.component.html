@@ -1,16 +1,19 @@
 <div class="grid-container">
-
+    <!-- main content -->
     <div class="grid">
+        <!-- user header -->
         <div class="col-12 h-full">
             <app-user-header (wallet)="onBankSelected($event)" [wallets]="walletsData()" (year)="onYearSelected($event)"
                 [years]="years()">
             </app-user-header>
         </div>
 
+        <!-- cards transactions -->
         <div class="col-12 h-full">
             <app-transactions-card></app-transactions-card>
         </div>
 
+        <!-- main table, buttons and search -->
         <div class="col-12 h-full">
             <p-panel [toggleable]="true">
                 <ng-template pTemplate="header">
@@ -19,7 +22,9 @@
                     </div>
                 </ng-template>
 
+                <!-- buttons and search -->
                 <div class="grid grid-nogutter">
+                    <!-- search -->
                     <div class="col-6">
                         <p-iconField iconPosition="left">
                             <p-inputIcon styleClass="pi pi-search" />
@@ -39,9 +44,10 @@
                         <!-- MODAL -->
                         <p-dialog header="Add New Transaction" [modal]="true" [(visible)]="visible"
                             [style]="{ width: '50rem' }">
+                            <!-- FROMULARIO -->
                             <app-dynamic-form [fields]="formConfig" [submitButton]="nameButton"
                                 [md_responsive]="'md:col-6'" [data]="transactionSelected" (cancel)="closeModal()"
-                                (sendForm)="saveTransaction($event)"></app-dynamic-form>
+                                (sendForm)="saveOrUpdateTransaction($event)"></app-dynamic-form>
                         </p-dialog>
                     </div>
                 </div>
@@ -101,8 +107,6 @@
 
         <div class="col-12 h-full">
         </div>
-
-
 
     </div>
 </div>
