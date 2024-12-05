@@ -202,7 +202,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     });
   }
 
-  loadCategories(): void {
+  private loadCategories(): void {
     this.coreService.getCategories().subscribe({
       next: (response) => {
         this.categoryData.set(response.data);
@@ -210,6 +210,32 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
       error: (error: any) => {
         console.error('Error fetching categories:', error);
       },
+    });
+  }
+
+  private loadOptions() {
+    return new Promise<void>((resolve, reject) => {
+      this.formConfig.forEach(data => {
+        if (data.name === 'walletId') {
+          data.options = [
+            { label: 'Select Wallet', value: null }, // Opción predeterminada
+            ...this.walletsData().map(wallet => ({
+              label: wallet.name,
+              value: wallet.id,
+            })),
+          ];
+        }
+        if (data.name === 'categoryId') {
+          data.options = [
+            { label: 'Select Category', value: null }, // Opción predeterminada
+            ...this.categoryData().map(category => ({
+              label: category.name,
+              value: category.id,
+            })),
+          ];
+        }
+      });
+      resolve();
     });
   }
 
@@ -234,33 +260,27 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     });
   }
 
-  loadOptions() {
-    return new Promise<void>((resolve, reject) => {
-      this.formConfig.forEach(data => {
-        if (data.name === 'walletId') {
-          data.options = this.walletsData().map(wallet => ({
-            label: wallet.name,
-            value: wallet.id,
-          }));
-        }
-        if (data.name === 'categoryId') {
-          data.options = this.categoryData().map(category => ({
-            label: category.name,
-            value: category.id,
-          }));
-        }
-      });
-      resolve();
-    })
+  // Delete Transaction
+  deleteRow(id: number | string) {
+    confirmDelete().then((isConfirmed) => {
+      if (isConfirmed) {
+        this.transactionService.deleteTransaction(id).subscribe({
+          next: (response) => {
+            this.handleResponse(response.status, response.data);
+            this.loadTransactions();
+            this.eventTrigger = !this.eventTrigger;
+          },
+          error: (error: CommonResponse) => {
+            this.handleResponse(error.status, error.data);
+          },
+        });
+      }
+    });
   }
 
-
   showDialog() {
-    console.log("opciones antes", this.formConfig);
-    this.loadOptions()
-    console.log("opciones despues", this.formConfig);
-
     // Configurar las opciones antes de abrir el diálogo
+    this.loadOptions()
     this.visible = true;
   }
 
@@ -268,8 +288,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     this.visible = false;
   }
 
-
-  saveTransaction(event: { data: FormGroup; action: string }) {
+  saveOrUpdateTransaction(event: { data: FormGroup; action: string }) {
     if (!this.isFormValid(event.data)) return;
 
     const transactionPayload: Transaction = {
@@ -302,7 +321,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   private isFormValid(form: FormGroup): boolean {
     if (!form.valid) {
-      // console.error('Form is invalid:', form.errors);
+      console.error('Form is invalid:', form.errors);
       return false;
     }
     return true;
@@ -313,22 +332,4 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     console.error('Detailed error log:', error);
   }
 
-
-  // Delete Transaction
-  deleteRow(id: number | string) {
-    confirmDelete().then((isConfirmed) => {
-      if (isConfirmed) {
-        this.transactionService.deleteTransaction(id).subscribe({
-          next: (response) => {
-            this.handleResponse(response.status, response.data);
-            this.loadTransactions();
-            this.eventTrigger = !this.eventTrigger;
-          },
-          error: (error: CommonResponse) => {
-            this.handleResponse(error.status, error.data);
-          },
-        });
-      }
-    });
-  }
 }

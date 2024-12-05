@@ -28,6 +28,7 @@ export class FormComponent {
 
   ngOnInit(): void {
     this.createForm();
+    this.trackFormChanges()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -40,13 +41,13 @@ export class FormComponent {
     const group: any = {};
     this.fields.forEach(field => {
       group[field.name] = [
-        field.value || '',
+        field.value || '' || null,
         this.mapValidations(field.validations || []),
       ];
     });
     this.form = this.fb.group(group);
 
-    console.log("EL FORMULARIO",this.form);
+    console.log("EL FORMULARIO", this.form);
   }
 
   getErrors(fieldName: string): string[] {
@@ -99,8 +100,19 @@ export class FormComponent {
   }
 
   populateFormData() {
-    this.form.patchValue(this.data);
-    console.log("DAAAAATAAAA", this.form);
+    if (this.data) {
+      this.form.patchValue({
+        ...this.data,
+      });
+    }
   }
+
+  trackFormChanges(): void {
+    this.form.valueChanges.subscribe(values => {
+      console.log('Estado actual del formulario:', values);
+      console.log('Formulario válido:', this.form.valid);
+    });
+  }
+
 
 }
