@@ -1,174 +1,108 @@
-<!-- <div class="container">
-    <app-user-header (wallet)="onBankSelected($event)" [wallets]="walletsData()" (year)="onYearSelected($event)"
-        [years]="years()">
-    </app-user-header>
+<div class="grid-container">
 
-    <app-transactions-card></app-transactions-card>
+    <div class="grid">
+        <div class="col-12 h-full">
+            <app-user-header (wallet)="onBankSelected($event)" [wallets]="walletsData()" (year)="onYearSelected($event)"
+                [years]="years()">
+            </app-user-header>
+        </div>
 
-    <div class="grid-container">
-        <div class="item item1">
-            <div class="title-container">
-                <div class="title">
-                    <h3>Transactions By Month - {{ nameMonthSelected() }}</h3>
+        <div class="col-12 h-full">
+            <app-transactions-card></app-transactions-card>
+        </div>
+
+        <div class="col-12 h-full">
+            <p-panel [toggleable]="true">
+                <ng-template pTemplate="header">
+                    <div class="custom-header">
+                        <span class="item1">Transactions By Month - {{nameMonthSelected()}}</span>
+                    </div>
+                </ng-template>
+
+                <div class="grid grid-nogutter">
+                    <div class="col-6">
+                        <p-iconField iconPosition="left">
+                            <p-inputIcon styleClass="pi pi-search" />
+                            <input type="text" pInputText placeholder="Search"
+                                (input)="onInputChangeWithDebounce($event)" />
+                        </p-iconField>
+                    </div>
+
+                    <div class="col-6 flex justify-content-end mb-3">
+                        <!-- BUTTONS -->
+                        <app-drop-down class="mr-2" [severity]="'help'" [titleDropDown]="'Month'"
+                            [optionsDropDown]="months" (onChange)="onMonthChange($event)">
+                        </app-drop-down>
+                        <button pButton pRipple label="Add Transaction" class="p-button-success" icon="pi pi-plus"
+                            (click)="showDialog()"></button>
+
+                        <!-- MODAL -->
+                        <p-dialog header="Add New Transaction" [modal]="true" [(visible)]="visible"
+                            [style]="{ width: '50rem' }">
+                            <app-dynamic-form [fields]="formConfig" [submitButton]="nameButton"
+                                [md_responsive]="'md:col-6'" [data]="transactionSelected" (cancel)="closeModal()"
+                                (sendForm)="saveTransaction($event)"></app-dynamic-form>
+                        </p-dialog>
+                    </div>
                 </div>
 
-                <div class="dropdown">
-                    <app-drop-down [titleDropDown]="'Month'" [optionsDropDown]="months"
-                        (onChange)="onMonthChange($event)">
-                    </app-drop-down>
-                </div>
-            </div>
 
-            <app-table [columns]="tableColumns" [data]="transactions" [meta]="metaData" [numberRegistersByPage]="10"
-                (paginate)="onPageChange($event)" [actions]="actions" [cellTemplates]="{
+                <app-table [columns]="tableColumns" [data]="transactions" [meta]="metaData" [numberRegistersByPage]="10"
+                    (paginate)="onPageChange($event)" [actions]="actions" [cellTemplates]="{
                     type: tagTemplate, 
                     date: dateTemplate, 
                     amount: amountTemplate, 
                     category: categoryTemplate,
                     repeat: repeatTemplate,
                 }" [eventTrigger]="eventTrigger">
-            </app-table>
+                </app-table>
 
-            <ng-template #tagTemplate let-value>
-                <td *ngIf="value === 'INCOME'; else outflow">
-                    <div class="test">
-                        <p-tag severity="success" value="INCOME" />
-                    </div>
-                </td>
-                <ng-template #outflow>
-                    <td>
-                        <p-tag severity="danger" value="OUTFLOW" />
-                    </td>
-                </ng-template>
-            </ng-template>
-
-            <ng-template #dateTemplate let-value>
-                <td>{{ value | date:'longDate':'UTC' }}</td>
-            </ng-template>
-
-            <ng-template #amountTemplate let-value>
-                <td>{{ value | currency }}</td>
-            </ng-template>
-
-            <ng-template #categoryTemplate let-value>
-                <td>{{ value }}</td>
-            </ng-template>
-
-            <ng-template #repeatTemplate let-value>
-                <td *ngIf="value === 'NEVER'; else otherRepeat">
-                    <div class="center">
-                        <p-tag icon="pi pi-circle-fill" severity="warning" value="{{value}}" />
-                    </div>
-                </td>
-                <ng-template #otherRepeat>
-                    <td>
-                        <div class="center">
-                            <p-tag icon="pi pi-clock" severity="success" value="{{value}}" />
+                <ng-template #tagTemplate let-value>
+                    <td *ngIf="value === 'INCOME'; else outflow">
+                        <div class="test">
+                            <p-tag severity="success" value="INCOME" />
                         </div>
                     </td>
+                    <ng-template #outflow>
+                        <td>
+                            <p-tag severity="danger" value="OUTFLOW" />
+                        </td>
+                    </ng-template>
                 </ng-template>
-            </ng-template>
-        </div>
 
-        <div class="item item2">
-            <app-button label="Guardar" color="primary" [isDisabled]="false" icon="pi pi-save"></app-button>
-        </div>
-    </div>
-</div> -->
-
-
-<div class="grid">
-    <div class="col-12 h-full">
-        <app-user-header (wallet)="onBankSelected($event)" [wallets]="walletsData()" (year)="onYearSelected($event)"
-            [years]="years()">
-        </app-user-header>
-    </div>
-
-    <div class="col-12 h-full">
-        <app-transactions-card></app-transactions-card>
-    </div>
-
-    <div class="col-12 h-full">
-        <p-panel [toggleable]="true">
-            <ng-template pTemplate="header">
-                <div class="custom-header">
-                    <span class="item1">Transactions By Month - {{nameMonthSelected()}}</span>
-                </div>
-            </ng-template>
-
-            <div class="flex justify-content-end mb-3">
-                <!-- BUTTONS -->
-                <app-drop-down class="mr-2" [severity]="'help'" [titleDropDown]="'Month'" [optionsDropDown]="months"
-                    (onChange)="onMonthChange($event)">
-                </app-drop-down>
-                <button pButton pRipple label="Add Transaction" class="p-button-success" icon="pi pi-plus"
-                    (click)="showDialog()"></button>
-
-                <!-- MODAL -->
-                <p-dialog header="Add New Transaction" [modal]="true" [(visible)]="visible"
-                    [style]="{ width: '50rem' }">
-                    <app-dynamic-form [fields]="formConfig" [submitButton]="nameButton" [md_responsive]="'md:col-6'"
-                        [data]="transactionSelected" (cancel)="closeModal()"
-                        (sendForm)="saveTransaction($event)"></app-dynamic-form>
-                </p-dialog>
-            </div>
-
-
-            <app-table [columns]="tableColumns" [data]="transactions" [meta]="metaData" [numberRegistersByPage]="10"
-                (paginate)="onPageChange($event)" [actions]="actions" [cellTemplates]="{
-                    type: tagTemplate, 
-                    date: dateTemplate, 
-                    amount: amountTemplate, 
-                    category: categoryTemplate,
-                    repeat: repeatTemplate,
-                }" [eventTrigger]="eventTrigger">
-            </app-table>
-
-            <ng-template #tagTemplate let-value>
-                <td *ngIf="value === 'INCOME'; else outflow">
-                    <div class="test">
-                        <p-tag severity="success" value="INCOME" />
-                    </div>
-                </td>
-                <ng-template #outflow>
-                    <td>
-                        <p-tag severity="danger" value="OUTFLOW" />
-                    </td>
+                <ng-template #dateTemplate let-value>
+                    <td>{{ value | date:'longDate':'UTC' }}</td>
                 </ng-template>
-            </ng-template>
 
-            <ng-template #dateTemplate let-value>
-                <td>{{ value | date:'longDate':'UTC' }}</td>
-            </ng-template>
+                <ng-template #amountTemplate let-value>
+                    <td>{{ value | currency }}</td>
+                </ng-template>
 
-            <ng-template #amountTemplate let-value>
-                <td>{{ value | currency }}</td>
-            </ng-template>
+                <ng-template #categoryTemplate let-value>
+                    <td>{{ value }}</td>
+                </ng-template>
 
-            <ng-template #categoryTemplate let-value>
-                <td>{{ value }}</td>
-            </ng-template>
-
-            <ng-template #repeatTemplate let-value>
-                <td *ngIf="value === 'NEVER'; else otherRepeat">
-                    <div class="center">
-                        <p-tag icon="pi pi-circle-fill" severity="warning" value="{{value}}" />
-                    </div>
-                </td>
-                <ng-template #otherRepeat>
-                    <td>
+                <ng-template #repeatTemplate let-value>
+                    <td *ngIf="value === 'NEVER'; else otherRepeat">
                         <div class="center">
-                            <p-tag icon="pi pi-clock" severity="success" value="{{value}}" />
+                            <p-tag icon="pi pi-circle-fill" severity="warning" value="{{value}}" />
                         </div>
                     </td>
+                    <ng-template #otherRepeat>
+                        <td>
+                            <div class="center">
+                                <p-tag icon="pi pi-clock" severity="success" value="{{value}}" />
+                            </div>
+                        </td>
+                    </ng-template>
                 </ng-template>
-            </ng-template>
-        </p-panel>
+            </p-panel>
+        </div>
+
+        <div class="col-12 h-full">
+        </div>
+
+
+
     </div>
-
-    <div class="col-12 h-full">
-    </div>
-
-
-
 </div>

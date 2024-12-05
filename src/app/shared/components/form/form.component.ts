@@ -45,6 +45,8 @@ export class FormComponent {
       ];
     });
     this.form = this.fb.group(group);
+
+    console.log("EL FORMULARIO",this.form);
   }
 
   getErrors(fieldName: string): string[] {
@@ -82,14 +84,12 @@ export class FormComponent {
 
 
   onSubmit(): void {
-    console.log("#$%%$###", this.form);
-    console.log(this.submitButton);
     if (this.submitButton === 'save') {
-      console.log("entreeeee");
       this.sendForm.emit({ data: this.form, action: 'save' });
     } else if (this.submitButton === 'update') {
       this.sendForm.emit({ data: this.form, action: 'update' });
     }
+    console.log("PERRROSSSSS", this.form.value);
     this.form.reset();
   }
 

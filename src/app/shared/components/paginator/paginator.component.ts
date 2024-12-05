@@ -23,7 +23,7 @@ export class PaginatorComponent {
   constructor() {
     // Efecto para emitir cambios al padre cuando se actualicen los signals
     effect(() => {
-      console.log("hollaaaa");
+      // console.log("hollaaaa");
       this.pageSelected.emit({
         page: this.page(),
         per_page: this.perPage()

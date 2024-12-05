@@ -31,7 +31,6 @@ export class LoginComponent {
 
     this.authService.login(this.myForm.value).subscribe({
       next: (data) => {
-        console.log(data);
         setTimeout(() => {
           this.loading = true; // Oculta el spinner de carga
           this.router.navigate(['/main/dashboard']);
