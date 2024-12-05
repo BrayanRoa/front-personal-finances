@@ -51,4 +51,8 @@ export class TransactionService extends BaseService {
     createTransaction(transaction: Transaction): Observable<CommonResponse> {
         return this.http.post<CommonResponse>(`${this.endpoint}`, transaction, { headers: this.getHeaders() });
     }
+
+    updateTransaction(id: number, transaction: Transaction): Observable<CommonResponse> {
+        return this.http.patch<CommonResponse>(`${this.endpoint}/${id}`, transaction, { headers: this.getHeaders() });
+    }
 }

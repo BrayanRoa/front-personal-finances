@@ -11,7 +11,7 @@ import { Validators, ValidatorFn } from '@angular/forms';
 export class FormComponent {
 
   @Input() fields: FormFieldConfig[] = [];
-  @Input() submitButton = 'Submit';
+  @Input() submitButton = 'save';
   @Input() cancelButton = 'Cancel';
   @Input() data: any
 
@@ -20,7 +20,7 @@ export class FormComponent {
   // @Input() submitDisabled = false;
   // @Input() cancelButtonVisible = true;
   // @Input() showErrors = true;
-  @Output() sendForm = new EventEmitter<FormGroup>();
+  @Output() sendForm = new EventEmitter<{ id?: number, data: FormGroup, action: string }>();
   @Output() cancel = new EventEmitter<void>()
   form!: FormGroup;
 
@@ -28,17 +28,13 @@ export class FormComponent {
 
   ngOnInit(): void {
     this.createForm();
-
-    // aplicar aqui un ngchanges
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && changes['data'].currentValue) {
-      // this.updateChartData();
       this.populateFormData();
     }
   }
-
 
   createForm(): void {
     const group: any = {};
@@ -87,7 +83,13 @@ export class FormComponent {
 
   onSubmit(): void {
     console.log("#$%%$###", this.form);
-    this.sendForm.emit(this.form)
+    console.log(this.submitButton);
+    if (this.submitButton === 'save') {
+      console.log("entreeeee");
+      this.sendForm.emit({ data: this.form, action: 'save' });
+    } else if (this.submitButton === 'update') {
+      this.sendForm.emit({ data: this.form, action: 'update' });
+    }
     this.form.reset();
   }
 
@@ -96,8 +98,9 @@ export class FormComponent {
     this.cancel.emit();
   }
 
-  populateFormData(){
+  populateFormData() {
     this.form.patchValue(this.data);
+    console.log("DAAAAATAAAA", this.form);
   }
 
 }

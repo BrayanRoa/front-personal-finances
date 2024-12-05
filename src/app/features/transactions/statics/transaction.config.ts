@@ -1,5 +1,4 @@
 import { FormFieldConfig } from '../../../shared/interfaces/generic-components/form.interface';
-import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
 
 export const FORM_CONFIG: FormFieldConfig[] = [
     { type: 'text', label: 'Name', name: 'name', validations: [{ required: true }], sizeResponsive: 'md:col-3' },
@@ -25,7 +24,6 @@ export const FORM_CONFIG: FormFieldConfig[] = [
             { label: 'Every Day', value: 'EVERY DAY' },
             { label: 'Every Two Days', value: 'EVERY TWO DAYS' },
             { label: 'Every Working Day', value: 'EVERY WORKING DAY' },
-            { label: 'Every Week', value: 'EVERY WEEK' },
             { label: 'Every Week', value: 'EVERY WEEK' },
             { label: 'Every Two Weeks', value: 'EVERY TWO WEEKS' },
             { label: 'Every Month', value: 'EVERY MONTH' },
