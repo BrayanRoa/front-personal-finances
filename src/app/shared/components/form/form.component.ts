@@ -41,7 +41,7 @@ export class FormComponent {
     const group: any = {};
     this.fields.forEach(field => {
       group[field.name] = [
-        field.value || '' || null,
+        field.value || '',
         this.mapValidations(field.validations || []),
       ];
     });

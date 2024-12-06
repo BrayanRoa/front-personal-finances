@@ -16,7 +16,7 @@ export class TableComponent implements OnInit, OnChanges {
     label: string,
     icon?: string,
     color: 'help' | 'info' | 'danger' | 'warning' | 'secondary' | 'success' | 'contrast' | 'primary',
-    callback: (row: any, data: any) => void
+    callback: (row: any, data?: any) => void
   }[]; // Acciones para cada fila
   @Input() cellTemplates: { [key: string]: TemplateRef<any> } = {}; // Templates personalizados
   @Input() numberRegistersByPage!: number; // Registros por página
@@ -93,6 +93,8 @@ export class TableComponent implements OnInit, OnChanges {
     const action = this.actions?.find(action => action.icon === icon);
     if (action?.icon=== 'pi pi-pencil') {
       action.callback(id, this.data.filter(action => action.id === id)[0]);
+    }else if (action?.icon ==='pi pi-trash'){
+      action.callback(id);
     }
   }
 

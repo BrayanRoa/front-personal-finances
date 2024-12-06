@@ -21,7 +21,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   exports: [
@@ -44,7 +44,8 @@ import { InputIconModule } from 'primeng/inputicon';
     InputTextModule,
     FloatLabelModule,
     IconFieldModule,
-    InputIconModule
+    InputIconModule,
+    SelectButtonModule
   ]
 })
 export class PrimeNgModule { }
