@@ -14,6 +14,7 @@ import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { FormComponent } from './components/form/form.component';
 
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { DropDownCustomizedComponent } from './components/bottons/drop-down-customized/drop-down-customized.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     TableComponent,
     ButtonComponent,
     DropDownComponent,
-    FormComponent
+    FormComponent,
+    DropDownCustomizedComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,8 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     TableComponent,
     ButtonComponent,
     DropDownComponent,
-    FormComponent
+    FormComponent,
+    DropDownCustomizedComponent
   ],
   providers: [provideNgxMask()]
 })

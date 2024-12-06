@@ -218,7 +218,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
       this.formConfig.forEach(data => {
         if (data.name === 'walletId') {
           data.options = [
-            { label: 'Select Wallet', value: null }, // Opción predeterminada
             ...this.walletsData().map(wallet => ({
               label: wallet.name,
               value: wallet.id,
@@ -227,7 +226,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
         }
         if (data.name === 'categoryId') {
           data.options = [
-            { label: 'Select Category', value: null }, // Opción predeterminada
             ...this.categoryData().map(category => ({
               label: category.name,
               value: category.id,
