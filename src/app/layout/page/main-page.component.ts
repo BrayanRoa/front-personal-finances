@@ -79,7 +79,8 @@ export class MainPageComponent extends BaseComponent {
 
   constructor(
     private themeService: ThemeService,
-    private coreService: CoreService
+    private coreService: CoreService,
+
   ) {
     super()
   }
@@ -98,14 +99,14 @@ export class MainPageComponent extends BaseComponent {
   }
 
   onDarkMode() {
-    if (this.selectedTheme.id === this.themes[0].id) {
-      this.selectedTheme = this.themes[1];
-    } else {
-      this.selectedTheme = this.themes[0];
-    }
+    // Alternar entre los temas disponibles
+    this.selectedTheme =
+      this.selectedTheme.id === this.themes[0].id
+        ? this.themes[1]
+        : this.themes[0];
+
+    // Cambiar el tema usando el ThemeService
     this.themeService.switchTheme(this.selectedTheme.id);
-    this.container.nativeElement.classList.toggle('dark-mode')
-    this.circulo.nativeElement.classList.toggle('prendido')
   }
 
   onSaveNewWallet(event: { data: FormGroup, action: string }) {

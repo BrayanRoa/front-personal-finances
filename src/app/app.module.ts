@@ -13,6 +13,10 @@ import { AuthInterceptor } from './auth/interceptor/auth.interceptro';
 
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
+// para poder usar las graficas de la libreria sin ncesidad de usar prime ng
+import { registerables, Chart } from 'chart.js';
+Chart.register(...registerables)
+
 
 @NgModule({
   declarations: [
