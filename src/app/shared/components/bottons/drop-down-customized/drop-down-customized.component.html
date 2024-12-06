@@ -1,0 +1,10 @@
+<p-dropdown [options]="options" [(ngModel)]="value" optionLabel="label" placeholder="Select an option"
+    [showClear]="true">
+    <ng-template let-option pTemplate="item">
+        <div class="flex align-items-center gap-2">
+            <div class="circle" [style.backgroundColor]="option.iconColor">
+            </div>
+            <span>{{ option.label }}</span>
+        </div>
+    </ng-template>
+</p-dropdown>
