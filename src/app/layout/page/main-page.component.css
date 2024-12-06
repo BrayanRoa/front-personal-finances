@@ -310,3 +310,22 @@
     color: rgb(0, 0, 0);
     border-radius: 10px;
 }
+
+.main::-webkit-scrollbar {
+    width: 6px;
+    /* Ancho de la barra de desplazamiento */
+}
+
+.main::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    /* Color del "pulgar" (parte móvil de la barra) */
+    border-radius: 3px;
+    /* Radio de la esquina del pulgar */
+}
+
+.main::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    /* Color de la pista de la barra de desplazamiento */
+    border-radius: 3px;
+    /* Radio de las esquinas de la pista */
+}

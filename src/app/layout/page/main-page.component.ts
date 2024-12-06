@@ -14,6 +14,8 @@ import { finalize } from 'rxjs';
 })
 export class MainPageComponent extends BaseComponent {
 
+  isSmallMenu: boolean = false;
+
   @ViewChild('icon') myElement!: ElementRef;
   @ViewChild('mini_barra_lateral') barraLateral!: ElementRef;
   @ViewChild('switch') palanca!: ElementRef;
@@ -52,6 +54,29 @@ export class MainPageComponent extends BaseComponent {
     },
   ]
 
+  configRoutes = [
+    {
+      label: 'Dashboard',
+      path: 'dashboard',
+      icon: 'pi pi-chart-bar',
+    },
+    {
+      label: 'Transactions',
+      path: 'transactions',
+      icon: 'pi pi-money-bill',
+    },
+    {
+      label: 'Budgets',
+      path: 'budgets',
+      icon: 'pi pi-wallet',
+    },
+    {
+      label: 'Settings',
+      path: 'settings',
+      icon: 'pi pi-cog',
+    }
+  ]
+
   constructor(
     private themeService: ThemeService,
     private coreService: CoreService
@@ -69,6 +94,7 @@ export class MainPageComponent extends BaseComponent {
     this.mySpans.forEach((span) => {
       span.nativeElement.classList.toggle('oculto')
     });
+    this.isSmallMenu = !this.isSmallMenu
   }
 
   onDarkMode() {
@@ -82,8 +108,8 @@ export class MainPageComponent extends BaseComponent {
     this.circulo.nativeElement.classList.toggle('prendido')
   }
 
-  onSaveNewWallet(event:{data: FormGroup, action:string}) {
-    
+  onSaveNewWallet(event: { data: FormGroup, action: string }) {
+
     const formData: BanksInformation = event.data.value;
 
     this.coreService.createBank(formData).pipe(
