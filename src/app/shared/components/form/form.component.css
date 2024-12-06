@@ -10,3 +10,11 @@
     appearance: none;
     /* Elimina estilos predeterminados */
 }
+
+
+
+.circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
