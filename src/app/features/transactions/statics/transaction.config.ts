@@ -1,3 +1,4 @@
+import { FORMATTEDDATE } from '../../../shared/constants/constants';
 import { FormFieldConfig } from '../../../shared/interfaces/generic-components/form.interface';
 
 export const FORM_CONFIG: FormFieldConfig[] = [
@@ -11,9 +12,9 @@ export const FORM_CONFIG: FormFieldConfig[] = [
         },
         sizeResponsive: 'md:col-3'
     },
-    { type: 'date', label: 'Date', name: 'date', value: new Date(), validations: [{ required: true }], sizeResponsive: 'md:col-4' },
+    { type: 'date', label: 'Date', name: 'date', value: FORMATTEDDATE, validations: [{ required: true }], sizeResponsive: 'md:col-4' },
     {
-        type: 'selectButton', label: 'Type', name: 'type', value:"INCOME", options: [
+        type: 'selectButton', label: 'Type', name: 'type', value: "INCOME", options: [
             { label: 'Income', value: 'INCOME' },
             { label: 'Outflow', value: 'OUTFLOW' },
         ], validations: [{ required: true }], sizeResponsive: 'md:col-4'
