@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, signal, SimpleChanges } from '@angular/core';
 import { graphVerticalData } from '../../../../shared/interfaces/dashboard/summary-wallets.interface';
 import { DropdownOption } from '../../../../shared/components/bottons/drop-down/drop-down.component';
+import { MONTHS } from '../../../../shared/constants/constants';
 
 @Component({
   selector: 'app-vertical-bar-chart',
@@ -21,6 +22,7 @@ export class VerticalBarChartComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['dataGraph'] && changes['dataGraph'].currentValue) {
+      console.log("POR AQUI ESTOY");
       this.updateChartData();
     }
   }
@@ -42,7 +44,7 @@ export class VerticalBarChartComponent implements OnChanges {
     const surfaceBorder = documentStyle.getPropertyValue('--primary-color');
 
     this.data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      labels: MONTHS.map(month => { return month.shortcut }),
       datasets: [
         {
           label: 'Income',

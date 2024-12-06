@@ -42,7 +42,7 @@
 
             <ul>
                 <li *ngFor="let route of configRoutes" routerLink="{{route.path}}" routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact:true}">
+                    [pTooltip]="isSmallMenu ? route.label : ''" [routerLinkActiveOptions]="{exact:true}">
                     <a>
                         <i class="{{route.icon}}"></i>
                         <span #mySpan>{{route.label}}</span>
