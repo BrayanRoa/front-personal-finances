@@ -10,6 +10,8 @@ import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
 import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../../core/service/theme.service';
+import { MONTHS } from '../../../shared/constants/constants';
+import { ChartInterface } from '../../../shared/components/line-chart/line-chart.component';
 
 interface TableColumn {
   field: string;
@@ -49,11 +51,22 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
 
   private themeSubscription!: Subscription;
 
+  //
+  nameMonths: string[] = []
+  dataLine: ChartInterface = {
+    label: 'Transactions',
+    data: [10, 20, 45, 32, 45, 78, 50, 50, 74, 12, 45, 23],
+    borderColor: '#3cba9f',
+    backgroundColor: 'rgb(39, 205, 64)',
+    borderWidth: 3,
+    tension: 0.1,
+  }
+
   constructor(
     private readonly dashboardService: DashboardService,
     private readonly coreService: CoreService,
     private readonly transactionService: TransactionService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
   ) {
     super()
   }
@@ -61,6 +74,9 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.loadDashboardData();
 
+    this.nameMonths = MONTHS.map(month => {
+      return month.shortcut!
+    })
     // Escuchar cambios de tema
     this.themeSubscription = this.themeService.themeChange$.subscribe(() => {
       this.refreshCharts(); // Actualizar los gráficos
@@ -78,6 +94,15 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     this.loadBarChartData();
     this.loadPieChartData();
     this.loadBankDetails()
+    // this.dataLine.data = [10,20,30,40,50,60,80,90,100,]
+    this.dataLine = {
+      label: 'Transactions',
+      data: [10, 20, 45, 32, 45, 78, 50, 50, 74],
+      // borderColor: '#3cba9f',
+      // backgroundColor: 'rgb(39, 205, 64)',
+      borderWidth: 3,
+      tension: 0.1,
+    }
   }
 
   private loadDashboardData(): void {
