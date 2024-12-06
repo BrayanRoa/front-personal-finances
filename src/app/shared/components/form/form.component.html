@@ -4,8 +4,7 @@
         <div *ngFor="let field of fields" [class]="'field col-12 ' + field.sizeResponsive">
             <label>{{ field.label }}</label>
 
-            <!-- Input genérico con o sin máscara -->
-            <ng-container *ngIf="field.type !== 'select'; else selectTemplate">
+            <ng-container *ngIf="field.type !== 'select' && field.type !== 'selectButton'; else dynamicTemplate">
                 <input
                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     [type]="field.type" [formControlName]="field.name" [placeholder]="field.label"
@@ -13,22 +12,30 @@
                     [thousandSeparator]="field.mask?.thousandSeparator!" />
             </ng-container>
 
-            <!-- Select -->
-            <ng-template #selectTemplate>
+            <ng-template #dynamicTemplate>
+                <!-- Selector Regular -->
+                <ng-container *ngIf="field.type === 'select'; else selectButtonTemplate">
+                    <select [formControlName]="field.name"
+                        class="custom-select text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                        <option *ngFor="let option of field.options" [value]="option.value">
+                            {{ option.label }}
+                        </option>
+                    </select>
+                </ng-container>
 
-                <select [formControlName]="field.name"
-                    class="custom-select text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                    <option *ngFor="let option of field.options" [value]="option.value">
-                        {{ option.label }}
-                    </option>
-                </select>
+                <!-- Selector con SelectButton -->
+                <ng-template #selectButtonTemplate>
+                    <p-selectButton [options]="field.options" [formControlName]="field.name" optionLabel="label"
+                        optionValue="value" class="w-full">
+                    </p-selectButton>
+                </ng-template>
             </ng-template>
         </div>
     </div>
 
     <div class="flex justify-content-end">
 
-        <button pButton severity="success" type="submit" class="mr-2" [disabled]="form.invalid" >
+        <button pButton severity="success" type="submit" class="mr-2" [disabled]="form.invalid">
             {{submitButton | titlecase}}
         </button>
         <button pButton severity="danger" type="button" (click)="onCancel()">

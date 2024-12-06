@@ -13,13 +13,13 @@ export const FORM_CONFIG: FormFieldConfig[] = [
     },
     { type: 'date', label: 'Date', name: 'date', value: new Date(), validations: [{ required: true }], sizeResponsive: 'md:col-4' },
     {
-        type: 'select', label: 'Type', name: 'type', options: [
+        type: 'selectButton', label: 'Type', name: 'type', value:"INCOME", options: [
             { label: 'Income', value: 'INCOME' },
             { label: 'Outflow', value: 'OUTFLOW' },
         ], validations: [{ required: true }], sizeResponsive: 'md:col-4'
     },
     {
-        type: 'select', label: 'Repeat', name: 'repeat', value: { label: 'No Repeat', value: 'NEVER' }, options: [
+        type: 'select', label: 'Repeat', name: 'repeat', value: 'NEVER', options: [
             { label: 'No Repeat', value: 'NEVER' },
             { label: 'Every Day', value: 'EVERY DAY' },
             { label: 'Every Two Days', value: 'EVERY TWO DAYS' },
@@ -31,13 +31,13 @@ export const FORM_CONFIG: FormFieldConfig[] = [
             { label: 'Every Three Months', value: 'EVERY THREE MONTHS' },
             { label: 'Every Six Months', value: 'EVERY SIX MONTHS' },
             { label: 'Every Year', value: 'EVERY YEAR' },
-        ], validations: [{ required: true }], sizeResponsive: 'md:col-4'
+        ], validations: [], sizeResponsive: 'md:col-4'
     },
     {
-        type: 'select', label: 'Category', name: 'categoryId', value:{}, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
+        type: 'select', label: 'Category', name: 'categoryId', value: {}, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
     },
     {
-        type: 'select', label: 'Wallet', name: 'walletId', value:{}, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
+        type: 'select', label: 'Wallet', name: 'walletId', value: {}, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
     },    // Más configuraciones...
 ];
 

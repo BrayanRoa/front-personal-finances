@@ -1,5 +1,5 @@
 export interface FormFieldConfig {
-    type: 'text' | 'number' | 'email' | 'password' | 'select' | 'date';
+    type: 'text' | 'number' | 'email' | 'password' | 'select' | 'date' | 'selectButton';
     label: string;
     name: string;
     value?: any;
