@@ -16,8 +16,9 @@
 
 
                 <p-dialog header="Create New Wallet" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-                    <app-dynamic-form [fields]="formConfig" [submitButton]="'save'" (sendForm)="onSaveNewWallet($event)" (cancel)="closemodal()"></app-dynamic-form>
-                    
+                    <app-dynamic-form [fields]="formConfig" [submitButton]="'save'" (sendForm)="onSaveNewWallet($event)"
+                        (cancel)="closemodal()"></app-dynamic-form>
+
                 </p-dialog>
             </div>
             <!-- END BOTON AND MODAL -->
@@ -40,42 +41,13 @@
 
 
             <ul>
-                <li routerLink="/main/dashboard/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-                    <a >
-                        <i class="pi pi-chart-bar"></i>
-                        <span #mySpan>Dashboard</span>
-                    </a>
-                </li>
-                <li routerLink="transactions" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-                    <a >
-                        <i class="pi pi-money-bill"></i>
-                        <span #mySpan>Transactions</span>
-                    </a>
-                </li>
-                <li>
+                <li *ngFor="let route of configRoutes" routerLink="{{route.path}}" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:true}">
                     <a>
-                        <i class="pi pi-wallet"></i>
-                        <span #mySpan>Budgets</span>
+                        <i class="{{route.icon}}"></i>
+                        <span #mySpan>{{route.label}}</span>
                     </a>
                 </li>
-                <li>
-                    <a>
-                        <i class="pi pi-cog"></i>
-                        <span #mySpan>Configuration</span>
-                    </a>
-                </li>
-                <!-- <li>
-                    <a>
-                        <i class="pi pi-home"></i>
-                        <span #mySpan>Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        <i class="pi pi-home"></i>
-                        <span #mySpan>Dashboard</span>
-                    </a>
-                </li> -->
             </ul>
         </nav>
 

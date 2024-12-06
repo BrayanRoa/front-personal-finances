@@ -22,6 +22,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   exports: [
@@ -45,7 +46,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     FloatLabelModule,
     IconFieldModule,
     InputIconModule,
-    SelectButtonModule
+    SelectButtonModule,
+    TooltipModule
   ]
 })
 export class PrimeNgModule { }
