@@ -6,18 +6,35 @@ import { Subject } from 'rxjs';
     providedIn: 'root'
 })
 export class ThemeService {
-
     private themeChangeSubject = new Subject<void>();
     themeChange$ = this.themeChangeSubject.asObservable();
 
     constructor(@Inject(DOCUMENT) private document: Document) { }
 
+    // Cambiar tema de PrimeNG y clases de CSS personalizadas
     switchTheme(theme: string) {
         const themeLink = this.document.getElementById('app-theme') as HTMLLinkElement;
+        const rootElement = this.document.documentElement; // Acceso al <html>
 
         if (themeLink) {
-            themeLink.href = `${theme}.css`; // bundle name
-            this.themeChangeSubject.next(); // Emitir el cambio de tema
+            // Cambiar tema de PrimeNG
+            themeLink.href = `${theme}.css`;
         }
+
+        // Cambiar clases para tus variables personalizadas
+        if (theme === 'vela-blue') {
+            rootElement.classList.add('dark-mode');
+            rootElement.classList.remove('light-mode');
+        } else {
+            rootElement.classList.add('light-mode');
+            rootElement.classList.remove('dark-mode');
+        }
+
+        this.themeChangeSubject.next(); // Emitir el cambio de tema
+    }
+
+    // Obtener el valor de una variable CSS personalizada
+    getStyleVariable(variableName: string): string {
+        return getComputedStyle(document.documentElement).getPropertyValue(variableName).trim();
     }
 }
