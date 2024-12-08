@@ -81,7 +81,7 @@
                 </ng-template>
 
                 <ng-template #amountTemplate let-value>
-                    <td>{{ value | currency }}</td>
+                    <td>{{ value | currencyCustom:true }}</td>
                 </ng-template>
 
                 <ng-template #categoryTemplate let-value>

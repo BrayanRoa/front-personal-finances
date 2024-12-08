@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
-    flex: 1 1 22%;
+    flex: 1 1 20%;
     min-width: 270px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -33,8 +33,24 @@
     align-items: center;
 }
 
-.card-info .card-icon img {
-    width: 70px;
+.card-info .card-icon .pi{
+    font-size: 50px;
+}
+
+.card-info .card-icon .pi-money-bill {
+    color: var(--color-text-card-one);
+}
+
+.card-info .card-icon .pi-shop {
+    color: var(--color-text-card-two);
+}
+
+.card-info .card-icon .pi-wallet {
+    color: var(--color-text-card-three);
+}
+
+.card-info .card-icon .pi-calendar-clock {
+    color: var(--color-text-card-four);
 }
 
 .card .card-info .card-data {
@@ -45,47 +61,47 @@
     padding: 10px;
 }
 
-.title-one {
+.title{
     font: 20px lato, Helvetica, sans-serif;
+}
+
+.title-one {
     color: var(--color-text-card-one);
 }
 
 .amount-one {
-    font: 28px lato, Helvetica, sans-serif;
+    font: 25px lato, Helvetica, sans-serif;
     color: var(--color-text-card-one);
     font-weight: bold;
 }
 
 
 .title-two {
-    font: 20px lato, Helvetica, sans-serif;
     color: var(--color-text-card-two);
 }
 
 .amount-two {
-    font: 28px lato, Helvetica, sans-serif;
+    font: 25px lato, Helvetica, sans-serif;
     color: var(--color-text-card-two);
     font-weight: bold;
 }
 
 .title-three {
-    font: 20px lato, Helvetica, sans-serif;
     color: var(--color-text-card-three);
 }
 
 .amount-three {
-    font: 28px lato, Helvetica, sans-serif;
+    font: 25px lato, Helvetica, sans-serif;
     color: var(--color-text-card-three);
     font-weight: bold;
 }
 
 .title-four {
-    font: 20px lato, Helvetica, sans-serif;
     color: var(--color-text-card-four);
 }
 
 .amount-four {
-    font: 28px lato, Helvetica, sans-serif;
+    font: 25px lato, Helvetica, sans-serif;
     color: var(--color-text-card-four);
     font-weight: bold;
 }
@@ -105,7 +121,7 @@
     background-color: var(--surface-e);
 }
 
-.card .total-outflow {
+.card .total-expenses {
     width: 100%;
     height: 75px;
     /* Establece la altura de la imagen a 100px */

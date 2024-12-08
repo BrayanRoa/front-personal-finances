@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { graphPolarity } from '../../../../shared/interfaces/dashboard/summary-wallets.interface';
+import { graphPolarityData } from '../../../../shared/interfaces/dashboard/summary-wallets.interface';
 
 @Component({
     selector: 'app-polar-bar-chart',
@@ -8,7 +8,7 @@ import { graphPolarity } from '../../../../shared/interfaces/dashboard/summary-w
 })
 export class PolarBarChartComponent implements OnChanges {
     data: any;
-    @Input() dataPolar!: graphPolarity[]
+    @Input() dataPolar!: graphPolarityData[]
 
 
     options: any;
@@ -52,6 +52,7 @@ export class PolarBarChartComponent implements OnChanges {
         };
 
         this.options = {
+            aspectRatio: 0.7,
             plugins: {
                 legend: {
                     labels: {

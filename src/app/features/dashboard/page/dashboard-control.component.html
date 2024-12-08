@@ -3,59 +3,65 @@
         <app-wallet-card [walletSummary]="walletSummary"></app-wallet-card>
     </div>
 
+    <!-- VERTICAL GRAPH -->
     <div class="col-12 md:col-7 lg:col-8 ">
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item1">Transactions by month</span>
+                    <span class="item1">Transactions by month - {{selectedYear()}}</span>
                 </div>
             </ng-template>
-            <app-vertical-bar-chart [dataGraph]="barChartData()" [dataYears]="years()"
+            <app-vertical-bar-chart [dataGraph]="verticalChartData()" [dataYears]="years()"
                 (onYearSelected)="onChangeYear($event)">
             </app-vertical-bar-chart>
         </p-panel>
     </div>
 
-    <div class="col-12 md:col-5 lg:col-4 ">
+    <!-- POLAR GRAPH -->
+    <div class="col-12 md:col-5 lg:col-4">
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item3">Transactions by category</span>
+                    <span class="item2">Transactions by category</span>
                 </div>
             </ng-template>
-            <app-polar-bar-chart class="item item3" [dataPolar]="pieChartData()"></app-polar-bar-chart>
+            <app-polar-bar-chart class="flex justify-content-center"
+                [dataPolar]="polarChartData()"></app-polar-bar-chart>
         </p-panel>
     </div>
 
+    <!-- HORIZONTAL GRAPH -->
     <div class="col-12 md:col-4 lg:col-4 ">
-
-
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item2">Total income by bank</span>
+                    <span class="item3">Active Budgets</span>
                 </div>
             </ng-template>
-            <app-banks-information class="item item2" [bankData]="bankDetails()"></app-banks-information>
+            <app-horizontal-bar [datasets]="budgets()"></app-horizontal-bar>
         </p-panel>
     </div>
 
     <div class="col-12 md:col-8 lg:col-8">
-        <p-panel>
-            <ng-template pTemplate="header">
-                <div class="custom-header">
-                    <span class="item4">By defined</span>
-                </div>
-            </ng-template>
-            <app-line-chart [datasets]="dataLine" [labels]="nameMonths"></app-line-chart>
-        </p-panel>
-    </div>
-
-    <div class="col-12 md:col-8 lg:col-8 ">
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item4">Active budgets</span>
+                    <span class="item4">Balance By Year - {{selectedYear()}}</span>
+                </div>
+            </ng-template>
+            <!-- <div class="flex justify-content-end">
+                <app-drop-down [titleDropDown]="'Categories'" [optionsDropDown]="[]"></app-drop-down>
+            </div> -->
+            <app-balance-line-chart [datasets]="balanceChartData()"></app-balance-line-chart>
+            <!-- <app-line-chart [datasets]="balanceChartData()" [labels]="nameMonths"></app-line-chart> -->
+        </p-panel>
+    </div>
+
+    <!-- <div class="col-12 md:col-8 lg:col-8 ">
+        <p-panel [toggleable]="true">
+            <ng-template pTemplate="header">
+                <div class="custom-header">
+                    <span class="item1">Active budgets</span>
                 </div>
             </ng-template>
             <app-table [data]="budgets()" [meta]="metaBudgets" [numberRegistersByPage]="5" [columns]="tableColumns"
@@ -71,6 +77,17 @@
             <ng-template #currencyTemplate let-value>
                 {{ value | currency:'USD':'symbol':'1.2-2' }}
             </ng-template>
+        </p-panel>
+    </div> -->
+
+    <div class="col-12 md:col-4 lg:col-4 ">
+        <p-panel [toggleable]="true">
+            <ng-template pTemplate="header">
+                <div class="custom-header">
+                    <span class="item2">Total income by bank</span>
+                </div>
+            </ng-template>
+            <app-banks-information class="item2" [bankData]="bankDetails()"></app-banks-information>
         </p-panel>
     </div>
 

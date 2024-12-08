@@ -1,53 +1,16 @@
 <div class="dashboard" *ngIf="walletSummary">
-    <div class="card">
+    <div class="card" *ngFor="let value of cardsInfo">
         <div class="card-info">
             <div class="card-icon">
-                <img src="../../../../assets/default-avatar.png" alt="">
+                <span class="pi {{value.icon}}"></span>
             </div>
             <div class="card-data">
-                <span class="title-one">Total Incomes</span>
-                <span class="amount-one">{{ walletSummary.totalIncome| currency}}</span>
+                <span class="title {{value.idTitle}}">{{value.title}}</span>
+                <span class="{{value.idValue}}">
+                    {{ value.value | currencyCustom: value.useCurrency }}
+                </span>
             </div>
         </div>
-        <div class="img total-incomes"></div> <!-- La imagen de fondo aquí -->
-    </div>
-
-    <div class="card">
-        <div class="card-info">
-            <div class="card-icon">
-                <img src="../../../../assets/default-avatar.png" alt="">
-            </div>
-            <div class="card-data">
-                <span class="title-two">Total Outflow</span>
-                <span class="amount-two">{{ walletSummary.totalExpenses | currency}}</span>
-            </div>
-        </div>
-        <div class="img total-outflow"></div> <!-- La imagen de fondo aquí -->
-    </div>
-
-    <div class="card">
-        <div class="card-info">
-            <div class="card-icon">
-                <img src="../../../../assets/default-avatar.png" alt="">
-            </div>
-            <div class="card-data">
-                <span class="title-three">Active Budgets</span>
-                <span class="amount-three">{{walletSummary.budgetsActives}}</span>
-            </div>
-        </div>
-        <div class="img budgets"></div> <!-- La imagen de fondo aquí -->
-    </div>
-
-    <div class="card">
-        <div class="card-info">
-            <div class="card-icon">
-                <img src="../../../../assets/default-avatar.png" alt="">
-            </div>
-            <div class="card-data">
-                <span class="title-four">Transactions Month</span>
-                <span class="amount-four">{{walletSummary.totalTransactions}}</span>
-            </div>
-        </div>
-        <div class="img total-transactions"></div> <!-- La imagen de fondo aquí -->
+        <div class="img {{value.cardImg}}"></div>
     </div>
 </div>

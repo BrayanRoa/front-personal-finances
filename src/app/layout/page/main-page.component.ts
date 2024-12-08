@@ -61,9 +61,19 @@ export class MainPageComponent extends BaseComponent {
       icon: 'pi pi-chart-bar',
     },
     {
+      label: 'Wallets',
+      path: 'wallets',
+      icon: 'pi pi-wallet',
+    },
+    {
       label: 'Transactions',
       path: 'transactions',
       icon: 'pi pi-money-bill',
+    },
+    {
+      label: 'Categories and tags',
+      path: 'categories',
+      icon: 'pi pi-tags',
     },
     {
       label: 'Budgets',
