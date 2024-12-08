@@ -1,5 +1,6 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { MONTHS } from '../../../../shared/constants/constants';
+import { ThemeService } from '../../../../core/service/theme.service';
 
 @Component({
   selector: 'app-balance-line-chart',
@@ -12,6 +13,10 @@ export class BalanceLineChartComponent {
 
   options: any;
 
+  constructor(
+    private themeService: ThemeService
+  ) { }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["datasets"] && changes["datasets"].currentValue) {
       this.updateChart()
@@ -19,10 +24,10 @@ export class BalanceLineChartComponent {
   }
 
   updateChart() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+    const textColor = this.themeService.colorTextStyle()
+    const textColorSecondary = this.themeService.colorLegendStyle()
+    const borderColor = this.themeService.colorBorderStyle()
 
     this.data = {
       labels: MONTHS.map(month => { return month.shortcut }),
@@ -53,7 +58,7 @@ export class BalanceLineChartComponent {
             color: textColorSecondary
           },
           grid: {
-            color: surfaceBorder
+            color: borderColor
           }
         },
         y: {
@@ -61,7 +66,7 @@ export class BalanceLineChartComponent {
             color: textColorSecondary
           },
           grid: {
-            color: surfaceBorder
+            color: borderColor
           }
         }
       }

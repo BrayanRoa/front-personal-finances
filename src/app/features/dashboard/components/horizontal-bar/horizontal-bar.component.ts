@@ -1,5 +1,6 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { budgetData } from '../../../../shared/interfaces/dashboard/summary-wallets.interface';
+import { ThemeService } from '../../../../core/service/theme.service';
 
 @Component({
   selector: 'app-horizontal-bar',
@@ -13,6 +14,10 @@ export class HorizontalBarComponent {
   @Input() labels: string[] = [];
   options: any;
 
+  constructor(
+    private themeService: ThemeService
+  ) { }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['datasets'] && changes['datasets'].currentValue) {
       console.log("POR AQUI ESTOY");
@@ -22,9 +27,9 @@ export class HorizontalBarComponent {
 
   updateChartData() {
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    const textColor = this.themeService.colorTextStyle();
+    const textColorSecondary = this.themeService.colorLegendStyle()
+    const surfaceBorder = this.themeService.colorBorderStyle();
 
     this.data = {
       labels: this.datasets.map(dataset => dataset.name),
@@ -36,7 +41,7 @@ export class HorizontalBarComponent {
             else if (dataset.percentage <= 100) return documentStyle.getPropertyValue('--yellow-500');
             else return 'red';
           }),
-          borderColor: documentStyle.getPropertyValue('--surface-border'),
+          borderColor: surfaceBorder,
           data: this.datasets.map(dataset => dataset.percentage)
         },
       ]

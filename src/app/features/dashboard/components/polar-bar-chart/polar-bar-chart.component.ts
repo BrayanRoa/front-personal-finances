@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { graphPolarityData } from '../../../../shared/interfaces/dashboard/summary-wallets.interface';
+import { ThemeService } from '../../../../core/service/theme.service';
 
 @Component({
     selector: 'app-polar-bar-chart',
@@ -10,6 +11,10 @@ export class PolarBarChartComponent implements OnChanges {
     data: any;
     @Input() dataPolar!: graphPolarityData[]
 
+    constructor(
+        private themeService: ThemeService
+    ) { }
+
 
     options: any;
     ngOnChanges(changes: SimpleChanges): void {
@@ -18,16 +23,10 @@ export class PolarBarChartComponent implements OnChanges {
         }
     }
 
-
     updateChartData() {
 
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color'); // color de los nombre de las categoras
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-900');
-
-        // const a = this.dataPolar.map(f => {
-        //     return f.name
-        // })
+        const textColor = this.themeService.colorTextStyle()
+        const surfaceBorder = this.themeService.colorBorderStyle()
 
         this.data = {
             datasets: [
@@ -35,20 +34,13 @@ export class PolarBarChartComponent implements OnChanges {
                     data: this.dataPolar
                         .filter(f => f.transactionCount > 0) // Condición: Solo incluir transacciones con transactionCount > 0
                         .map(f => f.transactionCount),      // Mapeo: Extraer transactionCount
-                    backgroundColor: [
-                        documentStyle.getPropertyValue('--red-500'),
-                        documentStyle.getPropertyValue('--green-500'),
-                        documentStyle.getPropertyValue('--yellow-500'),
-                        documentStyle.getPropertyValue('--bluegray-500'),
-                        documentStyle.getPropertyValue('--blue-500')
-                    ],
-                    label: 'My dataset'
+                    backgroundColor: this.dataPolar.map(f => f.color),
+                    label: 'Number of transactions'
                 }
             ],
             labels: this.dataPolar
                 .filter(f => f.transactionCount > 0) // Condición: Solo incluir transacciones con transactionCount > 0
                 .map(f => f.name),      // Mapeo: Extraer transactionCount
-
         };
 
         this.options = {
@@ -58,7 +50,7 @@ export class PolarBarChartComponent implements OnChanges {
                     labels: {
                         color: textColor
                     }
-                }
+                },
             },
             scales: {
                 r: {

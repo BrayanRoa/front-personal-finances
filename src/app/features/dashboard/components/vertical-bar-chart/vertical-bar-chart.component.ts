@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, signal, SimpleChange
 import { graphVerticalData } from '../../../../shared/interfaces/dashboard/summary-wallets.interface';
 import { DropdownOption } from '../../../../shared/components/bottons/drop-down/drop-down.component';
 import { MONTHS } from '../../../../shared/constants/constants';
+import { ThemeService } from '../../../../core/service/theme.service';
 
 @Component({
   selector: 'app-vertical-bar-chart',
@@ -10,8 +11,6 @@ import { MONTHS } from '../../../../shared/constants/constants';
 })
 export class VerticalBarChartComponent implements OnChanges {
 
-  // isDropdownOpen = signal<boolean>(false);
-  // month: number = new Date().getFullYear()
   @Input() dataYears: DropdownOption[] = []
   yearSelected: number = new Date().getFullYear();
   @Output() onYearSelected = new EventEmitter<number>();
@@ -19,6 +18,10 @@ export class VerticalBarChartComponent implements OnChanges {
   data: any;
   options: any;
   @Input() dataGraph!: graphVerticalData[]
+
+  constructor(
+    private theseService: ThemeService
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['dataGraph'] && changes['dataGraph'].currentValue) {
@@ -39,9 +42,7 @@ export class VerticalBarChartComponent implements OnChanges {
       .map(d => d.total);               // Mapea a sus totales
 
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-    const surfaceBorder = documentStyle.getPropertyValue('--primary-color');
 
     this.data = {
       labels: MONTHS.map(month => { return month.shortcut }),
@@ -67,7 +68,7 @@ export class VerticalBarChartComponent implements OnChanges {
       plugins: {
         legend: {
           labels: {
-            color: textColor
+            color: this.theseService.colorTextStyle()
           }
         }
       },
@@ -80,7 +81,7 @@ export class VerticalBarChartComponent implements OnChanges {
             }
           },
           grid: {
-            color: surfaceBorder,
+            color: this.theseService.colorBorderStyle(),
             drawBorder: false
           }
         },
@@ -89,7 +90,7 @@ export class VerticalBarChartComponent implements OnChanges {
             color: textColorSecondary
           },
           grid: {
-            color: surfaceBorder,
+            color: this.theseService.colorBorderStyle(),
             drawBorder: false
           }
         }

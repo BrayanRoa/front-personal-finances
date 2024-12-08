@@ -37,4 +37,16 @@ export class ThemeService {
     getStyleVariable(variableName: string): string {
         return getComputedStyle(document.documentElement).getPropertyValue(variableName).trim();
     }
+    
+    colorBorderStyle(){
+        return this.getStyleVariable('--gray-600');
+    }
+
+    colorTextStyle(){
+        return this.getStyleVariable('--color-texto');
+    }
+
+    colorLegendStyle(){
+        return this.getStyleVariable('--color-texto');
+    }
 }
