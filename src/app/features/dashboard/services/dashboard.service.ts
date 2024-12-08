@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BaseService } from '../../../shared/service/base-service.service';
 import { ApiResponse } from '../../../shared/interfaces/common-response.interface';
-import { budgetInformation, graphPolarity, graphVerticalData, summaryWalletsResponse } from '../../../shared/interfaces/dashboard/summary-wallets.interface';
+import { budgetInformation, graphPolarityData, graphVerticalData, summaryWalletsResponse } from '../../../shared/interfaces/dashboard/summary-wallets.interface';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService extends BaseService {
@@ -26,8 +26,8 @@ export class DashboardService extends BaseService {
         );
     }
 
-    graphPolarity(): Observable<ApiResponse<graphPolarity[]>> {
-        return this.http.get<ApiResponse<graphPolarity[]>>(`${this.endpoint}/summary-category-transaction`,
+    graphPolarity(): Observable<ApiResponse<graphPolarityData[]>> {
+        return this.http.get<ApiResponse<graphPolarityData[]>>(`${this.endpoint}/summary-category-transaction`,
             { headers: this.getHeaders() }
         )
     }

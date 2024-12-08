@@ -11,6 +11,8 @@ import { DashboardControlComponent } from './page/dashboard-control.component';
 // For dynamic progressbar demo
 import { SharedModule } from '../../shared/shared.module';
 import { PrimeNgModule } from '../../prime-ng/prime-ng.module';
+import { HorizontalBarComponent } from './components/horizontal-bar/horizontal-bar.component';
+import { BalanceLineChartComponent } from './components/balance-line-chart/balance-line-chart.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { PrimeNgModule } from '../../prime-ng/prime-ng.module';
     BanksInformationComponent,
     PolarBarChartComponent,
     VerticalBarChartComponent,
-    WalletCardComponent
+    WalletCardComponent,
+    HorizontalBarComponent,
+    BalanceLineChartComponent
   ],
   imports: [
     CommonModule,

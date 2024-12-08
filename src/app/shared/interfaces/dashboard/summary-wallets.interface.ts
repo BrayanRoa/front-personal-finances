@@ -9,11 +9,11 @@ export interface summaryWalletsResponse {
 
 export interface graphVerticalData {
     month: string,
-    type: string
+    type?: string
     total: number
 }
 
-export interface graphPolarity {
+export interface graphPolarityData {
     name: string,
     transactionCount: number
 }

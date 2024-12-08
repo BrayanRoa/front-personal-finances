@@ -15,7 +15,7 @@ import { FormComponent } from './components/form/form.component';
 
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { DropDownCustomizedComponent } from './components/bottons/drop-down-customized/drop-down-customized.component';
-import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { CurrencyCustomPipe } from './pipes/currency-custom.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
     DropDownComponent,
     FormComponent,
     DropDownCustomizedComponent,
-    LineChartComponent
+    CurrencyCustomPipe,
   ],
   imports: [
     CommonModule,
@@ -42,7 +42,7 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
     DropDownComponent,
     FormComponent,
     DropDownCustomizedComponent,
-    LineChartComponent
+    CurrencyCustomPipe,
   ],
   providers: [provideNgxMask()]
 })

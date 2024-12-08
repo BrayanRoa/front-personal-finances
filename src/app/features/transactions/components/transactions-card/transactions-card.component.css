@@ -33,9 +33,9 @@
     align-items: center;
 }
 
-.card-info .card-icon img {
+/* .card-info .card-icon img {
     width: 70px;
-}
+} */
 
 .card .card-info .card-data {
     width: 75%;
@@ -159,4 +159,11 @@
     .card {
         flex: 1 1 100%;
     }
+}
+
+
+/*  */
+
+.pi{
+    font-size: 50px;
 }

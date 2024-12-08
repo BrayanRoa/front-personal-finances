@@ -101,7 +101,7 @@
     cursor: pointer;
 } */
 
-.barra-lateral .boton{
+.barra-lateral .boton {
     width: 100%;
     height: 45px;
     margin-bottom: 20px;
@@ -157,7 +157,7 @@
     align-items: center;
     text-decoration: none;
     color: var(--color-texto-menu)
-} 
+}
 
 .barra-lateral .navegacion a:hover {
     background-color: rgb(238, 238, 238);
@@ -304,6 +304,21 @@
     }
 }
 
+@media (max-width: 700px) {
+    .barra-lateral {
+        width: 80px;
+        /* O el tamaño que definas */
+        overflow: hidden;
+    }
+
+    .barra-lateral span {
+        opacity: 0;
+        width: 0;
+    }
+}
+
+
+
 
 .active {
     background-color: var(--gray-300);
@@ -311,6 +326,7 @@
     border-radius: 10px;
 }
 
+/* scroll main page */
 .main::-webkit-scrollbar {
     width: 6px;
     /* Ancho de la barra de desplazamiento */

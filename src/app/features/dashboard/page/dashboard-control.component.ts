@@ -1,17 +1,14 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { MetaData } from '../../../shared/interfaces/common-response.interface';
 import { DashboardService } from '../services/dashboard.service';
-import { budgetData, graphPolarity, graphVerticalData, summaryWalletsResponse } from '../../../shared/interfaces/dashboard/summary-wallets.interface';
+import { budgetData, graphPolarityData, graphVerticalData, summaryWalletsResponse } from '../../../shared/interfaces/dashboard/summary-wallets.interface';
 import { CoreService } from '../../../core/service/core.service';
 import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.interface';
 import { TransactionService } from '../../transactions/services/transaction.service';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
-import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
 import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../../core/service/theme.service';
 import { MONTHS } from '../../../shared/constants/constants';
-import { ChartInterface } from '../../../shared/components/line-chart/line-chart.component';
 
 interface TableColumn {
   field: string;
@@ -25,42 +22,26 @@ interface TableColumn {
 })
 export class DashboardControlComponent extends BaseComponent implements OnInit {
 
+  private themeSubscription!: Subscription;
+
+  // GRAPH DATA
   walletSummary!: summaryWalletsResponse;
-  barChartData = signal<graphVerticalData[]>([]);
-  pieChartData = signal<graphPolarity[]>([]);
+  verticalChartData = signal<graphVerticalData[]>([]);
+  polarChartData = signal<graphPolarityData[]>([]);
   budgets = signal<budgetData[]>([]);
-  metaBudgets!: MetaData;
+  balanceChartData = signal<graphVerticalData[]>([]);
   bankDetails = signal<BanksInformation[]>([]);
+
+  // YEAR DATA
   years = signal<DropdownOption[]>([]);
   selectedYear = signal<number>(new Date().getFullYear()); // Año inicial por defecto
+
+  // MONTH DATA
+  nameMonths: string[] = []
 
   readonly DEFAULT_PAGE = 1;
   readonly DEFAULT_PER_PAGE = 5;
 
-  tableColumns: TableColumn[] = [
-    { field: 'name', header: 'Name' },
-    { field: 'limit_amount', header: 'Limit Amount' },
-    { field: 'percentage', header: 'Percentage' },
-  ];
-
-  // TODO: CAMBIAE ESE ANY POR EL TIPO DE DATO PARA EDITAR EL REGISTRO
-  actions: actionsButton<any>[] = [
-    { label: '', icon: 'pi pi-pencil', type: "button", color: "primary", callback: (row: any) => this.editRow(row) },
-    { label: '', icon: 'pi pi-trash', type: "button", color: "danger", callback: (row: any) => this.deleteRow(row) },
-  ];
-
-  private themeSubscription!: Subscription;
-
-  //
-  nameMonths: string[] = []
-  dataLine: ChartInterface = {
-    label: 'Transactions',
-    data: [10, 20, 45, 32, 45, 78, 50, 50, 74, 12, 45, 23],
-    borderColor: '#3cba9f',
-    backgroundColor: 'rgb(39, 205, 64)',
-    borderWidth: 3,
-    tension: 0.1,
-  }
 
   constructor(
     private readonly dashboardService: DashboardService,
@@ -94,15 +75,7 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     this.loadBarChartData();
     this.loadPieChartData();
     this.loadBankDetails()
-    // this.dataLine.data = [10,20,30,40,50,60,80,90,100,]
-    this.dataLine = {
-      label: 'Transactions',
-      data: [10, 20, 45, 32, 45, 78, 50, 50, 74],
-      // borderColor: '#3cba9f',
-      // backgroundColor: 'rgb(39, 205, 64)',
-      borderWidth: 3,
-      tension: 0.1,
-    }
+    this.loadBudgets(this.DEFAULT_PAGE, this.DEFAULT_PER_PAGE)
   }
 
   private loadDashboardData(): void {
@@ -112,45 +85,6 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     this.loadPieChartData();
     this.loadBudgets(this.DEFAULT_PAGE, this.DEFAULT_PER_PAGE);
     this.loadBankDetails();
-  }
-
-  private loadWalletSummary(): void {
-    this.dashboardService.summaryWallets().subscribe({
-      next: (response) => { this.walletSummary = response.data; },
-      error: (error) => this.handleResponse(error, 'Error fetching wallet summary'),
-    });
-  }
-
-  private loadBarChartData(): void {
-    const yearDefault = this.selectedYear();
-    this.dashboardService.graphVertical(yearDefault.toString()).subscribe({
-      next: (response) => { this.barChartData.set(response.data) },
-      error: (error) => this.handleResponse(error, 'Error fetching bar chart data'),
-    });
-  }
-
-  private loadPieChartData(): void {
-    this.dashboardService.graphPolarity().subscribe({
-      next: (response) => { this.pieChartData.set(response.data) },
-      error: (error) => this.handleResponse(error, 'Error fetching pie chart data'),
-    });
-  }
-
-  private loadBudgets(page: number, per_page: number): void {
-    this.dashboardService.budgetInformation(page, per_page).subscribe({
-      next: (response) => {
-        this.budgets.set(response.data.budgets);
-        this.metaBudgets = response.data.meta;
-      },
-      error: (error) => this.handleResponse(error, 'Error fetching budgets'),
-    });
-  }
-
-  private loadBankDetails(): void {
-    this.coreService.getBanksInformation().subscribe({
-      next: (response) => { this.bankDetails.set(response.data) },
-      error: (error) => this.handleResponse(error, 'Error fetching bank details'),
-    });
   }
 
   private loadYears() {
@@ -163,20 +97,81 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     })
   }
 
+  private loadWalletSummary(): void {
+    this.dashboardService.summaryWallets().subscribe({
+      next: (response) => { this.walletSummary = response.data; },
+      error: (error) => this.handleResponse(error, 'Error fetching wallet summary'),
+    });
+  }
+
+  private loadBarChartData(): void {
+    const yearDefault = this.selectedYear();
+    this.dashboardService.graphVertical(yearDefault.toString()).subscribe({
+      next: (response) => {
+        console.log("aaaaaaa");
+        this.verticalChartData.set(response.data)
+        this.balanceByMonth()
+      },
+      error: (error) => this.handleResponse(error, 'Error fetching bar chart data'),
+    });
+  }
+
+  private balanceByMonth() {
+    // Accede directamente al valor del signal
+    const chartData = this.verticalChartData(); // Llama al signal directamente
+
+    // Verifica si chartData es un array y tiene datos
+    if (!Array.isArray(chartData) || chartData.length === 0) {
+      console.error("verticalChartData no es un array o está vacío");
+      return;
+    }
+
+    let data: any[] = [];
+
+    // Itera sobre los datos
+    for (let i = 0; i <= chartData.length - 1; i++) {
+      const currentMonth = chartData[i];
+      const nextMonth = chartData[i + 1];
+
+      data.push({
+        total: currentMonth.total - nextMonth.total,
+        month: currentMonth.month
+      });
+      i++
+
+    }
+    console.log("$$$$$$$", data);
+    this.balanceChartData.set(data)
+  }
+
+
+
+
+  private loadPieChartData(): void {
+    this.dashboardService.graphPolarity().subscribe({
+      next: (response) => { this.polarChartData.set(response.data) },
+      error: (error) => this.handleResponse(error, 'Error fetching pie chart data'),
+    });
+  }
+
+  private loadBudgets(page: number, per_page: number): void {
+    this.dashboardService.budgetInformation(page, per_page).subscribe({
+      next: (response) => {
+        this.budgets.set(response.data.budgets);
+      },
+      error: (error) => this.handleResponse(error, 'Error fetching budgets'),
+    });
+  }
+
+  private loadBankDetails(): void {
+    this.coreService.getBanksInformation().subscribe({
+      next: (response) => { this.bankDetails.set(response.data) },
+      error: (error) => this.handleResponse(error, 'Error fetching bank details'),
+    });
+  }
+
   onChangeYear(year: number) {
     this.selectedYear.set(year);
     this.loadBarChartData()
   }
-  onPageChange({ page, per_page }: { page: number; per_page: number }): void {
-    this.loadBudgets(page, per_page);
-  }
-
-  editRow(row: any): void {
-    // console.log('Editing row:', row);
-  }
-
-  deleteRow(row: any): void {
-    // console.log('Deleting row:', row);
-  }
-
 }
