@@ -81,6 +81,18 @@
                 </ng-template>
 
                 <ng-template #amountTemplate let-value>
+                    <td *ngIf="value === 'NEVER'; else otherRepeat">
+                        <div class="center">
+                            <p-tag icon="pi pi-circle-fill" severity="warning" value="{{value}}" />
+                        </div>
+                    </td>
+                    <ng-template #otherRepeat>
+                        <td>
+                            <div class="center">
+                                <p-tag icon="pi pi-clock" severity="success" value="{{value}}" />
+                            </div>
+                        </td>
+                    </ng-template>
                     <td>{{ value | currencyCustom:true }}</td>
                 </ng-template>
 

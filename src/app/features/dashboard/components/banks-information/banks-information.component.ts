@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { BanksInformation } from '../../../../shared/interfaces/wallet/wallet.interface';
+import { ThemeService } from '../../../../core/service/theme.service';
 
 @Component({
   selector: 'app-banks-information',
@@ -14,6 +15,10 @@ export class BanksInformationComponent implements OnChanges {
 
   options: any;
 
+  constructor(
+    private themeService: ThemeService
+  ) { }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["bankData"] && changes["bankData"].currentValue) {
       this.updateChar();
@@ -21,16 +26,31 @@ export class BanksInformationComponent implements OnChanges {
   }
 
   updateChar() {
+    
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-
+    const textColor = this.themeService.colorTextStyle()
+    
     this.data = {
       labels: this.bankData.map(bankData => { return bankData.name }),
       datasets: [
         {
           data: this.bankData.map(bankData => { return bankData.balance }),
-          backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-          hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+          backgroundColor: [
+            documentStyle.getPropertyValue('--blue-500'),
+            documentStyle.getPropertyValue('--yellow-500'),
+            documentStyle.getPropertyValue('--green-500'),
+            documentStyle.getPropertyValue('--red-500'),
+            documentStyle.getPropertyValue('--cyan-500'),
+            documentStyle.getPropertyValue('--pink-500')
+          ],
+          hoverBackgroundColor: [
+            documentStyle.getPropertyValue('--blue-400'),
+            documentStyle.getPropertyValue('--yellow-400'),
+            documentStyle.getPropertyValue('--green-400'),
+            documentStyle.getPropertyValue('--red-400'),
+            documentStyle.getPropertyValue('--cyan-400'),
+            documentStyle.getPropertyValue('--pink-400')
+          ]
         }
       ]
     };
