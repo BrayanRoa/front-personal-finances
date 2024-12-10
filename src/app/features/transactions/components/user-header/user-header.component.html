@@ -1,16 +1,19 @@
-<div class="container">
-    <div class="logo">
-        <!-- <img src="../../../../../assets/bank-svgrepo-com.svg" alt=""> -->
-        <span class="pi pi-building-columns"></span>
+<div class="container grid grid-nogutter">
+    <div class="col-12 md:col-7 flex align-items-center">
+        <span pTooltip="Incomes" [style]="{'color':'var(--green-500)'}">
+            <i class="pi pi-sort-up-fill"></i>
+            {{ balanceInformation.totalIncomes |
+            currencyCustom:true }}</span>
+        <span pTooltip="Outflow" [style]="{'color':'var(--red-500)'}">
+            <i class="pi pi-sort-down-fill"></i>
+            {{ balanceInformation.totalExpenses |
+            currencyCustom:true }}</span>
+        <span pTooltip="Balance">
+            = {{ balanceInformation.totalIncomes - balanceInformation.totalExpenses| currencyCustom:true}}
+        </span>
     </div>
-    <div class="middle">
-        <p>Bank: {{walletSelected}} - Year: {{yearSelect}}</p>
-    </div>
-    <div class="dropdowns">
-
-        <app-drop-down [titleDropDown]="'Bank'" [optionsDropDown]="wallets" (onChange)="onBankChange($event)" ></app-drop-down>
-
-        <app-drop-down [titleDropDown]="'Years'" [optionsDropDown]="years" (onChange)="onYearChange($event)"></app-drop-down>
-
+    <div class="col-12 md:col-5 flex justify-content-end">
+        <button pButton class="mr-2">Export</button>
+        <button pButton>Clear Filters</button>
     </div>
 </div>

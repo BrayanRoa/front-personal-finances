@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BanksInformation } from '../../../../shared/interfaces/wallet/wallet.interface';
 import { DropdownOption } from '../../../../shared/components/bottons/drop-down/drop-down.component';
+import { BalanceInformation } from '../../page/transactions.component';
 
 @Component({
   selector: 'app-user-header',
@@ -9,33 +10,13 @@ import { DropdownOption } from '../../../../shared/components/bottons/drop-down/
 })
 export class UserHeaderComponent implements OnInit {
 
-  @Input() wallets: BanksInformation[] = []
-  walletSelected: string = ""
-
-  @Input() years: DropdownOption[] = []
-  yearSelect: number = new Date().getFullYear()
-
-  @Output() wallet = new EventEmitter<(number)>
-  @Output() year = new EventEmitter<(number)>
-
-  constructor() { }
-
+  @Input() balanceInformation: BalanceInformation = {
+    totalIncomes: 0,
+    totalExpenses: 0
+  }
   ngOnInit(): void {
-    // Inicializar el walletSelected con el primer elemento del arreglo de wallets
-    this.walletSelected = this.wallets[0].name
-    this.wallet.emit(this.wallets[0].id)
-
+    throw new Error('Method not implemented.');
   }
 
-  onBankChange(options: DropdownOption) {
-    // console.log("OJO", options);
-    this.walletSelected = options.name
-    this.wallet.emit(+options.id)
-  }
 
-  onYearChange(options: DropdownOption) {
-    // console.log(options);
-    this.yearSelect = +options.id
-    this.year.emit(+options.id)
-  }
 }

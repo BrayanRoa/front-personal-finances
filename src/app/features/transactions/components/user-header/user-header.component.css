@@ -1,58 +1,14 @@
 .container {
-    display: flex;
-    align-items: center;
-    /* Alinea verticalmente los elementos */
-    justify-content: space-between;
-    /* Espacia los extremos */
-    padding: 10px;
-    /* Espaciado interno */
+    padding: 10px 20px;
     background-color: var(--surface-e);
-    /* Fondo opcional */
-    gap: 10px;
-    /* Espacio entre los elementos */
-    margin-bottom: 20px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
-.logo {
-    flex: 0 0 auto;
-    /* Tamaño fijo */
-    width: 100px;
-    /* Ajusta según tu logo */
-    text-align: center;
-}
-
-/* .logo img{
-    width: 40px;
-    color: var(--color-texto);
-} */
-
-.middle {
-    flex: 1;
-    /* Ocupa todo el espacio disponible */
-    text-align: start;
-    /* Centra el contenido dentro */
-}
-
-.middle p{
-    color: var(--color-text-card-two);
-    font-weight: bold;
+span{
+    /* color: var(--text-color); */
     font-size: larger;
-}
-
-.dropdowns {
-    display: flex;
-    gap: 10px;
-    /* Espacio entre los dropdowns */
-    align-items: center;
-    /* Asegura alineación vertical */
-
-    margin-right: 10px;
-}
-
-.pi{
-    font-size: 50px;
-    color: var(--color-text-card-one);
+    font-weight: bold;
+    margin-right: 15px;
 }
 
 
