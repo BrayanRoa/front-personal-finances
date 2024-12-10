@@ -23,6 +23,9 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TooltipModule } from 'primeng/tooltip';
+import { DataViewModule } from 'primeng/dataview';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   exports: [
@@ -47,7 +50,10 @@ import { TooltipModule } from 'primeng/tooltip';
     IconFieldModule,
     InputIconModule,
     SelectButtonModule,
-    TooltipModule
+    TooltipModule,
+    DataViewModule,
+    MultiSelectModule,
+    CardModule
   ]
 })
 export class PrimeNgModule { }

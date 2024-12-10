@@ -15,6 +15,10 @@ import { CategoryInterface } from '../../../shared/interfaces/category/category.
 import { FormGroup } from '@angular/forms';
 import { debounceTime, finalize, Observable, Subject } from 'rxjs';
 
+interface City {
+  name: string;
+  code: string;
+}
 interface LoadTransactionParams {
   page: number;
   per_page: number;
@@ -22,6 +26,11 @@ interface LoadTransactionParams {
   year: number;
   month: number;
   searchTerm: string;
+}
+
+export interface BalanceInformation {
+  totalIncomes: number;
+  totalExpenses: number;
 }
 
 @Component({
@@ -39,6 +48,11 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   years = signal<DropdownOption[]>([]);
   walletsData = signal<BanksInformation[]>([]);
   categoryData = signal<CategoryInterface[]>([]);
+
+  balanceInformation = signal<BalanceInformation>({
+    totalIncomes: 0,
+    totalExpenses: 0
+  });
 
   // Selected Transaction for editing
   transactionSelected!: Transaction;
@@ -128,6 +142,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
     this.loadTransactions();
     this.loadCategories();
+
   }
 
   // Event Handlers for Bank, Year, Month
@@ -179,6 +194,10 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     this.transactionService.getTransactions(finalParams).subscribe({
       next: (transactions: ApiResponse<TransactionData>) => {
         this.transactions = transactions.data.transactions;
+        this.balanceInformation.set({
+          totalIncomes: transactions.data.totalIncome,
+          totalExpenses: transactions.data.totalExpenses,
+        })
         this.metaData = transactions.data.meta;
       },
       error: (error: any) => {
@@ -329,5 +348,10 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     this.handleResponse(error.status, error.data);
     console.error('Detailed error log:', error);
   }
+
+
+  cities!: City[];
+
+  selectedCities!: City[];
 
 }

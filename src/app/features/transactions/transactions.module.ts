@@ -25,7 +25,7 @@ import { PrimeNgModule } from '../../prime-ng/prime-ng.module';
     TransactionsRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    PrimeNgModule
+    PrimeNgModule,
   ],
   exports: [
     TransactionsComponent

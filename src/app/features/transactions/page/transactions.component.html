@@ -3,37 +3,59 @@
     <div class="grid">
         <!-- user header -->
         <div class="col-12 h-full">
-            <app-user-header (wallet)="onBankSelected($event)" [wallets]="walletsData()" (year)="onYearSelected($event)"
-                [years]="years()">
-            </app-user-header>
+            <app-user-header [balanceInformation]="balanceInformation()"></app-user-header>
         </div>
 
+        <!-- <div class="col-12 h-full">
+
+
+        </div> -->
+
         <!-- cards transactions -->
-        <div class="col-12 h-full">
+        <!-- <div class="col-12 h-full">
             <app-transactions-card></app-transactions-card>
-        </div>
+        </div> -->
 
         <!-- main table, buttons and search -->
         <div class="col-12 h-full">
             <p-panel [toggleable]="true">
                 <ng-template pTemplate="header">
                     <div class="custom-header">
-                        <span class="item1">Transactions By Month - {{nameMonthSelected()}}</span>
+                        <span class="item1">Transactions By Month - {{nameMonthSelected()}} </span>
                     </div>
                 </ng-template>
 
+
+                <div class="grid grid-nogutter pb-5">
+                    <p-multiSelect class="mr-2" [options]="walletsData()" placeholder="Select Banks" optionLabel="name"
+                        display="chip" [showClear]="true" />
+
+                    <p-multiSelect class="mr-2" [options]="categoryData()" placeholder="Select Categories"
+                        optionLabel="name" display="chip" [showClear]="true" />
+
+                    <p-multiSelect class="mr-2" [options]="cities" placeholder="Select Type" optionLabel="name"
+                        display="chip" [showClear]="true" />
+
+                    <p-multiSelect class="mr-2" [options]="cities" placeholder="Select Repeat" optionLabel="name"
+                        display="chip" [showClear]="true" />
+
+                    <p-multiSelect class="mr-2" [options]="years()" placeholder="Select Years" optionLabel="name"
+                        display="chip" [showClear]="true" />
+
+                </div>
+
                 <!-- buttons and search -->
-                <div class="grid grid-nogutter">
+                <div class="grid grid-nogutter mb-4">
                     <!-- search -->
-                    <div class="col-6">
+                    <div class="col-12 md:col-6 flex justify-content-start align-items-center">
                         <p-iconField iconPosition="left">
                             <p-inputIcon styleClass="pi pi-search" />
                             <input type="text" pInputText placeholder="Search"
-                                (input)="onInputChangeWithDebounce($event)" />
+                                (input)="onInputChangeWithDebounce($event)" [size]="" />
                         </p-iconField>
                     </div>
 
-                    <div class="col-6 flex justify-content-end mb-3">
+                    <div class="col-12 md:col-6 flex justify-content-end align-items-center">
                         <!-- BUTTONS -->
                         <app-drop-down class="mr-2" [severity]="'help'" [titleDropDown]="'Month'"
                             [optionsDropDown]="months" (onChange)="onMonthChange($event)">
@@ -81,18 +103,6 @@
                 </ng-template>
 
                 <ng-template #amountTemplate let-value>
-                    <td *ngIf="value === 'NEVER'; else otherRepeat">
-                        <div class="center">
-                            <p-tag icon="pi pi-circle-fill" severity="warning" value="{{value}}" />
-                        </div>
-                    </td>
-                    <ng-template #otherRepeat>
-                        <td>
-                            <div class="center">
-                                <p-tag icon="pi pi-clock" severity="success" value="{{value}}" />
-                            </div>
-                        </td>
-                    </ng-template>
                     <td>{{ value | currencyCustom:true }}</td>
                 </ng-template>
 
@@ -117,8 +127,9 @@
             </p-panel>
         </div>
 
-        <div class="col-12 h-full">
-        </div>
+        <!-- <div class="col-12 h-full">
+            <app-dataview [data]="transactions"></app-dataview>
+        </div> -->
 
     </div>
 </div>

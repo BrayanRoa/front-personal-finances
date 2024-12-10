@@ -3,6 +3,12 @@
     padding: 20px;
 }
 
+.a{
+    margin: 0;
+    padding: 20px;
+    background-color: var(--color-cards-background);
+}
+
 
 span {
     font-weight: bold;
