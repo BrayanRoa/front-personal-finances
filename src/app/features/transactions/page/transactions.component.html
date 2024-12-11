@@ -28,19 +28,27 @@
 
                 <div class="grid grid-nogutter pb-5">
                     <p-multiSelect class="mr-2" [options]="walletsData()" placeholder="Select Banks" optionLabel="name"
-                        display="chip" [showClear]="true" />
+                        display="chip" [showClear]="true" (onChange)="onChangeBank($event)" />
 
                     <p-multiSelect class="mr-2" [options]="categoryData()" placeholder="Select Categories"
-                        optionLabel="name" display="chip" [showClear]="true" />
+                        optionLabel="name" display="chip" [showClear]="true" (onChange)="onChangeCategories($event)" />
 
-                    <p-multiSelect class="mr-2" [options]="cities" placeholder="Select Type" optionLabel="name"
+                    <p-multiSelect class="mr-2" [options]="type_transactions" placeholder="Select Type"
+                        optionLabel="name" display="chip" [showClear]="true"
+                        (onChange)="onChangeTypeTransactions($event)" />
+
+                    <p-multiSelect class="mr-2" [options]="recurring_transaction"
+                        placeholder="Select Recurring Transaction" optionLabel="name" display="chip" [showClear]="true"
+                        (onChange)="onChangeTypeTransactions($event)" />
+
+                    <!-- <p-multiSelect class="mr-2" [options]="cities" placeholder="Select Repeat" optionLabel="name"
+                        display="chip" [showClear]="true" /> -->
+
+                    <!-- <p-multiSelect class="mr-2" [options]="years()" placeholder="Select Years" optionLabel="name"
                         display="chip" [showClear]="true" />
 
-                    <p-multiSelect class="mr-2" [options]="cities" placeholder="Select Repeat" optionLabel="name"
-                        display="chip" [showClear]="true" />
-
-                    <p-multiSelect class="mr-2" [options]="years()" placeholder="Select Years" optionLabel="name"
-                        display="chip" [showClear]="true" />
+                    <p-multiSelect class="mr-2" [options]="months" placeholder="Select Months" optionLabel="name"
+                        display="chip" [showClear]="true" /> -->
 
                 </div>
 

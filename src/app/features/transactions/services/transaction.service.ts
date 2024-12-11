@@ -15,27 +15,37 @@ export class TransactionService extends BaseService {
     }
 
     getTransactions(options: {
-        walletId: number;
+        walletIds: number[] | null;
         page: number;
         per_page: number;
+        categoryIds: number[] | null;
+        repeats: string[] | null;
+        types: string[] | null;
         searchTerm?: string;
-        month: number;
-        year: number;
     }): Observable<ApiResponse<TransactionData>> {
-        const params = this.buildParams({
-            walletId: options.walletId,
-            page: options.page,
-            per_page: options.per_page,
-            month: options.month,
-            year: options.year,
-            search: options.searchTerm
-        });
 
+
+        const query = new URLSearchParams({
+            walletIds: JSON.stringify(
+                options.walletIds && options.walletIds.length > 0 ? options.walletIds : null
+            ),
+            categoryIds: JSON.stringify(
+                options.categoryIds && options.categoryIds.length > 0 ? options.categoryIds : null),
+            repeats: JSON.stringify(
+                options.repeats && options.repeats.length > 0 ? options.repeats : null
+            ),
+            types: JSON.stringify(
+                options.types && options.types.length > 0 ? options.types : null
+            ),
+            page: options.page.toString(),
+            per_page: options.per_page.toString(),
+            search: options.searchTerm || '',
+        }).toString()
+        console.log({ query });
         const fullUrl = `${this.endpoint}`;
         // console.log('Request URL:', fullUrl);
 
-        return this.http.get<ApiResponse<TransactionData>>(fullUrl, {
-            params,
+        return this.http.get<ApiResponse<TransactionData>>(`${fullUrl}?${query}`, {
         });
 
     }
