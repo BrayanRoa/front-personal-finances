@@ -21,25 +21,28 @@
             <p-panel [toggleable]="true">
                 <ng-template pTemplate="header">
                     <div class="custom-header">
-                        <span class="item1">Transactions By Month - {{nameMonthSelected()}} </span>
+                        <span class="item1">Transactions By Month - {{selectedMonthsName()}} </span>
                     </div>
                 </ng-template>
 
 
                 <div class="grid grid-nogutter pb-5">
-                    <p-multiSelect class="mr-2" [options]="walletsData()" placeholder="Select Banks" optionLabel="name"
+                    <p-multiSelect class="mr-2 mb-2" [options]="walletsData()" placeholder="Select Banks" optionLabel="name"
                         display="chip" [showClear]="true" (onChange)="onChangeBank($event)" />
 
-                    <p-multiSelect class="mr-2" [options]="categoryData()" placeholder="Select Categories"
+                    <p-multiSelect class="mr-2 mb-2" [options]="categoryData()" placeholder="Select Categories"
                         optionLabel="name" display="chip" [showClear]="true" (onChange)="onChangeCategories($event)" />
 
-                    <p-multiSelect class="mr-2" [options]="type_transactions" placeholder="Select Type"
+                    <p-multiSelect class="mr-2 mb-2" [options]="type_transactions" placeholder="Select Type"
                         optionLabel="name" display="chip" [showClear]="true"
                         (onChange)="onChangeTypeTransactions($event)" />
 
-                    <p-multiSelect class="mr-2" [options]="recurring_transaction"
+                    <p-multiSelect class="mr-2 mb-2" [options]="recurring_transaction"
                         placeholder="Select Recurring Transaction" optionLabel="name" display="chip" [showClear]="true"
-                        (onChange)="onChangeTypeTransactions($event)" />
+                        (onChange)="onChangeRecurringTransaction($event)" />
+
+                    <p-multiSelect class="mr-2 mb-2" [options]="months" placeholder="Select Months" optionLabel="name"
+                        display="chip" [showClear]="true" (onChange)="onChangeMonths($event)" />
 
                     <!-- <p-multiSelect class="mr-2" [options]="cities" placeholder="Select Repeat" optionLabel="name"
                         display="chip" [showClear]="true" /> -->
@@ -65,9 +68,9 @@
 
                     <div class="col-12 md:col-6 flex justify-content-end align-items-center">
                         <!-- BUTTONS -->
-                        <app-drop-down class="mr-2" [severity]="'help'" [titleDropDown]="'Month'"
+                        <!-- <app-drop-down class="mr-2" [severity]="'help'" [titleDropDown]="'Month'"
                             [optionsDropDown]="months" (onChange)="onMonthChange($event)">
-                        </app-drop-down>
+                        </app-drop-down> -->
                         <button pButton pRipple label="Add Transaction" class="p-button-success" icon="pi pi-plus"
                             (click)="showDialog()"></button>
 

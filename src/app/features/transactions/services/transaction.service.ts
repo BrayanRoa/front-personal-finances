@@ -21,6 +21,7 @@ export class TransactionService extends BaseService {
         categoryIds: number[] | null;
         repeats: string[] | null;
         types: string[] | null;
+        months: string[] | null;
         searchTerm?: string;
     }): Observable<ApiResponse<TransactionData>> {
 
@@ -36,6 +37,9 @@ export class TransactionService extends BaseService {
             ),
             types: JSON.stringify(
                 options.types && options.types.length > 0 ? options.types : null
+            ),
+            months: JSON.stringify(
+                options.months && options.months.length > 0? options.months : null
             ),
             page: options.page.toString(),
             per_page: options.per_page.toString(),

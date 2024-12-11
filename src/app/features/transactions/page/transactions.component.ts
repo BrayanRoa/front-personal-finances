@@ -1,4 +1,4 @@
-import { Component, effect, OnInit, signal } from '@angular/core';
+import { Component, effect, OnInit, signal, WritableSignal } from '@angular/core';
 import { TransactionService } from '../services/transaction.service';
 import { Transaction, TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
 import { MetaData, ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
@@ -9,7 +9,7 @@ import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 import { confirmDelete } from '../../../shared/components/sweet-alert-modal/sweet-alert-modal';
 import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
-import { FORM_CONFIG } from '../statics/transaction.config';
+import { FORM_CONFIG, TABLE_COLUMNS } from '../statics/transaction.config';
 import { CoreService } from '../../../core/service/core.service';
 import { CategoryInterface } from '../../../shared/interfaces/category/category.interface';
 import { FormGroup } from '@angular/forms';
@@ -22,6 +22,7 @@ interface LoadTransactionParams {
   categoryIds: number[] | null;
   repeats: string[] | null;
   types: string[] | null;
+  months: string[] | null;
   // year: number;
   // month: number;
   searchTerm: string;
@@ -39,17 +40,16 @@ export interface BalanceInformation {
 })
 export class TransactionsComponent extends BaseComponent implements OnInit {
 
-  // selectedBanks = signal<string[]>([])
-
   // Signals
   selectedBanksId = signal<number[] | null>(null);
   selectedCategoriesId = signal<number[] | null>(null)
   selectedTypeTransactionId = signal<string[] | null>(null)
   selectedTypeRecurringTransactionId = signal<string[] | null>(null)
+  selectedMonths = signal<string[]>([(new Date().getMonth() + 1).toString()]);
+  selectedMonthsName = signal<string[] | null>(null);
+  nameMonthDefault = signal<string>('');
 
   selectedYear = signal<number | null>(null);
-  selectedMonth = signal<number>(new Date().getMonth() + 1);
-  nameMonthSelected = signal<string>('');
   years = signal<DropdownOption[]>([]);
 
   // Data Signals
@@ -68,9 +68,11 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   months = MONTHS;
   type_transactions = TYPE_TRANSACTION
   recurring_transaction = RECURRING_TRANSACTION
+  // Table Columns
+  tableColumns = TABLE_COLUMNS
 
   // Modal Visibility
-  public visible: boolean = false;
+  visible: boolean = false;
 
   // Form Structure
   formConfig = FORM_CONFIG;
@@ -85,17 +87,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     currentPage: 1,
     next_page: true
   };
-
-  // Table Columns
-  tableColumns = [
-    { field: 'name', header: 'Name' },
-    { field: 'wallet.name', header: 'Wallet' },
-    { field: 'category.name', header: 'Category' },
-    { field: 'amount', header: 'Amount' },
-    { field: 'date', header: 'Date' },
-    { field: 'type', header: 'Type' },
-    { field: 'repeat', header: 'Repeat' },
-  ];
 
   // Actions for buttons in table
   actions: actionsButton<Transaction>[] = [
@@ -139,7 +130,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
     effect(() => {
       const categories = this.selectedCategoriesId();
-      console.log("cambie", categories);
       if (categories) {
         this.loadTransactions();
       }
@@ -149,11 +139,11 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
       const banks = this.selectedBanksId();
       if (banks) {
         this.loadTransactions();
-      }else{
-        
+      } else {
+
       }
     });
-  
+
     effect(() => {
       const types = this.selectedTypeTransactionId();
       if (types) {
@@ -163,38 +153,24 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadYears();
-    this.nameMonthSelected.set(
-      MONTHS.find((month) => +month.id === this.selectedMonth())?.name || ''
+
+    this.selectedMonthsName.set(
+      [MONTHS.filter(month => +month.id === new Date().getMonth() + 1)[0].name]
     );
 
     const resolverData = this.route.snapshot.data['walletsData'];
     if (resolverData?.data) {
       this.walletsData.set(resolverData.data);
-      this.selectedBanksId.set([this.walletsData()[0]?.id]);
+      this.selectedBanksId.set(this.walletsData().map(wallet =>
+        wallet.id
+      ));
     }
+    this.loadYears();
     this.loadTransactions();
     this.loadCategories();
   }
 
-  // Event Handlers for Bank, Year, Month
-  // onBankSelected(bankId: number): void {
-  //   this.selectedBankId.set(bankId);
-  //   this.loadTransactions();
-  // }
-
-  // onYearSelected(yearId: number): void {
-  //   this.selectedYear.set(yearId);
-  //   this.loadTransactions();
-  // }
-
-  onMonthChange(options: { id: number | string, name: string }): void {
-    this.selectedMonth.set(+options.id);
-    const monthName = MONTHS.find((month) => +month.id === +options.id)?.name || '';
-    this.nameMonthSelected.set(monthName);
-    this.loadTransactions();
-  }
-
+  // methods to search in the list of transactions
   onInputChangeWithDebounce(event: Event) {
     const input = (event.target as HTMLInputElement).value;
     this.inputSubject.next(input);
@@ -210,26 +186,19 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   // Private Methods to Load Data
   private loadTransactions(params?: Partial<LoadTransactionParams>): void {
-    // const walletId = this.selectedBanksId();
-    // const walletId = this.selectedBanksId();
-
-    // if (this.selectedBanksId()?.length === 0) {
-    //   this.selectedBanksId.set([this.walletsData()[0].id])
-    // }
-    // if (!walletId) return;
 
     const finalParams: LoadTransactionParams = {
-      walletIds: this.selectedBanksId(), // ! OJO AQUI LO COLOQUE PORQUE ESTOY HACIENDO PRUEBAS
+      walletIds: this.selectedBanksId(),
       page: PAGE ?? 1,
       per_page: PER_PAGE ?? 10,
       categoryIds: this.selectedCategoriesId(),
       repeats: this.selectedTypeRecurringTransactionId(),
       types: this.selectedTypeTransactionId(),
+      months: this.selectedMonths(),
       searchTerm: '',
       ...params,
     };
 
-    console.log({finalParams});
     this.transactionService.getTransactions(finalParams).subscribe({
       next: (transactions: ApiResponse<TransactionData>) => {
         this.transactions = transactions.data.transactions;
@@ -334,9 +303,9 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     });
   }
 
-  showDialog() {
+  async showDialog() {
     // Configurar las opciones antes de abrir el diálogo
-    this.loadOptions()
+    await this.loadOptions()
     this.visible = true;
   }
 
@@ -360,6 +329,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     this.handleTransaction(action$);
   }
 
+  // generic method to manage differents observables (in this case update y create transaction)
   private handleTransaction(action$: Observable<ApiResponse<any>>) {
     action$.pipe(
       finalize(() => {
@@ -388,50 +358,48 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     console.error('Detailed error log:', error);
   }
 
-  onChangeBank(event: any) {
-    // Verifica si `event.value` existe y es un array
+  // generic method to change values of the selected
+  // ojo, aqui ese generico con ese objeto dice que todos los metodos 
+  // que le pases una interface o lo que sea debe tener un id ya sea de tipo string o number 
+  handleSignalChange<T extends { id: string | number }>(
+    event: any,
+    signal: WritableSignal<(string | number)[] | null>
+  ): void {
     if (Array.isArray(event.value)) {
-      // Mapea los IDs de los bancos seleccionados y haz la petición
-      const selectedIds = event.value.map((bank: BanksInformation) => bank.id);
-      this.selectedBanksId.set(selectedIds); // Asume que `selectedBanks` es un signal
-      console.log(selectedIds);
-      // Aquí puedes realizar la petición con `selectedIds`
+      const selectedIds = event.value.map((item: T) => item.id);
+      signal.set(selectedIds);
     } else {
       console.error('El valor del evento no es un array:', event.value);
     }
+  }
+
+  onChangeBank(event: any) {
+    this.handleSignalChange<BanksInformation>(event, this.selectedBanksId);
   }
 
   onChangeCategories(event: any) {
-    if (Array.isArray(event.value)) {
-      // Mapea los IDs de los bancos seleccionados y haz la petición
-      const selectedIds = event.value.map((category: CategoryInterface) => category.id);
-      this.selectedCategoriesId.set(selectedIds); // Asume que `selectedBanks` es un signal
-      console.log(selectedIds);
-      // Aquí puedes realizar la petición con `selectedIds`
-    } else {
-      console.error('El valor del evento no es un array:', event.value);
-    }
+    this.handleSignalChange<CategoryInterface>(event, this.selectedCategoriesId);
   }
 
   onChangeTypeTransactions(event: any) {
-    if (Array.isArray(event.value)) {
-      // Mapea los IDs de los bancos seleccionados y haz la petición
-      const selectedIds = event.value.map((type: SelectInterface) => type.id);
-      this.selectedTypeTransactionId.set(selectedIds); // Asume que `selectedBanks` es un signal
-      console.log(selectedIds);
-      // Aquí puedes realizar la petición con `selectedIds`
-    } else {
-      console.error('El valor del evento no es un array:', event.value);
-    }
+    this.handleSignalChange<SelectInterface>(event, this.selectedTypeTransactionId);
   }
 
   onChangeRecurringTransaction(event: any) {
+    this.handleSignalChange<SelectInterface>(event, this.selectedTypeRecurringTransactionId);
+  }
+
+  onChangeMonths(event: any): void {
     if (Array.isArray(event.value)) {
-      // Mapea los IDs de los bancos seleccionados y haz la petición
-      const selectedIds = event.value.map((type: SelectInterface) => type.id);
-      this.selectedTypeRecurringTransactionId.set(selectedIds); // Asume que `selectedBanks` es un signal
-      console.log(selectedIds);
-      // Aquí puedes realizar la petición con `selectedIds`
+      const selectedIds = event.value.map((month: SelectInterface) => month.id);
+      const selectedNames = event.value.map((month: SelectInterface) => month.name);
+
+      this.selectedMonths.set(selectedIds);
+      this.selectedMonthsName.set(selectedNames);
+
+      if (selectedIds.length === 0) {
+        this.selectedMonthsName.set(["December"]);
+      }
     } else {
       console.error('El valor del evento no es un array:', event.value);
     }
