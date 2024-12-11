@@ -1,10 +1,10 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, effect, OnInit, signal } from '@angular/core';
 import { TransactionService } from '../services/transaction.service';
 import { Transaction, TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
 import { MetaData, ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.interface';
 import { ActivatedRoute } from '@angular/router';
-import { MONTHS, PAGE, PER_PAGE } from '../../../shared/constants/constants';
+import { MONTHS, PAGE, PER_PAGE, RECURRING_TRANSACTION, SelectInterface, TYPE_TRANSACTION } from '../../../shared/constants/constants';
 import { actionsButton } from '../../../shared/interfaces/use-common.interfce';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 import { confirmDelete } from '../../../shared/components/sweet-alert-modal/sweet-alert-modal';
@@ -15,16 +15,15 @@ import { CategoryInterface } from '../../../shared/interfaces/category/category.
 import { FormGroup } from '@angular/forms';
 import { debounceTime, finalize, Observable, Subject } from 'rxjs';
 
-interface City {
-  name: string;
-  code: string;
-}
 interface LoadTransactionParams {
+  walletIds: number[] | null;
   page: number;
   per_page: number;
-  walletId: number;
-  year: number;
-  month: number;
+  categoryIds: number[] | null;
+  repeats: string[] | null;
+  types: string[] | null;
+  // year: number;
+  // month: number;
   searchTerm: string;
 }
 
@@ -40,12 +39,20 @@ export interface BalanceInformation {
 })
 export class TransactionsComponent extends BaseComponent implements OnInit {
 
+  // selectedBanks = signal<string[]>([])
+
   // Signals
-  selectedBankId = signal<number | null>(null);
+  selectedBanksId = signal<number[] | null>(null);
+  selectedCategoriesId = signal<number[] | null>(null)
+  selectedTypeTransactionId = signal<string[] | null>(null)
+  selectedTypeRecurringTransactionId = signal<string[] | null>(null)
+
   selectedYear = signal<number | null>(null);
   selectedMonth = signal<number>(new Date().getMonth() + 1);
   nameMonthSelected = signal<string>('');
   years = signal<DropdownOption[]>([]);
+
+  // Data Signals
   walletsData = signal<BanksInformation[]>([]);
   categoryData = signal<CategoryInterface[]>([]);
 
@@ -59,6 +66,8 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   // Constants
   months = MONTHS;
+  type_transactions = TYPE_TRANSACTION
+  recurring_transaction = RECURRING_TRANSACTION
 
   // Modal Visibility
   public visible: boolean = false;
@@ -80,6 +89,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   // Table Columns
   tableColumns = [
     { field: 'name', header: 'Name' },
+    { field: 'wallet.name', header: 'Wallet' },
     { field: 'category.name', header: 'Category' },
     { field: 'amount', header: 'Amount' },
     { field: 'date', header: 'Date' },
@@ -126,6 +136,30 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
         this.onSearch("")
       }
     });
+
+    effect(() => {
+      const categories = this.selectedCategoriesId();
+      console.log("cambie", categories);
+      if (categories) {
+        this.loadTransactions();
+      }
+    });
+
+    effect(() => {
+      const banks = this.selectedBanksId();
+      if (banks) {
+        this.loadTransactions();
+      }else{
+        
+      }
+    });
+  
+    effect(() => {
+      const types = this.selectedTypeTransactionId();
+      if (types) {
+        this.loadTransactions();
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -137,24 +171,22 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     const resolverData = this.route.snapshot.data['walletsData'];
     if (resolverData?.data) {
       this.walletsData.set(resolverData.data);
-      this.selectedBankId.set(this.walletsData()[0]?.id || null);
+      this.selectedBanksId.set([this.walletsData()[0]?.id]);
     }
-
     this.loadTransactions();
     this.loadCategories();
-
   }
 
   // Event Handlers for Bank, Year, Month
-  onBankSelected(bankId: number): void {
-    this.selectedBankId.set(bankId);
-    this.loadTransactions();
-  }
+  // onBankSelected(bankId: number): void {
+  //   this.selectedBankId.set(bankId);
+  //   this.loadTransactions();
+  // }
 
-  onYearSelected(yearId: number): void {
-    this.selectedYear.set(yearId);
-    this.loadTransactions();
-  }
+  // onYearSelected(yearId: number): void {
+  //   this.selectedYear.set(yearId);
+  //   this.loadTransactions();
+  // }
 
   onMonthChange(options: { id: number | string, name: string }): void {
     this.selectedMonth.set(+options.id);
@@ -178,19 +210,26 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   // Private Methods to Load Data
   private loadTransactions(params?: Partial<LoadTransactionParams>): void {
-    const walletId = this.selectedBankId();
-    if (!walletId) return;
+    // const walletId = this.selectedBanksId();
+    // const walletId = this.selectedBanksId();
+
+    // if (this.selectedBanksId()?.length === 0) {
+    //   this.selectedBanksId.set([this.walletsData()[0].id])
+    // }
+    // if (!walletId) return;
 
     const finalParams: LoadTransactionParams = {
-      walletId,
+      walletIds: this.selectedBanksId(), // ! OJO AQUI LO COLOQUE PORQUE ESTOY HACIENDO PRUEBAS
       page: PAGE ?? 1,
       per_page: PER_PAGE ?? 10,
-      year: this.selectedYear() || new Date().getFullYear(),
-      month: this.selectedMonth(),
+      categoryIds: this.selectedCategoriesId(),
+      repeats: this.selectedTypeRecurringTransactionId(),
+      types: this.selectedTypeTransactionId(),
       searchTerm: '',
       ...params,
     };
 
+    console.log({finalParams});
     this.transactionService.getTransactions(finalParams).subscribe({
       next: (transactions: ApiResponse<TransactionData>) => {
         this.transactions = transactions.data.transactions;
@@ -349,9 +388,53 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     console.error('Detailed error log:', error);
   }
 
+  onChangeBank(event: any) {
+    // Verifica si `event.value` existe y es un array
+    if (Array.isArray(event.value)) {
+      // Mapea los IDs de los bancos seleccionados y haz la petición
+      const selectedIds = event.value.map((bank: BanksInformation) => bank.id);
+      this.selectedBanksId.set(selectedIds); // Asume que `selectedBanks` es un signal
+      console.log(selectedIds);
+      // Aquí puedes realizar la petición con `selectedIds`
+    } else {
+      console.error('El valor del evento no es un array:', event.value);
+    }
+  }
 
-  cities!: City[];
+  onChangeCategories(event: any) {
+    if (Array.isArray(event.value)) {
+      // Mapea los IDs de los bancos seleccionados y haz la petición
+      const selectedIds = event.value.map((category: CategoryInterface) => category.id);
+      this.selectedCategoriesId.set(selectedIds); // Asume que `selectedBanks` es un signal
+      console.log(selectedIds);
+      // Aquí puedes realizar la petición con `selectedIds`
+    } else {
+      console.error('El valor del evento no es un array:', event.value);
+    }
+  }
 
-  selectedCities!: City[];
+  onChangeTypeTransactions(event: any) {
+    if (Array.isArray(event.value)) {
+      // Mapea los IDs de los bancos seleccionados y haz la petición
+      const selectedIds = event.value.map((type: SelectInterface) => type.id);
+      this.selectedTypeTransactionId.set(selectedIds); // Asume que `selectedBanks` es un signal
+      console.log(selectedIds);
+      // Aquí puedes realizar la petición con `selectedIds`
+    } else {
+      console.error('El valor del evento no es un array:', event.value);
+    }
+  }
+
+  onChangeRecurringTransaction(event: any) {
+    if (Array.isArray(event.value)) {
+      // Mapea los IDs de los bancos seleccionados y haz la petición
+      const selectedIds = event.value.map((type: SelectInterface) => type.id);
+      this.selectedTypeRecurringTransactionId.set(selectedIds); // Asume que `selectedBanks` es un signal
+      console.log(selectedIds);
+      // Aquí puedes realizar la petición con `selectedIds`
+    } else {
+      console.error('El valor del evento no es un array:', event.value);
+    }
+  }
 
 }
