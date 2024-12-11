@@ -44,6 +44,7 @@ export const FORM_CONFIG: FormFieldConfig[] = [
 
 export const TABLE_COLUMNS = [
     { field: 'name', header: 'Name' },
+    { field: 'wallet.name', header: 'Wallet' },
     { field: 'category.name', header: 'Category' },
     { field: 'amount', header: 'Amount' },
     { field: 'date', header: 'Date' },
