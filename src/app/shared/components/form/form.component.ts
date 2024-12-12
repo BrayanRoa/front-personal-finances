@@ -88,9 +88,10 @@ export class FormComponent {
     if (this.submitButton === 'save') {
       this.sendForm.emit({ data: this.form, action: 'save' });
     } else if (this.submitButton === 'update') {
+
+      console.log("PERRROSSSSS", this.form);
       this.sendForm.emit({ data: this.form, action: 'update' });
     }
-    console.log("PERRROSSSSS", this.form.value);
     this.form.reset();
   }
 
