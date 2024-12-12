@@ -95,7 +95,7 @@ export class FormComponent {
   }
 
   onCancel(): void {
-    this.form.reset();
+    this.form.reset({});
     this.cancel.emit();
   }
 

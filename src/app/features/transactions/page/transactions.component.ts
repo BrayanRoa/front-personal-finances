@@ -14,6 +14,7 @@ import { CoreService } from '../../../core/service/core.service';
 import { CategoryInterface } from '../../../shared/interfaces/category/category.interface';
 import { FormGroup } from '@angular/forms';
 import { debounceTime, finalize, Observable, Subject } from 'rxjs';
+import { FormFieldConfig } from '../../../shared/interfaces/generic-components/form.interface';
 
 interface LoadTransactionParams {
   walletIds: number[] | null;
@@ -23,7 +24,7 @@ interface LoadTransactionParams {
   repeats: string[] | null;
   types: string[] | null;
   months: string[] | null;
-  // year: number;
+  years: number | null;
   // month: number;
   searchTerm: string;
 }
@@ -48,11 +49,11 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   selectedMonths = signal<string[]>([(new Date().getMonth() + 1).toString()]);
   selectedMonthsName = signal<string[] | null>(null);
   nameMonthDefault = signal<string>('');
-
   selectedYear = signal<number | null>(null);
-  years = signal<DropdownOption[]>([]);
+
 
   // Data Signals
+  years = signal<DropdownOption[]>([]);
   walletsData = signal<BanksInformation[]>([]);
   categoryData = signal<CategoryInterface[]>([]);
 
@@ -75,7 +76,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   visible: boolean = false;
 
   // Form Structure
-  formConfig = FORM_CONFIG;
+  formConfig!: FormFieldConfig[] | null;
   nameButton: string = 'save';
   idTransactionSelected = signal<number>(0)
 
@@ -168,6 +169,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     this.loadYears();
     this.loadTransactions();
     this.loadCategories();
+    this.formConfig = FORM_CONFIG;
   }
 
   // methods to search in the list of transactions
@@ -195,9 +197,12 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
       repeats: this.selectedTypeRecurringTransactionId(),
       types: this.selectedTypeTransactionId(),
       months: this.selectedMonths(),
+      years: this.selectedYear(),
       searchTerm: '',
       ...params,
     };
+
+    console.log("aaaaaaaaa", finalParams);
 
     this.transactionService.getTransactions(finalParams).subscribe({
       next: (transactions: ApiResponse<TransactionData>) => {
@@ -241,8 +246,9 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   }
 
   private loadOptions() {
+    this.formConfig = FORM_CONFIG
     return new Promise<void>((resolve, reject) => {
-      this.formConfig.forEach(data => {
+      this.formConfig!.forEach(data => {
         if (data.name === 'walletId') {
           data.options = [
             ...this.walletsData().map(wallet => ({
@@ -311,6 +317,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   closeModal() {
     this.visible = false;
+    this.formConfig = null
   }
 
   saveOrUpdateTransaction(event: { data: FormGroup; action: string }) {
@@ -333,7 +340,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   private handleTransaction(action$: Observable<ApiResponse<any>>) {
     action$.pipe(
       finalize(() => {
-        this.visible = false;
+        this.closeModal()
       })
     ).subscribe({
       next: (response) => {
@@ -387,6 +394,10 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   onChangeRecurringTransaction(event: any) {
     this.handleSignalChange<SelectInterface>(event, this.selectedTypeRecurringTransactionId);
+  }
+
+  onChangeYears(event: any): void {
+    this.selectedYear.set(event.value.id)
   }
 
   onChangeMonths(event: any): void {

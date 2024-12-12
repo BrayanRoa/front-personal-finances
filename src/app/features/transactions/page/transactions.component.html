@@ -6,16 +6,6 @@
             <app-user-header [balanceInformation]="balanceInformation()"></app-user-header>
         </div>
 
-        <!-- <div class="col-12 h-full">
-
-
-        </div> -->
-
-        <!-- cards transactions -->
-        <!-- <div class="col-12 h-full">
-            <app-transactions-card></app-transactions-card>
-        </div> -->
-
         <!-- main table, buttons and search -->
         <div class="col-12 h-full">
             <p-panel [toggleable]="true">
@@ -27,8 +17,8 @@
 
 
                 <div class="grid grid-nogutter pb-5">
-                    <p-multiSelect class="mr-2 mb-2" [options]="walletsData()" placeholder="Select Banks" optionLabel="name"
-                        display="chip" [showClear]="true" (onChange)="onChangeBank($event)" />
+                    <p-multiSelect class="mr-2 mb-2" [options]="walletsData()" placeholder="Select Banks"
+                        optionLabel="name" display="chip" [showClear]="true" (onChange)="onChangeBank($event)" />
 
                     <p-multiSelect class="mr-2 mb-2" [options]="categoryData()" placeholder="Select Categories"
                         optionLabel="name" display="chip" [showClear]="true" (onChange)="onChangeCategories($event)" />
@@ -44,14 +34,8 @@
                     <p-multiSelect class="mr-2 mb-2" [options]="months" placeholder="Select Months" optionLabel="name"
                         display="chip" [showClear]="true" (onChange)="onChangeMonths($event)" />
 
-                    <!-- <p-multiSelect class="mr-2" [options]="cities" placeholder="Select Repeat" optionLabel="name"
-                        display="chip" [showClear]="true" /> -->
-
-                    <!-- <p-multiSelect class="mr-2" [options]="years()" placeholder="Select Years" optionLabel="name"
-                        display="chip" [showClear]="true" />
-
-                    <p-multiSelect class="mr-2" [options]="months" placeholder="Select Months" optionLabel="name"
-                        display="chip" [showClear]="true" /> -->
+                    <p-dropdown [options]="years()"  optionLabel="id"
+                        placeholder="Select Year" (onChange)="onChangeYears($event)"/>
 
                 </div>
 
@@ -67,10 +51,7 @@
                     </div>
 
                     <div class="col-12 md:col-6 flex justify-content-end align-items-center">
-                        <!-- BUTTONS -->
-                        <!-- <app-drop-down class="mr-2" [severity]="'help'" [titleDropDown]="'Month'"
-                            [optionsDropDown]="months" (onChange)="onMonthChange($event)">
-                        </app-drop-down> -->
+                        
                         <button pButton pRipple label="Add Transaction" class="p-button-success" icon="pi pi-plus"
                             (click)="showDialog()"></button>
 
@@ -78,7 +59,7 @@
                         <p-dialog header="Add New Transaction" [modal]="true" [(visible)]="visible"
                             [style]="{ width: '50rem' }">
                             <!-- FROMULARIO -->
-                            <app-dynamic-form [fields]="formConfig" [submitButton]="nameButton"
+                            <app-dynamic-form [fields]="formConfig!" [submitButton]="nameButton"
                                 [md_responsive]="'md:col-6'" [data]="transactionSelected" (cancel)="closeModal()"
                                 (sendForm)="saveOrUpdateTransaction($event)"></app-dynamic-form>
                         </p-dialog>
