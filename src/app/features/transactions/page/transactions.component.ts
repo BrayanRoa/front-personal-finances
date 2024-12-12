@@ -25,7 +25,6 @@ interface LoadTransactionParams {
   types: string[] | null;
   months: string[] | null;
   years: number | null;
-  // month: number;
   searchTerm: string;
 }
 
@@ -48,9 +47,8 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   selectedTypeRecurringTransactionId = signal<string[] | null>(null)
   selectedMonths = signal<string[]>([(new Date().getMonth() + 1).toString()]);
   selectedMonthsName = signal<string[] | null>(null);
-  nameMonthDefault = signal<string>('');
+  // nameMonthDefault = signal<string>('');
   selectedYear = signal<number | null>(null);
-
 
   // Data Signals
   years = signal<DropdownOption[]>([]);
@@ -69,8 +67,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   months = MONTHS;
   type_transactions = TYPE_TRANSACTION
   recurring_transaction = RECURRING_TRANSACTION
-  // Table Columns
-  tableColumns = TABLE_COLUMNS
 
   // Modal Visibility
   visible: boolean = false;
@@ -88,25 +84,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     currentPage: 1,
     next_page: true
   };
-
-  // Actions for buttons in table
-  actions: actionsButton<Transaction>[] = [
-    {
-      label: '',
-      type: 'button',
-      icon: 'pi pi-pencil',
-      color: 'primary',
-      callback: (id: number, transaction: Transaction) => this.editRow(id, transaction),
-    },
-    {
-      label: '',
-      type: 'button',
-      icon: 'pi pi-trash',
-      color: 'danger',
-      callback: (row: number | string) => this.deleteRow(row),
-    },
-  ];
-
+  
   // Event Trigger
   eventTrigger = false;
 
@@ -182,8 +160,8 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     this.loadTransactions({ searchTerm });
   }
 
-  onPageChange(data: { page: number; per_page: number, search: string }): void {
-    this.loadTransactions({ page: data.page, per_page: data.per_page, searchTerm: data.search });
+  onPageChange(data: { page: number; per_page: number }): void {
+    this.loadTransactions({ page: data.page, per_page: data.per_page });
   }
 
   // Private Methods to Load Data
@@ -271,28 +249,16 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   }
 
   // Modal and Transaction Editing Methods
-  async editRow(id: number, transaction: Transaction) {
-    this.idTransactionSelected.set(id);
-
-    // Configurar opciones
-    await this.loadOptions()
-
-    setTimeout(() => {
-      const transactionPayload: Transaction = {
-        ...transaction,
-        date: new Date(transaction.date).toISOString().split('T')[0],
-        walletId: +transaction.walletId,
-        categoryId: +transaction.categoryId,
-      };
-
-      this.transactionSelected = transactionPayload;
-      this.nameButton = 'update';
-      this.visible = true;
-    });
+  editRow(data: { id: number, transaction: Transaction }) {
+    this.loadOptions()
+    this.idTransactionSelected.set(data.id)
+    this.transactionSelected = data.transaction;
+    this.nameButton = "update"
+    this.visible = true
   }
 
   // Delete Transaction
-  deleteRow(id: number | string) {
+  deleteRow(id: number) {
     confirmDelete().then((isConfirmed) => {
       if (isConfirmed) {
         this.transactionService.deleteTransaction(id).subscribe({
@@ -322,7 +288,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   saveOrUpdateTransaction(event: { data: FormGroup; action: string }) {
     if (!this.isFormValid(event.data)) return;
-
     const transactionPayload: Transaction = {
       ...event.data.value,
       active: !!event.data.value.repeat,
@@ -398,6 +363,8 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   onChangeYears(event: any): void {
     this.selectedYear.set(event.value.id)
+    // if(event.value){
+    // }
   }
 
   onChangeMonths(event: any): void {
