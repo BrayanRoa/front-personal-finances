@@ -304,7 +304,7 @@
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
     .barra-lateral {
         width: 80px;
         /* O el tamaño que definas */

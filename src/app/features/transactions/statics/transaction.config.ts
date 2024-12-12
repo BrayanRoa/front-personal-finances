@@ -5,7 +5,7 @@ export const FORM_CONFIG: FormFieldConfig[] = [
     { type: 'text', label: 'Name', name: 'name', validations: [{ required: true }], sizeResponsive: 'md:col-3' },
     { type: 'text', label: 'Description', name: 'description', validations: [], sizeResponsive: 'md:col-6' },
     {
-        type: 'text', label: 'Amount', name: 'amount', value: 0, validations: [{ required: true }], mask: {
+        type: 'text', label: 'Amount', name: 'amount', value: '0', validations: [{ required: true }], mask: {
             mask: 'separator.2',
             prefix: '$',
             thousandSeparator: ','
@@ -35,10 +35,10 @@ export const FORM_CONFIG: FormFieldConfig[] = [
         ], validations: [], sizeResponsive: 'md:col-4'
     },
     {
-        type: 'select', label: 'Category', name: 'categoryId', value: {}, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
+        type: 'select', label: 'Category', name: 'categoryId', value: null, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
     },
     {
-        type: 'select', label: 'Wallet', name: 'walletId', value: {}, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
+        type: 'select', label: 'Wallet', name: 'walletId', value: null, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
     },    // Más configuraciones...
 ];
 
