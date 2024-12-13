@@ -1,17 +1,11 @@
-<app-table 
-    [columns]="tableColumns" 
-    [data]="transactions" 
-    [meta]="metaData" [numberRegistersByPage]="10"
-    (paginate)="onPageChange($event)" 
-    [actions]="actions"
-    [eventTrigger]="eventTrigger" 
-    [cellTemplates]="{
+<app-table [columns]="tableColumns" [data]="transactions" [meta]="metaData" [numberRegistersByPage]="registersPerPage"
+    (paginate)="onPageChange($event)" [actions]="actions" [cellTemplates]="{
                     type: tagTemplate, 
                     date: dateTemplate, 
                     amount: amountTemplate, 
                     category: categoryTemplate,
                     repeat: repeatTemplate,
-                }" >
+                }">
 </app-table>
 
 

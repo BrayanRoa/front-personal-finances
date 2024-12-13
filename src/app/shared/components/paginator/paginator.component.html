@@ -9,14 +9,14 @@
         </ng-template>
     </div>
     <div class="buttons">
-        <p-button icon="pi pi-angle-double-left" (onClick)="firstPage()" [rounded]="true" [text]="true"></p-button>
-        <p-button icon="pi pi-angle-left" (onClick)="previousPage()" [rounded]="true" [text]="true"></p-button>
+        <p-button [disabled]="meta.currentPage == 1" icon="pi pi-angle-double-left" (onClick)="firstPage()" [rounded]="true" [text]="true"></p-button>
+        <p-button [disabled]="meta.currentPage == 1" icon="pi pi-angle-left" (onClick)="previousPage()" [rounded]="true" [text]="true"></p-button>
         <button *ngFor="let number of generateRange(meta.totalPages)" [class.active]="number === meta.currentPage-1"
             (click)="selectPage(number+1)">
             {{ number+1 }}
         </button>
-        <p-button icon="pi pi-angle-right" (onClick)="nextPage()" [rounded]="true" [text]="true"></p-button>
-        <p-button icon="pi pi-angle-double-right" (onClick)="lastPage()" [rounded]="true" [text]="true"></p-button>
+        <p-button [disabled]="!meta.next_page" icon="pi pi-angle-right" (onClick)="nextPage()" [rounded]="true" [text]="true"></p-button>
+        <p-button [disabled]="!meta.next_page" icon="pi pi-angle-double-right" (onClick)="lastPage()" [rounded]="true" [text]="true"></p-button>
         <app-drop-down [titleDropDown]="titleDropdow()" [optionsDropDown]="options" (onChange)="selectPerPage($event)"></app-drop-down>
     </div>
 </div>

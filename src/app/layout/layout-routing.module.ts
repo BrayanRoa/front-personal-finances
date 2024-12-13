@@ -22,6 +22,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'wallets',
+        loadChildren: () =>
+          import('../features/wallets/wallets.module').then(
+            (m) => m.WalletsModule
+          ),
+      },
+      {
         path: '', redirectTo: 'dashboard', pathMatch: 'full' // Ruta por defecto
       }
     ],
