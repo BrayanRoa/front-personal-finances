@@ -4,7 +4,7 @@ import { Transaction, TransactionData } from '../../../shared/interfaces/transac
 import { MetaData, ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.interface';
 import { ActivatedRoute } from '@angular/router';
-import { MONTHS } from '../../../shared/constants/constants';
+import { MONTHS, SelectInterface } from '../../../shared/constants/constants';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 import { confirmDelete } from '../../../shared/components/sweet-alert-modal/sweet-alert-modal';
 import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
@@ -41,7 +41,9 @@ export interface BalanceInformation {
 export class TransactionsComponent extends BaseComponent implements OnInit {
 
   // Signals
-  selectedMonthsName = signal<string[] | null>(null);
+  selectedMonthsName: string[] = []
+
+  months: string[] = []
 
   // Data Signals
   years = signal<DropdownOption[]>([]);
@@ -77,6 +79,12 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   inputSubject = new Subject<string>();
 
 
+  monthsMap = {
+    '=1':"transactions of the month:",
+    'other':"transactions of the months:"
+  }
+
+
   constructor(
     private transactionService: TransactionService,
     private route: ActivatedRoute,
@@ -99,21 +107,30 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     });
 
     effect(() => {
-      console.log("estoy aqui");
       if (this.filtersService.reloadTransactions()) {
-        console.log("ME EJECUTO");
         const filters = this.filtersService.filters();
         this.loadTransactions(filters);
       }
     });
 
+    effect(() => {
+      if (this.filtersService.selectedMonths()) {
+        const months = this.filtersService.selectedMonths();
+        this.selectedMonthsName = months.length > 0
+          ? MONTHS.filter((month) => months.includes(month.id)).map((month) => month.name)
+          : [MONTHS.find((month) => +month.id === new Date().getUTCMonth() + 1)?.name ?? ''];
+
+        console.log(this.selectedMonthsName);
+      }
+    })
+
   }
 
   ngOnInit(): void {
     this.filtersService.resetFilters()
-    this.selectedMonthsName.set(
+    this.selectedMonthsName =
       [MONTHS.filter(month => +month.id === new Date().getMonth() + 1)[0].name]
-    );
+
 
     const resolverData = this.route.snapshot.data['walletsData'];
     if (resolverData?.data) {

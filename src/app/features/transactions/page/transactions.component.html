@@ -11,7 +11,9 @@
             <p-panel [toggleable]="true">
                 <ng-template pTemplate="header">
                     <div class="custom-header">
-                        <span class="item1">Transactions By Month - {{selectedMonthsName()}} </span>
+                        <span class="item1">{{ selectedMonthsName.length | i18nPlural:monthsMap | titlecase  }} < {{
+                            selectedMonthsName.join(' | ')}} > </span>
+                        <!-- <span class="item1">Transactions By Month < {{ selectedMonthsName.join(' | ')}} > </span> -->
                     </div>
                 </ng-template>
 
