@@ -4,6 +4,7 @@ import { BaseService } from '../../../shared/service/base-service.service';
 import { Observable } from 'rxjs';
 import { ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { Transaction, TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
+import { LoadTransactionParams } from '../page/transactions.component';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService extends BaseService {
@@ -14,18 +15,9 @@ export class TransactionService extends BaseService {
         super();
     }
 
-    getTransactions(options: {
-        walletIds: number[] | null;
-        page: number;
-        per_page: number;
-        categoryIds: number[] | null;
-        repeats: string[] | null;
-        types: string[] | null;
-        months: string[] | null;
-        years: number | null,
-        searchTerm?: string;
-    }): Observable<ApiResponse<TransactionData>> {
+    getTransactions(options: LoadTransactionParams): Observable<ApiResponse<TransactionData>> {
 
+        console.log({options});
 
         const query = new URLSearchParams({
             walletIds: JSON.stringify(
@@ -43,7 +35,7 @@ export class TransactionService extends BaseService {
                 options.months && options.months.length > 0 ? options.months : null
             ),
             years: JSON.stringify(options.years ? options.years : new Date().getUTCFullYear()),
-            page: options.page.toString(),
+            page: options.page!.toString(),
             per_page: options.per_page.toString(),
             search: options.searchTerm || '',
         }).toString()
