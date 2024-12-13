@@ -10,12 +10,21 @@ import { BalanceInformation } from '../../page/transactions.component';
 })
 export class UserHeaderComponent implements OnInit {
 
+  @Output()
+  clearFilters = new EventEmitter<(void)>;
+
   @Input() balanceInformation: BalanceInformation = {
     totalIncomes: 0,
     totalExpenses: 0
   }
+  
   ngOnInit(): void {
     throw new Error('Method not implemented.');
+  }
+
+  onClearFilters() {
+    console.log("ajjj");
+    this.clearFilters.emit();
   }
 
 
