@@ -99,11 +99,14 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     });
 
     effect(() => {
+      console.log("estoy aqui");
       if (this.filtersService.reloadTransactions()) {
+        console.log("ME EJECUTO");
         const filters = this.filtersService.filters();
         this.loadTransactions(filters);
       }
     });
+
   }
 
   ngOnInit(): void {
@@ -147,7 +150,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
           totalExpenses: transactions.data.totalExpenses,
         })
         this.metaData = transactions.data.meta;
-        console.log("METADATA", this.metaData);
       },
       error: (error: any) => {
         console.error('Error fetching transactions:', error);

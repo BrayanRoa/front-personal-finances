@@ -32,8 +32,9 @@ export class FiltersService {
     }));
 
     triggerReload(): void {
-        this.reloadTransactions.set(true);
-        this.reloadTransactions.set(false); // Resetear el valor para permitir futuros cambios
+        // hago esto para que se recargue la data y se reflejen los cambios cuando se actualice o se elimine un registro 
+        this.pagination.set({ page: 1, per_page: 9 })
+        this.pagination.set({ page: 1, per_page: 10 })
     }
 
     resetFilters() {

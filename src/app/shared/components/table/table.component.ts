@@ -22,8 +22,6 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() numberRegistersByPage!: number; // Registros por página
   @ViewChild('appPaginator') paginatorComponent!: any; // Referencia al PaginatorComponent
 
-  @Input() eventTrigger!: boolean;
-
   // ** Outputs **
   @Output() paginate = new EventEmitter<{ page: number, per_page: number, search: string }>();
 
