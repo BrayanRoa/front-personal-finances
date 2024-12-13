@@ -1,0 +1,19 @@
+<div class="card flex flex-wrap">
+
+    <p-multiSelect #bankSelect class="mr-2 mb-2" [options]="walletsData" placeholder="Select Banks" optionLabel="name"
+        display="chip" [showClear]="true" (onChange)="onChangeBank($event)" />
+
+    <p-multiSelect #categorySelect class="mr-2 mb-2" [options]="categoryData" placeholder="Select Categories" optionLabel="name"
+        display="chip" [showClear]="true" (onChange)="onChangeCategories($event)" />
+
+    <p-multiSelect #typeTransactionSelect class="mr-2 mb-2" [options]="type_transactions" placeholder="Select Type" optionLabel="name"
+        display="chip" [showClear]="true" (onChange)="onChangeTypeTransactions($event)" />
+
+    <p-multiSelect #recurringTransactionSelect class="mr-2 mb-2" [options]="recurring_transactions" placeholder="Select Recurring Transaction"
+        optionLabel="name"  display="chip" [showClear]="true" (onChange)="onChangeRecurringTransaction($event)" />
+
+    <p-multiSelect #monthSelect class="mr-2 mb-2" [options]="months" placeholder="Select Months" optionLabel="name" display="chip"
+        [showClear]="true" (onChange)="onChangeMonths($event)" />
+        
+    <p-dropdown #yearSelect [options]="years" optionLabel="id" placeholder="Select Year" (onChange)="onChangeYears($event)" />
+</div>
