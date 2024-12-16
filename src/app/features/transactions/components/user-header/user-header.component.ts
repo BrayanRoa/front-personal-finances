@@ -23,7 +23,6 @@ export class UserHeaderComponent implements OnInit {
   }
 
   onClearFilters() {
-    console.log("ajjj");
     this.clearFilters.emit();
   }
 

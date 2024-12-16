@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, effect, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { graphPolarityData } from '../../../../shared/interfaces/dashboard/summary-wallets.interface';
 import { ThemeService } from '../../../../core/service/theme.service';
 
@@ -13,7 +13,13 @@ export class PolarBarChartComponent implements OnChanges {
 
     constructor(
         private themeService: ThemeService
-    ) { }
+    ) {
+        effect(() => {
+            if (this.themeService.change()) {
+                this.updateChartData()
+            }
+        })
+    }
 
 
     options: any;

@@ -11,8 +11,8 @@
             <p-panel [toggleable]="true">
                 <ng-template pTemplate="header">
                     <div class="custom-header">
-                        <span class="item1">{{ selectedMonthsName.length | i18nPlural:monthsMap | titlecase  }} < {{
-                            selectedMonthsName.join(' | ')}} > </span>
+                        <span class="item1">{{ selectedMonthsName.length | i18nPlural:monthsMap | titlecase }} < {{
+                                selectedMonthsName.join(' | ')}} > </span>
                         <!-- <span class="item1">Transactions By Month < {{ selectedMonthsName.join(' | ')}} > </span> -->
                     </div>
                 </ng-template>
@@ -40,25 +40,25 @@
                             (click)="showDialog()"></button>
 
                         <!-- MODAL -->
-                        <p-dialog header="Add New Transaction" [modal]="true" [(visible)]="visible"
-                            [style]="{ width: '50rem' }">
-                            <!-- FROMULARIO -->
-                            <app-dynamic-form [fields]="formConfig!" [submitButton]="nameButton"
-                                [md_responsive]="'md:col-6'" [data]="transactionSelected" (cancel)="closeModal()"
-                                (sendForm)="saveOrUpdateTransaction($event)"></app-dynamic-form>
-                        </p-dialog>
+                        <p-dialog header="Add New Transaction" [modal]="false" [(visible)]="visible" (onHide)="closeModal()"
+                            [style]="{ width: ' 50rem' }">
+                                <!-- FROMULARIO -->
+                                <app-dynamic-form [fields]="formConfig!" [submitButton]="nameButton"
+                                    [md_responsive]="'md:col-6'" [data]="transactionSelected" (cancel)="closeModal()"
+                                    (sendForm)="saveOrUpdateTransaction($event)"></app-dynamic-form>
+                                </p-dialog>
                     </div>
-                </div>
-
-                <app-table-transactions [transactions]="transactions" [metaData]="metaData"
-                    (pageChange)="onPageChange($event)" (selectedRecordUpdate)="editRow($event)"
-                    (selectedRecordDelete)="deleteRow($event)"></app-table-transactions>
-            </p-panel>
         </div>
 
-        <!-- <div class="col-12 h-full">
+        <app-table-transactions [transactions]="transactions" [metaData]="metaData" (pageChange)="onPageChange($event)"
+            (selectedRecordUpdate)="editRow($event)"
+            (selectedRecordDelete)="deleteRow($event)"></app-table-transactions>
+        </p-panel>
+    </div>
+
+    <!-- <div class="col-12 h-full">
             <app-dataview [data]="transactions"></app-dataview>
         </div> -->
 
-    </div>
+</div>
 </div>

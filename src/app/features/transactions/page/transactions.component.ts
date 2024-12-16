@@ -80,8 +80,8 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
 
   monthsMap = {
-    '=1':"transactions of the month:",
-    'other':"transactions of the months:"
+    '=1': "transactions of the month:",
+    'other': "transactions of the months:"
   }
 
 
@@ -119,8 +119,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
         this.selectedMonthsName = months.length > 0
           ? MONTHS.filter((month) => months.includes(month.id)).map((month) => month.name)
           : [MONTHS.find((month) => +month.id === new Date().getUTCMonth() + 1)?.name ?? ''];
-
-        console.log(this.selectedMonthsName);
       }
     })
 
@@ -255,12 +253,15 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   }
 
   async showDialog() {
+    this.formConfig = FORM_CONFIG;
+
     // Configurar las opciones antes de abrir el diálogo
     await this.loadOptions()
     this.visible = true;
   }
 
   closeModal() {
+    console.log("SIIIIIII");
     this.visible = false;
     this.formConfig = null
   }
