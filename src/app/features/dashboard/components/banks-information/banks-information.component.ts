@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, effect, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { BanksInformation } from '../../../../shared/interfaces/wallet/wallet.interface';
 import { ThemeService } from '../../../../core/service/theme.service';
 
@@ -17,19 +17,25 @@ export class BanksInformationComponent implements OnChanges {
 
   constructor(
     private themeService: ThemeService
-  ) { }
+  ) {
+    effect(() => {
+      if (this.themeService.change()) {
+        this.updateChart()
+      }
+    })
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["bankData"] && changes["bankData"].currentValue) {
-      this.updateChar();
+      this.updateChart();
     }
   }
 
-  updateChar() {
-    
+  updateChart() {
+
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = this.themeService.colorTextStyle()
-    
+
     this.data = {
       labels: this.bankData.map(bankData => { return bankData.name }),
       datasets: [

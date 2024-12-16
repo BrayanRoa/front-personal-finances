@@ -17,8 +17,6 @@ export class TransactionService extends BaseService {
 
     getTransactions(options: LoadTransactionParams): Observable<ApiResponse<TransactionData>> {
 
-        console.log({options});
-
         const query = new URLSearchParams({
             walletIds: JSON.stringify(
                 options.walletIds && options.walletIds.length > 0 ? options.walletIds : null
@@ -39,9 +37,7 @@ export class TransactionService extends BaseService {
             per_page: options.per_page.toString(),
             search: options.searchTerm || '',
         }).toString()
-        console.log({ query });
         const fullUrl = `${this.endpoint}`;
-        // console.log('Request URL:', fullUrl);
 
         return this.http.get<ApiResponse<TransactionData>>(`${fullUrl}?${query}`, {
         });

@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, effect, Input, SimpleChanges } from '@angular/core';
 import { MONTHS } from '../../../../shared/constants/constants';
 import { ThemeService } from '../../../../core/service/theme.service';
 
@@ -15,7 +15,14 @@ export class BalanceLineChartComponent {
 
   constructor(
     private themeService: ThemeService
-  ) { }
+  ) { 
+
+    effect(()=>{
+      if(this.themeService.change()){
+        this.updateChart()
+      }
+    })
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["datasets"] && changes["datasets"].currentValue) {

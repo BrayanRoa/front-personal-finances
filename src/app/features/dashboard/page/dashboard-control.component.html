@@ -8,7 +8,7 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item1">Transactions by month - {{selectedYear()}}</span>
+                    <span class="item1">Incomes And Expenses Of The Year - {{selectedYear()}}</span>
                 </div>
             </ng-template>
             <app-vertical-bar-chart [dataGraph]="verticalChartData()" [dataYears]="years()"
@@ -46,7 +46,7 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item4">Balance By Year - {{selectedYear()}}</span>
+                    <span class="item4">Total Balance Of The Year - {{selectedYear()}}</span>
                 </div>
             </ng-template>
             <!-- <div class="flex justify-content-end">

@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, effect, Input, SimpleChanges } from '@angular/core';
 import { budgetData } from '../../../../shared/interfaces/dashboard/summary-wallets.interface';
 import { ThemeService } from '../../../../core/service/theme.service';
 
@@ -16,11 +16,16 @@ export class HorizontalBarComponent {
 
   constructor(
     private themeService: ThemeService
-  ) { }
+  ) {
+    effect(() => {
+      if (this.themeService.change()) {
+        this.updateChartData()
+      }
+    })
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['datasets'] && changes['datasets'].currentValue) {
-      console.log("POR AQUI ESTOY");
       this.updateChartData();
     }
   }
