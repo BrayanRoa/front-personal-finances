@@ -1,4 +1,4 @@
-import { Component, effect, OnInit, signal } from '@angular/core';
+import { Component, effect, EventEmitter, OnInit, Output, signal } from '@angular/core';
 import { TransactionService } from '../services/transaction.service';
 import { Transaction, TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
 import { MetaData, ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
@@ -57,6 +57,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   // Selected Transaction for editing
   transactionSelected!: Transaction;
+  @Output() resetForm = new EventEmitter<void>();
 
   // Modal Visibility
   visible: boolean = false;

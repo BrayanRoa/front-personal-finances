@@ -1,11 +1,13 @@
 <app-table [columns]="columns" [data]="data" [actions]="actions" [cellTemplates]="{
         balance: balanceTemplate,
         type_account: typeAccountTemplate,
+        initial_balance: balanceTemplate,
     }"></app-table>
 
 <ng-template #balanceTemplate let-value>
     <td>{{value|currencyCustom:true}}</td>
 </ng-template>
+
 
 <ng-template #typeAccountTemplate let-value>
     <td *ngIf="value === 'DEBIT'; else credit">
