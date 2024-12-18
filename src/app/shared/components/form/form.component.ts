@@ -89,16 +89,24 @@ export class FormComponent {
       this.sendForm.emit({ data: this.form, action: 'save' });
     } else if (this.submitButton === 'update') {
 
-      console.log("PERRROSSSSS", this.form);
       this.sendForm.emit({ data: this.form, action: 'update' });
     }
-    this.form.reset();
+    this.assignDefaultValues()
   }
 
   onCancel(): void {
-    this.form.reset({});
+    this.assignDefaultValues()
     this.cancel.emit();
   }
+
+  assignDefaultValues() {
+    const defaultValues = this.fields.reduce((acc, field) => {
+      acc[field.name] = field.value || ''; // Usa el valor predeterminado o un valor vacío
+      return acc;
+    }, {} as { [key: string]: any });
+    this.form.reset(defaultValues)
+  }
+
 
   populateFormData() {
     if (this.data) {

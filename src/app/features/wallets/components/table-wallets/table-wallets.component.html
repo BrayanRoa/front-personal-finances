@@ -1,0 +1,24 @@
+<app-table [columns]="columns" [data]="data" [actions]="actions" [cellTemplates]="{
+        balance: balanceTemplate,
+        type_account: typeAccountTemplate,
+        initial_balance: balanceTemplate,
+    }"></app-table>
+
+<ng-template #balanceTemplate let-value>
+    <td>{{value|currencyCustom:true}}</td>
+</ng-template>
+
+
+<ng-template #typeAccountTemplate let-value>
+    <td *ngIf="value === 'DEBIT'; else credit">
+        <div class="center">
+            <p-tag icon="pi pi-circle-fill" severity="warning" value="{{value}}" />
+        </div>
+    </td>
+
+    <ng-template #credit>
+        <div class="center">
+            <p-tag icon="pi pi-circle-fill" severity="success" value="{{value}}" />
+        </div>
+    </ng-template>
+</ng-template>

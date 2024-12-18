@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ThemeService } from '../../core/service/theme.service';
 import { FormFieldConfig } from '../../shared/interfaces/generic-components/form.interface';
@@ -6,13 +6,14 @@ import { CoreService } from '../../core/service/core.service';
 import { BanksInformation } from '../../shared/interfaces/wallet/wallet.interface';
 import { BaseComponent } from '../../shared/components/base-component/base-component.component';
 import { finalize } from 'rxjs';
+import { FORM_CONFIG_WALLET, THEMES } from '../statics/layout.config';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css'
 })
-export class MainPageComponent extends BaseComponent {
+export class MainPageComponent extends BaseComponent implements OnInit {
 
   isSmallMenu: boolean = false;
 
@@ -28,31 +29,13 @@ export class MainPageComponent extends BaseComponent {
   visible: boolean = false;
 
   // TEMAS DE PRIME NG DISPONIBLES
-  themes = [
-    {
-      id: 'saga-blue',
-      label: 'saga-blue'
-    },
-    {
-      id: 'vela-blue',
-      label: 'vela-blue'
-    },
-  ];
+  themes = THEMES
 
   selectedTheme: { id: string; label: string } = this.themes[0];
 
   // CONFIGURACIÓN DEL FORMULARIO
-  formConfig: FormFieldConfig[] = [
-    { type: 'text', label: 'Name', name: 'name', validations: [{ required: true }] },
-    { type: 'text', label: 'Description', name: 'description', validations: [{ required: true }] },
-    {
-      type: 'text', label: 'Balance', name: 'balance', value: 0, validations: [{ required: true }], mask: {
-        mask: 'separator.2',
-        prefix: '$',
-        thousandSeparator: ','
-      },
-    },
-  ]
+  formConfig!: FormFieldConfig[] | null;
+
 
   configRoutes = [
     {
@@ -94,9 +77,18 @@ export class MainPageComponent extends BaseComponent {
   ) {
     super()
   }
+  ngOnInit(): void {
+    this.formConfig = FORM_CONFIG_WALLET;
+  }
 
   showDialog() {
+    this.formConfig = FORM_CONFIG_WALLET;
     this.visible = true;
+  }
+
+  closeModal(){
+    this.visible = false;
+    this.formConfig = null
   }
 
   handleClick() {
@@ -122,6 +114,7 @@ export class MainPageComponent extends BaseComponent {
   onSaveNewWallet(event: { data: FormGroup, action: string }) {
 
     const formData: BanksInformation = event.data.value;
+    formData.initial_balance = Number(formData.initial_balance)
 
     this.coreService.createBank(formData).pipe(
       finalize(() => {
@@ -138,8 +131,8 @@ export class MainPageComponent extends BaseComponent {
     })
   }
 
-  closemodal() {
-    this.visible = false;
-  }
+  // closemodal() {
+  //   this.visible = false;
+  // }
 
 }

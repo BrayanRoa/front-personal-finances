@@ -13,19 +13,3 @@ span {
     font-weight: bold;
     font-size: large;
 }
-
-.item1 {
-    color: var(--color-text-card-one);
-}
-
-.item2 {
-    color: var(--color-text-card-two);
-}
-
-.item3 {
-    color: var(--color-text-card-three);
-}
-
-.item4 {
-    color: var(--color-text-card-four);
-}

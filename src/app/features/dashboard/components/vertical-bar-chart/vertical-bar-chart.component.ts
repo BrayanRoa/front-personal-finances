@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, signal, SimpleChanges } from '@angular/core';
+import { Component, effect, EventEmitter, Input, OnChanges, Output, signal, SimpleChanges } from '@angular/core';
 import { graphVerticalData } from '../../../../shared/interfaces/dashboard/summary-wallets.interface';
 import { DropdownOption } from '../../../../shared/components/bottons/drop-down/drop-down.component';
 import { MONTHS } from '../../../../shared/constants/constants';
@@ -20,16 +20,20 @@ export class VerticalBarChartComponent implements OnChanges {
   @Input() dataGraph!: graphVerticalData[]
 
   constructor(
-    private theseService: ThemeService
-  ) { }
+    private themeService: ThemeService
+  ) {
+    effect(() => {
+      if (this.themeService.change()) {
+        this.updateChartData()
+      }
+    })
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['dataGraph'] && changes['dataGraph'].currentValue) {
-      console.log("POR AQUI ESTOY");
       this.updateChartData();
     }
   }
-
 
   private updateChartData() {
 
@@ -41,22 +45,24 @@ export class VerticalBarChartComponent implements OnChanges {
       .filter(d => d.type === 'OUTFLOW') // Filtra solo los que son 'OUTFLOW'
       .map(d => d.total);               // Mapea a sus totales
 
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+
+    const textColor = this.themeService.colorTextStyle();
+    const blueBar = this.themeService.colorBlueBar()
+    const pinkBar = this.themeService.colorPinkBar()
 
     this.data = {
       labels: MONTHS.map(month => { return month.shortcut }),
       datasets: [
         {
           label: 'Income',
-          backgroundColor: documentStyle.getPropertyValue('--blue-500'),
-          borderColor: documentStyle.getPropertyValue('--blue-500'),
+          backgroundColor: blueBar,
+          borderColor: blueBar,
           data: incomes,
         },
         {
           label: 'Outflow',
-          backgroundColor: documentStyle.getPropertyValue('--pink-500'),
-          borderColor: documentStyle.getPropertyValue('--pink-500'),
+          backgroundColor: pinkBar,
+          borderColor: pinkBar,
           data: outflows
         }
       ]
@@ -68,29 +74,29 @@ export class VerticalBarChartComponent implements OnChanges {
       plugins: {
         legend: {
           labels: {
-            color: this.theseService.colorTextStyle()
+            color: this.themeService.colorTextStyle()
           }
         }
       },
       scales: {
         x: {
           ticks: {
-            color: textColorSecondary,
+            color: textColor,
             font: {
               weight: 400
             }
           },
           grid: {
-            color: this.theseService.colorBorderStyle(),
+            color: this.themeService.colorBorderStyle(),
             drawBorder: false
           }
         },
         y: {
           ticks: {
-            color: textColorSecondary
+            color: textColor
           },
           grid: {
-            color: this.theseService.colorBorderStyle(),
+            color: this.themeService.colorBorderStyle(),
             drawBorder: false
           }
         }
