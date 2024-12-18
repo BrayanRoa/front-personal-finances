@@ -3,4 +3,5 @@ export interface BanksInformation{
     name: string;
     description:string;
     balance:number;
+    initial_balance:number;
 }

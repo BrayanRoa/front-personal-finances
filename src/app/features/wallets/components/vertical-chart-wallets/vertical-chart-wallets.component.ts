@@ -1,5 +1,5 @@
-import { Component, effect, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { WalletIncomesAndExpenses } from '../../interfaces/wallet.interface';
+import { Component, effect, Input, SimpleChanges } from '@angular/core';
+import { WalletData } from '../../interfaces/wallet.interface';
 import { ThemeService } from '../../../../core/service/theme.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class VerticalChartWalletsComponent {
   data: any;
 
   @Input()
-  datasets: WalletIncomesAndExpenses[] = []
+  datasets: WalletData[] = []
 
   options: any;
 
@@ -39,29 +39,24 @@ export class VerticalChartWalletsComponent {
     const borderColor = this.themeService.colorBorderStyle()
     const blueBar = this.themeService.colorBlueBar()
     const pinkBar = this.themeService.colorPinkBar()
-    
-    const banks = this.datasets.map(dataset => dataset.name)
-
-    
 
     this.data = {
-      labels: [...new Set(this.datasets.map(data => data.name))],
+      labels: this.datasets.map(data => data.name),
       datasets: [
         {
           label: 'Incomes',
           backgroundColor: blueBar,
           borderColor: blueBar,
-          data: this.datasets.filter(dataset => dataset.type === 'INCOME').map(dataset => dataset.total)
+          data: this.datasets.map(dataset => dataset.incomes)
 
         },
         {
           label: 'Expenses',
           backgroundColor: pinkBar,
           borderColor: pinkBar,
-          data: this.datasets.filter(dataset => dataset.type === 'OUTFLOW').map(dataset => dataset.total)
+          data: this.datasets.map(dataset => dataset.expenses)
         },
       ]
-
     };
 
     this.options = {

@@ -1,7 +1,7 @@
 import { FORMATTEDDATE } from '../../../shared/constants/constants';
 import { FormFieldConfig } from '../../../shared/interfaces/generic-components/form.interface';
 
-export const FORM_CONFIG: FormFieldConfig[] = [
+export const FORM_CONFIG_TRANSACTION: FormFieldConfig[] = [
     { type: 'text', label: 'Name', name: 'name', validations: [{ required: true }], sizeResponsive: 'md:col-3' },
     { type: 'text', label: 'Description', name: 'description', validations: [], sizeResponsive: 'md:col-6' },
     {

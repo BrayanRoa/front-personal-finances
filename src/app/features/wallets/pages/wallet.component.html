@@ -6,7 +6,7 @@
                     <span class="item1">Monthly Balance Of The Year: 2024</span>
                 </div>
             </ng-template>
-            <app-lines-chart-wallets></app-lines-chart-wallets>
+            <app-lines-chart-wallets [datasets]="monthlyBalanceData"></app-lines-chart-wallets>
         </p-panel>
     </div>
 
@@ -29,7 +29,7 @@
                     <span class="item3">Total Incomes and Outflows By Banks</span>
                 </div>
             </ng-template>
-            <app-vertical-chart-wallets [datasets]="incomesAndExpensesByWallet"></app-vertical-chart-wallets>
+            <app-vertical-chart-wallets [datasets]="walletsData"></app-vertical-chart-wallets>
         </p-panel>
     </div>
 
