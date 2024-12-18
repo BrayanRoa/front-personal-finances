@@ -1,17 +1,21 @@
-import { Component, effect, OnInit } from '@angular/core';
+import { Component, effect, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { MONTHS } from '../../../../shared/constants/constants';
 import { ThemeService } from '../../../../core/service/theme.service';
+import { IMonthlyBalanceByWallet } from '../../interfaces/wallet.interface';
 
 @Component({
   selector: 'app-lines-chart-wallets',
   templateUrl: './lines-chart-wallets.component.html',
   styleUrl: './lines-chart-wallets.component.css'
 })
-export class LinesChartWalletsComponent implements OnInit {
+export class LinesChartWalletsComponent {
 
   data: any;
 
   options: any;
+
+  @Input()
+  datasets!: IMonthlyBalanceByWallet | null
 
   constructor(
     private themeService: ThemeService
@@ -22,84 +26,90 @@ export class LinesChartWalletsComponent implements OnInit {
       }
     })
   }
-  ngOnInit(): void {
-    this.updateChart()
+  // ngOnInit(): void {
+  //   this.updateChart()
+  // }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['datasets'] && changes['datasets'].currentValue) {
+      this.updateChart();
+      console.log('Datasets updated:', changes['datasets'].currentValue);
+    }
   }
 
 
   updateChart() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = this.themeService.colorTextStyle()
-    const textColorSecondary = this.themeService.colorLegendStyle()
-    const surfaceBorder = this.themeService.colorBorderStyle()
+    if (!this.datasets) {
+      console.warn('No datasets available to update chart');
+      return;
+    }
+
+    // const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = this.themeService.colorTextStyle();
+    const textColorSecondary = this.themeService.colorLegendStyle();
+    const surfaceBorder = this.themeService.colorBorderStyle();
+
+    const datasets = Object.entries(this.datasets).map(([bankName, info]) => {
+      return {
+        label: bankName,
+        data: info
+          .sort((a: any, b: any) => new Date(a.month).getTime() - new Date(b.month).getTime())
+          .map((t: any) => t.balance), // los meses de cada banco no llegan ordenados, por eso aqui se ordenan
+        // fill: false,
+        // borderColor: this.themeService.colorPinkBar(),
+        tension: 0.1
+      }
+    })
 
     this.data = {
-      labels: MONTHS.map(month => month.shortcut),
-      // labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      datasets: [
-        {
-          label: 'Dataset 1',
-          fill: false,
-          borderColor: documentStyle.getPropertyValue('--blue-500'),
-          yAxisID: 'y',
-          tension: 0.1,
-          data: [65, 59, 80, 81, 56, 55, 10]
-        },
-        {
-          label: 'Dataset 2',
-          fill: false,
-          borderColor: documentStyle.getPropertyValue('--green-500'),
-          yAxisID: 'y1',
-          tension: 0.1,
-          data: [28, 48, 40, 19, 86, 27, 90]
-        }
-      ]
+      labels: MONTHS.map((month) => month.shortcut),
+      datasets,
     };
 
     this.options = {
+      aspectRatio: 0.9,
       stacked: false,
       maintainAspectRatio: false,
-      aspectRatio: 0.9,
       plugins: {
         legend: {
           labels: {
-            color: textColor
-          }
-        }
+            color: textColor,
+          },
+        },
       },
       scales: {
         x: {
           ticks: {
-            color: textColorSecondary
+            color: textColorSecondary,
           },
           grid: {
-            color: surfaceBorder
-          }
+            color: surfaceBorder,
+          },
         },
         y: {
           type: 'linear',
           display: true,
           position: 'left',
           ticks: {
-            color: textColorSecondary
+            color: textColorSecondary,
           },
           grid: {
-            color: surfaceBorder
-          }
+            color: surfaceBorder,
+          },
         },
         y1: {
           type: 'linear',
           display: true,
           position: 'right',
           ticks: {
-            color: textColorSecondary
+            color: textColorSecondary,
           },
           grid: {
             drawOnChartArea: false,
-            color: surfaceBorder
-          }
-        }
-      }
+            color: surfaceBorder,
+          },
+        },
+      },
     };
   }
 

@@ -4,6 +4,8 @@ export interface WalletData {
     description: string;
     main_account: boolean;
     initial_balance: number;
+    incomes: number;
+    expenses: number;
     balance: number;
     // type:string;
 }
@@ -17,4 +19,13 @@ export interface WalletIncomesAndExpenses {
     name: string
     type: string
     total: number
+}
+
+export interface IMonthlyBalanceByWallet {
+    name_bank: string;
+    info: {
+        name: string;
+        month: string;
+        balance: number
+    }[]
 }

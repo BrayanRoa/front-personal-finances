@@ -8,7 +8,7 @@ import { MONTHS, SelectInterface } from '../../../shared/constants/constants';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 import { confirmDelete } from '../../../shared/components/sweet-alert-modal/sweet-alert-modal';
 import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
-import { FORM_CONFIG } from '../statics/transaction.config';
+import { FORM_CONFIG_TRANSACTION } from '../statics/transaction.config';
 import { CoreService } from '../../../core/service/core.service';
 import { CategoryInterface } from '../../../shared/interfaces/category/category.interface';
 import { FormGroup } from '@angular/forms';
@@ -126,7 +126,9 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this is important to ensure that the filters are initialized properly
     this.filtersService.resetFilters()
+
     this.selectedMonthsName =
       [MONTHS.filter(month => +month.id === new Date().getMonth() + 1)[0].name]
 
@@ -135,9 +137,12 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     if (resolverData?.data) {
       this.walletsData.set(resolverData.data);
     }
+
     this.loadYears();
     this.loadCategories();
-    this.formConfig = FORM_CONFIG;
+    
+    // this is important because load the initial configuration of the form
+    this.formConfig = FORM_CONFIG_TRANSACTION;
   }
 
   // methods to search in the list of transactions
@@ -200,7 +205,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   }
 
   private loadOptions() {
-    this.formConfig = FORM_CONFIG
+    this.formConfig = FORM_CONFIG_TRANSACTION
     return new Promise<void>((resolve, reject) => {
       this.formConfig!.forEach(data => {
         if (data.name === 'walletId') {
@@ -254,9 +259,8 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   }
 
   async showDialog() {
-    this.formConfig = FORM_CONFIG;
-
-    // Configurar las opciones antes de abrir el diálogo
+    // Configurar las opciones antes de abrir el modal
+    this.resetForm.emit(); // Emitir evento para reiniciar el formulario
     await this.loadOptions()
     this.visible = true;
   }
