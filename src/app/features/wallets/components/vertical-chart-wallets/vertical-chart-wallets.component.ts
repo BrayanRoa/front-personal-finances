@@ -1,24 +1,26 @@
 import { Component, effect, Input, SimpleChanges } from '@angular/core';
-import { MONTHS } from '../../../../shared/constants/constants';
+import { WalletData } from '../../interfaces/wallet.interface';
 import { ThemeService } from '../../../../core/service/theme.service';
 
 @Component({
-  selector: 'app-balance-line-chart',
-  templateUrl: './balance-line-chart.component.html',
-  styleUrl: './balance-line-chart.component.css'
+  selector: 'app-vertical-chart-wallets',
+  templateUrl: './vertical-chart-wallets.component.html',
+  styleUrl: './vertical-chart-wallets.component.css'
 })
-export class BalanceLineChartComponent {
+export class VerticalChartWalletsComponent {
+
   data: any;
-  @Input() datasets: any[] = []
+
+  @Input()
+  datasets: WalletData[] = []
 
   options: any;
 
   constructor(
     private themeService: ThemeService
-  ) { 
-
-    effect(()=>{
-      if(this.themeService.change()){
+  ) {
+    effect(() => {
+      if (this.themeService.change()) {
         this.updateChart()
       }
     })
@@ -35,16 +37,24 @@ export class BalanceLineChartComponent {
     const textColor = this.themeService.colorTextStyle()
     const textColorSecondary = this.themeService.colorLegendStyle()
     const borderColor = this.themeService.colorBorderStyle()
+    const blueBar = this.themeService.colorBlueBar()
+    const pinkBar = this.themeService.colorPinkBar()
 
     this.data = {
-      labels: MONTHS.map(month => { return month.shortcut }),
+      labels: this.datasets.map(data => data.name),
       datasets: [
         {
-          label: "Monthly Balance",
-          data: this.datasets.map(dataset => {
-            return dataset.total
-          }),
-          tension: 0.1,
+          label: 'Incomes',
+          backgroundColor: blueBar,
+          borderColor: blueBar,
+          data: this.datasets.map(dataset => dataset.incomes)
+
+        },
+        {
+          label: 'Expenses',
+          backgroundColor: pinkBar,
+          borderColor: pinkBar,
+          data: this.datasets.map(dataset => dataset.expenses)
         },
       ]
     };
@@ -62,10 +72,14 @@ export class BalanceLineChartComponent {
       scales: {
         x: {
           ticks: {
-            color: textColorSecondary
+            color: textColorSecondary,
+            font: {
+              weight: 500
+            }
           },
           grid: {
-            color: borderColor
+            color: borderColor,
+            drawBorder: false
           }
         },
         y: {
@@ -73,10 +87,13 @@ export class BalanceLineChartComponent {
             color: textColorSecondary
           },
           grid: {
-            color: borderColor
+            color: borderColor,
+            drawBorder: false
           }
         }
+
       }
     };
   }
+
 }

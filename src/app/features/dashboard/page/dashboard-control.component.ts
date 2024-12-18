@@ -59,9 +59,9 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
       return month.shortcut!
     })
     // Escuchar cambios de tema
-    this.themeSubscription = this.themeService.themeChange$.subscribe(() => {
-      this.refreshCharts(); // Actualizar los gráficos
-    });
+    // this.themeSubscription = this.themeService.themeChange$.subscribe(() => {
+    //   this.refreshCharts(); // Actualizar los gráficos
+    // });
   }
 
   ngOnDestroy(): void {
@@ -70,13 +70,13 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     }
   }
 
-  private refreshCharts(): void {
-    // Recarga o actualiza los datos necesarios para los gráficos
-    this.loadBarChartData();
-    this.loadPieChartData();
-    this.loadBankDetails()
-    this.loadBudgets(this.DEFAULT_PAGE, this.DEFAULT_PER_PAGE)
-  }
+  // private refreshCharts(): void {
+  //   // Recarga o actualiza los datos necesarios para los gráficos
+  //   this.loadBarChartData();
+  //   this.loadPieChartData();
+  //   this.loadBankDetails()
+  //   this.loadBudgets(this.DEFAULT_PAGE, this.DEFAULT_PER_PAGE)
+  // }
 
   private loadDashboardData(): void {
     this.loadYears();
@@ -108,7 +108,6 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     const yearDefault = this.selectedYear();
     this.dashboardService.graphVertical(yearDefault.toString()).subscribe({
       next: (response) => {
-        console.log("aaaaaaa");
         this.verticalChartData.set(response.data)
         this.balanceByMonth()
       },
@@ -140,7 +139,6 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
       i++
 
     }
-    console.log("$$$$$$$", data);
     this.balanceChartData.set(data)
   }
 

@@ -25,8 +25,8 @@ export const canMatchGuard: CanMatchFn = ( //Tipado CanMatchFN
     route: Route,
     segments: UrlSegment[]
 ) => {
-    console.log('CanMatch');
-    console.log({ route, segments });
+    // console.log('CanMatch');
+    // console.log({ route, segments });
 
     return true;
 };
