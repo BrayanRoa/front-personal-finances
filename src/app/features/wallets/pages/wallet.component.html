@@ -6,7 +6,9 @@
                     <span class="item1">Monthly Balance Of The Year: 2024</span>
                 </div>
             </ng-template>
-            <app-lines-chart-wallets [datasets]="monthlyBalanceData"></app-lines-chart-wallets>
+            <div *ngIf="monthlyBalance">
+                <app-lines-chart-wallets [datasets]="monthlyBalanceData"></app-lines-chart-wallets>
+            </div>
         </p-panel>
     </div>
 
@@ -18,7 +20,9 @@
                     <span class="item2">Percentage of total income by bank</span>
                 </div>
             </ng-template>
-            <app-doughnut-chart-wallets [percentages]="percentages"></app-doughnut-chart-wallets>
+            <div *ngIf="percentages.length > 0; else img">
+                <app-doughnut-chart-wallets [percentages]="percentages"></app-doughnut-chart-wallets>
+            </div>
         </p-panel>
     </div>
 
@@ -46,3 +50,10 @@
     </div>
 
 </div>
+
+<ng-template #img>
+    <div class="empty-state">
+        <img src="../../../../assets/no-data.jpg" alt="No data available" class="empty-image">
+        <p class="empty-message">{{ msgNotFound }}</p>
+    </div>
+</ng-template>
