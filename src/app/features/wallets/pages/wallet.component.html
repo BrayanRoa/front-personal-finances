@@ -45,7 +45,10 @@
                     <span class="item4">Wallets</span>
                 </div>
             </ng-template>
-            <app-table-wallets [data]="walletsData"></app-table-wallets>
+            <app-table-wallets 
+                [data]="walletsData" 
+                (walletToUpdate)="updateWallet($event)"
+                (idWalletSelectedToDelete)="deleteWallet($event)"></app-table-wallets>
         </p-panel>
     </div>
 
