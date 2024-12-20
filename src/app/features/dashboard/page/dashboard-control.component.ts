@@ -8,7 +8,7 @@ import { BaseComponent } from '../../../shared/components/base-component/base-co
 import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../../core/service/theme.service';
-import { MONTHS } from '../../../shared/constants/constants';
+import { MONTHS, NOT_FOUND_MSG } from '../../../shared/constants/constants';
 
 interface TableColumn {
   field: string;
@@ -23,6 +23,7 @@ interface TableColumn {
 export class DashboardControlComponent extends BaseComponent implements OnInit {
 
   private themeSubscription!: Subscription;
+  msgNotFound: string = NOT_FOUND_MSG; // Mensaje de "no encontrado"
 
   // GRAPH DATA
   walletSummary!: summaryWalletsResponse;
@@ -47,7 +48,6 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     private readonly dashboardService: DashboardService,
     private readonly coreService: CoreService,
     private readonly transactionService: TransactionService,
-    private themeService: ThemeService,
   ) {
     super()
   }
@@ -58,10 +58,6 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     this.nameMonths = MONTHS.map(month => {
       return month.shortcut!
     })
-    // Escuchar cambios de tema
-    // this.themeSubscription = this.themeService.themeChange$.subscribe(() => {
-    //   this.refreshCharts(); // Actualizar los gráficos
-    // });
   }
 
   ngOnDestroy(): void {
@@ -70,13 +66,6 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     }
   }
 
-  // private refreshCharts(): void {
-  //   // Recarga o actualiza los datos necesarios para los gráficos
-  //   this.loadBarChartData();
-  //   this.loadPieChartData();
-  //   this.loadBankDetails()
-  //   this.loadBudgets(this.DEFAULT_PAGE, this.DEFAULT_PER_PAGE)
-  // }
 
   private loadDashboardData(): void {
     this.loadYears();
@@ -141,9 +130,6 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
     }
     this.balanceChartData.set(data)
   }
-
-
-
 
   private loadPieChartData(): void {
     this.dashboardService.graphPolarity().subscribe({

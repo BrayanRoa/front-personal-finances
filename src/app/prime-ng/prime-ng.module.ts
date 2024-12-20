@@ -26,6 +26,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DataViewModule } from 'primeng/dataview';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CardModule } from 'primeng/card';
+import { ChipModule } from 'primeng/chip';
 
 @NgModule({
   exports: [
@@ -53,7 +54,8 @@ import { CardModule } from 'primeng/card';
     TooltipModule,
     DataViewModule,
     MultiSelectModule,
-    CardModule
+    CardModule,
+    ChipModule
   ]
 })
 export class PrimeNgModule { }

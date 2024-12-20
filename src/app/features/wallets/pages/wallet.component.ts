@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { WalletService } from '../service/wallet.service';
 import { IMonthlyBalanceByWallet, WalletData, WalletIncomesAndExpenses, WalletPercentages } from '../interfaces/wallet.interface';
 import { walletsData } from '../../transactions/resolvers/transactions.resolver';
+import { NOT_FOUND_MSG } from '../../../shared/constants/constants';
 
 @Component({
   selector: 'app-wallet',
@@ -14,7 +15,7 @@ export class WalletComponent implements OnInit {
   percentages: WalletPercentages[] = []
   incomesAndExpensesByWallet: WalletIncomesAndExpenses[] = []
   monthlyBalanceData: IMonthlyBalanceByWallet | null = null;
-
+  msgNotFound = NOT_FOUND_MSG
 
   constructor(
     private walletService: WalletService,
