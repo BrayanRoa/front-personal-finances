@@ -34,6 +34,7 @@ export class FormComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && changes['data'].currentValue) {
       this.populateFormData();
+      console.log("SI ENTRE");
     }
   }
 
@@ -88,7 +89,7 @@ export class FormComponent {
     if (this.submitButton === 'save') {
       this.sendForm.emit({ data: this.form, action: 'save' });
     } else if (this.submitButton === 'update') {
-
+      console.log("a", this.form.value);
       this.sendForm.emit({ data: this.form, action: 'update' });
     }
     this.assignDefaultValues()
@@ -106,7 +107,6 @@ export class FormComponent {
     }, {} as { [key: string]: any });
     this.form.reset(defaultValues)
   }
-
 
   populateFormData() {
     if (this.data) {

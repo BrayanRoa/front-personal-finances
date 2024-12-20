@@ -9,7 +9,7 @@
                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     [type]="field.type" [formControlName]="field.name" [placeholder]="field.label"
                     [mask]="field.mask?.mask" [prefix]="field.mask?.prefix!"
-                    [thousandSeparator]="field.mask?.thousandSeparator!" />
+                    [thousandSeparator]="field.mask?.thousandSeparator!" [readonly]="field.disabled!"/>
             </ng-container>
 
             <ng-template #dynamicTemplate>

@@ -284,7 +284,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
       walletId: +event.data.value.walletId,
       categoryId: +event.data.value.categoryId,
     };
-    console.log("ESTA ES LA ACCIÓN",event.action);
     const action$ = event.action === 'update'
       ? this.transactionService.updateTransaction(this.idTransactionSelected(), transactionPayload)
       : this.transactionService.createTransaction(transactionPayload);

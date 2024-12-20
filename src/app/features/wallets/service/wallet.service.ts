@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from '../../../shared/service/base-service.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ApiResponse } from '../../../shared/interfaces/common-response.interface';
+import { ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { IMonthlyBalanceByWallet, WalletData, WalletIncomesAndExpenses } from '../interfaces/wallet.interface';
 
 @Injectable({
@@ -27,5 +27,13 @@ export class WalletService extends BaseService {
 
   getMonthlyBalanceByWallet(): Observable<ApiResponse<IMonthlyBalanceByWallet>> {
     return this.http.get<ApiResponse<IMonthlyBalanceByWallet>>(`${this.endpoint}/montly-balance-wallet/${2024}`)
+  }
+
+  updateWallet(id: number, wallet: WalletData): Observable<CommonResponse> {
+    return this.http.patch<CommonResponse>(`${this.endpoint}/${id}`, wallet)
+  }
+
+  deleteWallet(id: number): Observable<CommonResponse> {
+    return this.http.delete<CommonResponse>(`${this.endpoint}/${id}`)
   }
 }
