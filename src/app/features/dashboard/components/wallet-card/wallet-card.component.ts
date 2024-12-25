@@ -1,17 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { summaryWalletsResponse } from '../../../../shared/interfaces/dashboard/summary-wallets.interface';
+import { SummaryInterface } from '../../../../shared/interfaces/generic-components/form.interface';
 
-
-export interface SummaryInterface {
-  id: string;
-  title: string;
-  icon: string;
-  value: number;
-  cardImg: string;
-  idTitle: string;
-  idValue: string;
-  useCurrency: boolean
-}
 @Component({
   selector: 'app-wallet-card',
   templateUrl: './wallet-card.component.html',

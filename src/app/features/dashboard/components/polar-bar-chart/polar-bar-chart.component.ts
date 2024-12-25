@@ -38,14 +38,14 @@ export class PolarBarChartComponent implements OnChanges {
             datasets: [
                 {
                     data: this.dataPolar
-                        .filter(f => f.transactionCount > 0) // Condición: Solo incluir transacciones con transactionCount > 0
-                        .map(f => f.transactionCount),      // Mapeo: Extraer transactionCount
+                        .filter(f => f.transactioncount > 0) // Condición: Solo incluir transacciones con transactionCount > 0
+                        .map(f => f.transactioncount),      // Mapeo: Extraer transactionCount
                     backgroundColor: this.dataPolar.map(f => f.color),
                     label: 'Number of transactions'
                 }
             ],
             labels: this.dataPolar
-                .filter(f => f.transactionCount > 0) // Condición: Solo incluir transacciones con transactionCount > 0
+                .filter(f => f.transactioncount > 0) // Condición: Solo incluir transacciones con transactionCount > 0
                 .map(f => f.name),      // Mapeo: Extraer transactionCount
         };
 

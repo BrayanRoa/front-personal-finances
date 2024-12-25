@@ -15,7 +15,7 @@ export interface graphVerticalData {
 
 export interface graphPolarityData {
     name: string,
-    transactionCount: number,
+    transactioncount: number,
     color?:string
 }
 

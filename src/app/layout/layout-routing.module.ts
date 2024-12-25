@@ -29,6 +29,12 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'budgets',
+        loadChildren: () => import('../features/budgets/budgets.module').then(
+          (m) => m.BudgetsModule
+        )
+      },
+      {
         path: '', redirectTo: 'dashboard', pathMatch: 'full' // Ruta por defecto
       }
     ],

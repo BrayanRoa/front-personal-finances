@@ -54,14 +54,14 @@ export class MainPageComponent extends BaseComponent implements OnInit {
       icon: 'pi pi-money-bill',
     },
     {
-      label: 'Categories and tags',
-      path: 'categories',
-      icon: 'pi pi-tags',
-    },
-    {
       label: 'Budgets',
       path: 'budgets',
       icon: 'pi pi-wallet',
+    },
+    {
+      label: 'Categories and tags',
+      path: 'categories',
+      icon: 'pi pi-tags',
     },
     {
       label: 'Settings',
