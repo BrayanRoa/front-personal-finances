@@ -13,3 +13,14 @@ export interface FormFieldConfig {
     sizeResponsive?: 'md:col-6' | 'md:col-4' | 'md:col-3' | 'col-12'; //
     disabled?: boolean;
 }
+
+export interface SummaryInterface {
+    id?: string;
+    title: string;
+    icon: string;
+    value: number;
+    cardImg: string;
+    idTitle: string;
+    idValue: string;
+    useCurrency: boolean
+}

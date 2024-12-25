@@ -1,0 +1,178 @@
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    flex: 1 1 20%;
+    min-width: 270px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow: hidden;
+    background-color: var(--surface-e);
+}
+
+
+.card .card-info {
+    padding: 10px;
+    display: flex;
+}
+
+.card-info .card-icon {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-info .card-icon .pi {
+    font-size: 50px;
+}
+
+.card-info .card-icon .pi-money-bill {
+    color: var(--color-text-card-one);
+}
+
+.card-info .card-icon .pi-shop {
+    color: var(--color-text-card-two);
+}
+
+.card-info .card-icon .pi-wallet {
+    color: var(--color-text-card-three);
+}
+
+.card-info .card-icon .pi-calendar-clock {
+    color: var(--color-text-card-four);
+}
+
+.card .card-info .card-data {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 10px;
+}
+
+.title {
+    font: 20px lato, Helvetica, sans-serif;
+}
+
+.title-one {
+    color: var(--color-text-card-one);
+}
+
+.amount-one {
+    font: 25px lato, Helvetica, sans-serif;
+    color: var(--color-text-card-one);
+    font-weight: bold;
+}
+
+
+.title-two {
+    color: var(--color-text-card-two);
+}
+
+.amount-two {
+    font: 25px lato, Helvetica, sans-serif;
+    color: var(--color-text-card-two);
+    font-weight: bold;
+}
+
+.title-three {
+    color: var(--color-text-card-three);
+}
+
+.amount-three {
+    font: 25px lato, Helvetica, sans-serif;
+    color: var(--color-text-card-three);
+    font-weight: bold;
+}
+
+.title-four {
+    color: var(--color-text-card-four);
+}
+
+.amount-four {
+    font: 25px lato, Helvetica, sans-serif;
+    color: var(--color-text-card-four);
+    font-weight: bold;
+}
+
+
+.card .total-incomes {
+    width: 100%;
+    height: 75px;
+    /* Establece la altura de la imagen a 100px */
+    background-image: var(--url-image-footer);
+    background-size: cover;
+    /* Asegura que la imagen cubra el área */
+    background-position: center top;
+    /* Mueve la imagen hacia abajo, alineando el borde superior */
+    background-repeat: no-repeat;
+    /* Evita que la imagen se repita */
+    background-color: var(--surface-e);
+}
+
+.card .total-expenses {
+    width: 100%;
+    height: 75px;
+    /* Establece la altura de la imagen a 100px */
+    background-image: var(--url-image-footer-two);
+    background-size: cover;
+    /* Asegura que la imagen cubra el área */
+    background-position: center top;
+    /* Mueve la imagen hacia abajo, alineando el borde superior */
+    background-repeat: no-repeat;
+    /* Evita que la imagen se repita */
+    background-color: var(--surface-e);
+}
+
+.card .budgets {
+    width: 100%;
+    height: 75px;
+    /* Establece la altura de la imagen a 100px */
+    background-image: var(--url-image-footer-three);
+    background-size: cover;
+    /* Asegura que la imagen cubra el área */
+    background-position: center top;
+    /* Mueve la imagen hacia abajo, alineando el borde superior */
+    background-repeat: no-repeat;
+    /* Evita que la imagen se repita */
+    background-color: var(--surface-e);
+}
+
+.card .total-transactions {
+    width: 100%;
+    height: 75px;
+    /* Establece la altura de la imagen a 100px */
+    background-image: var(--url-image-footer-four);
+    background-size: cover;
+    /* Asegura que la imagen cubra el área */
+    background-position: center top;
+    /* Mueve la imagen hacia abajo, alineando el borde superior */
+    background-repeat: no-repeat;
+    /* Evita que la imagen se repita */
+    background-color: var(--surface-e);
+}
+
+
+/* Adaptabilidad */
+@media (max-width: 1350px) {
+    .card {
+        flex: 1 1 45%;
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        flex: 1 1 100%;
+    }
+}
