@@ -1,0 +1,37 @@
+.grid {
+    padding: 0;
+}
+
+.panel{
+    flex: 1 1 30%;
+}
+
+.item1 {
+    font-weight: bold;
+    font-size: large;
+}
+
+.card {
+    padding: 0;
+}
+
+.info-card {
+    padding: 10px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.label {
+    font-weight: bold;
+    text-align: left;
+    flex: 1;
+}
+
+.value {
+    text-align: right;
+    flex: 1;
+}

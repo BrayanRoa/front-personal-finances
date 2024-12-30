@@ -5,12 +5,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PrimeNgModule } from '../../prime-ng/prime-ng.module';
 import { BudgetsComponent } from './page/budgets.component';
 import { SharedModule } from '../../shared/shared.module';
-
+import { CakeCardComponent } from './components/cake-card-budget/cake-card.component';
+import { AllBudgetsComponent } from './components/all-budgets/all-budgets.component';
 
 
 @NgModule({
   declarations: [
-    BudgetsComponent
+    BudgetsComponent,
+    CakeCardComponent,
+    AllBudgetsComponent,
   ],
   imports: [
     CommonModule,

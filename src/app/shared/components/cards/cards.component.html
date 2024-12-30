@@ -1,5 +1,5 @@
-<div class="main">
-    <div class="card" *ngFor="let value of cardsInfo">
+<div class="flex flex-wrap justify-content-center gap-3">
+    <div class="flex flex-column flex-grow-1 flex-shrink-1 card" *ngFor="let value of cardsInfo">
         <div class="card-info">
             <div class="card-icon">
                 <span class="pi {{value.icon}}"></span>
@@ -7,7 +7,6 @@
             <div class="card-data">
                 <span class="title {{value.idTitle}}">{{value.title}}</span>
                 <span class="{{value.idValue}}">
-                    <!-- {{ value.value | currencyCustom: value.useCurrency }} -->
                 </span>
             </div>
         </div>
