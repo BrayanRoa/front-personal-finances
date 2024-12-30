@@ -27,6 +27,9 @@ import { DataViewModule } from 'primeng/dataview';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
+import { MeterGroupModule } from 'primeng/metergroup';
+import { InputSwitchModule } from 'primeng/inputswitch';
+
 
 @NgModule({
   exports: [
@@ -55,7 +58,9 @@ import { ChipModule } from 'primeng/chip';
     DataViewModule,
     MultiSelectModule,
     CardModule,
-    ChipModule
+    ChipModule,
+    MeterGroupModule,
+    InputSwitchModule
   ]
 })
 export class PrimeNgModule { }

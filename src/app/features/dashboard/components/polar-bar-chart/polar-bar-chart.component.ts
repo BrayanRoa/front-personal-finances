@@ -54,6 +54,7 @@ export class PolarBarChartComponent implements OnChanges {
             plugins: {
                 legend: {
                     labels: {
+                        usePointStyle: true,
                         color: textColor
                     }
                 },
