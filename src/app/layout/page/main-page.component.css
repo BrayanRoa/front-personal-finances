@@ -16,6 +16,7 @@
     transition: background-color 0.3s;
     overflow-y: auto;
     background-color: var(--surface-d);
+    padding: 15px;
 }
 
 /*  */
@@ -86,7 +87,7 @@
 
 /* BOTON */
 
-/* .barra-lateral .boton {
+.barra-lateral .boton {
     width: 100%;
     height: 45px;
     margin-bottom: 20px;
@@ -99,7 +100,7 @@
     color: var(--color-boton-primary-text);
     transition: background-color 0.5s ease;
     cursor: pointer;
-} */
+}
 
 .barra-lateral .boton {
     width: 100%;

@@ -55,6 +55,7 @@ export class BalanceLineChartComponent {
       plugins: {
         legend: {
           labels: {
+            usePointStyle: true,
             color: textColor
           }
         }

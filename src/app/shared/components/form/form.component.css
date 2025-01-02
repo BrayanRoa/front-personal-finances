@@ -18,3 +18,28 @@
     height: 16px;
     border-radius: 50%;
 }
+
+/* MULTISELECT */
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-item {
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.category-item.selected {
+    background-color: #4caf50;
+    color: white;
+}
+
+.category-item:hover {
+    background-color: #ddd;
+}

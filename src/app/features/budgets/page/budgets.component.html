@@ -1,7 +1,21 @@
-<div class="grid-container">
-    <div class="grid">
-        <div class="col-12 h-full displ">
-            <app-cards [cardsInfo]="budgetData"></app-cards>
+<div class="grid">
+    <div class="col-12 h-full">
+        <app-cards [cardsInfo]="budgetCard"></app-cards>
+    </div>
+
+    <div class="col-12 h-full flex justify-content-end">
+        <div class="card">
+            <app-button [label]="'Create New Budget'" [icon]="'pi pi-credit-card'" (onClick)="openModal()"></app-button>
+
+            <p-dialog header="New budget" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }">
+                <!-- <app-dynamic-form [fields]="formConfig!" (cancel)="closeModal()"></app-dynamic-form> -->
+                <app-form-budget (dataBudget)="saveBudget($event)" [resetForm]="resetForm"></app-form-budget>
+            </p-dialog>
+
         </div>
+    </div>
+
+    <div class="col-12 h-full">
+        <app-all-budgets [budgetData]="budgetData"></app-all-budgets>
     </div>
 </div>

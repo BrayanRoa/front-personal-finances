@@ -1,0 +1,259 @@
+<!-- <div class="flex flex-wrap justify-content-around gap-3">
+    <p-panel class="flex flex-column" *ngFor="let value of budgetData">
+        <ng-template pTemplate="header">
+            <div class="custom-header">
+                <span class="item1">{{value.name | titlecase}}</span>
+            </div>
+        </ng-template>
+        <div class="flex flex-row">
+            <div class="">
+                <app-cake-card [percentage]="value.percentage"></app-cake-card>
+            </div>
+            <div class="">
+                <div class="info-card">
+                    <div class="info-row">
+                        <span class="label">Budgeted:</span>
+                        <span class="value">{{value.limit_amount| currencyCustom:true}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Spend:</span>
+                        <span class="value">{{value.current_amount | currencyCustom:true}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Available to spend:</span>
+                        <span class="value">{{value.limit_amount - value.current_amount | currencyCustom:true}}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="label">limit Date:</span>
+                        <span class="value">{{value.end_date | date}}</span>
+                    </div>
+
+                    <div class="flex flex-row flex-wrap">
+                            <p-tag class="mr-1" *ngFor="let data of value.BudgetCategories">
+                                {{data.category.name}}
+                            </p-tag>
+                    </div>
+                </div>
+
+                <div class="flex justify-content-center">
+                    <app-button (onClick)="getTransactions(value)" class="m-1" pTooltip="View transactions associated"
+                        [label]="''" [icon]="'pi pi-eye'" [severity]="'success'" (onClick)="openModal()"></app-button>
+                    <app-button class="m-1" [label]="''" [icon]="'pi pi-pencil'" [severity]="'contrast'"></app-button>
+                    <app-button class="m-1" [label]="''" [icon]="'pi pi-trash'" [severity]="'danger'"></app-button>
+                </div>
+
+                <p-dialog header="Transactions Budget" [modal]="true" [(visible)]="visible"
+                    [style]="{ width: '50rem' }">
+                    <app-table [columns]="tableColumns" [data]="transactions" [cellTemplates]="{
+                        name:titleCase,
+                        walletName:titleCase,
+                        amount: money,
+                        date: date,
+                        category: titleCase,
+                    }" [meta]="metaData"></app-table>
+
+                    <ng-template #titleCase let-value>
+                        <td>{{value|titlecase}}</td>
+                    </ng-template>
+
+                    <ng-template #money let-value>
+                        <td>{{value|currencyCustom:true}}</td>
+                    </ng-template>
+
+                    <ng-template #date let-value>
+                        <td>{{value|date}}</td>
+                    </ng-template>
+
+                </p-dialog>
+
+            </div>
+        </div>
+
+    </p-panel>
+
+</div> -->
+
+
+<!-- * FUNCIONA BIEN SOLO QUE ESTOY PROBANDO UN NUEVO DISEÑO -->
+<div class="grid">
+    <p-panel class="col md:col-6" *ngFor="let value of budgetData">
+        <ng-template pTemplate="header">
+            <div class="custom-header">
+                <span class="item1">{{value.name | titlecase}}</span>
+            </div>
+        </ng-template>
+        <div class="grid">
+            <div class="col md:col-5">
+                <app-cake-card [percentage]="value.percentage"></app-cake-card>
+            </div>
+            <div class="col md:col-7">
+                <div class="info-card">
+                    <div class="info-row">
+                        <span class="label">Budgeted:</span>
+                        <span class="value">{{value.limit_amount| currencyCustom:true}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Spend:</span>
+                        <span class="value">{{value.current_amount | currencyCustom:true}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Available:</span>
+                        <span class="value">{{value.limit_amount - value.current_amount | currencyCustom:true}}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="label">limit Date:</span>
+                        <span class="value">{{value.end_date | date}}</span>
+                    </div>
+
+                    <div class="flex flex-row flex-wrap">
+                            <p-tag class="mr-1" *ngFor="let data of value.BudgetCategories">
+                                {{data.category.name}}
+                            </p-tag>
+                    </div>
+                </div>
+
+                <div class="flex justify-content-center">
+                    <app-button (onClick)="getTransactions(value)" class="m-1" pTooltip="View transactions associated"
+                        [label]="''" [icon]="'pi pi-eye'" [severity]="'success'" (onClick)="openModal()"></app-button>
+                    <app-button class="m-1" [label]="''" [icon]="'pi pi-pencil'" [severity]="'contrast'"></app-button>
+                    <app-button class="m-1" [label]="''" [icon]="'pi pi-trash'" [severity]="'danger'"></app-button>
+                </div>
+
+                <p-dialog header="Transactions Budget" [modal]="true" [(visible)]="visible"
+                    [style]="{ width: '50rem' }">
+                    <app-table [columns]="tableColumns" [data]="transactions" [cellTemplates]="{
+                        name:titleCase,
+                        walletName:titleCase,
+                        amount: money,
+                        date: date,
+                        category: titleCase,
+                    }" [meta]="metaData"></app-table>
+
+                    <ng-template #titleCase let-value>
+                        <td>{{value|titlecase}}</td>
+                    </ng-template>
+
+                    <ng-template #money let-value>
+                        <td>{{value|currencyCustom:true}}</td>
+                    </ng-template>
+
+                    <ng-template #date let-value>
+                        <td>{{value|date}}</td>
+                    </ng-template>
+
+                </p-dialog>
+
+            </div>
+        </div>
+
+    </p-panel>
+
+</div>
+
+
+<!-- NEW FORMAT -->
+<!-- <div class="grid" *ngFor="let value of budgetData">
+    <p-panel class="col md:col-6">
+        <ng-template pTemplate="header">
+            <div class="custom-header">
+                <span class="item1">{{value.name | titlecase}}</span>
+            </div>
+        </ng-template>
+        <div class="grid">
+            <div class="col md:col-5">
+                <app-cake-card [percentage]="value.percentage"></app-cake-card>
+            </div>
+            <div class="col md:col-7">
+                <div class="info-card">
+                    <div class="info-row">
+                        <span class="label">Budgeted:</span>
+                        <span class="value">{{value.limit_amount| currencyCustom:true}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Spend:</span>
+                        <span class="value">{{value.current_amount | currencyCustom:true}}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Available:</span>
+                        <span class="value">{{value.limit_amount - value.current_amount | currencyCustom:true}}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="label">limit Date:</span>
+                        <span class="value">{{value.end_date | date}}</span>
+                    </div>
+
+                    <div class="flex flex-row flex-wrap">
+                        <p-tag class="mr-auto" *ngFor="let data of value.BudgetCategories">
+                            {{data.category.name}}
+                        </p-tag>
+                    </div>
+                </div>
+
+                <div class="flex justify-content-end">
+                    <app-button (onClick)="getTransactions(value)" class="" pTooltip="View transactions associated"
+                        [label]="''" [icon]="'pi pi-eye'" [severity]="'success'" (onClick)="openModal()"></app-button>
+                    <app-button class="" [label]="''" [icon]="'pi pi-pencil'" [severity]="'contrast'"></app-button>
+                    <app-button class="" [label]="''" [icon]="'pi pi-trash'" [severity]="'danger'"></app-button>
+                </div>
+
+                <p-dialog header="Transactions Budget" [modal]="true" [(visible)]="visible"
+                    [style]="{ width: '50rem' }">
+                    <app-table [columns]="tableColumns" [data]="transactions" [cellTemplates]="{
+                        name:titleCase,
+                        walletName:titleCase,
+                        amount: money,
+                        date: date,
+                        category: titleCase,
+                    }" [meta]="metaData"></app-table>
+
+                    <ng-template #titleCase let-value>
+                        <td>{{value|titlecase}}</td>
+                    </ng-template>
+
+                    <ng-template #money let-value>
+                        <td>{{value|currencyCustom:true}}</td>
+                    </ng-template>
+
+                    <ng-template #date let-value>
+                        <td>{{ value | date:'longDate':'UTC' }}</td>
+                    </ng-template>
+
+                </p-dialog>
+
+            </div>
+        </div>
+
+    </p-panel>
+
+    <p-panel class="col md:col-6">
+        <ng-template pTemplate="header">
+            <div class="custom-header">
+                <span class="item1">{{value.name | titlecase}}</span>
+            </div>
+        </ng-template>
+
+        <app-table [columns]="tableColumns" [data]="transactions" [cellTemplates]="{
+            name:titleCase,
+            walletName:titleCase,
+            amount: money,
+            date: date,
+            category: titleCase,
+        }" [meta]="metaData"></app-table>
+
+        <ng-template #titleCase let-value>
+            <td>{{value|titlecase}}</td>
+        </ng-template>
+
+        <ng-template #money let-value>
+            <td>{{value|currencyCustom:true}}</td>
+        </ng-template>
+
+        <ng-template #date let-value>
+            <td>{{value|date}}</td>
+        </ng-template>
+    </p-panel>
+
+</div> -->
