@@ -36,6 +36,9 @@ export class MainPageComponent extends BaseComponent implements OnInit {
   // CONFIGURACIÓN DEL FORMULARIO
   formConfig!: FormFieldConfig[] | null;
 
+  checked: boolean = false;
+
+
 
   configRoutes = [
     {
@@ -86,7 +89,7 @@ export class MainPageComponent extends BaseComponent implements OnInit {
     this.visible = true;
   }
 
-  closeModal(){
+  closeModal() {
     this.visible = false;
     this.formConfig = null
   }
@@ -106,6 +109,7 @@ export class MainPageComponent extends BaseComponent implements OnInit {
       this.selectedTheme.id === this.themes[0].id
         ? this.themes[1]
         : this.themes[0];
+    this.circulo.nativeElement.classList.toggle('prendido')
 
     // Cambiar el tema usando el ThemeService
     this.themeService.switchTheme(this.selectedTheme.id);

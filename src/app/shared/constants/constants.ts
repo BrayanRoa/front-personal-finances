@@ -37,6 +37,17 @@ export const RECURRING_TRANSACTION = [
     { name: 'Every Year', id: 'EVERY YEAR' },
 ]
 
+export const RECURRING_TRANSACTION_BUDGET= [
+    { name: 'No Repeat', id: 'NEVER' },
+    { name: 'Every Week', id: 'EVERY WEEK' },
+    { name: 'Every Two Weeks', id: 'EVERY TWO WEEKS' },
+    { name: 'Every Month', id: 'EVERY MONTH' },
+    { name: 'Every Two Months', id: 'EVERY TWO MONTHS' },
+    { name: 'Every Three Months', id: 'EVERY THREE MONTHS' },
+    { name: 'Every Six Months', id: 'EVERY SIX MONTHS' },
+    { name: 'Every Year', id: 'EVERY YEAR' },
+]
+
 export const PAGE: number = 1
 export const PER_PAGE: number = 10
 export const NOT_FOUND_MSG: string = 'No data available at this time.'
