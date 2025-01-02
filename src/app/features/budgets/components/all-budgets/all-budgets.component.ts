@@ -98,11 +98,11 @@ export class AllBudgetsComponent {
   }
 
   getTransactions(budget: BudgetData) {
-    const ids = budget.BudgetCategories.map(c => {
+    const ids = budget.BudgetCategories?.map(c => {
       return c.categoryId
     })
 
-    this.budgetService.getTransactionsByBudget(ids, budget.date.toString(), budget.end_date.toString()).subscribe({
+    this.budgetService.getTransactionsByBudget(ids!, budget.date.toString(), budget.end_date.toString()).subscribe({
       next: (response) => {
         this.transactions = response.data.transactions
         this.metaData = response.data.meta

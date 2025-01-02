@@ -3,7 +3,7 @@ import { BaseService } from '../../../shared/service/base-service.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BudgetData } from '../interfaces/budget.interface';
-import { ApiResponse } from '../../../shared/interfaces/common-response.interface';
+import { ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { ITransactionByBudget } from '../interfaces/transaction-by-budget.interface';
 import { TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
 
@@ -24,6 +24,10 @@ export class BudgetService extends BaseService {
 
     getTransactionsByBudget(categories: number[], start: string, end: string): Observable<ApiResponse<TransactionData>> {
         return this.http.get<ApiResponse<TransactionData>>(`${this.endpoint}/transactions?categories=${categories}&start=${start}&end=${end}`)
+    }
+
+    save(data: BudgetData): Observable<CommonResponse> {
+        return this.http.post<CommonResponse>(`${this.endpoint}`, data)
     }
 
 }

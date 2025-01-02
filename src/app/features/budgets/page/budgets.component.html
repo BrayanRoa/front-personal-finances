@@ -8,7 +8,8 @@
             <app-button [label]="'Create New Budget'" [icon]="'pi pi-credit-card'" (onClick)="openModal()"></app-button>
 
             <p-dialog header="New budget" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }">
-                <app-dynamic-form [fields]="formConfig!" (cancel)="closeModal()"></app-dynamic-form>
+                <!-- <app-dynamic-form [fields]="formConfig!" (cancel)="closeModal()"></app-dynamic-form> -->
+                <app-form-budget (dataBudget)="saveBudget($event)" [resetForm]="resetForm"></app-form-budget>
             </p-dialog>
 
         </div>
