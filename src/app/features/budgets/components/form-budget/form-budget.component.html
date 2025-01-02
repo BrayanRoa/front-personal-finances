@@ -1,0 +1,86 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="grid">
+        <div class="field col-12 md:col-4">
+            <label for="name">Name</label>
+            <input
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                id="name" type="text" pInputText formControlName="name" />
+        </div>
+
+        <div class="field col-12 md:col-4">
+            <label for="description">Description</label>
+            <input
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                id="description" type="text" pInputText formControlName="description" />
+        </div>
+
+        <div class="field col-12 md:col-4">
+            <label for="date">Date</label>
+            <input
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                id="date" type="date" pInputText formControlName="date" />
+        </div>
+
+        <div class="field col-12 md:col-4">
+            <label for="end_date">End Date</label>
+            <input
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                id="end_date" type="date" pInputText formControlName="end_date" />
+        </div>
+
+        <div class="field col-12 md:col-4">
+            <label for="limit_amount">Limit Amount</label>
+            <input mask="separator.2" prefix="$" thousandSeparator=","
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                id="limit_amount" type="text" pInputText formControlName="limit_amount" />
+        </div>
+
+        <div class="field col-12 md:col-4">
+            <label for="repeat">Repeat</label>
+            <select formControlName="repeat"
+                class="custom-select text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <option *ngFor="let option of recurring_transactions" [value]="option.id">
+                    {{ option.name }}
+                </option>
+            </select>
+        </div>
+
+        <div class="field col-12 md:col-4">
+            <label for="walletId">Wallet</label>
+            <select formControlName="walletId"
+                class="custom-select text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <option *ngFor="let option of walletsData()" [value]="option.value">
+                    {{ option.label }}
+                </option>
+            </select>
+
+            <!-- <p-dropdown [options]="wallets" formControlName="walletId" optionLabel="label">
+            </p-dropdown> -->
+        </div>
+
+        <!-- Categorías como divs seleccionables -->
+        <div class="field col-12 md:col-12">
+            <label for="categories">Categories</label>
+            <div class="category-list">
+                <div *ngFor="let category of categoryData()" class="category-item flex"
+                    [ngClass]="{'selected': selectedCategories.includes(category.value)}"
+                    (click)="toggleCategory(category.value)">
+                    <div [ngStyle]="{backgroundColor:category.color}" class="circle"></div>
+                    <div>{{category.label}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-row flex-wrap justify-content-end w-full">
+            <div class="m-1">
+                <app-button [label]="'Save'" [severity]="'success'" [type]="'submit'"
+                    [isDisabled]="form.invalid"></app-button>
+                <!-- <button pButton type="submit" label="Submit" [disabled]="form.invalid"></button> -->
+            </div>
+            <div class="m-1">
+                <app-button [label]="'Cancel'" [severity]="'danger'" [type]="'button'"></app-button>
+                <!-- <button pButton type="button" label="Cancel" [severity]="'danger'"></button> -->
+            </div>
+        </div>
+    </div>
+</form>

@@ -7,6 +7,8 @@ import { BudgetsComponent } from './page/budgets.component';
 import { SharedModule } from '../../shared/shared.module';
 import { CakeCardComponent } from './components/cake-card-budget/cake-card.component';
 import { AllBudgetsComponent } from './components/all-budgets/all-budgets.component';
+import { FormBudgetComponent } from './components/form-budget/form-budget.component';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 
 @NgModule({
@@ -14,6 +16,7 @@ import { AllBudgetsComponent } from './components/all-budgets/all-budgets.compon
     BudgetsComponent,
     CakeCardComponent,
     AllBudgetsComponent,
+    FormBudgetComponent
   ],
   imports: [
     CommonModule,
@@ -21,6 +24,8 @@ import { AllBudgetsComponent } from './components/all-budgets/all-budgets.compon
     ReactiveFormsModule,
     SharedModule,
     PrimeNgModule,
-  ]
+    NgxMaskDirective
+  ],
+  providers: [provideNgxMask()]
 })
 export class BudgetsModule { }

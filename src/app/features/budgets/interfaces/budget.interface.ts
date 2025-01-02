@@ -1,5 +1,5 @@
 export interface BudgetData {
-    id: number,
+    id?: number,
     name: string,
     description: string,
     date: Date,
@@ -7,15 +7,15 @@ export interface BudgetData {
     limit_amount: number,
     current_amount: number,
     percentage: number,
-    active: boolean,
+    active?: boolean,
     next_date: Date,
-    userId: string,
+    userId?: string,
     // categories: string,
     repeat: string,
     walletId: number,
-    BudgetCategories: BudgetCategory[];
-    created_at: Date,
-    updated_at: Date,
+    BudgetCategories?: BudgetCategory[];
+    created_at?: Date,
+    updated_at?: Date,
     deleted_at?: Date,
 
 }

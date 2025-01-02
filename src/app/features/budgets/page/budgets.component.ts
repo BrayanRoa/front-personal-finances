@@ -1,29 +1,22 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormFieldConfig, SummaryInterface } from '../../../shared/interfaces/generic-components/form.interface';
 import { BudgetService } from '../service/budget.service';
 import { BudgetData } from '../interfaces/budget.interface';
 import { ITransactionByBudget } from '../interfaces/transaction-by-budget.interface';
-import { FORM_CONFIG_BUDGET } from '../statics/budget.config';
-import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.interface';
-import { CategoryInterface } from '../../../shared/interfaces/category/category.interface';
-import { CoreService } from '../../../core/service/core.service';
-import { WalletService } from '../../wallets/service/wallet.service';
+import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 
 @Component({
   selector: 'app-budgets',
   templateUrl: './budgets.component.html',
   styleUrl: './budgets.component.css'
 })
-export class BudgetsComponent implements OnInit {
+export class BudgetsComponent extends BaseComponent implements OnInit {
 
   budgetData: BudgetData[] = []
   transactions: ITransactionByBudget[] = []
+  resetForm: boolean = false
 
   visible: boolean = false
-  formConfig!: FormFieldConfig[] | null
-
-  walletsData = signal<BanksInformation[]>([]);
-  categoryData = signal<CategoryInterface[]>([]);
 
 
   budgetCard: SummaryInterface[] = [
@@ -61,25 +54,20 @@ export class BudgetsComponent implements OnInit {
 
   constructor(
     private budgetService: BudgetService,
-    private coreService: CoreService,
-    private walletService: WalletService
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getBudgets()
-    this.loadCategories()
-    this.loadWallets()
-    this.formConfig = FORM_CONFIG_BUDGET
   }
 
   openModal() {
-    this.loadOptions()
     this.visible = true;
   }
 
   closeModal() {
     this.visible = false;
-    this.formConfig = null
   }
 
   getBudgets() {
@@ -94,52 +82,18 @@ export class BudgetsComponent implements OnInit {
     })
   }
 
-  private loadOptions() {
-    this.formConfig = FORM_CONFIG_BUDGET
-    return new Promise<void>((resolve, reject) => {
-      this.formConfig!.forEach(data => {
-        if (data.name === 'walletId') {
-          data.options = [
-            ...this.walletsData().map(wallet => ({
-              label: wallet.name,
-              value: wallet.id,
-            })),
-          ];
-        }
-        if (data.name === 'categoryId') {
-          data.options = [
-            ...this.categoryData().map(category => ({
-              label: category.name,
-              value: category.id,
-            })),
-          ];
-        }
-      });
-      resolve();
-    });
-  }
-
-  private loadCategories(): void {
-    this.coreService.getCategories().subscribe({
+  saveBudget(data: { budget: BudgetData }) {
+    this.budgetService.save(data.budget).subscribe({
       next: (response) => {
-        this.categoryData.set(response.data);
+        this.closeModal();
+        this.handleResponse(response.status, response.data);
+        this.getBudgets()
+        this.resetForm = true;
       },
-      error: (error: any) => {
-        console.error('Error fetching categories:', error);
-      },
-    });
+      error: (error) => {
+        console.error('Error saving budget:', error);
+      }
+    })
   }
-
-  private loadWallets() {
-    this.walletService.getWallets().subscribe({
-      next: (response) => {
-        this.walletsData.set(response.data);
-      },
-      error: (error: any) => {
-        console.error('Error fetching wallets:', error);
-      },
-    });
-  }
-
 
 }
