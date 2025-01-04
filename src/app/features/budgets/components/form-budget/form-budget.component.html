@@ -15,6 +15,17 @@
         </div>
 
         <div class="field col-12 md:col-4">
+            <label for="repeat">Repeat</label>
+            <select formControlName="repeat"
+                class="custom-select text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <option *ngFor="let option of recurring_transactions" [value]="option.id">
+                    {{ option.name }}
+                </option>
+            </select>
+        </div>
+
+
+        <div class="field col-12 md:col-4">
             <label for="date">Date</label>
             <input
                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
@@ -36,16 +47,6 @@
         </div>
 
         <div class="field col-12 md:col-4">
-            <label for="repeat">Repeat</label>
-            <select formControlName="repeat"
-                class="custom-select text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                <option *ngFor="let option of recurring_transactions" [value]="option.id">
-                    {{ option.name }}
-                </option>
-            </select>
-        </div>
-
-        <div class="field col-12 md:col-4">
             <label for="walletId">Wallet</label>
             <select formControlName="walletId"
                 class="custom-select text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
@@ -53,9 +54,6 @@
                     {{ option.label }}
                 </option>
             </select>
-
-            <!-- <p-dropdown [options]="wallets" formControlName="walletId" optionLabel="label">
-            </p-dropdown> -->
         </div>
 
         <!-- Categorías como divs seleccionables -->
@@ -65,7 +63,7 @@
                 <div *ngFor="let category of categoryData()" class="category-item flex"
                     [ngClass]="{'selected': selectedCategories.includes(category.value)}"
                     (click)="toggleCategory(category.value)">
-                    <div [ngStyle]="{backgroundColor:category.color}" class="circle"></div>
+                    <div [ngStyle]="{backgroundColor: category.color}" class="circle"></div>
                     <div>{{category.label}}</div>
                 </div>
             </div>
@@ -73,13 +71,12 @@
 
         <div class="flex flex-row flex-wrap justify-content-end w-full">
             <div class="m-1">
-                <app-button [label]="'Save'" [severity]="'success'" [type]="'submit'"
+                <app-button [label]="nameButton" [severity]="'success'" [type]="'submit'"
                     [isDisabled]="form.invalid"></app-button>
-                <!-- <button pButton type="submit" label="Submit" [disabled]="form.invalid"></button> -->
             </div>
             <div class="m-1">
-                <app-button [label]="'Cancel'" [severity]="'danger'" [type]="'button'"></app-button>
-                <!-- <button pButton type="button" label="Cancel" [severity]="'danger'"></button> -->
+                <app-button (onClick)="resetForm()" [label]="'Cancel'" [severity]="'danger'"
+                    [type]="'button'"></app-button>
             </div>
         </div>
     </div>

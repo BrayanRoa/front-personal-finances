@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TABLE_COLUMNS_BUDGET } from '../../statics/budget.config';
 import { BudgetData } from '../../interfaces/budget.interface';
 import { BudgetService } from '../../service/budget.service';
@@ -12,7 +12,8 @@ import { MetaData } from '../../../../shared/interfaces/common-response.interfac
 })
 export class AllBudgetsComponent {
 
-  visible: boolean = false;
+  // TABLE
+  // visible: boolean = false;
   tableColumns = TABLE_COLUMNS_BUDGET
   transactions: Transaction[] = []
   metaData: MetaData = {
@@ -22,82 +23,29 @@ export class AllBudgetsComponent {
     next_page: true
   };
 
-  data: any;
-
-  options: any;
-
+  // MODAL FORM
+  modalForm: boolean = false;
+  budgetToEdit!: BudgetData | null
 
   constructor(
     private budgetService: BudgetService
   ) { }
 
+  // EVERY CARD 
   @Input()
   budgetData: BudgetData[] = []
 
-  openModal() {
-    this.visible = true;
-  }
+  @Output()
+  dataToEdit = new EventEmitter<({ budget: BudgetData, id: number })>
 
-  ngOnInit() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-    this.data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: documentStyle.getPropertyValue('--blue-500'),
-          tension: 0.4
-        },
-        {
-          label: 'Second Dataset',
-          data: [28, 48, 40, 19, 86, 27, 90],
-          fill: false,
-          borderColor: documentStyle.getPropertyValue('--pink-500'),
-          tension: 0.4
-        }
-      ]
-    };
-
-    this.options = {
-      maintainAspectRatio: false,
-      aspectRatio: 1.3,
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor
-          }
-        }
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: textColorSecondary
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false
-          }
-        },
-        y: {
-          ticks: {
-            color: textColorSecondary
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false
-          }
-        }
-      }
-    };
+  closeModalForm() {
+    this.modalForm = false;
+    this.budgetToEdit = null;
   }
 
   getTransactions(budget: BudgetData) {
+    // this.visible = true;
     const ids = budget.BudgetCategories?.map(c => {
       return c.categoryId
     })
@@ -111,5 +59,14 @@ export class AllBudgetsComponent {
         console.error('Error fetching transactions:', error);
       }
     })
+  }
+
+  editBudget(budget: BudgetData) {
+    this.budgetToEdit = budget;
+    this.modalForm = true;
+  }
+
+  sendBudgeToEdit(data: { budget: BudgetData, id: number }) {
+    this.dataToEdit.emit(data)
   }
 }

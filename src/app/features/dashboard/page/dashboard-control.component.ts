@@ -53,7 +53,9 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadDashboardData();
+    setTimeout(() => {
+      this.loadDashboardData();
+    }, 500);
 
     this.nameMonths = MONTHS.map(month => {
       return month.shortcut!

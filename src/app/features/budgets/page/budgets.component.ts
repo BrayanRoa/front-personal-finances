@@ -11,89 +11,77 @@ import { BaseComponent } from '../../../shared/components/base-component/base-co
   styleUrl: './budgets.component.css'
 })
 export class BudgetsComponent extends BaseComponent implements OnInit {
-
-  budgetData: BudgetData[] = []
-  transactions: ITransactionByBudget[] = []
-  resetForm: boolean = false
-
-  visible: boolean = false
-
+  budgetData: BudgetData[] = [];
+  transactions: ITransactionByBudget[] = [];
+  visible: boolean = false;
 
   budgetCard: SummaryInterface[] = [
-    {
-      // id: "totalIncome",
-      title: "Total Budgets",
-      icon: "pi pi-money-bill",
-      value: 0,
-      cardImg: 'total-incomes',
-      idTitle: 'title-one',
-      idValue: 'amount-one',
-      useCurrency: true
-    },
-    {
-      // id: "totalExpenses",
-      title: "Spend To Date",
-      icon: "pi pi-shop",
-      value: 0,
-      cardImg: 'total-expenses',
-      idTitle: 'title-two',
-      idValue: 'amount-two',
-      useCurrency: true
-    },
-    {
-      // id: "budgetsActives",
-      title: "Available for spending",
-      icon: "pi pi-wallet",
-      value: 0,
-      cardImg: 'budgets',
-      idTitle: 'title-three',
-      idValue: 'amount-three',
-      useCurrency: false
-    },
-  ]
+    { title: "Total Budgets", icon: "pi pi-money-bill", value: 0, cardImg: 'total-incomes', idTitle: 'title-one', idValue: 'amount-one', useCurrency: true },
+    { title: "Spend To Date", icon: "pi pi-shop", value: 0, cardImg: 'total-expenses', idTitle: 'title-two', idValue: 'amount-two', useCurrency: true },
+    { title: "Available for spending", icon: "pi pi-wallet", value: 0, cardImg: 'budgets', idTitle: 'title-three', idValue: 'amount-three', useCurrency: false }
+  ];
 
-  constructor(
-    private budgetService: BudgetService,
-  ) {
+  constructor(private budgetService: BudgetService) {
     super();
   }
 
   ngOnInit(): void {
-    this.getBudgets()
+    this.initializeBudgets();
   }
 
-  openModal() {
-    this.visible = true;
+  private initializeBudgets(): void {
+    this.getBudgets();
   }
 
-  closeModal() {
-    this.visible = false;
+  toggleModal(visible: boolean): void {
+    this.visible = visible;
   }
 
-  getBudgets() {
+  getBudgets(): void {
     this.budgetService.getAll().subscribe({
-      next: (response) => {
+      next: (response: { data: BudgetData[] }) => {
         this.budgetData = response.data;
-        console.log(this.budgetData);
+        this.updateBudgetCardValues();
       },
-      error: (error) => {
-        console.error('Error fetching budgets:', error);
-      }
-    })
+      error: (error: any) => this.handleError(error),
+    });
   }
 
-  saveBudget(data: { budget: BudgetData }) {
+  updateBudgetCardValues(): void {
+    this.budgetCard[0].value = this.budgetData.length;
+    this.budgetCard[1].value = this.budgetData.reduce((sum, b) => sum + b.current_amount!, 0);
+    this.budgetCard[2].value = this.budgetData.reduce((sum, b) => sum + (b.limit_amount - b.current_amount!), 0);
+  }
+
+  saveBudget(data: { budget: BudgetData }): void {
     this.budgetService.save(data.budget).subscribe({
       next: (response) => {
-        this.closeModal();
         this.handleResponse(response.status, response.data);
-        this.getBudgets()
-        this.resetForm = true;
+        this.getBudgets();
+        this.toggleModal(false);
       },
-      error: (error) => {
-        console.error('Error saving budget:', error);
-      }
-    })
+      error: (error: any) => this.handleError(error),
+    });
   }
 
+  updateBudget(data: { budget: BudgetData, id: number }): void {
+    const updatedBudget = this.mapBudgetUpdate(data.budget);
+    this.budgetService.update(data.id, updatedBudget).subscribe({
+      next: (response) => {
+        this.handleResponse(response.status, response.data);
+        this.getBudgets();
+        this.toggleModal(false);
+      },
+      error: (error: any) => this.handleError(error),
+    });
+  }
+
+  private mapBudgetUpdate(budget: BudgetData): BudgetData {
+    const { active, percentage, current_amount, ...info } = budget;
+    return { ...info, limit_amount: +info.limit_amount };
+  }
+
+  private handleError(error: any): void {
+    console.error('Error:', error);
+  }
 }
