@@ -30,4 +30,8 @@ export class BudgetService extends BaseService {
         return this.http.post<CommonResponse>(`${this.endpoint}`, data)
     }
 
+    update(id: number, data: BudgetData): Observable<CommonResponse> {
+        return this.http.patch<CommonResponse>(`${this.endpoint}/${id}`, data)
+    }
+
 }
