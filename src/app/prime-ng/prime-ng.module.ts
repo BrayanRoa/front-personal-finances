@@ -29,7 +29,7 @@ import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
 import { MeterGroupModule } from 'primeng/metergroup';
 import { InputSwitchModule } from 'primeng/inputswitch';
-
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   exports: [
@@ -60,7 +60,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     CardModule,
     ChipModule,
     MeterGroupModule,
-    InputSwitchModule
+    InputSwitchModule,
+    SkeletonModule
   ]
 })
 export class PrimeNgModule { }

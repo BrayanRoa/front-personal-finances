@@ -140,7 +140,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
     this.loadYears();
     this.loadCategories();
-    
+
     // this is important because load the initial configuration of the form
     this.formConfig = FORM_CONFIG_TRANSACTION;
   }
@@ -258,8 +258,8 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     });
   }
 
-  addTransaction(){
-    this.nameButton  = "save"
+  addTransaction() {
+    this.nameButton = "save"
     this.showDialog()
   }
 
@@ -272,6 +272,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   closeModal() {
     console.log("SIIIIIII");
+    this.resetForm.emit(); // Emitir evento para reiniciar el formulario
     this.visible = false;
     this.formConfig = null
   }

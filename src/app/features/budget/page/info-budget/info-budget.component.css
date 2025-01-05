@@ -1,0 +1,117 @@
+/* General Grid */
+.grid {
+    margin: 0;
+    /* display: grid; */
+    /* gap: 1rem; */
+}
+
+/* Header */
+.header {
+    padding: 1rem;
+    background: var(--surface-card);
+    border-radius: 8px;
+    box-shadow: var(--shadow-2);
+}
+
+.header .name {
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color-primary);
+}
+
+.header span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: normal;
+    color: var(--text-color-secondary);
+}
+
+.header .pi {
+    font-size: 1.3rem;
+    margin-right: 8px;
+}
+
+.header .pi-calendar-minus {
+    color: var(--color-text-card-one);
+}
+
+.header .pi-money-bill {
+    color: var(--color-text-card-three);
+}
+
+.header .pi-tags {
+    color: var(--color-text-card-two);
+}
+
+.header .pi-stopwatch{
+    color: var(--color-text-card-four)
+}
+
+.header .pi-chart-line{
+    color: var(--cyan-500)
+}
+
+
+/* Budget Summary */
+.budget-summary {
+    background: var(--surface-card);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow-2);
+    margin-bottom: 1.5rem;
+}
+
+.budget-summary .summary-header {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color-primary);
+}
+
+.budget-summary .summary-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.budget-summary .progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: var(--surface-border);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.budget-summary .progress {
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+/* Panel */
+p-panel {
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-2);
+    border-radius: 8px;
+}
+
+.custom-header {
+    font-size: 1.25rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    color: var(--text-color-primary);
+}
+
+/* General Spans */
+span {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+}

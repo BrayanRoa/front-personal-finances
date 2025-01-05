@@ -1,15 +1,35 @@
-<div class="flex flex-wrap justify-content-center gap-3">
-    <div class="flex flex-column flex-grow-1 flex-shrink-1 card" *ngFor="let value of cardsInfo">
-        <div class="card-info">
-            <div class="card-icon">
-                <span class="pi {{value.icon}}"></span>
-            </div>
-            <div class="card-data">
-                <span class="title {{value.idTitle}}">{{value.title}}</span>
-                <span class="{{value.idValue}}">
-                </span>
+<div *ngIf="isLoading; else cardsContent">
+    <div class="flex flex-wrap justify-content-center gap-3">
+        <div class="flex flex-column flex-grow-1 flex-shrink-1 card" *ngFor="let _ of [1, 2, 3]">
+            <div class="card-info grid">
+                <div class="card-icon col-3 flex align-items-start ">
+                    <p-skeleton shape="circle" size="4rem"></p-skeleton>
+                </div>
+                <div class="card-data col-9">
+                    <p-skeleton class="mb-1" width="100%" height="1.5rem"></p-skeleton>
+                    <p-skeleton class="mb-1" width="80%" height="1.5rem"></p-skeleton>
+                    <p-skeleton class="mb-1" width="100%" height="1.5rem"></p-skeleton>
+                    <p-skeleton class="mb-1" width="80%" height="1.5rem"></p-skeleton>
+                </div>
             </div>
         </div>
-        <div class="img {{value.cardImg}}"></div>
     </div>
 </div>
+
+<ng-template #cardsContent>
+    <div class="flex flex-wrap justify-content-center gap-3">
+        <div class="flex flex-column flex-grow-1 flex-shrink-1 card" *ngFor="let value of cardsInfo">
+            <div class="card-info">
+                <div class="card-icon">
+                    <span class="pi {{value.icon}}"></span>
+                </div>
+                <div class="card-data">
+                    <span class="title {{value.idTitle}}">{{value.title}}</span>
+                    <span class="{{value.idValue}}">
+                    </span>
+                </div>
+            </div>
+            <div class="img {{value.cardImg}}"></div>
+        </div>
+    </div>
+</ng-template>

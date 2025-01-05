@@ -45,6 +45,7 @@ export class MainPageComponent extends BaseComponent implements OnInit {
       label: 'Dashboard',
       path: 'dashboard',
       icon: 'pi pi-chart-bar',
+      exact:true
     },
     {
       label: 'Wallets',
@@ -60,6 +61,7 @@ export class MainPageComponent extends BaseComponent implements OnInit {
       label: 'Budgets',
       path: 'budgets',
       icon: 'pi pi-wallet',
+      exact:false
     },
     {
       label: 'Categories and tags',

@@ -1,0 +1,87 @@
+.grid {
+    padding: 0;
+}
+
+.panel {
+    flex: 1 1 30%;
+}
+
+.item1 {
+    font-weight: bold;
+    font-size: large;
+}
+
+.card {
+    padding: 0;
+}
+
+.info-card {
+    padding: 10px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.label {
+    font-weight: bold;
+    text-align: left;
+    flex: 1;
+}
+
+.value {
+    text-align: right;
+    flex: 1;
+}
+
+
+
+
+
+
+
+
+
+
+.name {
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color-primary);
+}
+
+span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: normal;
+    color: var(--text-color-secondary);
+}
+
+.pi {
+    font-size: 1.3rem;
+    margin-right: 8px;
+}
+
+.pi-calendar-minus {
+    color: var(--color-text-card-one);
+}
+
+.pi-money-bill {
+    color: var(--color-text-card-three);
+}
+
+.pi-tags {
+    color: var(--color-text-card-two);
+}
+
+.pi-stopwatch{
+    color: var(--color-text-card-four)
+}
+
+.pi-chart-line{
+    color: var(--cyan-500)
+}

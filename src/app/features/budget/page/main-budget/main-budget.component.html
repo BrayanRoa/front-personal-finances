@@ -1,0 +1,21 @@
+<div class="grid">
+    <div class="col-12">
+        <app-cards *ngIf="budgetCard?.length" [cardsInfo]="budgetCard"></app-cards>
+    </div>
+
+    <div class="col-12 flex justify-content-end">
+        <app-button [label]="'Create New Budget'" [icon]="'pi pi-credit-card'"
+            (onClick)="toggleModal(true)"></app-button>
+        <p-dialog header="Add New Budget" [modal]="true" [(visible)]="viewModal" (onHide)="toggleModal(false)"
+            [style]="{ width: ' 50rem' }">
+            <!-- FROMULARIO -->
+            <app-form-add-update-budget [nameButton]="'Save'"
+                (sendBudget)="eventBudget($event)"></app-form-add-update-budget>
+        </p-dialog>
+
+    </div>
+
+    <div class="col-12">
+        <app-all-active-budgets [budgetData]="budgetData"></app-all-active-budgets>
+    </div>
+</div>

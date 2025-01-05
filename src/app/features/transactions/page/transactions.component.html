@@ -40,7 +40,7 @@
                             (click)="addTransaction()"></button>
 
                         <!-- MODAL -->
-                        <p-dialog header="Add New Transaction" [modal]="false" [(visible)]="visible" (onHide)="closeModal()"
+                        <p-dialog header="Add New Transaction" [modal]="true" [(visible)]="visible" (onHide)="closeModal()"
                             [style]="{ width: ' 50rem' }">
                                 <!-- FROMULARIO -->
                                 <app-dynamic-form [fields]="formConfig!" [submitButton]="nameButton"

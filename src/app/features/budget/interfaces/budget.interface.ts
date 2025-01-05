@@ -2,11 +2,11 @@ export interface BudgetData {
     id?: number,
     name: string,
     description: string,
-    date: Date,
-    end_date: Date,
+    date: Date | string,
+    end_date: Date | string,
     limit_amount: number,
-    current_amount: number,
-    percentage: number,
+    current_amount?: number,
+    percentage?: number,
     active?: boolean,
     next_date: Date,
     userId?: string,
@@ -23,9 +23,9 @@ export interface BudgetData {
 export interface BudgetCategory {
     budgetId: number;
     categoryId: number;
-    category:Category
+    category: Category
 }
 
 export interface Category {
-    name:string;
+    name: string;
 }

@@ -1,0 +1,88 @@
+<div class="grid">
+    <div class="col-12">
+        <app-button [icon]="'pi pi-chevron-left'" [label]="'All budgets'" (onClick)="backBudgets()"></app-button>
+    </div>
+    <div class="col-12 w-full">
+        <div class="grid header">
+
+            <div class="col-3">
+                <app-cake-card></app-cake-card>
+            </div>
+            <div class="col-7 flex flex-nowrap flex-column justify-content-center">
+                <div class="flex">
+                    <span class="name">Budget Name: {{budget.name | titlecase}}</span>
+
+                </div>
+                <span><i class="pi pi-calendar-minus"></i> Date range: {{budget.date|date}} - {{budget.end_date |
+                    date}}</span>
+                <span><i class="pi pi-chart-line"></i> Limit amount: {{budget.limit_amount! |
+                    currencyCustom:true}}</span>
+
+                <span><i class="pi pi-money-bill"></i> Available: {{budget.limit_amount! - budget.current_amount! |
+                    currencyCustom:true}}</span>
+                <div class="flex align-item-center gap-1">
+                    <div class="flex align-item-center">
+                        <span><i class="pi pi-stopwatch"></i> Recurring:</span>
+                    </div>
+                    <div class="ml-2">
+                        <p-tag [severity]="'success'">
+                            {{budget.repeat}}
+                        </p-tag>
+                    </div>
+                </div>
+
+                <div class="flex align-item-center gap-1">
+                    <div class="flex align-item-center">
+                        <span class="label"><i class="pi pi-tags"></i> Categories:</span>
+                    </div>
+
+                    <div class="ml-2">
+                        <p-tag [severity]="'warning'" class="mr-1" *ngFor="let cat of budget.BudgetCategories">
+                            {{ cat.category.name }}
+                        </p-tag>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 flex justify-content-end align-items-start ">
+                <app-button [icon]="'pi pi-pencil'" [label]="''" [pTooltip]="'Edit budget'" [tooltipPosition]="'left'"
+                    (onClick)="toggleModal()"></app-button>
+
+                <p-dialog header="Edit Budget" [modal]="true" [(visible)]="viewModal" [style]="{ width: '50rem' }">
+                    <app-form-add-update-budget [budget]="budget" (closeModal)="toggleModal()"
+                        [nameButton]="'Update'" (sendBudget)="updateBudget($event)"></app-form-add-update-budget>
+                </p-dialog>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 w-full">
+        <p-panel [toggleable]="true">
+            <ng-template pTemplate="header">
+                <div class="custom-header">
+                    <span class="item1">Transactions</span>
+                </div>
+            </ng-template>
+            <div class="">
+                <app-table [columns]="table_columns" [data]="transactions" [cellTemplates]="{
+                    name:titleCase,
+                    walletName:titleCase,
+                    amount: money,
+                    date: date,
+                    category: titleCase,
+                }" [meta]="metaData"></app-table>
+
+                <ng-template #titleCase let-value>
+                    <td>{{value|titlecase}}</td>
+                </ng-template>
+
+                <ng-template #money let-value>
+                    <td>{{value|currencyCustom:true}}</td>
+                </ng-template>
+
+                <ng-template #date let-value>
+                    <td>{{value|date}}</td>
+                </ng-template>
+
+            </div>
+        </p-panel>
+    </div>
+</div>

@@ -7,14 +7,12 @@ import { SummaryInterface } from '../../../../shared/interfaces/generic-componen
   templateUrl: './wallet-card.component.html',
   styleUrl: './wallet-card.component.css'
 })
-export class WalletCardComponent implements OnInit, OnChanges {
+export class WalletCardComponent implements OnInit {
 
-  @Input() walletSummary: summaryWalletsResponse = {
-    totalIncome: 0,
-    totalExpenses: 0,
-    budgetsActives: 0,
-    totalTransactions: 0
-  };
+  isLoading: boolean = true
+
+  @Input()
+  walletSummary!: summaryWalletsResponse | null;
 
   cardsInfo: SummaryInterface[] = [
     {
@@ -60,13 +58,11 @@ export class WalletCardComponent implements OnInit, OnChanges {
   ]
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes["walletSummary"] && changes["walletSummary"].currentValue) {
+    setTimeout(() => {
+      this.isLoading = false;
       this.cardsInfo.forEach(card => {
-        card.value = this.walletSummary[card.id as keyof summaryWalletsResponse];
+        card.value = this.walletSummary![card.id as keyof summaryWalletsResponse];
       });
-    }
+    }, 1000)
   }
 }
