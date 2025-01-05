@@ -1,61 +1,41 @@
-import { Component, EventEmitter, Input, Output, signal, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, signal, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CoreService } from '../../../../core/service/core.service';
-import { WalletService } from '../../../wallets/service/wallet.service';
 import { FORMATTEDDATE, RECURRING_TRANSACTION_BUDGET } from '../../../../shared/constants/constants';
+import { WalletService } from '../../../wallets/service/wallet.service';
+import { CoreService } from '../../../../core/service/core.service';
 import { BudgetData } from '../../interfaces/budget.interface';
 import { BaseComponent } from '../../../../shared/components/base-component/base-component.component';
 
 @Component({
-  selector: 'app-form-budget',
-  templateUrl: './form-budget.component.html',
-  styleUrl: './form-budget.component.css'
+  selector: 'app-form-add-update-budget',
+  templateUrl: './form-add-update-budget.component.html',
+  styleUrl: './form-add-update-budget.component.css'
 })
-export class FormBudgetComponent extends BaseComponent {
+export class FormAddUpdateBudgetComponent extends BaseComponent implements OnInit {
 
+  // DATA FORM
+  form!: FormGroup
+  recurring_transactions = RECURRING_TRANSACTION_BUDGET
   walletsData = signal<{ label: string, value: any }[]>([]);
   categoryData = signal<{ label: string, value: any, color: string }[]>([]);
-  recurring_transactions = RECURRING_TRANSACTION_BUDGET
-
-  // save budget
-  @Output()
-  dataBudget = new EventEmitter<({ budget: BudgetData })>
-
-  @Output()
-  updateBudget = new EventEmitter<({ budget: BudgetData, id: number })>
-
-  // cancel and clean the form data
-  @Output()
-  closeModal = new EventEmitter<boolean>(false)
-
-  @Input()
-  budget!: BudgetData | null
-  @Input()
-  nameButton: 'Save' | 'Update' = "Save"
-
-  form!: FormGroup;
 
   selectedCategories: string[] = [];
 
+  @Input()
+  nameButton: "Save" | "Update" = "Save"
+  @Input()
+  budget!: BudgetData | null
+
+  @Output()
+  sendBudget = new EventEmitter<({ budget: BudgetData, action: string })>
+
   constructor(
     private fb: FormBuilder,
-    private coreService: CoreService,
-    private walletService: WalletService
+    private walletService: WalletService,
+    private coreService: CoreService
   ) {
-    super();
-    this.form = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      date: [FORMATTEDDATE, Validators.required],
-      end_date: [FORMATTEDDATE, Validators.required],
-      limit_amount: [0, Validators.required],
-      current_amount: [0, Validators.required],
-      repeat: ['', Validators.required],
-      categories: [[], Validators.required],  // Inicializamos como array vacío para el manejo de categorías
-      walletId: [0, Validators.required],  // Valor por defecto
-      active: [true], //
-      percentage: [0]
-    });
+    super()
+    this.formConfig()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -63,12 +43,10 @@ export class FormBudgetComponent extends BaseComponent {
       this.populateFormData()
     }
   }
-
   ngOnInit(): void {
-    this.loadCategories();
+    this.loadCategories()
     this.loadWallets()
 
-    // si modifica el repeat se recalcula el end_date
     this.form.get('repeat')?.valueChanges.subscribe((repeatValue) => {
       if (repeatValue && repeatValue !== 'NEVER') {
         // this.setCalculatedEndDate(repeatValue);
@@ -86,23 +64,20 @@ export class FormBudgetComponent extends BaseComponent {
     })
   }
 
-  onSubmit(): void {
-    if (this.form.valid) {
-      const formValue = this.form.getRawValue(); // Obtiene todos los valores, incluidos los desactivados
-
-      if (this.nameButton === 'Update') {
-        this.updateBudget.emit({ budget: { ...formValue as BudgetData }, id: this.budget?.id! });
-      } else {
-        const data = {
-          ...formValue,
-          walletId: Number(formValue.walletId),
-        };
-        this.dataBudget.emit({ budget: data });
-      }
-      this.resetForm();
-    } else {
-      console.log('Form is invalid');
-    }
+  formConfig() {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      date: [FORMATTEDDATE, Validators.required],
+      end_date: [FORMATTEDDATE, Validators.required],
+      limit_amount: [0, Validators.required],
+      current_amount: [0, Validators.required],
+      repeat: ['', Validators.required],
+      categories: [[], Validators.required],  // Inicializamos como array vacío para el manejo de categorías
+      walletId: [0, Validators.required],  // Valor por defecto
+      active: [true], //
+      percentage: [0]
+    });
   }
 
   resetForm() {
@@ -119,32 +94,29 @@ export class FormBudgetComponent extends BaseComponent {
       active: true,
       percentage: 0,
     });
-    this.closeModal.emit(true)
     this.selectedCategories = [];
   }
 
-  // me da solo los campos que se modificaron
-  getModifiedFields(): { [key: string]: any } {
-    const modifiedFields: { [key: string]: any } = {};
-    Object.keys(this.form.controls).forEach(key => {
-      const control = this.form.get(key);
-      if (control?.dirty) {
-        modifiedFields[key] = control.value;
+  onSubmit() {
+    if (!this.form.invalid) {
+      if (this.nameButton === 'Save') {
+        const data = this.form.getRawValue()
+        data.walletId = +data.walletId;
+        this.sendBudget.emit({ budget: data, action: 'save' })
+      } else if (this.nameButton === 'Update') {
+        console.log("me envio");
+        const data = this.form.getRawValue()
+        data.id = this.budget!.id;
+        data.walletId = +data.walletId;
+        data.limit_amount = +data.limit_amount;
+        data.current_amount = +data.current_amount;
+        data.percentage = +data.percentage;
+        this.sendBudget.emit({ budget: data, action: 'update' })
       }
-    });
-    return modifiedFields;
+    } else {
+      console.log("invalid form!");
+    }
   }
-
-  calculateDate() {
-    const repeat = this.form.get("repeat")?.value;
-    const end_date = this.switchTransaction(this.form.get("date")?.value, repeat);
-
-    // Usar toLocaleDateString para formatear la fecha
-    const formattedDate = end_date!.toLocaleDateString("en-CA"); // Formato ISO: YYYY-MM-DD
-
-    this.form.get("end_date")?.setValue(formattedDate);
-  }
-
 
   toggleCategory(categoryValue: string) {
     if (this.selectedCategories.includes(categoryValue)) {
@@ -152,11 +124,8 @@ export class FormBudgetComponent extends BaseComponent {
     } else {
       this.selectedCategories.push(categoryValue);
     }
-
     // Actualizamos el valor del formulario
     this.form.get('categories')?.setValue(this.selectedCategories.toString());
-    console.log("ENTRE", this.form.value);
-
   }
 
   private loadCategories(): void {
@@ -193,10 +162,21 @@ export class FormBudgetComponent extends BaseComponent {
     });
   }
 
+  calculateDate() {
+    const repeat = this.form.get("repeat")?.value;
+    const end_date = this.switchTransaction(this.form.get("date")?.value, repeat);
+
+    // Usar toLocaleDateString para formatear la fecha
+    const formattedDate = end_date!.toLocaleDateString("en-CA"); // Formato ISO: YYYY-MM-DD
+
+    this.form.get("end_date")?.setValue(formattedDate);
+  }
+
   populateFormData() {
     if (this.budget) {
       this.form.patchValue({
         ...this.budget,
+
         date: new Date(this.budget.date).toISOString().split('T')[0],
         end_date: new Date(this.budget.end_date).toISOString().split('T')[0],
         categories: this.budget.BudgetCategories?.map(category => category.categoryId).toString()
@@ -207,6 +187,5 @@ export class FormBudgetComponent extends BaseComponent {
       this.form.get('categories')?.setValue(this.selectedCategories.toString());
     }
   }
-
 
 }

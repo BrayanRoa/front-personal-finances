@@ -26,7 +26,7 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
   msgNotFound: string = NOT_FOUND_MSG; // Mensaje de "no encontrado"
 
   // GRAPH DATA
-  walletSummary!: summaryWalletsResponse;
+  walletSummary!: summaryWalletsResponse | null;
   verticalChartData = signal<graphVerticalData[]>([]);
   polarChartData = signal<graphPolarityData[]>([]);
   budgets = signal<budgetData[]>([]);

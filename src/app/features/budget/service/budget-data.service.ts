@@ -4,11 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BudgetData } from '../interfaces/budget.interface';
 import { ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
-import { ITransactionByBudget } from '../interfaces/transaction-by-budget.interface';
 import { TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
 
 @Injectable({ providedIn: 'root' })
-export class BudgetService extends BaseService {
+export class BudgetDataService extends BaseService {
 
     endpoint: string = `${this.baseUrl}/budget`;
 
@@ -20,6 +19,10 @@ export class BudgetService extends BaseService {
 
     getAll(): Observable<ApiResponse<BudgetData[]>> {
         return this.http.get<ApiResponse<BudgetData[]>>(this.endpoint);
+    }
+
+    getOne(id: number): Observable<ApiResponse<BudgetData>> {
+        return this.http.get<ApiResponse<BudgetData>>(`${this.endpoint}/${id}`);
     }
 
     getTransactionsByBudget(categories: number[], start: string, end: string): Observable<ApiResponse<TransactionData>> {
