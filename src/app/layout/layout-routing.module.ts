@@ -30,8 +30,8 @@ const routes: Routes = [
       },
       {
         path: 'budgets',
-        loadChildren: () => import('../features/budgets/budgets.module').then(
-          (m) => m.BudgetsModule
+        loadChildren: () => import('../features/budget/budget.module').then(
+          (m) => m.BudgetModule
         )
       },
       {

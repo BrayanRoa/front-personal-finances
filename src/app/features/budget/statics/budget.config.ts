@@ -1,18 +1,6 @@
 import { FORMATTEDDATE } from "../../../shared/constants/constants";
 import { FormFieldConfig } from "../../../shared/interfaces/generic-components/form.interface";
 
-export const TABLE_COLUMNS_BUDGET = [
-    { field: 'name', header: 'Name' },
-    { field: 'wallet.name', header: 'Wallet' },
-    { field: 'category.name', header: 'Category' },
-    { field: 'amount', header: 'Amount' },
-    { field: 'date', header: 'Date' },
-]
-
-// export const FORM_CONFIG_BUDGET = {
-
-// }
-
 export const FORM_CONFIG_BUDGET: FormFieldConfig[] = [
     { type: 'text', label: 'Name', name: 'name', validations: [{ required: true }], sizeResponsive: 'md:col-3' },
     { type: 'text', label: 'Description', name: 'description', validations: [], sizeResponsive: 'md:col-6' },
@@ -48,3 +36,11 @@ export const FORM_CONFIG_BUDGET: FormFieldConfig[] = [
         type: 'select', label: 'Wallet', name: 'walletId', value: null, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
     },    // Más configuraciones...
 ];
+
+export const TABLE_COLUMNS_BUDGET = [
+    { field: 'name', header: 'Name' },
+    { field: 'wallet.name', header: 'Wallet' },
+    { field: 'category.name', header: 'Category' },
+    { field: 'amount', header: 'Amount' },
+    { field: 'date', header: 'Date' },
+]
