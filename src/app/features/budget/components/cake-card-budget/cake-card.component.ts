@@ -1,6 +1,4 @@
-import { Component, effect, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { TABLE_COLUMNS_BUDGET } from '../../statics/budget.config';
-import { BudgetData } from '../../interfaces/budget.interface';
+import { Component, effect, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ThemeService } from '../../../../core/service/theme.service';
 
 @Component({

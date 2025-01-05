@@ -3,7 +3,7 @@ import { actionsButton } from '../../../../shared/interfaces/use-common.interfce
 import { Transaction } from '../../../../shared/interfaces/transactions/getAll.interface';
 import { finalize, Observable } from 'rxjs';
 import { ApiResponse, MetaData } from '../../../../shared/interfaces/common-response.interface';
-import { TABLE_COLUMNS } from '../../statics/transaction.config';
+import { TABLE_COLUMNS_TRANSACTION } from '../../statics/transaction.config';
 
 @Component({
   selector: 'app-table-transactions',
@@ -31,7 +31,7 @@ export class TableTransactionsComponent {
   @Output()
   pageChange = new EventEmitter<({ page: number, per_page: number })>
 
-  tableColumns = TABLE_COLUMNS
+  tableColumns = TABLE_COLUMNS_TRANSACTION
   registersPerPage = 10
 
 

@@ -42,7 +42,7 @@ export const FORM_CONFIG_TRANSACTION: FormFieldConfig[] = [
     },    // Más configuraciones...
 ];
 
-export const TABLE_COLUMNS = [
+export const TABLE_COLUMNS_TRANSACTION = [
     { field: 'name', header: 'Name' },
     { field: 'wallet.name', header: 'Wallet' },
     { field: 'category.name', header: 'Category' },
