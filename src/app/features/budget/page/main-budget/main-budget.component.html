@@ -4,18 +4,19 @@
     </div>
 
     <div class="col-12 flex justify-content-end">
-        <app-button [label]="'Create New Budget'" [icon]="'pi pi-credit-card'"
+        <app-button [label]="'Create New Budget'" [icon]="'pi pi-plus'" [severity]="'success'"
             (onClick)="toggleModal(true)"></app-button>
         <p-dialog header="Add New Budget" [modal]="true" [(visible)]="viewModal" (onHide)="toggleModal(false)"
             [style]="{ width: ' 50rem' }">
             <!-- FROMULARIO -->
-            <app-form-add-update-budget [nameButton]="'Save'"
-                (sendBudget)="eventBudget($event)"></app-form-add-update-budget>
+            <app-form-add-update-budget [nameButton]="'Save'" (sendBudget)="eventBudget($event)"
+                (cancel)="toggleModal(false)"></app-form-add-update-budget>
         </p-dialog>
 
     </div>
 
     <div class="col-12">
-        <app-all-active-budgets [budgetData]="budgetData"></app-all-active-budgets>
+        <app-all-active-budgets [budgetData]="budgetData"
+            (budgetToDelete)="deletebudget($event)"></app-all-active-budgets>
     </div>
 </div>

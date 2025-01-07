@@ -44,12 +44,12 @@
                 </div>
             </div>
             <div class="col-2 flex justify-content-end align-items-start ">
-                <app-button [icon]="'pi pi-pencil'" [label]="''" [pTooltip]="'Edit budget'" [tooltipPosition]="'left'"
-                    (onClick)="toggleModal()"></app-button>
+                <app-button [icon]="'pi pi-pencil'" [label]="''" [pTooltip]="'Edit budget'" [tooltipPosition]="'left'" [severity]="'info'"
+                    (onClick)="toggleModal(true)"></app-button>
 
                 <p-dialog header="Edit Budget" [modal]="true" [(visible)]="viewModal" [style]="{ width: '50rem' }">
-                    <app-form-add-update-budget [budget]="budget" (closeModal)="toggleModal()"
-                        [nameButton]="'Update'" (sendBudget)="updateBudget($event)"></app-form-add-update-budget>
+                    <app-form-add-update-budget [budget]="budget" (cancel)="toggleModal(false)" [nameButton]="'Update'"
+                        (sendBudget)="updateBudget($event)"></app-form-add-update-budget>
                 </p-dialog>
             </div>
         </div>
@@ -58,7 +58,7 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item1">Transactions</span>
+                    <span class="item1 title-panel">Transactions</span>
                 </div>
             </ng-template>
             <div class="">

@@ -198,7 +198,8 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
       next: (response) => {
         this.categoryData.set(response.data);
       },
-      error: (error: any) => {
+      error: (error: CommonResponse) => {
+        this.handleResponse(error.status, error.statusMsg)
         console.error('Error fetching categories:', error);
       },
     });
@@ -241,7 +242,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   // Delete Transaction
   deleteRow(id: number) {
-    confirmDelete().then((isConfirmed) => {
+    this.confirmDelete().then((isConfirmed) => {
       if (isConfirmed) {
         this.transactionService.deleteTransaction(id).subscribe({
           next: (response) => {

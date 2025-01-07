@@ -3,6 +3,7 @@ import { BudgetData } from '../../interfaces/budget.interface';
 import { BudgetDataService } from '../../service/budget-data.service';
 import { BaseComponent } from '../../../../shared/components/base-component/base-component.component';
 import { SummaryInterface } from '../../../../shared/interfaces/generic-components/form.interface';
+import { CommonResponse } from '../../../../shared/interfaces/common-response.interface';
 
 @Component({
   selector: 'app-main-budget',
@@ -59,12 +60,28 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
         this.getBudgets();
         this.toggleModal(false);
       },
-      error: (error: any) => this.handleError(error),
+      error: (error: CommonResponse) => {
+        this.handleResponse(error.status, error.statusMsg);
+      }
     });
   }
 
   updateBudget(budget: BudgetData) {
     console.log(budget);
+  }
+
+  deletebudget(id: number) {
+    this.confirmDelete().then(isConfirmed => {
+      if (isConfirmed) {
+        this.budgetService.delete(id).subscribe({
+          next: (response) => {
+            this.handleResponse(response.status, response.data);
+            this.getBudgets();
+          },
+          error: (error: any) => this.handleError(error),
+        })
+      }
+    })
   }
 
   private handleError(error: any): void {

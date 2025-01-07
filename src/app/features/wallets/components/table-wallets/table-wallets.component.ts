@@ -38,7 +38,7 @@ export class TableWalletsComponent {
       label: '',
       type: 'button',
       icon: 'pi pi-pencil',
-      color: 'primary',
+      color: 'info',
       callback: (id: number, wallet: WalletData) => this.sendEditRow(id, wallet),
     },
     {

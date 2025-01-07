@@ -1,18 +1,16 @@
-<!-- <div class="grid-container"> -->
-    <!-- main content -->
-    <div class="grid align-items-stretch">
-        <!-- user header -->
-        <div class="col-12 h-full">
-            <app-user-header [balanceInformation]="balanceInformation()"></app-user-header>
-        </div>
+<div class="grid align-items-stretch">
+    <!-- user header -->
+    <div class="col-12 h-full">
+        <app-user-header [balanceInformation]="balanceInformation()"></app-user-header>
+    </div>
 
-        <!-- main table, buttons and search -->
-        <div class="col-12 h-full">
-            <p-panel [toggleable]="true">
-                <ng-template pTemplate="header">
-                    <div class="custom-header">
-                        <span class="item1">{{ selectedMonthsName.length | i18nPlural:monthsMap | titlecase }} < {{
-                                selectedMonthsName.join(' | ')}} > </span>
+    <!-- main table, buttons and search -->
+    <div class="col-12 h-full">
+        <p-panel [toggleable]="true">
+            <ng-template pTemplate="header">
+                <div class="custom-header">
+                    <span class="item1 title-panel">{{ selectedMonthsName.length | i18nPlural:monthsMap | titlecase }} <
+                            {{ selectedMonthsName.join(' | ')}} > </span>
                         <!-- <span class="item1">Transactions By Month < {{ selectedMonthsName.join(' | ')}} > </span> -->
                     </div>
                 </ng-template>
@@ -42,23 +40,17 @@
                         <!-- MODAL -->
                         <p-dialog header="Add New Transaction" [modal]="true" [(visible)]="visible" (onHide)="closeModal()"
                             [style]="{ width: ' 50rem' }">
-                                <!-- FROMULARIO -->
-                                <app-dynamic-form [fields]="formConfig!" [submitButton]="nameButton"
-                                    [md_responsive]="'md:col-6'" [data]="transactionSelected" (cancel)="closeModal()"
-                                    (sendForm)="saveOrUpdateTransaction($event)"></app-dynamic-form>
-                                </p-dialog>
-                    </div>
-        </div>
-
-        <app-table-transactions [transactions]="transactions" [metaData]="metaData" (pageChange)="onPageChange($event)"
-            (selectedRecordUpdate)="editRow($event)"
-            (selectedRecordDelete)="deleteRow($event)"></app-table-transactions>
-        </p-panel>
+                            <!-- FROMULARIO -->
+                            <app-dynamic-form [fields]="formConfig!" [submitButton]="nameButton"
+                                [md_responsive]="'md:col-6'" [data]="transactionSelected" (cancel)="closeModal()"
+                                (sendForm)="saveOrUpdateTransaction($event)"></app-dynamic-form>
+                            </p-dialog>
+                </div>
     </div>
 
-    <!-- <div class="col-12 h-full">
-            <app-dataview [data]="transactions"></app-dataview>
-        </div> -->
+    <app-table-transactions [transactions]="transactions" [metaData]="metaData" (pageChange)="onPageChange($event)"
+        (selectedRecordUpdate)="editRow($event)" (selectedRecordDelete)="deleteRow($event)"></app-table-transactions>
+    </p-panel>
+</div>
 
 </div>
-<!-- </div> -->
