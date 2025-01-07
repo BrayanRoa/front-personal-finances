@@ -64,7 +64,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
   // Form Structure
   formConfig!: FormFieldConfig[] | null;
-  nameButton: string = 'save';
+  nameButton: 'save' | 'update' = 'save';
   idTransactionSelected = signal<number>(0)
 
   // Data Shared

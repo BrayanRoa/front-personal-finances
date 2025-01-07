@@ -103,7 +103,8 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
     info.end_date = new Date(info.end_date)
     this.budgetService.update(id!, info).subscribe({
       next: (response) => {
-        this.handleResponse(response.status, response.statusMsg)
+        console.log(response);
+        this.handleResponse(response.status, response.data)
         this.getBudget()
         this.toggleModal(false)
       },

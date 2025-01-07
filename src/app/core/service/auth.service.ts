@@ -17,7 +17,7 @@ export class AuthService {
         return this.http.post<LoginResponse>(`${this.baseUrl}/login`, person)
             .pipe(
                 tap(user => {
-                    localStorage.setItem('token', user.data.token)
+                    sessionStorage.setItem('token', user.data.token)
                     this.user = user.data.name
                     this.loggedIn = true
                 })
@@ -25,12 +25,14 @@ export class AuthService {
     }
 
     logout() {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         this.loggedIn = false
     }
 
-    get isLoggedIn() {
-        return this.loggedIn
+    get isLoggedIn(): boolean {
+        // si el usuario recarga el navegador no se deberia salir al login a menos que el token haya expirado
+        const token = sessionStorage.getItem('token'); // O sessionStorage
+        return !!token; // Devuelve true si hay un token válido
     }
 
 }

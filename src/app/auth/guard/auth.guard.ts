@@ -17,8 +17,9 @@ export const canActivateGuard: CanActivateFn = ( //Hay que tener en cuenta el ti
 ) => {
     const loginService = inject(AuthService)
     const router = inject(Router)
-    // return loginService.isLoggedIn ? true : router.createUrlTree(['/login']);
-    return true
+    // Si el usuario está logueado, permite acceder a la ruta
+    return loginService.isLoggedIn ? true : router.createUrlTree(['/login']);
+    // return true
 };
 
 export const canMatchGuard: CanMatchFn = ( //Tipado CanMatchFN

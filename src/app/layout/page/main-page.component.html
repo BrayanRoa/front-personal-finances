@@ -61,8 +61,10 @@
                         <span class="nombre" #mySpan>Brayan</span>
                         <span class="email" #mySpan>brayanroa38gmail.com</span>
                     </div>
-                    <i class="pi pi-ellipsis-v"></i>
-                </div>
+                    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+
+                    <i class="pi pi-ellipsis-v" style="cursor: pointer;" (click)="menu.toggle($event)"></i>
+                                    </div>
             </div>
         </div>
 
