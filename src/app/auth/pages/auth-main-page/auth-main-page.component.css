@@ -11,8 +11,8 @@
     display: flex;
     /* padding: 20px; */
     border-radius: 20px;
-    width: 70%;
-    height: 70%;
+    width: 90%;
+    height: 90%;
     /* background-color: #174d57; */
 }
 
@@ -29,6 +29,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    height: auto;
 }
 
 .form {

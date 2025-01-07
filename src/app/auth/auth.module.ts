@@ -10,6 +10,7 @@ import { AuthMainPageComponent } from './pages/auth-main-page/auth-main-page.com
 import { RegisterComponent } from './components/register/register.component';
 import { AuthRoutingModule } from './auth.routing.module';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { PrimeNgModule } from '../prime-ng/prime-ng.module';
         HttpClientModule,
         CommonModule,
         AuthRoutingModule,
-        PrimeNgModule
+        PrimeNgModule,
+        SharedModule
     ],
     exports: [
         AuthMainPageComponent

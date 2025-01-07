@@ -7,6 +7,9 @@ import { BanksInformation } from '../../shared/interfaces/wallet/wallet.interfac
 import { BaseComponent } from '../../shared/components/base-component/base-component.component';
 import { finalize } from 'rxjs';
 import { FORM_CONFIG_WALLET, THEMES } from '../statics/layout.config';
+import { MenuItem } from 'primeng/api';
+import { AuthService } from '../../core/service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -45,7 +48,7 @@ export class MainPageComponent extends BaseComponent implements OnInit {
       label: 'Dashboard',
       path: 'dashboard',
       icon: 'pi pi-chart-bar',
-      exact:true
+      exact: true
     },
     {
       label: 'Wallets',
@@ -61,7 +64,7 @@ export class MainPageComponent extends BaseComponent implements OnInit {
       label: 'Budgets',
       path: 'budgets',
       icon: 'pi pi-wallet',
-      exact:false
+      exact: false
     },
     {
       label: 'Categories and tags',
@@ -75,15 +78,26 @@ export class MainPageComponent extends BaseComponent implements OnInit {
     }
   ]
 
+  items: MenuItem[] | undefined;
+
+
   constructor(
     private themeService: ThemeService,
     private coreService: CoreService,
-
+    private authService: AuthService,
+    private router:Router
   ) {
     super()
   }
   ngOnInit(): void {
     this.formConfig = FORM_CONFIG_WALLET;
+    this.items = [
+      {
+        label: 'Log out',
+        icon: 'pi pi-power-off',
+        command: () => this.logout()
+      }
+    ];
   }
 
   showDialog() {
@@ -101,6 +115,7 @@ export class MainPageComponent extends BaseComponent implements OnInit {
     this.barraLateral.nativeElement.classList.toggle('mini-barra-lateral')
     this.mySpans.forEach((span) => {
       span.nativeElement.classList.toggle('oculto')
+      span.nativeElement.classList.toggle('nombre-email')
     });
     this.isSmallMenu = !this.isSmallMenu
   }
@@ -137,8 +152,13 @@ export class MainPageComponent extends BaseComponent implements OnInit {
     })
   }
 
-  // closemodal() {
-  //   this.visible = false;
-  // }
+  logout() {
+    this.confirmLogout().then((logout) => {
+      if (logout) {
+        this.authService.logout()
+        this.router.navigate(['/auth/login'])
+      }
+    })
+  }
 
 }

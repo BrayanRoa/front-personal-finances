@@ -52,6 +52,22 @@ export class BaseComponent {
     });
   }
 
+  confirmLogout(): Promise<boolean> {
+    return Swal.fire({
+      title: "Are you sure you want to logout?",
+      text: "You will need to log in again to access your account.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, logout",
+      cancelButtonText: "No, stay logged in"
+    }).then((result) => {
+      return result.isConfirmed; // Devuelve true si el usuario confirma, false si cancela
+    });
+  }
+
+
   showModal(option: modal) {
     return Swal.fire({
       title: option.title,

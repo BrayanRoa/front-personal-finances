@@ -1,1 +1,13 @@
-<p>register works!</p>
+<div class="grid">
+    <div class="col-12 mb-0">
+        <h2 class="title">Register Now</h2>
+    </div>
+    <div class="col-12">
+        <app-dynamic-form [fields]="formConfig!" [showCancelButton]="false" [submitButton]="'register'"></app-dynamic-form>
+    </div>
+    <div class="col-12">
+        <div class="flex justify-content-center">
+            <a href="/auth/login">Back to login</a>
+        </div>
+    </div>
+</div>

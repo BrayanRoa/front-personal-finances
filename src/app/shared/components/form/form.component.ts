@@ -11,8 +11,13 @@ import { Validators, ValidatorFn } from '@angular/forms';
 export class FormComponent {
 
   @Input() fields: FormFieldConfig[] = [];
-  @Input() submitButton = 'save';
+  @Input() submitButton: 'save' | 'update' | 'login' | 'register' = 'save';
   @Input() cancelButton = 'Cancel';
+  @Input() showCancelButton = true;
+  // @Input() showErrors = true;
+  // @Input() submitDisabled = false;
+  // @Input() showSaveButton = true;
+  // @Input() title = '';
   @Input() data: any
 
   @Input() md_responsive!: 'md:col-6' | 'md:col-3' | '';
@@ -86,8 +91,8 @@ export class FormComponent {
 
 
   onSubmit(): void {
-    if (this.submitButton === 'save') {
-      this.sendForm.emit({ data: this.form, action: 'save' });
+    if (this.submitButton !== 'update') {
+      this.sendForm.emit({ data: this.form, action: this.submitButton });
     } else if (this.submitButton === 'update') {
       console.log("a", this.form.value);
       this.sendForm.emit({ data: this.form, action: 'update' });

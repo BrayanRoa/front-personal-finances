@@ -1,7 +1,7 @@
 <p-dialog header="Update Wallet" [modal]="false" [(visible)]="visible" (onHide)="closeModal()"
     [style]="{ width: ' 50rem' }">
     <!-- FROMULARIO -->
-    <app-dynamic-form [fields]="formConfig!" [submitButton]="nameButton" [md_responsive]="'md:col-6'"
+    <app-dynamic-form [fields]="formConfig!" [submitButton]="'update'" [md_responsive]="'md:col-6'"
         [data]="walletSelected()" (cancel)="closeModal()"
         (sendForm)="saveOrUpdateTransaction($event)"></app-dynamic-form>
 </p-dialog>

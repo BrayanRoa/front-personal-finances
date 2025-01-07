@@ -1,86 +1,14 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: "Arial";
-}
-
-h2{
+.title {
     text-align: center;
+    font-size: 2rem; /* Ajusta el tamaño del texto */
+    font-weight: bold; /* Hace el título más destacado */
+    margin-bottom: 5px; /* Espacio debajo del título */
+    color: #333; /* Cambia el color del texto si lo deseas */
 }
 
-body{
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-form{
-    width: 100%;
-    max-width: 350px;
-    padding: 2%;
-}
-
-.single-input{
-    position: relative;
-    margin: 30px 0;
-}
-.single-input label{
-    position: absolute;
-    bottom: 5px;
-    left: 0;
+.message p{
     color: black;
-    cursor: text;
-    transition: 0.5s ease-in-out;
-}
-
-.input{
-    width: 100%;
-    padding: 5px;
-    border: 0;
-    border-bottom: 2px solid rgb(200,200,200);
-    outline: 0;
-    font-size: 16px;
-    color: rgb(80,80,80);
-    transition: 0.5s ease-in-out;
-    background-color: wheat;
-}
-
-.input:focus,
-.input:valid{
-    border-bottom: 2px solid cornflowerblue;
-}
-.input:focus ~ label,
-.input:valid ~ label{
-    transform: translateY(-24px);
-    font-size: 15px;
-    /* color: cornflowerblue; */
-    color: black;
-    font-weight: bold;
-}
-
-.more-info{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-}
-
-.wrap-button{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-}
-
-a{
-    color: blue;
-    font-weight: bold;
-}
-
-.more-info p{
-    color: chocolate;
     font-weight: bold;
 }
 
