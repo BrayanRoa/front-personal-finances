@@ -8,7 +8,7 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item1">Incomes And Expenses Of The Year - {{selectedYear()}}</span>
+                    <span class="item1 title-panel">Incomes and expenses of the year - {{selectedYear()}}</span>
                 </div>
             </ng-template>
             <div *ngIf="verticalChartData().length > 0; else img">
@@ -24,7 +24,7 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item2">Transactions by category</span>
+                    <span class="item2 title-panel">Transactions by category</span>
                 </div>
             </ng-template>
             <div *ngIf="polarChartData().length > 0; else img">
@@ -39,7 +39,7 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item3">Active Budgets</span>
+                    <span class="item3 title-panel">Active budgets</span>
                 </div>
             </ng-template>
             <div *ngIf="budgets().length > 0; else img">
@@ -52,7 +52,7 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item4">Total Balance Of The Year - {{selectedYear()}}</span>
+                    <span class="item4 title-panel">Total balance of the year - {{selectedYear()}}</span>
                 </div>
             </ng-template>
             <div *ngIf="balanceChartData().length > 0; else img">
@@ -88,7 +88,7 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item2">Total income by bank</span>
+                    <span class="item2 title-panel">Total income by bank</span>
                 </div>
             </ng-template>
             <div *ngIf="bankDetails().length >0; else img">

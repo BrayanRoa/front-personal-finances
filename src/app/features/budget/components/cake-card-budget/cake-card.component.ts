@@ -42,11 +42,13 @@ export class CakeCardComponent implements OnInit {
 
     const textColor = this.themeService.colorTextStyle()
 
+    const value = (100 - this.percentage < 0) ? 0 : 100 - this.percentage
+
     this.data = {
       labels: ['Available', 'Expensed'],
       datasets: [
         {
-          data: [100 - this.percentage, this.percentage],
+          data: [value, this.percentage],
           backgroundColor: [documentStyle.getPropertyValue('--green-500'), documentStyle.getPropertyValue('--red-500'), documentStyle.getPropertyValue('--green-500')],
           hoverBackgroundColor: [documentStyle.getPropertyValue('--green-400'), documentStyle.getPropertyValue('--red-400'), documentStyle.getPropertyValue('--green-400')]
         }

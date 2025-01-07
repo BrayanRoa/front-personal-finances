@@ -86,12 +86,15 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
     this.router.navigate(['/main/budgets']);
   }
 
-  loadDataBudget() {
-    this.toggleModal()
-  }
+  // loadDataBudget() {
+  //   this.toggleModal(true)
+  // }
 
-  toggleModal() {
-    this.viewModal = !this.viewModal;
+  toggleModal(value: boolean) {
+    if(this.viewModal === false){
+      this.getBudget()
+    }
+    this.viewModal = value;
   }
 
   updateBudget(value: { budget: BudgetData, action: string }) {
@@ -102,7 +105,7 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
       next: (response) => {
         this.handleResponse(response.status, response.statusMsg)
         this.getBudget()
-        this.toggleModal()
+        this.toggleModal(false)
       },
       error: (error) => {
         console.error('Error updating budget:', error);

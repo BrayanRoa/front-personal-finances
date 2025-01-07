@@ -37,4 +37,7 @@ export class BudgetDataService extends BaseService {
         return this.http.patch<CommonResponse>(`${this.endpoint}/${id}`, data)
     }
 
+    delete(id: number): Observable<CommonResponse> {
+        return this.http.delete<CommonResponse>(`${this.endpoint}/${id}`)
+    }
 }

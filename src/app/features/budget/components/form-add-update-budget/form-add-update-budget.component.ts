@@ -27,6 +27,9 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
   budget!: BudgetData | null
 
   @Output()
+  cancel = new EventEmitter<void>()
+
+  @Output()
   sendBudget = new EventEmitter<({ budget: BudgetData, action: string })>
 
   constructor(
@@ -78,6 +81,11 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
       active: [true], //
       percentage: [0]
     });
+  }
+
+  onCancel() {
+    this.formConfig()
+    this.cancel.emit()
   }
 
   resetForm() {

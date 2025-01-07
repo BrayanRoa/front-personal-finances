@@ -40,7 +40,7 @@ export class TableTransactionsComponent {
       label: '',
       type: 'button',
       icon: 'pi pi-pencil',
-      color: 'primary',
+      color: 'info',
       callback: (id: number, transaction: Transaction) => this.sendEditRow(id, transaction),
     },
     {
