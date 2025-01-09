@@ -27,7 +27,7 @@ export class BaseComponent {
         confirmButtonText: 'Accept'
       })
     }
-    if (code === 400) {
+    if (code === 400 || code === 409) {
       showModal({
         title: 'Error',
         text: message,
@@ -66,6 +66,22 @@ export class BaseComponent {
       return result.isConfirmed; // Devuelve true si el usuario confirma, false si cancela
     });
   }
+
+  confirmAction() {
+    return Swal.fire({
+      title: 'Email Not Verified',
+      text: 'Your email has not been verified yet. Would you like to verify it now?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, verify now',
+      cancelButtonText: 'No, later'
+    }).then((result) => {
+      return result.isConfirmed; // Devuelve true si el usuario confirma, false si cancela
+    });
+  }
+
 
 
   showModal(option: modal) {

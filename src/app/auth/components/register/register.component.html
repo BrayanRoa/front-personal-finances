@@ -3,7 +3,11 @@
         <h2 class="title">Register Now</h2>
     </div>
     <div class="col-12">
-        <app-dynamic-form [fields]="formConfig!" [showCancelButton]="false" [submitButton]="'register'"></app-dynamic-form>
+        <app-dynamic-form [fields]="formConfig!" [showCancelButton]="false" [submitButton]="'register'"
+            (sendForm)="verifyRegister($event)"></app-dynamic-form>
+    </div>
+    <div class="col-12">
+        <p-messages *ngIf="showMessage" [(value)]="messages!" [enableService]="false" />
     </div>
     <div class="col-12">
         <div class="flex justify-content-center">
@@ -11,3 +15,16 @@
         </div>
     </div>
 </div>
+
+<!-- <ng-template #verifyCode> -->
+    <!-- <div class="verify-code-container flex flex-column align-items-center justify-content-center p-4">
+        <h2 class="title text-center mb-3">Verify Your Email</h2>
+        <p class="instruction text-center mb-4">
+            Please check your email and enter the verification code we sent you.
+        </p>
+        <p-inputOtp [(ngModel)]="code" [integerOnly]="true" class="mb-3" (ngModelChange)="onCodeChange()"></p-inputOtp>
+        <p class="note text-center">
+            Didn’t receive the email? <a href="#" class="resend-link">Resend code</a>
+        </p>
+    </div> -->
+<!-- </ng-template> -->
