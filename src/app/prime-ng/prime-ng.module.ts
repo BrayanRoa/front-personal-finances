@@ -31,7 +31,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { SkeletonModule } from 'primeng/skeleton';
 import { MenuModule } from 'primeng/menu';
-
+import { InputOtpModule } from 'primeng/inputotp';
 
 @NgModule({
   exports: [
@@ -64,7 +64,8 @@ import { MenuModule } from 'primeng/menu';
     MeterGroupModule,
     InputSwitchModule,
     SkeletonModule,
-    MenuModule
+    MenuModule,
+    InputOtpModule
   ]
 })
 export class PrimeNgModule { }

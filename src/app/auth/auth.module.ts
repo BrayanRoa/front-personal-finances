@@ -11,6 +11,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthRoutingModule } from './auth.routing.module';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { SharedModule } from '../shared/shared.module';
+import { VerificationCodeComponent } from './components/verification-code/verification-code.component';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { SharedModule } from '../shared/shared.module';
         CommonModule,
         AuthRoutingModule,
         PrimeNgModule,
-        SharedModule
+        SharedModule,
     ],
     exports: [
         AuthMainPageComponent
@@ -30,6 +31,7 @@ import { SharedModule } from '../shared/shared.module';
         AuthMainPageComponent,
         LoginComponent,
         RegisterComponent,
+        VerificationCodeComponent
     ],
     providers: [],
 })

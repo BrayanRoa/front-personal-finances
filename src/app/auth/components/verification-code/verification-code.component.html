@@ -1,0 +1,10 @@
+<div class="verify-code-container flex flex-column align-items-center justify-content-center p-4">
+    <h2 class="title text-center mb-3">Verify Your Email</h2>
+    <p class="instruction text-center mb-4">
+        Please check your email and enter the verification code we sent you.
+    </p>
+    <p-inputOtp [(ngModel)]="code" [integerOnly]="true" class="mb-3" (ngModelChange)="onCodeChange()"></p-inputOtp>
+    <p class="note text-center">
+        Didn’t receive the email? <a href="#" class="resend-link">Resend code</a>
+    </p>
+</div>

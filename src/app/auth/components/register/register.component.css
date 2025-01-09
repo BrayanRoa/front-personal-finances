@@ -1,7 +1,49 @@
 .title {
     text-align: center;
-    font-size: 2rem; /* Ajusta el tamaño del texto */
-    font-weight: bold; /* Hace el título más destacado */
-    margin-bottom: 5px; /* Espacio debajo del título */
-    color: #333; /* Cambia el color del texto si lo deseas */
+    font-size: 2rem;
+    /* Ajusta el tamaño del texto */
+    font-weight: bold;
+    /* Hace el título más destacado */
+    margin-bottom: 5px;
+    /* Espacio debajo del título */
+    color: #333;
+    /* Cambia el color del texto si lo deseas */
+}
+
+
+.verify-code-container {
+    /* background-color: #f9f9f9; */
+    /* border: 1px solid #ddd; */
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    text-align: center;
+}
+
+.title {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.instruction {
+    font-size: 1rem;
+    color: #555;
+}
+
+.note {
+    font-size: 0.875rem;
+    color: #777;
+}
+
+.resend-link {
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.resend-link:hover {
+    text-decoration: underline;
 }
