@@ -59,7 +59,7 @@
 
 <ng-template #skeleton>
 
-    <div class="grid">
+    <div class="grid" *ngIf="!showImage; else defaulfImage">
         <p-panel class="col md:col-6" *ngFor="let _ of [1, 2, 3, 4]"> <!-- Número de placeholders -->
             <ng-template pTemplate="header">
                 <div class="custom-header">
@@ -93,5 +93,13 @@
                 </div>
             </div>
         </p-panel>
+    </div>
+</ng-template>
+
+<ng-template #defaulfImage>
+    <div class="grid">
+        <div class="flex justify-content-center">
+            <img src="../../../../../assets/no-data.jpg" alt="">
+        </div>
     </div>
 </ng-template>

@@ -16,6 +16,8 @@ export class AllActiveBudgetsComponent extends BaseComponent implements OnInit {
 
   isLoading: boolean = true
 
+  showImage: boolean = false
+
   // EVERY CARD 
   @Input()
   budgetData: BudgetData[] = []
@@ -45,6 +47,9 @@ export class AllActiveBudgetsComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.isLoading = false
+      if (this.budgetData.length === 0) {
+        this.showImage = true
+      }
     }, 1000)
   }
 

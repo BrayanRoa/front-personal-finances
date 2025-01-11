@@ -6,7 +6,7 @@ import { CoreService } from '../../core/service/core.service';
 import { BanksInformation } from '../../shared/interfaces/wallet/wallet.interface';
 import { BaseComponent } from '../../shared/components/base-component/base-component.component';
 import { finalize } from 'rxjs';
-import { FORM_CONFIG_WALLET, THEMES } from '../statics/layout.config';
+import { THEMES } from '../statics/layout.config';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../core/service/auth.service';
 import { Router } from '@angular/router';
@@ -37,7 +37,7 @@ export class MainPageComponent extends BaseComponent implements OnInit {
   selectedTheme: { id: string; label: string } = this.themes[0];
 
   // CONFIGURACIÓN DEL FORMULARIO
-  formConfig!: FormFieldConfig[] | null;
+  // formConfig!: FormFieldConfig[] | null;
 
   checked: boolean = false;
 
@@ -85,12 +85,12 @@ export class MainPageComponent extends BaseComponent implements OnInit {
     private themeService: ThemeService,
     private coreService: CoreService,
     private authService: AuthService,
-    private router:Router
+    private router: Router
   ) {
     super()
   }
   ngOnInit(): void {
-    this.formConfig = FORM_CONFIG_WALLET;
+    // this.formConfig = FORM_CONFIG_WALLET;
     this.items = [
       {
         label: 'Log out',
@@ -101,13 +101,12 @@ export class MainPageComponent extends BaseComponent implements OnInit {
   }
 
   showDialog() {
-    this.formConfig = FORM_CONFIG_WALLET;
+    // this.formConfig = FORM_CONFIG_WALLET;
     this.visible = true;
   }
 
   closeModal() {
     this.visible = false;
-    this.formConfig = null
   }
 
   handleClick() {
@@ -132,25 +131,6 @@ export class MainPageComponent extends BaseComponent implements OnInit {
     this.themeService.switchTheme(this.selectedTheme.id);
   }
 
-  onSaveNewWallet(event: { data: FormGroup, action: string }) {
-
-    const formData: BanksInformation = event.data.value;
-    formData.initial_balance = Number(formData.initial_balance)
-
-    this.coreService.createBank(formData).pipe(
-      finalize(() => {
-        this.visible = false
-      })
-    ).subscribe({
-      next: (response) => {
-        this.handleResponse(response.status, response.data)
-        this.visible = false;
-      },
-      error: (response) => {
-        this.handleResponse(response.error.status, response.error.data)
-      }
-    })
-  }
 
   logout() {
     this.confirmLogout().then((logout) => {

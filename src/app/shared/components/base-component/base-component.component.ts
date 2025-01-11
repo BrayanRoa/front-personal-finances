@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { showModal } from '../sweet-alert-modal/sweet-alert-modal';
-import moment from "moment";
 import Swal from 'sweetalert2';
+import dayjs from 'dayjs';
+import isoWeek from 'dayjs/plugin/isoWeek';
+
 
 interface modal {
   title: string;
   text: string;
   icon: 'warning' | 'success' | 'error' | 'info' | 'question';
   confirmButtonText: string;
-
 }
 
 @Component({
@@ -99,43 +100,43 @@ export class BaseComponent {
     let nextDate;
     switch (repeat) {
       case "EVERY DAY":
-        nextDate = moment.utc(date).add(1, 'days');
+        nextDate = dayjs(date).add(1, 'days');
         break;
       case "EVERY TWO DAYS":
-        nextDate = moment.utc(date).add(2, 'days');
+        nextDate = dayjs(date).add(2, 'days');
         break;
       case "EVERY WORKING DAY":
-        const currentDay = moment.utc(date).isoWeekday(); // 1 (lunes) a 7 (domingo)
-        nextDate = moment.utc(date);
+        const currentDay = dayjs(date).isoWeekday(); // 1 (lunes) a 7 (domingo)
+        nextDate = dayjs(date);
         if (currentDay >= 5) {
           // Si es viernes o fin de semana, mueve al lunes
           nextDate = nextDate.isoWeekday(8); // Próximo lunes
         } else {
           // Día hábil normal
-          nextDate.add(1, 'days');
+          nextDate = nextDate.add(1, 'day');
         }
         break;
 
       case "EVERY WEEK":
-        nextDate = moment.utc(date).add(1, 'weeks');
+        nextDate = dayjs(date).add(1, 'week');
         break;
       case "EVERY TWO WEEKS":
-        nextDate = moment.utc(date).add(2, 'weeks');
+        nextDate = dayjs(date).add(2, 'week');
         break;
       case "EVERY MONTH":
-        nextDate = moment.utc(date).add(1, 'months');
+        nextDate = dayjs(date).add(1, 'month')
         break;
       case "EVERY TWO MONTHS":
-        nextDate = moment.utc(date).add(2, 'months');
+        nextDate = dayjs(date).add(2, 'month');
         break;
       case "EVERY THREE MONTHS":
-        nextDate = moment.utc(date).add(3, 'months');
+        nextDate = dayjs(date).add(3, 'month');
         break;
       case "EVERY SIX MONTHS":
-        nextDate = moment.utc(date).add(6, 'months');
+        nextDate = dayjs(date).add(6, 'month');
         break;
       case "EVERY YEAR":
-        nextDate = moment.utc(date).add(1, 'years');
+        nextDate = dayjs(date).add(1, 'year');
         break;
       case "NEVER":
         nextDate = null;

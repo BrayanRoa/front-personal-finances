@@ -38,7 +38,6 @@ export class CakeCardComponent implements OnInit {
 
   updateChart() {
     const documentStyle = getComputedStyle(document.documentElement);
-    // const textColor = documentStyle.getPropertyValue('--text-color');
 
     const textColor = this.themeService.colorTextStyle()
 
@@ -66,8 +65,17 @@ export class CakeCardComponent implements OnInit {
             usePointStyle: true,
             color: textColor
           }
-        }
-      }
+        },
+        tooltip: {
+          callbacks: {
+            label: (context: any) => {
+              const value = context.raw; // Obtiene el valor actual
+              const label = context.label; // Obtiene la etiqueta ("Available" o "Expensed")
+              return `${label}: ${value}%`; // Devuelve el texto con el porcentaje
+            },
+          },
+        },
+      },
     };
   }
 

@@ -1,6 +1,7 @@
 <div class="card">
     <div class="flex justify-content-end">
-        <app-drop-down class="mr-" [optionsDropDown]="[]" [titleDropDown]="'Years'" [severity]="'help'"></app-drop-down>
+        <app-drop-down class="mr-" [optionsDropDown]="dataYears" [titleDropDown]="'Years'" [severity]="'help'"
+            (onChange)="onChangeYear($event)"></app-drop-down>
     </div>
     <p-chart type="line" [data]="data" [options]="options" />
 </div>

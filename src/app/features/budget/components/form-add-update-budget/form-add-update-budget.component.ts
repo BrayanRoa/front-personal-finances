@@ -49,7 +49,11 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
   ngOnInit(): void {
     this.loadCategories()
     this.loadWallets()
+    this.applyChangesInDate()
 
+  }
+
+  applyChangesInDate() {
     this.form.get('repeat')?.valueChanges.subscribe((repeatValue) => {
       if (repeatValue && repeatValue !== 'NEVER') {
         // this.setCalculatedEndDate(repeatValue);
@@ -85,6 +89,7 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
 
   onCancel() {
     this.formConfig()
+    this.applyChangesInDate()
     this.cancel.emit()
   }
 
@@ -112,7 +117,6 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
         data.walletId = +data.walletId;
         this.sendBudget.emit({ budget: data, action: 'save' })
       } else if (this.nameButton === 'Update') {
-        console.log("me envio");
         const data = this.form.getRawValue()
         data.id = this.budget!.id;
         data.walletId = +data.walletId;
@@ -139,14 +143,13 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
   private loadCategories(): void {
     this.coreService.getCategories().subscribe({
       next: (response) => {
-        console.log(response.data);
-        this.categoryData.set(response.data.map(category => {
+        this.categoryData.set(response.data.filter(category => category.name !== "INITIAL AMOUNT").map(c => {
           return ({
-            label: category.name,
-            value: category.id.toString(),
-            color: category.color!
+            label: c.name,
+            value: c.id.toString(),
+            color: c.color!
           });
-        }));
+        }))
       },
       error: (error: any) => {
         console.error('Error fetching categories:', error);
@@ -173,7 +176,6 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
   calculateDate() {
     const repeat = this.form.get("repeat")?.value;
     const end_date = this.switchTransaction(this.form.get("date")?.value, repeat);
-
     // Usar toLocaleDateString para formatear la fecha
     const formattedDate = end_date!.toLocaleDateString("en-CA"); // Formato ISO: YYYY-MM-DD
 
