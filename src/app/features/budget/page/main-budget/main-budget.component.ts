@@ -17,9 +17,22 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
   viewModal: boolean = false;
 
   budgetCard: SummaryInterface[] = [
-    { title: "Total Budgets", icon: "pi pi-money-bill", value: 0, cardImg: 'total-incomes', idTitle: 'title-one', idValue: 'amount-one', useCurrency: true },
-    { title: "Spend To Date", icon: "pi pi-shop", value: 0, cardImg: 'total-expenses', idTitle: 'title-two', idValue: 'amount-two', useCurrency: true },
-    { title: "Available for spending", icon: "pi pi-wallet", value: 0, cardImg: 'budgets', idTitle: 'title-three', idValue: 'amount-three', useCurrency: false }
+    { 
+      id:"totalBudget",
+      title: "Total Budgets", 
+      icon: "pi pi-money-bill", 
+      value: 100, 
+      cardImg: 'total-incomes', 
+      idTitle: 'title-one', 
+      idValue: 'amount-one', 
+      useCurrency: true 
+    },
+    { 
+      title: "Spend To Date", 
+      icon: "pi pi-shop", 
+      value: 200, 
+      cardImg: 'total-expenses', idTitle: 'title-two', idValue: 'amount-two', useCurrency: true },
+    { title: "Available for spending", icon: "pi pi-wallet", value: 300, cardImg: 'budgets', idTitle: 'title-three', idValue: 'amount-three', useCurrency: false }
   ];
 
 
