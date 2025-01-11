@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
     "chart.js": "^4.4.6",
+    "countup.js": "^2.8.0",
     "dayjs": "^1.11.13",
     "ngx-mask": "^19.0.1",
     "primeflex": "^3.3.1",

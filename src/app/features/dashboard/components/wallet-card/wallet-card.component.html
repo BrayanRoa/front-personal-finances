@@ -1,4 +1,4 @@
-<div *ngIf="isLoading; else cardsContent">
+<!-- <div *ngIf="isLoading; else cardsContent">
     <div class="dashboard">
         <div class="card" *ngFor="let _ of [1, 2, 3]">
             <div class="card-info grid">
@@ -14,9 +14,9 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-<ng-template #cardsContent>
+<!-- <ng-template #cardsContent> -->
     <div class="dashboard">
         <div class="card" *ngFor="let value of cardsInfo">
             <div class="card-info">
@@ -25,12 +25,12 @@
                 </div>
                 <div class="card-data">
                     <span class="title {{value.idTitle}}">{{value.title}}</span>
-                    <span class="{{value.idValue}}">
-                        {{ value.value | currencyCustom: value.useCurrency }}
+                    <span #valueElement class="{{value.idValue}}">
+                        {{ value.value  }}
                     </span>
                 </div>
             </div>
             <div class="img {{value.cardImg}}"></div>
         </div>
     </div>
-</ng-template>
+<!-- </ng-template> -->
