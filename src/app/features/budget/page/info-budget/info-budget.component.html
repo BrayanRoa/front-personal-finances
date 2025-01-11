@@ -6,7 +6,7 @@
         <div class="grid header">
 
             <div class="col-3">
-                <app-cake-card></app-cake-card>
+                <app-cake-card [percentage]="budget.percentage!"></app-cake-card>
             </div>
             <div class="col-7 flex flex-nowrap flex-column justify-content-center">
                 <div class="flex">
@@ -44,8 +44,8 @@
                 </div>
             </div>
             <div class="col-2 flex justify-content-end align-items-start ">
-                <app-button [icon]="'pi pi-pencil'" [label]="''" [pTooltip]="'Edit budget'" [tooltipPosition]="'left'" [severity]="'info'"
-                    (onClick)="toggleModal(true)"></app-button>
+                <app-button [icon]="'pi pi-pencil'" [label]="''" [pTooltip]="'Edit budget'" [tooltipPosition]="'left'"
+                    [severity]="'info'" (onClick)="toggleModal(true)"></app-button>
 
                 <p-dialog header="Edit Budget" [modal]="true" [(visible)]="viewModal" [style]="{ width: '50rem' }">
                     <app-form-add-update-budget [budget]="budget" (cancel)="toggleModal(false)" [nameButton]="'Update'"

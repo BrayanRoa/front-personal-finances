@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { IMonthlyBalanceByWallet, WalletData, WalletIncomesAndExpenses } from '../interfaces/wallet.interface';
+import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,8 @@ export class WalletService extends BaseService {
     return this.http.get<ApiResponse<WalletIncomesAndExpenses[]>>(`${this.endpoint}/incomes-expenses-by-wallet`)
   }
 
-  getMonthlyBalanceByWallet(): Observable<ApiResponse<IMonthlyBalanceByWallet>> {
-    return this.http.get<ApiResponse<IMonthlyBalanceByWallet>>(`${this.endpoint}/montly-balance-wallet/${2024}`)
+  getMonthlyBalanceByWallet(year:number): Observable<ApiResponse<IMonthlyBalanceByWallet>> {
+    return this.http.get<ApiResponse<IMonthlyBalanceByWallet>>(`${this.endpoint}/montly-balance-wallet/${year}`)
   }
 
   updateWallet(id: number, wallet: WalletData): Observable<CommonResponse> {
@@ -35,5 +36,9 @@ export class WalletService extends BaseService {
 
   deleteWallet(id: number): Observable<CommonResponse> {
     return this.http.delete<CommonResponse>(`${this.endpoint}/${id}`)
+  }
+
+  createWallet(wallet: BanksInformation) {
+    return this.http.post<CommonResponse>(`${this.endpoint}/`, wallet);
   }
 }

@@ -1,7 +1,8 @@
-import { Component, effect, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, effect, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { MONTHS } from '../../../../shared/constants/constants';
 import { ThemeService } from '../../../../core/service/theme.service';
 import { IMonthlyBalanceByWallet } from '../../interfaces/wallet.interface';
+import { DropdownOption } from '../../../../shared/components/bottons/drop-down/drop-down.component';
 
 @Component({
   selector: 'app-lines-chart-wallets',
@@ -11,11 +12,17 @@ import { IMonthlyBalanceByWallet } from '../../interfaces/wallet.interface';
 export class LinesChartWalletsComponent {
 
   data: any;
-
   options: any;
 
   @Input()
+  dataYears: DropdownOption[] = []
+  @Input()
   datasets!: IMonthlyBalanceByWallet | null
+
+  yearSelected: number = new Date().getFullYear();
+
+  @Output()
+  onYearSelected = new EventEmitter<number>();
 
   constructor(
     private themeService: ThemeService
@@ -26,9 +33,6 @@ export class LinesChartWalletsComponent {
       }
     })
   }
-  // ngOnInit(): void {
-  //   this.updateChart()
-  // }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['datasets'] && changes['datasets'].currentValue) {
@@ -111,6 +115,11 @@ export class LinesChartWalletsComponent {
         },
       },
     };
+  }
+
+  onChangeYear(options: { id: number | string, name: string }) {
+    this.yearSelected = +options.id;
+    this.onYearSelected.emit(+options.id)
   }
 
 }

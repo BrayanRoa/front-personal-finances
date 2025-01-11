@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
-import { TABLE_COLUMNS_WALLET } from '../../statics/wallets.config';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
+import { FORM_CONFIG_WALLET, FORM_CONFIG_WALLET_UPDATE, TABLE_COLUMNS_WALLET } from '../../statics/wallets.config';
 import { WalletData } from '../../interfaces/wallet.interface';
 import { actionsButton } from '../../../../shared/interfaces/use-common.interfce';
-import { FORM_CONFIG_WALLET } from '../../../../layout/statics/layout.config';
 import { FormGroup } from '@angular/forms';
 import { FormFieldConfig } from '../../../../shared/interfaces/generic-components/form.interface';
 
@@ -15,7 +14,7 @@ export class TableWalletsComponent {
 
   // MODAL
   visible: boolean = false;
-  formConfig: FormFieldConfig[] | null = FORM_CONFIG_WALLET
+  formConfig: FormFieldConfig[] | null = FORM_CONFIG_WALLET_UPDATE
   nameButton = 'update'
   walletSelected = signal<WalletData | null>(null)
   @Output()
@@ -68,7 +67,7 @@ export class TableWalletsComponent {
 
   showModal() {
     this.visible = true;
-    this.formConfig = FORM_CONFIG_WALLET
+    this.formConfig = FORM_CONFIG_WALLET_UPDATE
     this.nameButton = 'update'
     this.resetForm.emit()
   }
@@ -79,8 +78,6 @@ export class TableWalletsComponent {
       ...event.data.value,
       type_account: event.data.value.type_account,
     }
-    console.log("ESTA ES LA ACCIÓN", event.action);
-    console.log("ESTA ES LA ACCIÓN", walletPayload)
     this.walletToUpdate.emit({ id: this.idWalletSelected, data: walletPayload });
     this.closeModal()
   }

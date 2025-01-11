@@ -15,12 +15,12 @@
                 </button>
 
 
-                <p-dialog header="Create New Wallet" [modal]="true" [(visible)]="visible" (onHide)="closeModal()"
+                <!-- <p-dialog header="Create New Wallet" [modal]="true" [(visible)]="visible" (onHide)="closeModal()"
                     [style]="{ width: '25rem' }">
                     <app-dynamic-form [fields]="formConfig!" [submitButton]="'save'"
                         (sendForm)="onSaveNewWallet($event)" (cancel)="closeModal()"></app-dynamic-form>
 
-                </p-dialog>
+                </p-dialog> -->
             </div>
             <!-- END BOTON AND MODAL -->
         </div>
@@ -49,7 +49,6 @@
                 <div class="switch" #switch (click)="onDarkMode()">
                     <div class="base">
                         <div class="circulo" #circulo></div>
-                        <!-- <p-inputSwitch [(ngModel)]="checked" /> -->
                     </div>
                 </div>
             </div>
@@ -64,7 +63,7 @@
                     <p-menu #menu [popup]="true" [model]="items"></p-menu>
 
                     <i class="pi pi-ellipsis-v" style="cursor: pointer;" (click)="menu.toggle($event)"></i>
-                                    </div>
+                </div>
             </div>
         </div>
 

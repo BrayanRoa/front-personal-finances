@@ -4,7 +4,14 @@
             <h2>Wallets</h2>
             <div class="actions flex gap-2">
                 <button pButton icon="pi pi-file-pdf" label="Generate Report" class="p-button-info"></button>
-                <button pButton icon="pi pi-plus" label="Add Wallet" class="p-button-success"></button>
+                <button pButton icon="pi pi-plus" label="Add Wallet" class="p-button-success"
+                    (click)="toggleModal(true)"></button>
+                <p-dialog header="Create New Wallet" [modal]="true" [(visible)]="visible" (onHide)="toggleModal(false)"
+                    [style]="{ width: '25rem' }">
+                    <app-dynamic-form [fields]="formConfig!" [submitButton]="'save'"
+                        (sendForm)="onSaveNewWallet($event)" (cancel)="toggleModal(false)"></app-dynamic-form>
+
+                </p-dialog>
             </div>
         </div>
     </div>
@@ -13,11 +20,12 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item1 title-panel">Monthly Balance Of The Year: 2024</span>
+                    <span class="item1 title-panel">Monthly Balance Of The Year: {{yearSelected}}</span>
                 </div>
             </ng-template>
             <div *ngIf="monthlyBalance">
-                <app-lines-chart-wallets [datasets]="monthlyBalanceData"></app-lines-chart-wallets>
+                <app-lines-chart-wallets [datasets]="monthlyBalanceData" [dataYears]="years()"
+                    (onYearSelected)="monthlyBalance($event)"></app-lines-chart-wallets>
             </div>
         </p-panel>
     </div>

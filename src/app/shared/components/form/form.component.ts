@@ -39,7 +39,6 @@ export class FormComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] && changes['data'].currentValue) {
       this.populateFormData();
-      console.log("SI ENTRE");
     }
   }
 
@@ -52,7 +51,6 @@ export class FormComponent {
       ];
     });
     this.form = this.fb.group(group);
-
     console.log("EL FORMULARIO", this.form);
   }
 
@@ -119,6 +117,17 @@ export class FormComponent {
         ...this.data,
       });
     }
+    this.disabledFields() // Deshabilita los campos que están marcados como disabled
+  }
+
+  disabledFields() {
+    console.log("SI ENNTTRE", this.fields);
+    this.fields.forEach(field => {
+      if (field.disabled) {
+        console.log("si entre", field.disabled, field.name);
+        this.form.get(`${field.name}`)?.disable
+      }
+    })
   }
 
   trackFormChanges(): void {

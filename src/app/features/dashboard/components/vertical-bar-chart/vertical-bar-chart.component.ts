@@ -11,13 +11,18 @@ import { ThemeService } from '../../../../core/service/theme.service';
 })
 export class VerticalBarChartComponent implements OnChanges {
 
-  @Input() dataYears: DropdownOption[] = []
+  @Input()
+  dataYears: DropdownOption[] = []
+  @Input()
+  dataGraph!: graphVerticalData[]
+
   yearSelected: number = new Date().getFullYear();
-  @Output() onYearSelected = new EventEmitter<number>();
+
+  @Output()
+  onYearSelected = new EventEmitter<number>();
 
   data: any;
   options: any;
-  @Input() dataGraph!: graphVerticalData[]
 
   constructor(
     private themeService: ThemeService

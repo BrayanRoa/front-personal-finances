@@ -41,3 +41,8 @@ span{
 .pi-chart-line{
     color: var(--cyan-500)
 }
+
+img{
+    width: 60%;
+    height: 70%;
+}
