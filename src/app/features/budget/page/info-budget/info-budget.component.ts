@@ -18,9 +18,9 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
   table_columns = TABLE_COLUMNS_TRANSACTION
   budgetId: number = 0
 
-  // @Input()
   transactions: Transaction[] = []
   budget!: BudgetData
+  percentageBudet: number = 0
 
   @Input()
   metaData: MetaData = {
@@ -56,6 +56,8 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
     this.budgetService.getOne(this.budgetId).subscribe({
       next: (response) => {
         this.budget = response.data;
+        this.percentageBudet = this.budget.percentage!
+        console.log("aaaa",this.percentageBudet);
         // Llamar a getTransactions después de obtener el budget
         this.getTransactions();
       },
@@ -91,7 +93,7 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
   // }
 
   toggleModal(value: boolean) {
-    if(this.viewModal === false){
+    if (this.viewModal === false) {
       this.getBudget()
     }
     this.viewModal = value;

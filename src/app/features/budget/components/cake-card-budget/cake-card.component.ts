@@ -1,4 +1,4 @@
-import { Component, effect, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, effect, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ThemeService } from '../../../../core/service/theme.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { ThemeService } from '../../../../core/service/theme.service';
   templateUrl: './cake-card.component.html',
   styleUrl: './cake-card.component.css'
 })
-export class CakeCardComponent implements OnInit {
+export class CakeCardComponent implements OnChanges {
 
   data: any;
   options: any;
@@ -24,16 +24,10 @@ export class CakeCardComponent implements OnInit {
       }
     })
   }
-
-
-  OnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes["percentage"] && changes["percentage"].currentValue) {
       this.updateChart()
     }
-  }
-
-  ngOnInit(): void {
-    this.updateChart()
   }
 
   updateChart() {
