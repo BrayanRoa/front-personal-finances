@@ -21,6 +21,7 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
   transactions: Transaction[] = []
   budget!: BudgetData
   percentageBudet: number = 0
+  available_amount: number = 0
 
   @Input()
   metaData: MetaData = {
@@ -56,10 +57,15 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
     this.budgetService.getOne(this.budgetId).subscribe({
       next: (response) => {
         this.budget = response.data;
-        this.percentageBudet = this.budget.percentage!
-        console.log("aaaa",this.percentageBudet);
-        // Llamar a getTransactions después de obtener el budget
-        this.getTransactions();
+        let current_amount = 0
+        this.budget.BudgetTransaction?.forEach(transaction => {
+          if (transaction.transaction.deleted_at === null) {
+            current_amount += transaction.transaction.amount
+            this.transactions.push(transaction.transaction)
+          }
+        })
+        this.available_amount = this.budget.limit_amount! - current_amount
+        this.percentageBudet = Math.round((current_amount / response.data.limit_amount) * 100)
       },
       error: (error) => {
         console.error('Error fetching budget:', error);
@@ -67,30 +73,9 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
     });
   }
 
-  getTransactions() {
-
-    const categoryIds = this.budget.BudgetCategories?.map((category) => {
-      return category.categoryId
-    })
-
-    this.budgetService.getTransactionsByBudget(categoryIds!, this.budget.date.toString(), this.budget.end_date.toString()).subscribe({
-      next: (response) => {
-        this.transactions = response.data.transactions
-        this.metaData = response.data.meta
-      },
-      error: (error) => {
-        console.error('Error fetching transactions:', error);
-      }
-    })
-  }
-
   backBudgets() {
     this.router.navigate(['/main/budgets']);
   }
-
-  // loadDataBudget() {
-  //   this.toggleModal(true)
-  // }
 
   toggleModal(value: boolean) {
     if (this.viewModal === false) {
@@ -105,7 +90,6 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
     info.end_date = new Date(info.end_date)
     this.budgetService.update(id!, info).subscribe({
       next: (response) => {
-        console.log(response);
         this.handleResponse(response.status, response.data)
         this.getBudget()
         this.toggleModal(false)

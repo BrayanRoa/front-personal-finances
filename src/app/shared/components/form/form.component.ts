@@ -92,7 +92,6 @@ export class FormComponent {
     if (this.submitButton !== 'update') {
       this.sendForm.emit({ data: this.form, action: this.submitButton });
     } else if (this.submitButton === 'update') {
-      console.log("a", this.form.value);
       this.sendForm.emit({ data: this.form, action: 'update' });
     }
     this.assignDefaultValues()
@@ -121,10 +120,8 @@ export class FormComponent {
   }
 
   disabledFields() {
-    console.log("SI ENNTTRE", this.fields);
     this.fields.forEach(field => {
       if (field.disabled) {
-        console.log("si entre", field.disabled, field.name);
         this.form.get(`${field.name}`)?.disable
       }
     })

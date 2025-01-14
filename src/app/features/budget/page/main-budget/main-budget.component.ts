@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BudgetData } from '../../interfaces/budget.interface';
+import { BudgetData, IBudgets } from '../../interfaces/budget.interface';
 import { BudgetDataService } from '../../service/budget-data.service';
 import { BaseComponent } from '../../../../shared/components/base-component/base-component.component';
 import { SummaryInterface } from '../../../../shared/interfaces/generic-components/form.interface';
@@ -12,27 +12,37 @@ import { CommonResponse } from '../../../../shared/interfaces/common-response.in
 })
 export class MainBudgetComponent extends BaseComponent implements OnInit {
 
-  budgetData: BudgetData[] = [];
+  budgetData: IBudgets[] = [];
 
   viewModal: boolean = false;
 
   budgetCard: SummaryInterface[] = [
-    { 
-      id:"totalBudget",
-      title: "Total Budgets", 
-      icon: "pi pi-money-bill", 
-      value: 100, 
-      cardImg: 'total-incomes', 
-      idTitle: 'title-one', 
-      idValue: 'amount-one', 
-      useCurrency: true 
+    {
+      id: "totalBudget",
+      title: "Total Budgets",
+      icon: "pi pi-money-bill",
+      value: 100,
+      cardImg: 'total-incomes',
+      idTitle: 'title-one',
+      idValue: 'amount-one',
+      useCurrency: true
     },
-    { 
-      title: "Spend To Date", 
-      icon: "pi pi-shop", 
-      value: 200, 
-      cardImg: 'total-expenses', idTitle: 'title-two', idValue: 'amount-two', useCurrency: true },
-    { title: "Available for spending", icon: "pi pi-wallet", value: 300, cardImg: 'budgets', idTitle: 'title-three', idValue: 'amount-three', useCurrency: false }
+    {
+      title: "Spend To Date",
+      icon: "pi pi-shop",
+      value: 200,
+      cardImg: 'total-expenses',
+      idTitle: 'title-two',
+      idValue: 'amount-two',
+      useCurrency: true
+    },
+    {
+      title: "Available for spending",
+      icon: "pi pi-wallet", value: 300,
+      cardImg: 'budgets', idTitle: 'title-three',
+      idValue: 'amount-three',
+      useCurrency: false
+    }
   ];
 
 
@@ -48,9 +58,19 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
 
   getBudgets(): void {
     this.budgetService.getAll().subscribe({
-      next: (response: { data: BudgetData[] }) => {
-        this.budgetData = response.data;
-        // this.updateBudgetCardValues();
+      next: (response: { data: IBudgets[] }) => {
+        this.budgetData = response.data.map(budgetData => {
+          const limitAmount = Number(budgetData.limit_amount) || 0; // Forzar la conversión a número
+          const currentAmount = Number(budgetData.current_amount) || 0; // Usar curren_amount
+          const percentage = Math.round((currentAmount / limitAmount) * 100);
+          console.log(currentAmount);
+          console.log(limitAmount - currentAmount);
+          return {
+            ...budgetData,
+            percentage,
+            available_amount: limitAmount - currentAmount
+          };
+        });
       },
       error: (error: any) => this.handleError(error),
     });
@@ -59,8 +79,6 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
   eventBudget(value: { budget: BudgetData, action: string }) {
     if (value.action === 'save') {
       this.saveBudget(value.budget);
-    } else if (value.action === 'update') {
-      this.updateBudget(value.budget);
     }
     this.getBudgets();
     this.toggleModal(false);
@@ -79,9 +97,6 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
     });
   }
 
-  updateBudget(budget: BudgetData) {
-    console.log(budget);
-  }
 
   deletebudget(id: number) {
     this.confirmDelete().then(isConfirmed => {

@@ -38,7 +38,7 @@ export class BaseComponent {
     }
   }
 
-  confirmDelete(): Promise<boolean> {
+  async confirmDelete(): Promise<boolean> {
     return Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -53,7 +53,7 @@ export class BaseComponent {
     });
   }
 
-  confirmLogout(): Promise<boolean> {
+  async confirmLogout(): Promise<boolean> {
     return Swal.fire({
       title: "Are you sure you want to logout?",
       text: "You will need to log in again to access your account.",
@@ -68,7 +68,7 @@ export class BaseComponent {
     });
   }
 
-  confirmAction() {
+  async confirmAction() {
     return Swal.fire({
       title: 'Email Not Verified',
       text: 'Your email has not been verified yet. Would you like to verify it now?',
@@ -98,6 +98,7 @@ export class BaseComponent {
 
   switchTransaction = (date: Date, repeat: string) => {
     let nextDate;
+    let nextMonthStart
     switch (repeat) {
       case "EVERY DAY":
         nextDate = dayjs(date).add(1, 'days');
@@ -118,25 +119,25 @@ export class BaseComponent {
         break;
 
       case "EVERY WEEK":
-        nextDate = dayjs(date).add(1, 'week');
+        nextMonthStart = dayjs(date).add(1, 'week');
         break;
       case "EVERY TWO WEEKS":
-        nextDate = dayjs(date).add(2, 'week');
+        nextMonthStart = dayjs(date).add(2, 'week');
         break;
       case "EVERY MONTH":
-        nextDate = dayjs(date).add(1, 'month')
+        nextMonthStart = dayjs(date).add(1, 'month');
         break;
       case "EVERY TWO MONTHS":
-        nextDate = dayjs(date).add(2, 'month');
+        nextMonthStart = dayjs(date).add(2, 'month');
         break;
       case "EVERY THREE MONTHS":
-        nextDate = dayjs(date).add(3, 'month');
+        nextMonthStart = dayjs(date).add(3, 'month');
         break;
       case "EVERY SIX MONTHS":
-        nextDate = dayjs(date).add(6, 'month');
+        nextMonthStart = dayjs(date).add(6, 'month');
         break;
       case "EVERY YEAR":
-        nextDate = dayjs(date).add(1, 'year');
+        nextDate = dayjs(date).add(1, 'year').subtract(1, 'day');
         break;
       case "NEVER":
         nextDate = null;
@@ -144,7 +145,7 @@ export class BaseComponent {
       default:
         throw new Error(`Invalid repeat value: ${repeat}`);
     }
-
+    nextDate = nextMonthStart!.subtract(1, 'day'); // Último día del mes actual
     return nextDate?.toDate()
   }
 

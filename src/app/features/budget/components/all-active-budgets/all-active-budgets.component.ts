@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Transaction } from '../../../../shared/interfaces/transactions/getAll.interface';
-import { BudgetData } from '../../interfaces/budget.interface';
+import { BudgetData, IBudgets } from '../../interfaces/budget.interface';
 import { TABLE_COLUMNS_BUDGET } from '../../statics/budget.config';
 import { MetaData } from '../../../../shared/interfaces/common-response.interface';
 import { Router } from '@angular/router';
@@ -20,7 +20,7 @@ export class AllActiveBudgetsComponent extends BaseComponent implements OnInit {
 
   // EVERY CARD 
   @Input()
-  budgetData: BudgetData[] = []
+  budgetData: IBudgets[] = []
 
   @Output()
   budgetToDelete = new EventEmitter<(number)>

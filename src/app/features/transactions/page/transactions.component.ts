@@ -272,7 +272,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   }
 
   closeModal() {
-    console.log("SIIIIIII");
     this.resetForm.emit(); // Emitir evento para reiniciar el formulario
     this.visible = false;
     this.formConfig = null

@@ -73,7 +73,6 @@ export class WalletCardComponent implements OnInit {
 
   private animateCards(): void {
     this.valueElements.forEach((element: any, index: number) => {
-      console.log({element}, {index});
       const value = this.cardsInfo[index].value;
       const countUp = new CountUp(element.nativeElement, value, {
         duration: 2, // Duración en segundos
