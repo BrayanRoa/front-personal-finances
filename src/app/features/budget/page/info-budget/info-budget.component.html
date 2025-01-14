@@ -18,7 +18,7 @@
                 <span><i class="pi pi-chart-line"></i> Limit amount: {{budget.limit_amount! |
                     currencyCustom:true}}</span>
 
-                <span><i class="pi pi-money-bill"></i> Available: {{budget.limit_amount! - budget.current_amount! |
+                <span><i class="pi pi-money-bill"></i> Available: {{available_amount |
                     currencyCustom:true}}</span>
                 <div class="flex align-item-center gap-1">
                     <div class="flex align-item-center">

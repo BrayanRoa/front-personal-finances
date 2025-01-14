@@ -1,13 +1,15 @@
 <div class="container grid grid-nogutter">
     <div class="col-12 md:col-7 flex align-items-center">
-        <i class="pi pi-sort-up-fill"></i>
+        <!-- <i class="pi pi-sort-up-fill"></i> -->
         <span #incomes pTooltip="Incomes" [style]="{'color':'var(--green-500)'}">
             {{ balanceInformation.totalIncomes |
             currencyCustom:true }}</span>
-        <i class="pi pi-sort-down-fill"></i>
+        <span>-</span>
+        <!-- <i class="pi pi-sort-down-fill"></i> -->
         <span #expenses pTooltip="Outflow" [style]="{'color':'var(--red-500)'}">
             {{ balanceInformation.totalExpenses |
             currencyCustom:true }}</span>
+        <span>=</span>
         <span #balance pTooltip="Balance">
             = {{ balanceInformation.totalIncomes - balanceInformation.totalExpenses| currencyCustom:true}}
         </span>

@@ -16,8 +16,7 @@
                 <span class="text"><i class="pi pi-chart-line"></i> Limit amount: {{value.limit_amount! |
                     currencyCustom:true}}</span>
 
-                <span class="text"><i class="pi pi-money-bill"></i> Available: {{value.limit_amount! -
-                    value.current_amount! |
+                <span class="text"><i class="pi pi-money-bill"></i> Available: {{value.available_amount! |
                     currencyCustom:true}}</span>
                 <div class="flex align-item-center gap-1">
                     <div class="flex align-item-center">
@@ -36,8 +35,8 @@
                     </div>
 
                     <div class="ml-2">
-                        <p-tag [severity]="'warning'" class="mr-1" *ngFor="let cat of value.BudgetCategories">
-                            {{ cat.category.name }}
+                        <p-tag [severity]="'warning'" class="mr-1" *ngFor="let cat of value.categories">
+                            {{ cat }}
                         </p-tag>
                     </div>
                 </div>

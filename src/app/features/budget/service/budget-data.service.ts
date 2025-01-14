@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from '../../../shared/service/base-service.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BudgetData } from '../interfaces/budget.interface';
+import { BudgetData, IBudgets } from '../interfaces/budget.interface';
 import { ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
 
@@ -17,8 +17,8 @@ export class BudgetDataService extends BaseService {
         super();
     }
 
-    getAll(): Observable<ApiResponse<BudgetData[]>> {
-        return this.http.get<ApiResponse<BudgetData[]>>(this.endpoint);
+    getAll(): Observable<ApiResponse<IBudgets[]>> {
+        return this.http.get<ApiResponse<IBudgets[]>>(this.endpoint);
     }
 
     getOne(id: number): Observable<ApiResponse<BudgetData>> {

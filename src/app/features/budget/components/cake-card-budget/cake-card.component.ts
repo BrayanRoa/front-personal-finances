@@ -25,8 +25,8 @@ export class CakeCardComponent implements OnChanges {
     })
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["percentage"] && changes["percentage"].currentValue) {
-      this.updateChart()
+    if (changes["percentage"] && changes["percentage"].currentValue !== undefined) {
+      this.updateChart();
     }
   }
 
