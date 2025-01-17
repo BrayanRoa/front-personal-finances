@@ -37,6 +37,7 @@ export interface BudgetTransaction {
     budgetId: number;
     transactionId: number;
     createdAt: Date;
+    deleted_at: Date;
     transaction: Transaction;
 }
 
@@ -61,7 +62,7 @@ export interface BudgetTransaction {
 
 // esta interface es para las tarjetas donde se ven todos los budgets
 export interface IBudgets {
-    id:number;
+    id: number;
     name: string;
     description: string;
     date: Date;

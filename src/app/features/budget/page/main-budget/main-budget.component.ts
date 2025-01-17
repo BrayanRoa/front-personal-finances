@@ -117,6 +117,7 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
   }
 
   toggleModal(visible: boolean): void {
+    console.log("SI ENTRE");
     this.viewModal = visible;
   }
 }
