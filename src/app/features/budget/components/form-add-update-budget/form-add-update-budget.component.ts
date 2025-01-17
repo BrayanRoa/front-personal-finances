@@ -50,7 +50,6 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
     this.loadCategories()
     this.loadWallets()
     this.applyChangesInDate()
-
   }
 
   applyChangesInDate() {
@@ -89,6 +88,7 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
 
   onCancel() {
     this.formConfig()
+    this.resetForm()
     this.applyChangesInDate()
     this.cancel.emit()
   }
@@ -125,6 +125,7 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
         data.percentage = +data.percentage;
         this.sendBudget.emit({ budget: data, action: 'update' })
       }
+      this.resetForm()
     } else {
       console.log("invalid form!");
     }

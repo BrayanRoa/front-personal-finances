@@ -35,10 +35,10 @@ export const FORM_CONFIG_TRANSACTION: FormFieldConfig[] = [
         ], validations: [], sizeResponsive: 'md:col-4'
     },
     {
-        type: 'select', label: 'Category', name: 'categoryId', value: null, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
+        type: 'select', label: 'Category', name: 'categoryId', value: "", options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
     },
     {
-        type: 'select', label: 'Wallet', name: 'walletId', value: null, options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
+        type: 'select', label: 'Wallet', name: 'walletId', value: "", options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
     },    // Más configuraciones...
 ];
 
