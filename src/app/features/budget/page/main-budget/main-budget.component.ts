@@ -21,7 +21,7 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
       id: "totalBudget",
       title: "Total Budgets",
       icon: "pi pi-money-bill",
-      value: 100,
+      value: 0,
       cardImg: 'total-incomes',
       idTitle: 'title-one',
       idValue: 'amount-one',

@@ -43,3 +43,9 @@
 .category-item:hover {
     background-color: #ddd;
 }
+
+.error-message {
+    color: var(--red-500);
+    font-weight: bold;
+    font-size: 1rem;
+}

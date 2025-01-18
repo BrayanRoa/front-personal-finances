@@ -14,13 +14,14 @@ export class FormComponent {
   @Input() submitButton: 'save' | 'update' | 'login' | 'register' = 'save';
   @Input() cancelButton = 'Cancel';
   @Input() showCancelButton = true;
+  @Input() data: any // data to populate the form 
+  @Input() md_responsive!: 'md:col-6' | 'md:col-3' | '';
+
   // @Input() showErrors = true;
   // @Input() submitDisabled = false;
   // @Input() showSaveButton = true;
   // @Input() title = '';
-  @Input() data: any
 
-  @Input() md_responsive!: 'md:col-6' | 'md:col-3' | '';
   // md_responsive: 'md:col-6' = "md:col-6"
   // @Input() submitDisabled = false;
   // @Input() cancelButtonVisible = true;

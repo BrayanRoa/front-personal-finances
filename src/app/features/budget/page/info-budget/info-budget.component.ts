@@ -78,9 +78,6 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
   }
 
   toggleModal(value: boolean) {
-    if (this.viewModal === false) {
-      this.getBudget()
-    }
     this.viewModal = value;
   }
 
@@ -91,6 +88,7 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
     this.budgetService.update(id!, info).subscribe({
       next: (response) => {
         this.handleResponse(response.status, response.data)
+        this.transactions = []
         this.getBudget()
         this.toggleModal(false)
       },
