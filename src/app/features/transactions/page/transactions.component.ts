@@ -4,9 +4,8 @@ import { Transaction, TransactionData } from '../../../shared/interfaces/transac
 import { MetaData, ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { BanksInformation } from '../../../shared/interfaces/wallet/wallet.interface';
 import { ActivatedRoute } from '@angular/router';
-import { MONTHS, SelectInterface } from '../../../shared/constants/constants';
+import { MONTHS } from '../../../shared/constants/constants';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
-import { confirmDelete } from '../../../shared/components/sweet-alert-modal/sweet-alert-modal';
 import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
 import { FORM_CONFIG_TRANSACTION } from '../statics/transaction.config';
 import { CoreService } from '../../../core/service/core.service';
@@ -281,6 +280,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     if (!this.isFormValid(event.data)) return;
     const transactionPayload: Transaction = {
       ...event.data.value,
+      amount: +event.data.value.amount,
       active: !!event.data.value.repeat,
       walletId: +event.data.value.walletId,
       categoryId: +event.data.value.categoryId,
