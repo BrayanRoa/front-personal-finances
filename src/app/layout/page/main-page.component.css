@@ -169,7 +169,7 @@
 .barra-lateral .navegacion i {
     display: flex;
     justify-content: center;
-    min-width: 60px;
+    min-width: 50px;
     font-size: 20px;
 }
 
@@ -316,6 +316,11 @@
         opacity: 0;
         width: 0;
     }
+
+    .barra-lateral .navegacion a {
+        justify-content: center;
+    }
+
 }
 
 
