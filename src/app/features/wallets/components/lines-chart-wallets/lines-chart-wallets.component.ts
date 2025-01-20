@@ -71,6 +71,7 @@ export class LinesChartWalletsComponent {
     };
 
     this.options = {
+      responsive: true,
       aspectRatio: 0.9,
       stacked: false,
       maintainAspectRatio: false,
