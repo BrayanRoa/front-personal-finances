@@ -11,7 +11,6 @@
                 <div class="custom-header">
                     <span class="item1 title-panel">{{ selectedMonthsName.length | i18nPlural:monthsMap | titlecase }} <
                             {{ selectedMonthsName.join(' | ')}} > </span>
-                        <!-- <span class="item1">Transactions By Month < {{ selectedMonthsName.join(' | ')}} > </span> -->
                     </div>
                 </ng-template>
 
@@ -24,7 +23,7 @@
                 <!-- buttons and search -->
                 <div class="grid grid-nogutter mb-4">
                     <!-- search -->
-                    <div class="col-12 md:col-6 flex justify-content-start align-items-center">
+                    <div class="col-12 md:col-6 sm:col-12 flex justify-content-start align-items-center">
                         <p-iconField iconPosition="left">
                             <p-inputIcon styleClass="pi pi-search" />
                             <input type="text" pInputText placeholder="Search"
@@ -32,7 +31,7 @@
                         </p-iconField>
                     </div>
 
-                    <div class="col-12 md:col-6 flex justify-content-end align-items-center">
+                    <div class="col-12 md:col-6 sm:col-12 flex justify-content-end align-items-center">
 
                         <button pButton pRipple label="Add Transaction" class="p-button-success" icon="pi pi-plus"
                             (click)="addTransaction()"></button>

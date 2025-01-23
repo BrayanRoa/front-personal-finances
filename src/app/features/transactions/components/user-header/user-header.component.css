@@ -15,3 +15,16 @@ span{
     color: green;
 }
 
+.toolbar {
+    background-color: var(--surface-card);
+    border-radius: 8px;
+    box-shadow: var(--shadow-2);
+    margin-bottom: 1.5rem;
+}
+
+.toolbar h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--text-color-primary);
+}
+

@@ -35,6 +35,12 @@ const routes: Routes = [
         )
       },
       {
+        path: 'categories',
+        loadChildren: () => import('../features/categories/category.module').then(
+          (m) => m.CategoryModule
+        )
+      },
+      {
         path: '', redirectTo: 'dashboard', pathMatch: 'full' // Ruta por defecto
       }
     ],
