@@ -67,21 +67,21 @@ export class MainPageComponent extends BaseComponent implements OnInit {
       exact: false
     },
     {
-      label: 'Calendar',
-      path: 'calendar',
-      icon: 'pi pi-calendar',
-      exact: false
-    },
-    {
       label: 'Categories and tags',
       path: 'categories',
       icon: 'pi pi-tags',
     },
-    {
-      label: 'Settings',
-      path: 'settings',
-      icon: 'pi pi-cog',
-    }
+    // {
+    //   label: 'Calendar',
+    //   path: 'calendar',
+    //   icon: 'pi pi-calendar',
+    //   exact: false
+    // },
+    // {
+    //   label: 'Settings',
+    //   path: 'settings',
+    //   icon: 'pi pi-cog',
+    // }
   ]
 
   items: MenuItem[] | undefined;

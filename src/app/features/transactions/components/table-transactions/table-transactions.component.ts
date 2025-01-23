@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, Output, signal, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, HostListener } from '@angular/core';
 import { actionsButton } from '../../../../shared/interfaces/use-common.interfce';
 import { Transaction } from '../../../../shared/interfaces/transactions/getAll.interface';
-import { finalize, Observable } from 'rxjs';
-import { ApiResponse, MetaData } from '../../../../shared/interfaces/common-response.interface';
+import { MetaData } from '../../../../shared/interfaces/common-response.interface';
 import { TABLE_COLUMNS_TRANSACTION } from '../../statics/transaction.config';
 
 @Component({
@@ -10,7 +9,10 @@ import { TABLE_COLUMNS_TRANSACTION } from '../../statics/transaction.config';
   templateUrl: './table-transactions.component.html',
   styleUrl: './table-transactions.component.css'
 })
-export class TableTransactionsComponent {
+export class TableTransactionsComponent implements OnInit {
+
+  isMobile: boolean = false;
+  layout: 'list'| 'grid' = 'list';
 
   @Input()
   transactions: Transaction[] = [];
@@ -51,6 +53,19 @@ export class TableTransactionsComponent {
       callback: (row: number) => this.deleteRow(row),
     },
   ];
+
+  ngOnInit(): void {
+    this.checkWindowSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkWindowSize();
+  }
+
+  checkWindowSize(): void {
+    this.isMobile = window.innerWidth < 1100; // Umbral de 1100px para móviles
+  }
 
   sendEditRow(id: number, transaction: Transaction) {
     const transactionPayload: Transaction = {

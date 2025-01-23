@@ -1,0 +1,8 @@
+.icon{
+    font-size: 2rem;
+}
+
+.pi-clock{
+    color: var(--green-500);
+    font-weight: bold;
+}

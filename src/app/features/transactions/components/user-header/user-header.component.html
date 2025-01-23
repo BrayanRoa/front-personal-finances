@@ -1,21 +1,27 @@
-<div class="container grid grid-nogutter">
-    <div class="col-12 md:col-7 flex align-items-center">
-        <!-- <i class="pi pi-sort-up-fill"></i> -->
-        <span #incomes pTooltip="Incomes" [style]="{'color':'var(--green-500)'}">
-            {{ balanceInformation.totalIncomes |
-            currencyCustom:true }}</span>
-        <span>-</span>
-        <!-- <i class="pi pi-sort-down-fill"></i> -->
-        <span #expenses pTooltip="Outflow" [style]="{'color':'var(--red-500)'}">
-            {{ balanceInformation.totalExpenses |
-            currencyCustom:true }}</span>
-        <span>=</span>
-        <span #balance pTooltip="Balance">
-            = {{ balanceInformation.totalIncomes - balanceInformation.totalExpenses| currencyCustom:true}}
-        </span>
-    </div>
-    <div class="col-12 md:col-5 flex justify-content-end">
-        <button pButton class="mr-2" [severity]="'info'"><i class="pi pi-file-excel mr-2"></i> Export</button>
-        <!-- <button pButton icon="pi pi-times" [severity]="'danger'" (click)="onClearFilters()">Clear Filters</button> -->
+<div class="grid">
+    <div class="col-12 p-0">
+        <div class="toolbar flex justify-content-between align-items-center m-0 p-3 flex-wrap">
+            <div>
+                <h2>Transactions</h2>
+            </div>
+            <div class="flex align-items-center">
+                <!-- <i class="pi pi-sort-up-fill"></i> -->
+                <span #incomes pTooltip="Incomes" [style]="{'color':'var(--green-500)'}">
+                    {{ balanceInformation.totalIncomes |
+                    currencyCustom:true }}</span>
+                <span>-</span>
+                <!-- <i class="pi pi-sort-down-fill"></i> -->
+                <span #expenses pTooltip="Outflow" [style]="{'color':'var(--red-500)'}">
+                    {{ balanceInformation.totalExpenses |
+                    currencyCustom:true }}</span>
+                <span>=</span>
+                <span #balance pTooltip="Balance">
+                    = {{ balanceInformation.totalIncomes - balanceInformation.totalExpenses| currencyCustom:true}}
+                </span>
+            </div>
+            <div class="actions flex gap-2">
+                <button pButton class="" [severity]="'info'"><i class="pi pi-file-excel mr-2"></i> Export</button>
+            </div>
+        </div>
     </div>
 </div>

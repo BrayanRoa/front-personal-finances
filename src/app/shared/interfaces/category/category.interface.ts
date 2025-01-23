@@ -1,4 +1,4 @@
-export interface CategoryInterface{
+export interface CategoryInterface {
     id: number,
     name: string,
     icon: string,
@@ -7,4 +7,5 @@ export interface CategoryInterface{
     updated_at: string,
     deleted_at: string | null,
     userId: string
+    _count: number
 }
