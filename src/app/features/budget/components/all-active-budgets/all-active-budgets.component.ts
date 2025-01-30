@@ -18,6 +18,8 @@ export class AllActiveBudgetsComponent extends BaseComponent implements OnInit {
 
   showImage: boolean = false
 
+  skeletonArray: number[] = Array(4).fill(0); // Array de 12 elementos para skeletons
+
   // EVERY CARD 
   @Input()
   budgetData: IBudgets[] = []

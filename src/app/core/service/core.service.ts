@@ -5,6 +5,7 @@ import { BaseService } from '../../shared/service/base-service.service';
 import { ApiResponse, CommonResponse } from '../../shared/interfaces/common-response.interface';
 import { BanksInformation } from '../../shared/interfaces/wallet/wallet.interface';
 import { CategoryInterface } from '../../shared/interfaces/category/category.interface';
+import { ICategory } from '../../features/categories/interface/category.interface';
 
 @Injectable({ providedIn: 'root' })
 export class CoreService extends BaseService {
@@ -24,8 +25,8 @@ export class CoreService extends BaseService {
         return this.httpClient.post<CommonResponse>(`${this.walletEndpoint}/`, wallet, { headers: this.getHeaders() });
     }
 
-    getCategories(): Observable<ApiResponse<CategoryInterface[]>> {
-        return this.httpClient.get<ApiResponse<CategoryInterface[]>>(`${this.categoryEndpoint}/`, { headers: this.getHeaders() });
+    getCategories(): Observable<ApiResponse<ICategory[]>> {
+        return this.httpClient.get<ApiResponse<ICategory[]>>(`${this.categoryEndpoint}/`, { headers: this.getHeaders() });
     }
 
 }

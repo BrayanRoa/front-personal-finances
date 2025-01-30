@@ -7,5 +7,5 @@ export interface CategoryInterface {
     updated_at: string,
     deleted_at: string | null,
     userId: string
-    _count: number
+    _count?: number
 }

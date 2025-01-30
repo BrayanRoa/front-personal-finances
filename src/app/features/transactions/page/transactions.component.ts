@@ -14,6 +14,7 @@ import { FormGroup } from '@angular/forms';
 import { debounceTime, finalize, Observable, Subject } from 'rxjs';
 import { FormFieldConfig } from '../../../shared/interfaces/generic-components/form.interface';
 import { FiltersService } from '../services/filters.service';
+import { ICategory } from '../../categories/interface/category.interface';
 
 export interface LoadTransactionParams {
   walletIds?: number[] | null;
@@ -47,7 +48,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
   // Data Signals
   years = signal<DropdownOption[]>([]);
   walletsData = signal<BanksInformation[]>([]);
-  categoryData = signal<CategoryInterface[]>([]);
+  categoryData = signal<ICategory[]>([]);
 
   balanceInformation = signal<BalanceInformation>({
     totalIncomes: 0,
@@ -165,6 +166,7 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     this.transactionService.getTransactions(filters).subscribe({
       next: (transactions: ApiResponse<TransactionData>) => {
         this.transactions = transactions.data.transactions;
+        console.log(this.transactions);
         this.balanceInformation.set({
           totalIncomes: transactions.data.totalIncome,
           totalExpenses: transactions.data.totalExpenses,

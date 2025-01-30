@@ -67,7 +67,7 @@ export class MainPageComponent extends BaseComponent implements OnInit {
       exact: false
     },
     {
-      label: 'Categories and tags',
+      label: 'Categories',
       path: 'categories',
       icon: 'pi pi-tags',
     },
