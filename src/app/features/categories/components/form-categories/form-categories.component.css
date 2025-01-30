@@ -1,0 +1,75 @@
+/* 🔹 Contenedor de la lista de colores */
+.color-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 5px;
+    width: 100%;
+}
+
+/* 🔹 Contenedor de la lista de íconos */
+.icon-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 5px;
+    width: 100%;
+}
+
+/* 🔹 Estilos generales para los ítems de selección (color e icono) */
+.color-item,
+.icon-item {
+    padding: 10px;
+    border: 1px solid var(--color-texto);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+/* 🔹 Ítem de color (usa background dinámico) */
+.color-item {
+    border: 2px solid transparent;
+}
+
+.color-item.selected {
+    border-color: var(--green-500);
+}
+
+/* 🔹 Ítem de ícono */
+.icon-item {
+    font-size: 1.5rem;
+    color: var(--color-texto);
+    background: var(--surface);
+}
+
+.icon-item.selected {
+    background: var(--green-500);
+    color: white;
+}
+
+/* 🔹 Contenedor de vista previa (color + ícono seleccionado) */
+.show {
+    display: flex;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🔹 Ícono dentro de la vista previa */
+.icon {
+    font-size: 3rem;
+    color: var(--color-texto);
+    /* background-color: var(--color-texto); */
+}

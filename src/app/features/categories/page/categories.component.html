@@ -6,10 +6,9 @@
                 <button pButton icon="pi pi-plus" label="Add Category" class="p-button-success"
                     (click)="toggleModal(true)"></button>
                 <p-dialog header="Create new category" [modal]="true" [(visible)]="visible"
-                    (onHide)="toggleModal(false)" [style]="{ width: '25rem' }">
-                    <!-- <app-dynamic-form [fields]="formConfig!" [submitButton]="'save'"
-                        (sendForm)="onSaveNewWallet($event)" (cancel)="toggleModal(false)"></app-dynamic-form> -->
-
+                    (onHide)="toggleModal(false)" [style]="{ width: '35rem' }">
+                    <app-form-categories (sendCategory)="saveCategory($event)"
+                        (cancel)="toggleModal(false)"></app-form-categories>
                 </p-dialog>
             </div>
         </div>
@@ -47,12 +46,12 @@
                     <div class="grid">
                         <div class="col-12 md:col-3">
                             <div [ngStyle]="{
-                                'background-color': cat.color,
+                                'background-color': cat.color.hex,
                                 'border-radius': '50%',
                                 'width': '60px',
                                 'height': '60px'
                             }" class="flex justify-content-center align-items-center">
-                                <i class="icon fa-solid {{cat.icon}}" [ngStyle]="{'color': '#fff'}"></i>
+                                <i class="icon fa-solid {{cat.icon.path}}" [ngStyle]="{'color': '#fff'}"></i>
                             </div>
                         </div>
                         <div class="col-12 md:col-9">
@@ -62,7 +61,7 @@
                                         style="max-width: 150px; display: inline-block;">
                                         {{ cat.name | titlecase }}
                                     </span>
-                                    <span class="text-md">Transactions: {{ cat._count }}</span>
+                                    <span class="text-md">Transactions: {{ cat._count.Transaction }}</span>
                                 </div>
                                 <div>
                                     <p-button class="mr-1" icon="pi pi-pencil"></p-button>

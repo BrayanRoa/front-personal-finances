@@ -4,7 +4,24 @@ export interface ICategory {
     updated_at: Date;
     deleted_at: null;
     name: string;
-    icon: string;
-    color: string;
     userId: string;
+    _count: CountTransaction;
+    color: IColor;
+    icon: IIcon;
+}
+
+export interface CountTransaction {
+    Transaction: number
+}
+
+export interface IColor {
+    id: number;
+    name: string;
+    hex: string;
+}
+
+export interface IIcon {
+    id: number;
+    name: string;
+    path: string;
 }

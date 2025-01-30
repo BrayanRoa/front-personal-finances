@@ -63,13 +63,13 @@
                     <!-- Icono circular -->
                     <div class="relative flex justify-content-center align-items-center">
                         <div [ngStyle]="{
-                                'background-color': item.category.color,
+                                'background-color': item.category.color.hex,
                                 'border-radius': '50%',
                                 'padding': '10px',
                                 'width': '60px',
                                 'height': '60px'
                             }" class="flex justify-content-center align-items-center">
-                            <i class="icon fa-solid {{item.category.icon}}"
+                            <i class="icon fa-solid {{item.category.icon.path}}"
                                 [ngStyle]="{'color': '#fff'}"></i>
                         </div>
                     </div>

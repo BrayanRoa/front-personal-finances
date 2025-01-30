@@ -37,7 +37,7 @@ export const RECURRING_TRANSACTION = [
     { name: 'Every Year', id: 'EVERY YEAR' },
 ]
 
-export const RECURRING_TRANSACTION_BUDGET= [
+export const RECURRING_TRANSACTION_BUDGET = [
     { name: 'No Repeat', id: 'NEVER' },
     { name: 'Every Week', id: 'EVERY WEEK' },
     { name: 'Every Two Weeks', id: 'EVERY TWO WEEKS' },
@@ -55,3 +55,6 @@ export const NOT_FOUND_MSG: string = 'No data available at this time.'
 const today = new Date();
 const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000);
 export const FORMATTEDDATE = localDate.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+
+export const ICON_DEFAULT = 'fa-utensils'
+export const COLOR_DEFAULT = '#1c80cf'

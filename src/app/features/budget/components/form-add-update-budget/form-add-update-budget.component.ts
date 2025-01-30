@@ -17,7 +17,7 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
   form!: FormGroup
   recurring_transactions = RECURRING_TRANSACTION_BUDGET
   walletsData = signal<{ label: string, value: any }[]>([]);
-  categoryData = signal<{ label: string, value: any, color: string }[]>([]);
+  categoryData = signal<{ label: string, value: any, color: string, icon: string }[]>([]);
 
   selectedCategories: string[] = [];
 
@@ -144,11 +144,13 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
   private loadCategories(): void {
     this.coreService.getCategories().subscribe({
       next: (response) => {
+        console.log({ response });
         this.categoryData.set(response.data.filter(category => category.name !== "INITIAL AMOUNT").map(c => {
           return ({
             label: c.name,
             value: c.id.toString(),
-            color: c.color!
+            color: c.color?.hex!,
+            icon: c.icon.path
           });
         }))
       },

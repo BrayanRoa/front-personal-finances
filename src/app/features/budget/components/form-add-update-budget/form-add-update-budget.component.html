@@ -62,7 +62,9 @@
                 <div *ngFor="let category of categoryData()" class="category-item flex"
                     [ngClass]="{'selected': selectedCategories.includes(category.value)}"
                     (click)="toggleCategory(category.value)">
-                    <div [ngStyle]="{backgroundColor: category.color}" class="circle"></div>
+                    <div>
+                        <i class="fa-solid {{category.icon}} mr-1"></i>
+                    </div>
                     <div>{{category.label}}</div>
                 </div>
             </div>

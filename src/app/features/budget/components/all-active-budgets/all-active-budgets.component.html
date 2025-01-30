@@ -61,9 +61,9 @@
 <ng-template #skeleton>
 
     <div class="grid" *ngIf="!showImage; else defaulfImage">
-        <div class="col-12 md:col-6 sm:col-12 mb-3" *ngFor="let value of budgetData">
+        <div class="col-12 md:col-6 sm:col-12 mb-3" *ngFor="let value of skeletonArray">
 
-            <p-panel > <!-- Número de placeholders -->
+            <p-panel> <!-- Número de placeholders -->
                 <ng-template pTemplate="header">
                     <div class="custom-header">
                         <p-skeleton width="60%" height="1.5rem"></p-skeleton>

@@ -6,6 +6,7 @@ import { CategoryInterface } from '../../../../shared/interfaces/category/catego
 import { DropdownOption } from '../../../../shared/components/bottons/drop-down/drop-down.component';
 import { MultiSelect } from 'primeng/multiselect';
 import { Dropdown } from 'primeng/dropdown';
+import { ICategory } from '../../../categories/interface/category.interface';
 
 @Component({
   selector: 'app-filters-transactions',
@@ -21,7 +22,7 @@ export class FiltersTransactionsComponent {
   @Input()
   walletsData: BanksInformation[] = []
   @Input()
-  categoryData: CategoryInterface[] = []
+  categoryData: ICategory[] = []
   @Input()
   years: DropdownOption[] = []
 
