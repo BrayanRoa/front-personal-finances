@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, signal, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryInterface } from '../../../../shared/interfaces/category/category.interface';
 import { BaseComponent } from '../../../../shared/components/base-component/base-component.component';
 import { CategoryService } from '../../service/category.service';
 import { COLOR_DEFAULT, ICON_DEFAULT } from '../../../../shared/constants/constants';
+import { ICategory } from '../../interface/category.interface';
 
 @Component({
   selector: 'app-form-categories',
@@ -21,6 +22,9 @@ export class FormCategoriesComponent extends BaseComponent implements OnInit {
 
   @Input()
   nameButton: "Save" | "Update" = "Save"
+
+  @Input()
+  category!: ICategory | null
 
   @Output()
   cancel = new EventEmitter<void>()
@@ -40,6 +44,12 @@ export class FormCategoriesComponent extends BaseComponent implements OnInit {
     this.loadColors()
     this.loadIcons()
     this.formConfig()
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["category"] && changes["category"].currentValue) {
+      this.populateFormData()
+    }
   }
 
   formConfig() {
@@ -112,17 +122,32 @@ export class FormCategoriesComponent extends BaseComponent implements OnInit {
 
   onSubmit() {
     if (!this.form.invalid) {
+      const data = this.form.getRawValue()
       if (this.nameButton === 'Save') {
-        const data = this.form.getRawValue()
-        // data.iconId = +this.selectedIcon
-        // data.colorId = +this.selectedColor
         this.sendCategory.emit({ budget: data, action: "save" });
       } else if (this.nameButton === 'Update') {
-
+        this.sendCategory.emit({ budget: data, action: "update" });
       }
       this.resetForm()
     } else {
       console.log("invalid form!");
+    }
+  }
+
+  populateFormData() {
+    if (this.category) {
+      this.form.patchValue({
+        name: this.category.name,
+        colorId: this.category.color.id, // Asignar el ID del color
+        iconId: this.category.icon.id    // Asignar el ID del icono
+      });
+
+      // Obtener el valor del color e icono basados en los IDs
+      const selectedColor = this.colors().find(c => c.label === this.category!.color.id)?.value || COLOR_DEFAULT;
+      const selectedIcon = this.icons().find(i => i.label === this.category!.icon.id)?.value || ICON_DEFAULT;
+
+      this.selectedColor = selectedColor;
+      this.selectedIcon = selectedIcon;
     }
   }
 }

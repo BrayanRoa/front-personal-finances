@@ -15,8 +15,8 @@
                 <div class="col-12 md:col-7 sm:col-12">
                     <div class="flex flex-nowrap flex-column justify-content-center">
 
-                        <span class="text"><i class="pi pi-calendar-minus"></i> Date range: {{value.date | date}} -
-                            {{value.end_date | date}}</span>
+                        <span class="text"><i class="pi pi-calendar-minus"></i> Date range: {{value.date | date:'longDate':'UTC'}} -
+                            {{value.end_date | date:'longDate':'UTC'}}</span>
                         <span class="text"><i class="pi pi-chart-line"></i> Limit amount: {{value.limit_amount! |
                             currencyCustom:true}}</span>
                         <span class="text"><i class="pi pi-money-bill"></i> Available: {{value.available_amount! |

@@ -20,7 +20,10 @@
                 </span>
             </div>
             <div class="actions flex gap-2">
-                <button pButton class="" [severity]="'info'"><i class="pi pi-file-excel mr-2"></i> Export</button>
+                <!-- <app-button [icon]="'pi pi-file-excel'" [isDisabled]="true"
+                    pTooltip="This functionality is under development" tooltipPosition="left"
+                    [severity]="'info'"></app-button> -->
+                <button pButton class="" pTooltip="This functionality is under development" [disabled]="true" tooltipPosition="left" [severity]="'info'"><i class="pi pi-file-excel mr-2"></i> Export</button>
             </div>
         </div>
     </div>

@@ -11,27 +11,6 @@
     color: var(--text-color-primary);
 }
 
-.icon {
-    font-size: 2rem;
-}
-
-
-.category {
-    background-color: var(--color-cards-background);
-}
-
-span {
-    display: block;
-}
-
-.text-truncate {
-    white-space: nowrap;
-    /* Evita que el texto haga saltos de línea */
-    overflow: hidden;
-    /* Oculta el texto que se desborda */
-    text-overflow: ellipsis;
-    /* Agrega los puntos suspensivos */
-}
 
 .header {
     background-color: var(--color-cards-background);

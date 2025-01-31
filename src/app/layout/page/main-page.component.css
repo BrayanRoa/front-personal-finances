@@ -4,6 +4,15 @@
     padding: 0;
 }
 
+.pi-shield {
+    color: var(--green-500); /* Color inicial */
+    transition: color 0.3s;
+}
+
+.pi-shield:hover {
+    color: var(--yellow-500); /* Color al pasar el ratón */
+}
+
 
 .container-test {
     display: grid;
@@ -76,7 +85,7 @@
 
 .barra-lateral .name-page span {
     margin-left: 5px;
-    font-size: 25x;
+    font-size: 25px;
     transition: opacity 0.5s ease;
 }
 
@@ -96,7 +105,6 @@
     justify-content: center;
     border: none;
     border-radius: 10px;
-    background-color: var(--color-text-card-four);
     color: var(--color-boton-primary-text);
     transition: background-color 0.5s ease;
     cursor: pointer;
@@ -111,8 +119,6 @@
     justify-content: center;
     border: none;
     border-radius: 10px;
-    /* background-color: var(--color-boton); */
-    color: var(--color-boton-texto);
     transition: background-color 0.5s ease;
     cursor: pointer;
 }
