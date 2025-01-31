@@ -9,7 +9,6 @@ import { BaseComponent } from '../../../shared/components/base-component/base-co
 import { DropdownOption } from '../../../shared/components/bottons/drop-down/drop-down.component';
 import { FORM_CONFIG_TRANSACTION } from '../statics/transaction.config';
 import { CoreService } from '../../../core/service/core.service';
-import { CategoryInterface } from '../../../shared/interfaces/category/category.interface';
 import { FormGroup } from '@angular/forms';
 import { debounceTime, finalize, Observable, Subject } from 'rxjs';
 import { FormFieldConfig } from '../../../shared/interfaces/generic-components/form.interface';

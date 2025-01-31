@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CategoryService } from '../service/category.service';
 import { CategoryInterface } from '../../../shared/interfaces/category/category.interface';
 import { ICategory } from '../interface/category.interface';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
-import { CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { finalize } from 'rxjs';
 
 @Component({
@@ -13,10 +12,11 @@ import { finalize } from 'rxjs';
 })
 export class CategoriesComponent extends BaseComponent implements OnInit {
 
-  visible: boolean = false;
   categories: ICategory[] = [];
-  loading: boolean = true
-  skeletonArray: number[] = Array(12).fill(0); // Array de 12 elementos para skeletons
+  visible: boolean = false;
+  idCategorySelected = signal<number>(0)
+  categorySelected!: ICategory;
+  nameButton: 'Save' | 'Update' = 'Save';
 
   constructor(private categoryService: CategoryService) {
     super()
@@ -24,13 +24,11 @@ export class CategoriesComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategories()
-    setTimeout(() => {
-      this.loading = false;
-    }, 2000)
   }
 
   toggleModal(value: boolean): void {
-    this.visible = value
+    this.nameButton = 'Save'
+    this.visible = value;
   }
 
   getCategories() {
@@ -39,20 +37,42 @@ export class CategoriesComponent extends BaseComponent implements OnInit {
     });
   }
 
-  saveCategory(data: { budget: CategoryInterface, action: string }) {
-    this.categoryService.create(data.budget).pipe(
-      finalize(() => {
-        this.toggleModal(false)
-      })).subscribe({
-        next: (response) => {
-          this.handleResponse(response.status, response.data);
-          this.getCategories()
-        },
-        error: (error) => {
-          console.log(error);
-          this.handleResponse(error.error.status, error.error.data);
-        }
-      })
+  saveOrUpdateCategory(data: { budget: CategoryInterface, action: string }) {
+    if (data.action === 'save') {
+      this.categoryService.create(data.budget).pipe(
+        finalize(() => {
+          this.toggleModal(false)
+        })).subscribe({
+          next: (response) => {
+            this.handleResponse(response.status, response.data);
+            this.getCategories()
+          },
+          error: (error) => {
+            this.handleResponse(error.error.status, error.error.data);
+          }
+        })
+    } else {
+      console.log(data.budget);
+      this.categoryService.update(this.idCategorySelected(), data.budget).pipe(
+        finalize(() => {
+          this.toggleModal(false)
+        })).subscribe({
+          next: (response) => {
+            this.handleResponse(response.status, response.data);
+            this.getCategories()
+          },
+          error: (error) => {
+            this.handleResponse(error.error.status, error.error.data);
+          }
+        })
+    }
+  }
+
+  editRow(data: { id: number, category: ICategory }) {
+    this.idCategorySelected.set(data.id)
+    this.categorySelected = data.category;
+    this.nameButton = "Update"
+    this.visible = true
   }
 
 }

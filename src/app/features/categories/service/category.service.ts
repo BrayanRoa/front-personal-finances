@@ -30,4 +30,8 @@ export class CategoryService extends BaseService {
     create(data: CategoryInterface): Observable<CommonResponse> {
         return this.httpClient.post<CommonResponse>(`${this.endpoint}`, data)
     }
+
+    update(id: number, data: CategoryInterface) {
+        return this.httpClient.patch<CommonResponse>(`${this.endpoint}/${id}`, data)
+    }
 }

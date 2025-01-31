@@ -2,16 +2,16 @@
     <div class="barra-lateral" #mini_barra_lateral>
         <div>
             <div class="name-page">
-                <i class="pi pi-discord" #icon (click)="handleClick()"></i>
-                <span #mySpan>Apex</span>
+                <i class="pi pi-shield" #icon (click)="handleClick()"></i>
+                <span #mySpan>WealthFlow</span>
             </div>
 
             <!-- BOTON AND MODAL  -->
             <div class="card flex justify-content-center">
 
-                <button pButton severity="help" class="boton" pRipple (click)="showDialog()">
-                    <i class="pi pi-users" style="font-size: 1.5rem"></i>
-                    <span #mySpan>Create Bank</span>
+                <button pButton severity="danger" class="boton" pRipple (click)="logout()">
+                    <i class="pi pi-power-off" style="font-size: 1.5rem"></i>
+                    <span #mySpan>Log out</span>
                 </button>
 
 
@@ -60,9 +60,9 @@
                         <span class="nombre" #mySpan>Brayan</span>
                         <span class="email" #mySpan>brayanroa38gmail.com</span>
                     </div>
-                    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+                    <!-- <p-menu #menu [popup]="true" [model]="items"></p-menu> -->
 
-                    <i class="pi pi-ellipsis-v" style="cursor: pointer;" (click)="menu.toggle($event)"></i>
+                    <!-- <i class="pi pi-ellipsis-v" style="cursor: pointer;"></i> -->
                 </div>
             </div>
         </div>
