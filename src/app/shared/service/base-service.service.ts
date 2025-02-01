@@ -6,7 +6,8 @@ import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class BaseService {
-    baseUrl: string = `${environment.API_ENDPOINT}`;
+    baseUrl: string = `${environment.API_URL}`;
+
 
     constructor() { }
 
