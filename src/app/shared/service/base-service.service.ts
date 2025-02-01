@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from '../../../environments/dev';
+import { environment } from '../../../environments/environment';
+// import { environment } from '../../../environments/environment';
+// import { environment } from '../../../environments/environment';  // Cambia aquí
 
 @Injectable({ providedIn: 'root' })
 export class BaseService {
@@ -25,5 +27,5 @@ export class BaseService {
         return httpParams;
     }
 
-    
+
 }
