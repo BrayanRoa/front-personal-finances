@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>PersonalFinancesFront</title>
@@ -20,16 +21,18 @@
   <link id="app-theme" rel="stylesheet" type="text/css" href="saga-blue.css" />
 
   <!-- IMPORTANTE PARA EL FLEX DE PRIME-FLEX -->
-  <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">                                         
+  <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
   <script>
-    window.API_ENDPOINT = "https://tu-backend.com/api/v1";
+    window.API_ENDPOINT = process.env.API_ENDPOINT;
   </script>
 </head>
+
 <body>
   <app-root></app-root>
-  
+
 </body>
+
 </html>
