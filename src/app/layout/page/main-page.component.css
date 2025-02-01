@@ -61,7 +61,7 @@
 
 .barra-lateral span.oculto {
     opacity: 0;
-    width: 0;
+    width: 0; 
 }
 
 /* NOMBRE DE LA PÁGINA */
