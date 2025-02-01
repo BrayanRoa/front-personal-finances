@@ -8,7 +8,7 @@ import { CommonResponse } from '../../shared/interfaces/common-response.interfac
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    private baseUrl: string = `${environment.API_ENDPOINT}/auth`
+    private baseUrl: string = `${environment.API_URL}/auth`
     private user?: string
     private loggedIn: boolean = false
 
