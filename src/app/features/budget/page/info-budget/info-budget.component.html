@@ -13,8 +13,9 @@
                     <span class="name">Budget Name: {{budget.name | titlecase}}</span>
 
                 </div>
-                <span><i class="pi pi-calendar-minus"></i> Date range: {{budget.date|date}} - {{budget.end_date |
-                    date}}</span>
+                <span><i class="pi pi-calendar-minus"></i> Date range: {{budget.date|date:'longDate':'UTC'}} -
+                    {{budget.end_date |
+                    date:'longDate':'UTC'}}</span>
                 <span><i class="pi pi-chart-line"></i> Limit amount: {{budget.limit_amount! |
                     currencyCustom:true}}</span>
 
