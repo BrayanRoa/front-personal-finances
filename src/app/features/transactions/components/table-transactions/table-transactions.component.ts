@@ -68,6 +68,7 @@ export class TableTransactionsComponent implements OnInit {
   }
 
   sendEditRow(id: number, transaction: Transaction) {
+    console.log({transaction});
     const transactionPayload: Transaction = {
       ...transaction,
       date: new Date(transaction.date).toISOString().split('T')[0],
