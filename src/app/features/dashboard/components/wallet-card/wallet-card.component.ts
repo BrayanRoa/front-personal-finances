@@ -64,19 +64,12 @@ export class WalletCardComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.isLoading = false;
-
-      if (this.walletSummary) { // Validamos que walletSummary tenga datos
-        this.cardsInfo.forEach(card => {
-          card.value = this.walletSummary![card.id as keyof summaryWalletsResponse] ?? 0;
-        });
-        this.animateCards();
-      } else {
-        console.warn("walletSummary no tiene datos aún");
-      }
-
-    }, 1000);
+      this.cardsInfo.forEach(card => {
+        card.value = this.walletSummary![card.id as keyof summaryWalletsResponse];
+      });
+      this.animateCards();
+    }, 1000)
   }
-
 
   private animateCards(): void {
     this.valueElements.forEach((element: any, index: number) => {

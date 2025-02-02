@@ -27,12 +27,7 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
 
   // GRAPH DATA
   // walletSummary!: summaryWalletsResponse | null;
-  walletSummary = signal<summaryWalletsResponse>({
-    budgetsActives:0,
-    totalExpenses:0,
-    totalIncome:0,
-    totalTransactions:0
-  });
+  walletSummary = signal<summaryWalletsResponse | null>(null);
   verticalChartData = signal<graphVerticalData[]>([]);
   polarChartData = signal<graphPolarityData[]>([]);
   budgets = signal<budgetData[]>([]);
@@ -96,10 +91,10 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
 
   private loadWalletSummary(): void {
     this.dashboardService.summaryWallets().subscribe({
-      next: (response) => { 
+      next: (response) => {
         // this.walletSummary.set(response.data) 
         this.walletSummary.set(response.data)
-        console.log(this.walletSummary());
+        console.log("YO", this.walletSummary());
       },
       error: (error) => this.handleResponse(error, 'Error fetching wallet summary'),
     });
