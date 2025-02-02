@@ -17,20 +17,20 @@
 </div> -->
 
 <!-- <ng-template #cardsContent> -->
-    <div class="dashboard">
-        <div class="card" *ngFor="let value of cardsInfo">
-            <div class="card-info">
-                <div class="card-icon">
-                    <span class="pi {{value.icon}}"></span>
-                </div>
-                <div class="card-data">
-                    <span class="title {{value.idTitle}}">{{value.title}}</span>
-                    <span #valueElement class="{{value.idValue}}">
-                        {{ value.value  }}
-                    </span>
-                </div>
+<div class="dashboard">
+    <div class="card" *ngFor="let value of cardsInfo">
+        <div class="card-info">
+            <div class="card-icon">
+                <span class="pi {{value.icon}}"></span>
             </div>
-            <div class="img {{value.cardImg}}"></div>
+            <div class="card-data">
+                <span class="title {{value.idTitle}}">{{value.title}}</span>
+                <span #valueElement class="{{value.idValue}}">
+                    {{ value.value }}
+                </span>
+            </div>
         </div>
+        <div class="img {{value.cardImg}}"></div>
     </div>
+</div>
 <!-- </ng-template> -->
