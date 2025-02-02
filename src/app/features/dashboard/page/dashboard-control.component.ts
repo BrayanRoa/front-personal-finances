@@ -99,6 +99,7 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
       next: (response) => { 
         // this.walletSummary.set(response.data) 
         this.walletSummary.set(response.data)
+        console.log(this.walletSummary());
       },
       error: (error) => this.handleResponse(error, 'Error fetching wallet summary'),
     });
