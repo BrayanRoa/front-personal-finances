@@ -26,7 +26,13 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
   msgNotFound: string = NOT_FOUND_MSG; // Mensaje de "no encontrado"
 
   // GRAPH DATA
-  walletSummary!: summaryWalletsResponse | null;
+  // walletSummary!: summaryWalletsResponse | null;
+  walletSummary = signal<summaryWalletsResponse>({
+    budgetsActives:0,
+    totalExpenses:0,
+    totalIncome:0,
+    totalTransactions:0
+  });
   verticalChartData = signal<graphVerticalData[]>([]);
   polarChartData = signal<graphPolarityData[]>([]);
   budgets = signal<budgetData[]>([]);
@@ -90,7 +96,10 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
 
   private loadWalletSummary(): void {
     this.dashboardService.summaryWallets().subscribe({
-      next: (response) => { this.walletSummary = response.data; },
+      next: (response) => { 
+        // this.walletSummary.set(response.data) 
+        this.walletSummary.set(response.data)
+      },
       error: (error) => this.handleResponse(error, 'Error fetching wallet summary'),
     });
   }
