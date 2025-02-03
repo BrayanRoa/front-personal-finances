@@ -9,8 +9,8 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item1 title-panel">{{ selectedMonthsName.length | i18nPlural:monthsMap | titlecase }} <
-                            {{ selectedMonthsName.join(' | ')}} > </span>
+                    <span class="item1 title-panel">{{ selectedMonthsName.length | i18nPlural:monthsMap }} < {{
+                            selectedMonthsName.join(' | ')}} > </span>
                     </div>
                 </ng-template>
 
@@ -33,11 +33,11 @@
 
                     <div class="col-12 md:col-6 sm:col-12 flex justify-content-end align-items-center">
 
-                        <button pButton pRipple label="Add Transaction" class="p-button-success" icon="pi pi-plus"
+                        <button pButton pRipple label="Add transaction" class="p-button-success" icon="pi pi-plus"
                             (click)="addTransaction()"></button>
 
                         <!-- MODAL -->
-                        <p-dialog header="Add New Transaction" [modal]="true" [(visible)]="visible" (onHide)="closeModal()"
+                        <p-dialog header="Add new transaction" [modal]="true" [(visible)]="visible" (onHide)="closeModal()"
                             [style]="{ width: ' 50rem' }">
                             <!-- FROMULARIO -->
                             <app-dynamic-form [fields]="formConfig!" [submitButton]="nameButton"

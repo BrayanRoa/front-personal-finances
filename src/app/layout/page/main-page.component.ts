@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 export class MainPageComponent extends BaseComponent implements OnInit {
 
   isSmallMenu: boolean = false;
+  info_person!: { name: string, email: string }
 
   @ViewChild('icon') myElement!: ElementRef;
   @ViewChild('mini_barra_lateral') barraLateral!: ElementRef;
@@ -96,6 +97,10 @@ export class MainPageComponent extends BaseComponent implements OnInit {
     super()
   }
   ngOnInit(): void {
+    this.info_person = {
+      name: localStorage.getItem('name')!,
+      email: localStorage.getItem('email')!
+    }
     // this.formConfig = FORM_CONFIG_WALLET;
     this.items = [
       {

@@ -8,10 +8,15 @@
 
 
 <app-table [columns]="columns" [data]="data" [actions]="actions" [cellTemplates]="{
+        name:nameTemplate,
         balance: balanceTemplate,
         type_account: typeAccountTemplate,
         initial_balance: balanceTemplate,
     }"></app-table>
+
+<ng-template #nameTemplate let-value>
+    <td>{{value|titlecase}}</td>
+</ng-template>
 
 <ng-template #balanceTemplate let-value>
     <td>{{value|currencyCustom:true}}</td>

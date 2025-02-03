@@ -12,7 +12,7 @@
                 <button pButton [severity]="'success'" (click)="toggleModal(true)"><i
                         class="pi pi-plus mr-2"></i> Add wallet</button>
 
-                <p-dialog header="Create New Wallet" [modal]="true" [(visible)]="visible" (onHide)="toggleModal(false)"
+                <p-dialog header="Create new wallet" [modal]="true" [(visible)]="visible" (onHide)="toggleModal(false)"
                     [style]="{ width: '25rem' }">
                     <app-dynamic-form [fields]="formConfig!" [submitButton]="'save'"
                         (sendForm)="onSaveNewWallet($event)" (cancel)="toggleModal(false)"></app-dynamic-form>
@@ -26,7 +26,7 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item1 title-panel">Monthly Balance Of The Year: {{yearSelected}}</span>
+                    <span class="item1 title-panel">Monthly balance of the year: {{yearSelected}}</span>
                 </div>
             </ng-template>
             <div *ngIf="monthlyBalance">
@@ -41,7 +41,7 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item2 title-panel">Total Incomes and Outflows By Banks</span>
+                    <span class="item2 title-panel">Total incomes and outflows by banks</span>
                 </div>
             </ng-template>
             <app-vertical-chart-wallets [datasets]="walletsData"></app-vertical-chart-wallets>

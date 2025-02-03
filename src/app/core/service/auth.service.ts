@@ -19,7 +19,9 @@ export class AuthService {
             .pipe(
                 tap(user => {
                     localStorage.setItem('token', user.data.token)
-                    this.user = user.data.name
+                    localStorage.setItem('name', user.data.name)
+                    localStorage.setItem('email', user.data.email)
+                    // this.user = user.data.name
                     this.loggedIn = true
                 })
             )

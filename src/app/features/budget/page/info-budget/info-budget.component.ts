@@ -23,6 +23,8 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
   percentageBudet: number = 0
   available_amount: number = 0
 
+  loading: boolean = true
+
   @Input()
   metaData: MetaData = {
     totalRecords: 0,
@@ -51,6 +53,10 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
     // Obtener el parámetro 'id' de la URL
     this.budgetId = +this.route.snapshot.paramMap.get('id')!;
     this.getBudget()
+
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000)
   }
 
   getBudget() {

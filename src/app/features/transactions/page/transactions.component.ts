@@ -80,8 +80,8 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
 
 
   monthsMap = {
-    '=1': "transactions of the month:",
-    'other': "transactions of the months:"
+    '=1': "Transactions of the month:",
+    'other': "Transactions of the months:"
   }
 
 
