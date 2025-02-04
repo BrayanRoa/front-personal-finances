@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { BudgetData, IBudgets } from '../../interfaces/budget.interface';
 import { BudgetDataService } from '../../service/budget-data.service';
 import { BaseComponent } from '../../../../shared/components/base-component/base-component.component';
 import { SummaryInterface } from '../../../../shared/interfaces/generic-components/form.interface';
 import { CommonResponse } from '../../../../shared/interfaces/common-response.interface';
+import { ISummaryBudget } from '../../interfaces/summary-budget.interface';
 
 @Component({
   selector: 'app-main-budget',
@@ -13,38 +14,9 @@ import { CommonResponse } from '../../../../shared/interfaces/common-response.in
 export class MainBudgetComponent extends BaseComponent implements OnInit {
 
   budgetData: IBudgets[] = [];
+  summaryBudget = signal<ISummaryBudget | null>(null);
 
   viewModal: boolean = false;
-
-  budgetCard: SummaryInterface[] = [
-    {
-      id: "totalBudget",
-      title: "Total Budgets",
-      icon: "pi pi-money-bill",
-      value: 0,
-      cardImg: 'total-incomes',
-      idTitle: 'title-one',
-      idValue: 'amount-one',
-      useCurrency: true
-    },
-    {
-      title: "Spend To Date",
-      icon: "pi pi-shop",
-      value: 200,
-      cardImg: 'total-expenses',
-      idTitle: 'title-two',
-      idValue: 'amount-two',
-      useCurrency: true
-    },
-    {
-      title: "Available for spending",
-      icon: "pi pi-wallet", value: 300,
-      cardImg: 'budgets', idTitle: 'title-three',
-      idValue: 'amount-three',
-      useCurrency: false
-    }
-  ];
-
 
   constructor(
     private budgetService: BudgetDataService
@@ -53,6 +25,7 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getSummaryBudgets()
     this.getBudgets();
   }
 
@@ -74,6 +47,17 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
       },
       error: (error: any) => this.handleError(error),
     });
+  }
+
+  getSummaryBudgets() {
+    this.budgetService.summaryBudgets().subscribe({
+      next: (response) => {
+        this.summaryBudget.set(response.data)
+        console.log("AAA",this.summaryBudget());
+      },
+      error: (error: any) => this.handleError(error),
+
+    })
   }
 
   eventBudget(value: { budget: BudgetData, action: string }) {

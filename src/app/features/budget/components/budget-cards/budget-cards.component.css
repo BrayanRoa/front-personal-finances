@@ -1,12 +1,18 @@
-.flex {
-    margin: 0;
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 20px;
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
     background-color: #ffffff;
     flex: 1 1 20%;
     min-width: 270px;
-    /* max-width: 270px; */
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -172,7 +178,8 @@
 }
 
 .extra-info {
-    font-size: 1rem;
-    color: var(--color-text-card-four);
+    font-size: 1.1rem;
+    color: #888;
     font-weight: bold;
+    color: var(--color-text-card-four);
 }

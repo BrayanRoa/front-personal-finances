@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="col-12 mb-2">
-        <app-cards *ngIf="budgetCard?.length" [cardsInfo]="budgetCard"></app-cards>
+        <app-budget-cards [budgetSummary]="summaryBudget()"></app-budget-cards>
     </div>
 
     <div class="col-12">

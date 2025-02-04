@@ -10,6 +10,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { InfoBudgetComponent } from './page/info-budget/info-budget.component';
 import { CakeCardComponent } from './components/cake-card-budget/cake-card.component';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { BudgetCardsComponent } from './components/budget-cards/budget-cards.component';
 
 
 
@@ -19,7 +20,8 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     AllActiveBudgetsComponent,
     MainBudgetComponent,
     InfoBudgetComponent,
-    CakeCardComponent
+    CakeCardComponent,
+    BudgetCardsComponent
   ],
   imports: [
     CommonModule,

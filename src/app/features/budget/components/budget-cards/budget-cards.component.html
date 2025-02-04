@@ -1,0 +1,24 @@
+<div class="dashboard">
+    <div class="card" *ngFor="let value of cardsInfo">
+        <div class="card-info">
+            <div class="card-icon">
+                <span class="pi {{value.icon}}"></span>
+            </div>
+            <div class="card-data">
+                <span class="title {{value.idTitle}}">{{value.title}}</span>
+                
+                <div class="flex align-items-center">
+                    <span #valueElement class="{{value.idValue}} mr-1">
+                        {{ value.value }}
+                    </span>
+    
+                    <span *ngIf="value.extraValue" class="extra-info">
+                        ({{ value.extraValue ? value.extraValue : '0%' }}%)
+                    </span>
+                </div>
+
+            </div>
+        </div>
+        <div class="img {{value.cardImg}}"></div>
+    </div>
+</div>

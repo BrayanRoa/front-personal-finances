@@ -20,6 +20,7 @@ export interface SummaryInterface {
     title: string;
     icon: string;
     value: number;
+    extraValue?: number;
     cardImg: string;
     idTitle: string;
     idValue: string;

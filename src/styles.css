@@ -74,16 +74,16 @@ body {
 
     --color-cards-background: white;
     --color-text-card-one: #2497d6;
-    --url-image-footer: url('assets/users.svg');
+    --url-image-footer: url('assets/users_two.png');
 
     --color-text-card-two: #de911d;
-    --url-image-footer-two: url('assets/locations.svg');
+    --url-image-footer-two: url('assets/locations_two.png');
 
     --color-text-card-three: #27ab83;
-    --url-image-footer-three: url('assets/rate.svg');
+    --url-image-footer-three: url('assets/rate_two.png');
 
     --color-text-card-four: #ba6ff4;
-    --url-image-footer-four: url('assets/interactions.svg');
+    --url-image-footer-four: url('assets/interactions_two.png');
 
     --color-hover-table: #f1f5f9;
 
@@ -122,16 +122,16 @@ body {
     /* CARDS */
     --color-cards-background: #293b51;
     --color-text-card-one: #2497d6;
-    --url-image-footer: url('assets/users-dark.svg');
+    /* --url-image-footer: url('assets/users-dark.svg'); */
 
     --color-text-card-two: #de911d;
-    --url-image-footer-two: url('assets/locations-dark.svg');
+    /* --url-image-footer-two: url('assets/locations-dark.svg'); */
 
     --color-text-card-three: #27ab83;
-    --url-image-footer-three: url('assets/rate-dark.svg');
+    /* --url-image-footer-three: url('assets/rate-dark.svg'); */
 
     --color-text-card-four: #ba6ff4;
-    --url-image-footer-four: url('assets/interactions-dark.svg');
+    /* --url-image-footer-four: url('assets/interactions-dark.svg'); */
     --primary-color: var(--color-boton);
 
     --color-hover-table: #64748b;

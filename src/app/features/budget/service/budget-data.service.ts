@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { BudgetData, IBudgets } from '../interfaces/budget.interface';
 import { ApiResponse, CommonResponse } from '../../../shared/interfaces/common-response.interface';
 import { TransactionData } from '../../../shared/interfaces/transactions/getAll.interface';
+import { ISummaryBudget } from '../interfaces/summary-budget.interface';
 
 @Injectable({ providedIn: 'root' })
 export class BudgetDataService extends BaseService {
@@ -39,5 +40,9 @@ export class BudgetDataService extends BaseService {
 
     delete(id: number): Observable<CommonResponse> {
         return this.http.delete<CommonResponse>(`${this.endpoint}/${id}`)
+    }
+
+    summaryBudgets(): Observable<ApiResponse<ISummaryBudget>> {
+        return this.http.get<ApiResponse<ISummaryBudget>>(`${this.endpoint}/summary`)
     }
 }
