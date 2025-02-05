@@ -1,31 +1,50 @@
-<div class="grid" *ngIf="loading; else loadingScreen">
-    <div class="col-12">
-        <h2 class="title">Wealth flow</h2>
-    </div>
-
-    <div class="col-12">
-        <app-dynamic-form [fields]="formConfig!" (sendForm)="onLogin($event)" [submitButton]="'login'"
-            [showCancelButton]="false"></app-dynamic-form>
-    </div>
-
-
-    <div class="col-12">
-        <div class="flex flex-column mt-3">
-            <div class="flex justify-content-center message">
-                <p>Don't have an account yet?</p>
-            </div>
-            <div class="flex justify-content-center">
-                <a routerLink="/auth/register">Register here</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-12">
-        <p-messages [(value)]="errorMessage" [enableService]="false"></p-messages>
-    </div>
-</div>
-
 <ng-template #loadingScreen>
     <div class="loader">
         <p-progressSpinner ariaLabel="loading" />
     </div>
 </ng-template>
+
+<div class="container grid" *ngIf="loading; else loadingScreen">
+    <div class="col-12">
+        <p class="p-0">Sign in</p>
+    </div>
+
+    <!-- Íconos de redes sociales -->
+    <div class="social-icons">
+        <a href="https://www.linkedin.com/in/brayan-andres-roa-lopez-45922421b/" target="_blank">
+            <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/BrayanRoa" target="_blank">
+            <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://github.com/BrayanRoa" target="_blank">
+            <i class="fa-brands fa-google"></i>
+        </a>
+    </div>
+
+    <!-- Formulario de login -->
+    <div class="col-12">
+        <form [formGroup]="form!" (ngSubmit)="onSubmit()">
+            <div class="grid">
+                <div class="col-12">
+                    <label for="email">Email</label>
+                    <input formControlName="email" type="email" id="email" placeholder="Enter your email">
+                </div>
+
+                <div class="col-12">
+                    <label for="password">Password</label>
+                    <input formControlName="password" type="password" id="password" placeholder="Enter your password">
+                </div>
+
+                <div class="col-12 flex justify-content-center">
+                    <button [disabled]="form.invalid" type="submit">Login</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Enlace para recuperar la contraseña -->
+        <div class="col-12 text-center">
+            <a routerLink="/register">Forgot your password?</a>
+        </div>
+    </div>
+</div>

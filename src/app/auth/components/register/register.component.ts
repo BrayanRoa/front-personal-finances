@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormFieldConfig } from '../../../shared/interfaces/generic-components/form.interface';
 import { FORM_CONFIG_REGISTER } from '../../statics/auth.config';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Message } from 'primeng/api';
 import { AuthService } from '../../../core/service/auth.service';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
@@ -14,7 +14,8 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent extends BaseComponent implements OnInit {
 
-  formConfig!: FormFieldConfig[] | null;
+  form!: FormGroup
+
   messages: Message[] | undefined;
   showMessage: boolean = false;
   idUser: string = ""
@@ -22,28 +23,41 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private router: Router,
+    private fb: FormBuilder,
   ) {
     super()
+    this.formConfig()
   }
 
   ngOnInit(): void {
-    this.formConfig = FORM_CONFIG_REGISTER
+    // this.formConfig = FORM_CONFIG_REGISTER
     this.messages = [
       { severity: 'error', detail: 'The passwords dont match' },
     ];
   }
 
-  verifyRegister(value: { data: FormGroup, action: string }) {
-    // Implement your logic for verifying register data
-    // For example, you can send a verification email or check if the email is already registered
-    if (value.data.value.password !== value.data.value.confirm) {
+  formConfig() {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      confirm: ['', [Validators.required]],
+    });
+
+    console.log(this.form.value);
+  }
+
+
+  verifyRegister(): void {
+    console.log("object");
+    if (this.form.get("password")?.value !== this.form.get("confirm")?.value) {
       this.showMessage = true
       setTimeout(() => {
         this.showMessage = false
         return
       }, 5000)
     } else {
-      const { confirm, ...person } = value.data.value
+      const { confirm, ...person } = this.form.value
       this.auth.register(person).subscribe({
         next: (response) => {
           // this.verifyEmail = true

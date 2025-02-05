@@ -1,30 +1,79 @@
-<div class="grid">
-    <div class="col-12 mb-0">
-        <h2 class="title">Register Now</h2>
-    </div>
-    <div class="col-12">
-        <app-dynamic-form [fields]="formConfig!" [showCancelButton]="false" [submitButton]="'register'"
-            (sendForm)="verifyRegister($event)"></app-dynamic-form>
-    </div>
-    <div class="col-12">
-        <p-messages *ngIf="showMessage" [(value)]="messages!" [enableService]="false" />
-    </div>
-    <div class="col-12">
-        <div class="flex justify-content-center">
-            <a routerLink="/auth/login">Back to login</a>
+<!-- <h2>Create Account</h2>
+
+<form [formGroup]="form" (ngSubmit)="verifyRegister()">
+    <div class="grid">
+
+        <div class="col-12 md:col-6">
+            <label for="name">Name:</label>
+            <input formControlName="name" type="text" id="name" autocomplete="name">
         </div>
+        <div class="col-12 md:col-6">
+            <label for="name">Lastname:</label>
+            <input formControlName="name" type="text" id="name" autocomplete="name">
+        </div>
+        <div class="col-12">
+
+            <label for="email">Email:</label>
+            <input formControlName="email" type="email" id="email" autocomplete="email">
+        </div>
+        <div class="col-12 md:col-6">
+
+            <label for="password">Password:</label>
+            <input formControlName="password" type="password" id="password" autocomplete="new-password">
+        </div>
+        <div class="col-12 md:col-6">
+
+            <label for="confirm">Confirm password:</label>
+            <input formControlName="confirm" type="password" id="confirm" autocomplete="new-password">
+        </div>
+
+        <button type="submit">Register</button>
     </div>
+</form>
+<div class="flex flex-column justify-content-center message mt-5">
 </div>
 
-<!-- <ng-template #verifyCode> -->
-<!-- <div class="verify-code-container flex flex-column align-items-center justify-content-center p-4">
-        <h2 class="title text-center mb-3">Verify Your Email</h2>
-        <p class="instruction text-center mb-4">
-            Please check your email and enter the verification code we sent you.
-        </p>
-        <p-inputOtp [(ngModel)]="code" [integerOnly]="true" class="mb-3" (ngModelChange)="onCodeChange()"></p-inputOtp>
-        <p class="note text-center">
-            Didn’t receive the email? <a href="#" class="resend-link">Resend code</a>
-        </p>
-    </div> -->
-<!-- </ng-template> -->
+<div *ngIf="showMessage">
+    <p-messages *ngIf="showMessage" [(value)]="messages!" [enableService]="false" />
+</div> -->
+
+
+<div class="container grid">
+    <div class="col-12">
+        <h1>Create Account</h1>
+    </div>
+    <div class="col-12">
+        <form [formGroup]="form" (ngSubmit)="verifyRegister()">
+            <div class="grid">
+
+                <div class="col-12 md:col-6">
+                    <label for="name">Name:</label>
+                    <input formControlName="name" type="text" id="name" autocomplete="name">
+                </div>
+                <div class="col-12 md:col-6">
+                    <label for="name">Lastname:</label>
+                    <input formControlName="name" type="text" id="name" autocomplete="name">
+                </div>
+                <div class="col-12">
+
+                    <label for="email">Email:</label>
+                    <input formControlName="email" type="email" id="email" autocomplete="email">
+                </div>
+                <div class="col-12 md:col-6">
+
+                    <label for="password">Password:</label>
+                    <input formControlName="password" type="password" id="password" autocomplete="new-password">
+                </div>
+                <div class="col-12 md:col-6">
+
+                    <label for="confirm">Confirm password:</label>
+                    <input formControlName="confirm" type="password" id="confirm" autocomplete="new-password">
+                </div>
+
+                <div class="col-12 flex justify-content-center">
+                    <button [disabled]="form.invalid" type="submit">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,19 +1,124 @@
-.title {
-    text-align: center;
-    font-size: 2rem; /* Ajusta el tamaño del texto */
-    font-weight: bold; /* Hace el título más destacado */
-    margin-bottom: 5px; /* Espacio debajo del título */
-    color: #333; /* Cambia el color del texto si lo deseas */
+/* Estilos generales para el formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+    width: 100%;
 }
 
+/* Estilos para las etiquetas */
+label {
+    display: block;
+    justify-content: start;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 5px;
+}
 
-.message p{
+/* Estilos generales para los inputs */
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid black;
+    border-radius: 8px;
+    outline: none;
+    background-color: transparent;
+    color: black;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Estilos para el foco en los inputs */
+input:focus {
+    border-color: #ffd700;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Estilos para el placeholder */
+input::placeholder {
+    color: var(--bluegray-700);
+}
+
+/* Estilo especial para el input de contraseña */
+input[type="password"] {
+    /* font-family: 'Arial', sans-serif; */
+    font-size: 16px;
+    /* font-weight: bold; */
+    /* letter-spacing: 3px; */
+}
+
+/* Estilos para el botón de envío */
+button {
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    background-color: #141E30;
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Efecto de hover para el botón */
+button:hover {
+    background-color: #ffcc00;
+}
+
+/* Estilos generales para el contenedor */
+.container {
+    padding: 50px;
+}
+
+/* Estilo para el título en el contenedor */
+.container p {
+    text-align: center;
     color: black;
     font-weight: bold;
+    font-size: 40px;
 }
 
-.loader{
+/* Estilos del texto de redes sociales */
+.social-text {
+    font-size: 14px;
+    color: #e0e0e0;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/* Contenedor de los íconos de redes sociales */
+.social-icons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* Estilos para los íconos de redes sociales */
+.social-icons a {
+    color: black;
+    font-size: 30px;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Efecto de hover para los íconos de redes sociales */
+.social-icons a:hover {
+    color: var(--bluegray-700);
+}
+
+/* Estilos para la pantalla de carga */
+.loader {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+}
+
+/* Estilos para los elementos dentro de la pantalla de carga */
+p-progressSpinner {
+    width: 50px;
+    height: 50px;
 }

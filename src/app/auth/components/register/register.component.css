@@ -1,49 +1,73 @@
-.title {
-    text-align: center;
-    font-size: 2rem;
-    /* Ajusta el tamaño del texto */
-    font-weight: bold;
-    /* Hace el título más destacado */
-    margin-bottom: 5px;
-    /* Espacio debajo del título */
-    color: #333;
-    /* Cambia el color del texto si lo deseas */
+
+.container {
+    padding: 50px;
+    margin: 0 auto;
+    border-radius: 10px;
 }
 
+.container h1 {
+    text-align: center;
+    color: black;
+    font-weight: bold;
+}
 
-.verify-code-container {
-    /* background-color: #f9f9f9; */
-    /* border: 1px solid #ddd; */
-    border-radius: 8px;
-    max-width: 400px;
+label {
+    display: block;
+    text-align: start;
+    margin-bottom: 8px;
+    /* justify-content: start; */
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+}
+
+/* Estilos generales para los inputs */
+input {
     width: 100%;
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-    text-align: center;
+    max-width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid black;
+    border-radius: 8px;
+    outline: none;
+    background-color: transparent;
+    color: black;
+    transition: all 0.3s ease-in-out;
 }
 
-.title {
-    font-size: 1.5rem;
-    color: #333;
+/* Cambiar el borde y fondo al enfocar */
+input:focus {
+    border-color: #ffd700;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Placeholder en color más suave */
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Botón de envío */
+button {
+    /* width: 10%;
+    max-width: auto; */
+    padding: 10px 25px;
+    font-size: 16px;
     font-weight: bold;
-}
-
-.instruction {
-    font-size: 1rem;
-    color: #555;
-}
-
-.note {
-    font-size: 0.875rem;
-    color: #777;
-}
-
-.resend-link {
-    color: #007bff;
-    font-weight: bold;
-    text-decoration: none;
     cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    background-color: #141E30;
+    color: white;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.resend-link:hover {
-    text-decoration: underline;
+button:hover {
+    background-color: #ffcc00;
 }
+
+
+
+
+
+
+

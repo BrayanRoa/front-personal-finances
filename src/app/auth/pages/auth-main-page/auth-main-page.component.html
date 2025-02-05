@@ -1,10 +1,30 @@
-<div class="container">
-    <div class="login">
-        <div class="image">
+<div class="main-container">
+    <div class="container">
+        <div class="box" [class.moved]="moved">
+            <div class="info-container">
+                <div class="mb-5">
+                    <p class="title">{{title}}</p>
+                    <p class="info">{{message}}</p>
+                    <button type="button" (click)="togglePosition()">{{button_name}}</button>
+                </div>
+
+                <!-- Sección de redes sociales (Empujada hacia abajo) -->
+                <div class="social-container">
+                    <p class="social-text">Follow us on our networks::</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/brayan_roa/" target="_blank"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/brayan-andres-roa-lopez-45922421b/" target="_blank"><i
+                                class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://github.com/BrayanRoa" target="_blank"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
 
         </div>
-        <div class="box">
-            <div class="form">
+        <div class="msg" [class.moved-two]="moved">
+            <div [class.hidden]="hideMsg">
                 <router-outlet></router-outlet>
             </div>
         </div>

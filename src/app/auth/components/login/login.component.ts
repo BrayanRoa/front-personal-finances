@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/service/auth.service';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
-import { FormFieldConfig } from '../../../shared/interfaces/generic-components/form.interface';
-import { FORM_CONFIG_LOGIN } from '../../statics/auth.config';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 
 @Component({
@@ -12,9 +10,9 @@ import { BaseComponent } from '../../../shared/components/base-component/base-co
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent extends BaseComponent implements OnInit {
+export class LoginComponent extends BaseComponent {
 
-  formConfig!: FormFieldConfig[] | null;
+  form!: FormGroup
 
   public loading: boolean = true;
 
@@ -22,24 +20,29 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder,
   ) {
     super()
-  }
-  ngOnInit(): void {
-    this.formConfig = FORM_CONFIG_LOGIN
+    this.formConfig();
   }
 
-  public onLogin(value: { data: FormGroup, action: string }): void {
-    const email = value.data.value.email;
+  formConfig() {
+    this.form = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
+  }
 
+  public onSubmit(): void {
+    // const email = value.data.value.email;
     this.showLoadingSpinner();
-    this.authService.login(value.data.value).subscribe({
+    this.authService.login(this.form.value).subscribe({
       next: () => {
         this.handleSuccessfulLogin();
       },
       error: (error) => {
-        this.handleLoginError(error, email);
+        this.handleLoginError(error, this.form.get("email")?.value);
       },
     });
   }

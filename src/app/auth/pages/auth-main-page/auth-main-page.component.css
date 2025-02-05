@@ -1,53 +1,143 @@
-.container {
-    background-color: #588a89;
+/* Estilos generales del contenedor principal */
+.main-container {
     width: 100vw;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    background-color: var(--bluegray-700);
 }
 
-.login {
+/* Contenedor principal donde se encuentran el box y el mensaje */
+.container {
     display: flex;
-    /* padding: 20px; */
-    border-radius: 20px;
-    width: 90%;
-    height: 90%;
-    /* background-color: #174d57; */
+    width: 70vw;
+    height: 80vh;
+    background-color: #f0f0f0;
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+    border-radius: 15px;
 }
 
-.image {
-    width: 100%;
-    background-color: #19525b;
-    border-radius: 20px 0 0 20px;
-}
-
+/* Estilos del box que contiene la información principal */
 .box {
-    width: 100%;
-    background-color: #feba33;
-    border-radius: 0 20px 20px 0;
+    width: 25vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    transition: transform 0.5s ease-in-out;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: auto;
+    justify-content: center;
+    color: white;
+    background-color: #141E30;
+    z-index: 2;
 }
 
-.form {
-    width: 70%;
-    height: 70%;
-    background: rgba(255, 255, 255, 0.22);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(7.6px);
-    -webkit-backdrop-filter: blur(7.6px);
-    border: 1px solid rgba(255, 255, 255, 0.61);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Estilos del contenedor de la información (título, mensaje y botón) */
+.info-container {
+    width: 80%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 5px;
 }
 
-.image{
-    background-image: url('../../../../assets/164610.jpg');
-    background-size: cover;
-  background-position: center;
+/* Estilos para el título */
+.info-container .title {
+    display: block;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+/* Estilos para el mensaje de texto */
+.info-container .info {
+    display: block;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #e0e0e0;
+    max-width: 90%;
+    margin: 0 auto 20px;
+}
+
+/* Estilos del mensaje secundario (msg) */
+.msg {
+    width: 45vw;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    transition: transform 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    z-index: 1;
+}
+
+/* Efecto de movimiento para el box */
+.moved {
+    transform: translateX(45vw);
+}
+
+/* Efecto de movimiento para el mensaje */
+.moved-two {
+    transform: translateX(-25vw);
+}
+
+/* Estilos para el botón */
+button {
+    margin-top: 20px;
+    padding: 10px 40px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #141E30;
+    border-radius: 20px;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+}
+
+/* Estilos del botón en hover */
+button:hover {
+    background-color: var(--bluegray-700);
+}
+
+/* Estilos para ocultar el mensaje (con opacidad cero y deshabilitar interacción) */
+.hidden {
+    opacity: 1;
+    pointer-events: none;
+}
+
+/* Estilos del texto de redes sociales */
+.social-text {
+    font-size: 14px;
+    color: #e0e0e0;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/* Contenedor de los íconos de redes sociales */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* Estilos para los íconos de redes sociales */
+.social-icons a {
+    color: #e0e0e0;
+    font-size: 24px;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Efecto de hover para los íconos de redes sociales */
+.social-icons a:hover {
+    color: var(--bluegray-700);
 }

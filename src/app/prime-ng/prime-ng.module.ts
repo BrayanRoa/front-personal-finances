@@ -32,6 +32,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { SkeletonModule } from 'primeng/skeleton';
 import { MenuModule } from 'primeng/menu';
 import { InputOtpModule } from 'primeng/inputotp';
+import { ToastModule } from 'primeng/toast';
+
 
 @NgModule({
   exports: [
@@ -65,7 +67,8 @@ import { InputOtpModule } from 'primeng/inputotp';
     InputSwitchModule,
     SkeletonModule,
     MenuModule,
-    InputOtpModule
+    InputOtpModule,
+    ToastModule
   ]
 })
 export class PrimeNgModule { }
