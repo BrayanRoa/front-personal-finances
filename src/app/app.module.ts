@@ -17,7 +17,7 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { registerables, Chart } from 'chart.js';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { environment } from '../environments/environment.development';
+import { environment } from '../environments/environment';
 // import { environment } from '../environments/environment';
 Chart.register(...registerables)
 
