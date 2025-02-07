@@ -1,6 +1,6 @@
 [build]
-  command = "npm install && npm run build"
-  publish = "dist/personal-finances-front/browser"
+  command = "npm run build:prod"
+  publish = "dist"
 
 [build.environment]
   NODE_ENV = "production"
