@@ -1,5 +1,5 @@
 <ng-template #loadingScreen>
-    <div class="loader">
+    <div class="flex justify-content-center allign-items-center loader">
         <p-progressSpinner ariaLabel="loading" />
     </div>
 </ng-template>
@@ -11,15 +11,17 @@
 
     <!-- Íconos de redes sociales -->
     <div class="social-icons">
-        <a href="https://www.linkedin.com/in/brayan-andres-roa-lopez-45922421b/" target="_blank">
+        <!-- <a href="https://www.linkedin.com/in/brayan-andres-roa-lopez-45922421b/" target="_blank">
             <i class="fa-brands fa-linkedin"></i>
-        </a>
-        <a href="https://github.com/BrayanRoa" target="_blank">
+        </a> -->
+        <a href="#" (click)="onSocialSignUp('github', $event)">
             <i class="fa-brands fa-github"></i>
         </a>
-        <a href="https://github.com/BrayanRoa" target="_blank">
-            <i class="fa-brands fa-google"></i>
+        <a href="#" (click)="onSocialSignUp('google', $event)">
+            <i class="fa-brands fa-google google-icon"></i>
         </a>
+        <!-- <button (click)="signInWithGoogle()">Iniciar sesión con Google</button> -->
+
     </div>
 
     <!-- Formulario de login -->
@@ -43,8 +45,8 @@
         </form>
 
         <!-- Enlace para recuperar la contraseña -->
-        <div class="col-12 text-center">
+        <!-- <div class="col-12 text-center">
             <a routerLink="/register">Forgot your password?</a>
-        </div>
+        </div> -->
     </div>
 </div>

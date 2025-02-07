@@ -4,6 +4,7 @@ import { AuthService } from '../../../core/service/auth.service';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
+import { CommonResponse } from '../../../shared/interfaces/common-response.interface';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,40 @@ export class LoginComponent extends BaseComponent {
     super()
     this.formConfig();
   }
+
+  async onSocialSignUp(provider: 'google' | 'github', event?: Event) {
+    event?.preventDefault(); // Solo si viene de un formulario
+    try {
+
+      const idToken = provider === 'google'
+        ? await this.authService.signUpWithGoogle()
+        : await this.authService.signUpWithGitHub();
+
+      if (!idToken) {
+        throw new Error('No se recibió el token de Google');
+      }
+
+      // Autenticación en el backend
+      this.authService.loginWithToken(idToken).subscribe({
+        next: () => {
+          this.showLoadingSpinner(); // Mostrar spinner
+          this.handleSuccessfulLogin();
+          // this.router.navigate(['/main/dashboard']);
+        },
+        error: (error) => {
+          this.handleResponse(error.error.status, error.error.data)
+          // console.error('Error en login:', error);
+        },
+      });
+
+    } catch (error: any) {
+      this.handleResponse(error.error.status, error.error.data)
+      // console.error('Error al autenticar con Google:', error);
+    } finally {
+      this.hideLoadingSpinner(); // Ocultar spinner en cualquier caso
+    }
+  }
+
 
   formConfig() {
     this.form = this.fb.group({

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "personal_finances_front": {
+    "personal-finances-front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/personal_finances_front",
+            "outputPath": "dist/personal-finances-front",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -86,10 +86,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "personal_finances_front:build:production"
+              "buildTarget": "personal-finances-front:build:production"
             },
             "development": {
-              "buildTarget": "personal_finances_front:build:development"
+              "buildTarget": "personal-finances-front:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,7 +97,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "personal_finances_front:build"
+            "buildTarget": "personal-finances-front:build"
           }
         },
         "test": {

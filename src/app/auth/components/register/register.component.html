@@ -37,36 +37,53 @@
     <p-messages *ngIf="showMessage" [(value)]="messages!" [enableService]="false" />
 </div> -->
 
+<ng-template #loadingScreen>
+    <div class="loader">
+        <p-progressSpinner ariaLabel="loading" />
+    </div>
+</ng-template>
 
-<div class="container grid">
+<div class="container grid" *ngIf="loading; else loadingScreen">
     <div class="col-12">
         <h1>Create Account</h1>
+    </div>
+    <div class="social-icons">
+        <!-- <a href="https://www.linkedin.com/in/brayan-andres-roa-lopez-45922421b/" target="_blank">
+            <i class="fa-brands fa-linkedin"></i>
+        </a> -->
+        <a href="#" (click)="onSocialSignUp('github', $event)">
+            <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="#" (click)="onSocialSignUp('google',$event)">
+            <i class="fa-brands fa-google google-icon"></i>
+        </a>
+        <!-- <button (click)="signInWithGoogle()">Iniciar sesión con Google</button> -->
+    </div>
+    <div class="col-12 flex justify-content-center ">
+        <p class="p-0">Or use your email to create an account:</p>
     </div>
     <div class="col-12">
         <form [formGroup]="form" (ngSubmit)="verifyRegister()">
             <div class="grid">
 
-                <div class="col-12 md:col-6">
-                    <label for="name">Name:</label>
+                <div class="col-12 md:col-4">
+                    <label for="name">Name</label>
                     <input formControlName="name" type="text" id="name" autocomplete="name">
                 </div>
-                <div class="col-12 md:col-6">
-                    <label for="name">Lastname:</label>
-                    <input formControlName="name" type="text" id="name" autocomplete="name">
-                </div>
-                <div class="col-12">
 
-                    <label for="email">Email:</label>
+                <div class="col-12 md:col-8">
+
+                    <label for="email">Email</label>
                     <input formControlName="email" type="email" id="email" autocomplete="email">
                 </div>
                 <div class="col-12 md:col-6">
 
-                    <label for="password">Password:</label>
+                    <label for="password">Password</label>
                     <input formControlName="password" type="password" id="password" autocomplete="new-password">
                 </div>
                 <div class="col-12 md:col-6">
 
-                    <label for="confirm">Confirm password:</label>
+                    <label for="confirm">Confirm password</label>
                     <input formControlName="confirm" type="password" id="confirm" autocomplete="new-password">
                 </div>
 

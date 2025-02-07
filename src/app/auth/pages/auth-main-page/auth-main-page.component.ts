@@ -22,11 +22,11 @@ export class AuthMainPageComponent implements OnInit {
 
   togglePosition() {
     this.hideMsg = true; // Ocultar contenido
+    this.moved = !this.moved;
     setTimeout(() => {
-      this.moved = !this.moved;
       this.updateContent(this.moved); // Actualiza los textos y la ruta
       this.hideMsg = false; // Mostrar contenido nuevamente
-    }, 200);
+    }, 400);
   }
 
   private updateContent(isMoved: boolean) {

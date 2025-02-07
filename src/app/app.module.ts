@@ -15,6 +15,10 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 // para poder usar las graficas de la libreria sin ncesidad de usar prime ng
 import { registerables, Chart } from 'chart.js';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { environment } from '../environments/environment.development';
+// import { environment } from '../environments/environment';
 Chart.register(...registerables)
 
 
@@ -34,6 +38,8 @@ Chart.register(...registerables)
   providers: [
     provideNgxMask(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
   ],
   bootstrap: [AppComponent]
 })
