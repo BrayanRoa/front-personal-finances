@@ -1,7 +1,7 @@
 [build]
   command = "npm run build"
   functions = "functions/"
-  publish = "dist"
+  publish = "dist/personal-finances-front"
 
 [build.environment]
   NODE_ENV = "production"
