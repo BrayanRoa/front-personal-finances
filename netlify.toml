@@ -1,6 +1,6 @@
 [build]
   command = "node generate-env.js && ng build --configuration production"
-  publish = "dist/personal-finances-front"
+  publish = "dist/personal-finances-front/browser"
   base = "/"
 
 [build.environment]
