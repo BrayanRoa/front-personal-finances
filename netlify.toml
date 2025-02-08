@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "dist/personal-finances-front"
+
+[build.environment]
+  NODE_VERSION = "18" # Asegúrate de usar una versión compatible
+
+[build]
+  base = "/"
+  command = "node generate-env.js && ng build --configuration production"
