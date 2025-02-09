@@ -1,7 +1,0 @@
-[build]
-  command = "node generate-env.js && ng build --configuration production"
-  publish = "dist/personal-finances-front/browser"
-  base = "/"
-
-[build.environment]
-  NODE_VERSION = "18" # Asegúrate de usar una versión compatible
