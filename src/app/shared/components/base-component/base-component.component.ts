@@ -20,6 +20,14 @@ interface modal {
 export class BaseComponent {
 
   handleResponse(code: number, message: string): void {
+    if (code === 0) {
+      showModal({
+        title: 'Warning',
+        text: message,
+        icon: 'warning',
+        confirmButtonText: 'Accept'
+      })
+    }
     if (code === 200 || code === 201) {
       showModal({
         title: 'Success',
@@ -28,7 +36,7 @@ export class BaseComponent {
         confirmButtonText: 'Accept'
       })
     }
-    if (code === 400 || code === 409) {
+    if (code === 400 || code === 404 || code === 409) {
       showModal({
         title: 'Error',
         text: message,

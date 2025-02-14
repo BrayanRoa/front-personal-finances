@@ -39,10 +39,20 @@
                         <!-- MODAL -->
                         <p-dialog header="Add new transaction" [modal]="true" [(visible)]="visible" (onHide)="closeModal()"
                             [style]="{ width: ' 50rem' }">
+                            <div *ngIf="walletsData().length === 0; else a"
+                                class="p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-lg">
+                                <span class="font-medium">
+                                    Please add a wallet first. Go to <strong>Wallets</strong> and click the <strong>"Add
+                                        Wallet"</strong> button.
+                                </span>
+                            </div>
                             <!-- FROMULARIO -->
-                            <app-dynamic-form [fields]="formConfig!" [submitButton]="nameButton"
-                                [md_responsive]="'md:col-6'" [data]="transactionSelected" (cancel)="closeModal()"
-                                (sendForm)="saveOrUpdateTransaction($event)"></app-dynamic-form>
+                            <ng-template #a>
+                                <app-dynamic-form [fields]="formConfig!" [submitButton]="nameButton"
+                                    [md_responsive]="'md:col-6'" [data]="transactionSelected" (cancel)="closeModal()"
+                                    (sendForm)="saveOrUpdateTransaction($event)"></app-dynamic-form>
+
+                            </ng-template>
                             </p-dialog>
                 </div>
     </div>

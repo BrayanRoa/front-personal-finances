@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Message } from 'primeng/api';
 import { AuthService } from '../../../core/service/auth.service';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent extends BaseComponent implements OnInit {
+export class RegisterComponent extends BaseComponent {
 
   form!: FormGroup
 
-  messages: Message[] | undefined;
-  showMessage: boolean = false;
   idUser: string = ""
   loading: boolean = true
+  blockButton: boolean = false
+  showPassword: boolean = false
+  showConfirmPassword: boolean = false
 
   constructor(
     private auth: AuthService,
@@ -28,48 +29,49 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.formConfig()
   }
 
-  ngOnInit(): void {
-    // this.formConfig = FORM_CONFIG_REGISTER
-    this.messages = [
-      { severity: 'error', detail: 'The passwords dont match' },
-    ];
-  }
 
   formConfig() {
     this.form = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       confirm: ['', [Validators.required]],
     });
-
-    console.log(this.form.value);
   }
 
 
   verifyRegister(): void {
+    this.blockButton = true
     const password = this.form.get("password")?.value.trim();
     const confirmPassword = this.form.get("confirm")?.value.trim();
 
+    if (this.form.invalid) {
+      this.form.markAllAsTouched(); // Marca todos los campos como tocados para mostrar errores
+      return;
+    }
+
+
     if (password !== confirmPassword) {
-      this.showMessage = true;
-      setTimeout(() => (this.showMessage = false), 5000);
+      this.handleResponse(0, "Password don't match")
+      this.blockButton = false;
       return;
     }
 
     const { confirm, ...person } = this.form.value;
 
-    this.auth.register(person).subscribe({
-      next: ({ data }) => {
-        this.idUser = data;
-        this.router.navigate([`/auth/verify-code/${this.idUser}`]);
-        console.log("User registered successfully");
-      },
-      error: ({ error }) => {
-        this.handleResponse(error.status, error.data);
-        console.error("Error registering user:", error);
-      }
-    });
+    this.auth.register(person)
+      .pipe(finalize(() => {
+        this.blockButton = false
+      }))
+      .subscribe({
+        next: ({ data }) => {
+          this.idUser = data;
+          this.router.navigate([`/auth/verify-code/${this.idUser}`], { queryParams: { mode: 'email-verification' } });
+        },
+        error: ({ error }) => {
+          this.handleResponse(error.status, error.data);
+        },
+      });
   }
 
 
@@ -83,29 +85,26 @@ export class RegisterComponent extends BaseComponent implements OnInit {
         ? await this.auth.signUpWithGoogle()
         : await this.auth.signUpWithGitHub();
 
-      // console.log(`Token recibido de ${provider}:`, idToken);
-
       if (!idToken) {
         throw new Error(`No se recibió el token de ${provider}`);
       }
 
       await this.auth.registerFirebase(idToken).toPromise();
-      // console.log(`Registro exitoso en backend con ${provider}`);
 
       await this.auth.loginWithToken(idToken).toPromise();
-      // console.log(`Inicio de sesión exitoso con ${provider}`);
 
       this.handleSuccessfulLogin();
       this.router.navigate(['/main/dashboard']);
     } catch (error: any) {
-      // console.error(`Error en inicio de sesión con ${provider}:`, error);
       this.handleResponse(error?.error?.status, error?.error?.data);
     } finally {
       this.hideLoadingSpinner();
     }
   }
 
-
+  hasError(controlName: string, errorName: string): boolean {
+    return this.form.controls[controlName].hasError(errorName) && this.form.controls[controlName].touched;
+  }
 
   private handleSuccessfulLogin(): void {
     setTimeout(() => {
@@ -121,4 +120,13 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   private showLoadingSpinner(): void {
     this.loading = false; // Muestra el spinner de carga
   }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
 }

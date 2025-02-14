@@ -75,12 +75,22 @@ export class AuthService {
         return this.http.post<CommonResponse>(`${this.baseUrl}/register`, person)
     }
 
-    verifyEmail(userId: string, code: string) {
-        return this.http.get<CommonResponse>(`${this.baseUrl}/validate-email/${userId}/${code}`)
+    // envio ese type='' porque en el back reutilizo el mismo servicio para validar el registro del usuario y el cambio de la contraseña
+    verifyEmail(userId: string, code: string, type: string) {
+        return this.http.get<CommonResponse>(`${this.baseUrl}/validate-email/${userId}/${code}?type=${type}`)
     }
 
     resentCode(userId: string) {
         return this.http.get<CommonResponse>(`${this.baseUrl}/resend-code/${userId}`)
+    }
+
+    //aqui se envia el código para verificar que el usuario es el que esta pidiendo el cambio de contraseña
+    passwordRecovery(email: string) {
+        return this.http.post<CommonResponse>(`${this.baseUrl}/password-recovery`, { email: email })
+    }
+
+    passwordReset(email: string, password: string) {
+        return this.http.post<CommonResponse>(`${this.baseUrl}/password-reset`, { email: email, password: password })
     }
 
     async logout() {

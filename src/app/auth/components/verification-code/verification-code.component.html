@@ -1,11 +1,22 @@
-<div class="verify-code-container flex flex-column align-items-center justify-content-center p-4">
-    <h1 class="title text-center mb-3">Verify Your Email</h1>
-    <p class="instruction text-center mb-4 text">
-        Please check your email and enter the verification code we sent you.
-    </p>
-    <p-inputOtp [(ngModel)]="code" [integerOnly]="true" class="mb-3" (ngModelChange)="onCodeChange()"></p-inputOtp>
-    <p class="note text-center text">
-        Didn’t receive the email? 
-    </p>
-    <a href="#" class="resend-link">Resend code</a>
+<ng-template #loadingScreen>
+    <div class="flex justify-content-center allign-items-center loader">
+        <p-progressSpinner ariaLabel="loading" />
+    </div>
+</ng-template>
+
+<div *ngIf="!loading; else loadingScreen">
+
+    <div class="verify-code-container flex flex-column align-items-center justify-content-center p-4">
+        <h1 class="title text-center mb-3">Verify Your Email</h1>
+        <p class="instruction text-center mb-4 text">
+            Please check your email and enter the verification code we sent you.
+        </p>
+        <p-inputOtp [(ngModel)]="code" [integerOnly]="true" class="mb-3" (ngModelChange)="onCodeChange()"></p-inputOtp>
+
+        <div class="buttons-container flex flex-column align-items-center mt-3">
+            <a href="#" (click)="resendCode($event)" class="resend-link">Resend code</a>
+            <app-button [label]="'Back to login'" [severity]="'info'" routerLink="/auth/login"></app-button>
+        </div>
+
+    </div>
 </div>

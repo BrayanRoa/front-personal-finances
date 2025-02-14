@@ -49,8 +49,41 @@ input[type="password"] {
     /* letter-spacing: 3px; */
 }
 
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 40px;
+    /* Espacio para el icono */
+}
+
+.password-wrapper i {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: black;
+    transition: color 0.3s ease-in-out;
+}
+
+.password-wrapper i:hover {
+    color: #ffcc00;
+}
+
+
 /* Estilos para el botón de envío */
 button {
+    min-width: 150px;
     padding: 10px 25px;
     font-size: 16px;
     font-weight: bold;
@@ -62,7 +95,6 @@ button {
     transition: background-color 0.3s ease-in-out;
 }
 
-/* Efecto de hover para el botón */
 button:hover {
     background-color: #ffcc00;
 }

@@ -12,6 +12,8 @@ import { AuthRoutingModule } from './auth.routing.module';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { SharedModule } from '../shared/shared.module';
 import { VerificationCodeComponent } from './components/verification-code/verification-code.component';
+import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { VerificationCodeComponent } from './components/verification-code/verifi
         AuthRoutingModule,
         PrimeNgModule,
         SharedModule,
+
     ],
     exports: [
         AuthMainPageComponent
@@ -31,7 +34,9 @@ import { VerificationCodeComponent } from './components/verification-code/verifi
         AuthMainPageComponent,
         LoginComponent,
         RegisterComponent,
-        VerificationCodeComponent
+        VerificationCodeComponent,
+        PasswordRecoveryComponent,
+        ResetPasswordComponent
     ],
     providers: [],
 })

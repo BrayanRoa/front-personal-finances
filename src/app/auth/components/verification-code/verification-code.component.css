@@ -7,3 +7,19 @@
     color: black;
     font-size: 16px;
 }
+
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.buttons-container {
+    width: 100%;
+    text-align: center;
+    gap: 10px;
+    /* Espaciado entre los botones */
+}

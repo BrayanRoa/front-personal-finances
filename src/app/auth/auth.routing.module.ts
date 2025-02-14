@@ -4,6 +4,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthMainPageComponent } from './pages/auth-main-page/auth-main-page.component';
 import { VerificationCodeComponent } from './components/verification-code/verification-code.component';
+import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
     {
@@ -21,6 +23,14 @@ const routes: Routes = [
             {
                 path: 'verify-code/:userId',
                 component: VerificationCodeComponent
+            },
+            {
+                path: 'password-recovery',
+                component: PasswordRecoveryComponent
+            },
+            {
+                path: 'reset-password/:userId/:code',
+                component: ResetPasswordComponent
             },
             {
                 path: '**',

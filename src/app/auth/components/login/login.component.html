@@ -1,27 +1,16 @@
-<ng-template #loadingScreen>
-    <div class="flex justify-content-center allign-items-center loader">
-        <p-progressSpinner ariaLabel="loading" />
-    </div>
-</ng-template>
-
-<div class="container grid" *ngIf="loading; else loadingScreen">
+<div class="container grid">
     <div class="col-12">
         <p class="p-0">Sign in</p>
     </div>
 
     <!-- Íconos de redes sociales -->
     <div class="social-icons">
-        <!-- <a href="https://www.linkedin.com/in/brayan-andres-roa-lopez-45922421b/" target="_blank">
-            <i class="fa-brands fa-linkedin"></i>
-        </a> -->
         <a href="#" (click)="onSocialSignUp('github', $event)">
             <i class="fa-brands fa-github"></i>
         </a>
         <a href="#" (click)="onSocialSignUp('google', $event)">
             <i class="fa-brands fa-google google-icon"></i>
         </a>
-        <!-- <button (click)="signInWithGoogle()">Iniciar sesión con Google</button> -->
-
     </div>
 
     <!-- Formulario de login -->
@@ -33,20 +22,29 @@
                     <input formControlName="email" type="email" id="email" placeholder="Enter your email">
                 </div>
 
-                <div class="col-12">
+                <div class="col-12 password-container">
                     <label for="password">Password</label>
-                    <input formControlName="password" type="password" id="password" placeholder="Enter your password">
+                    <div class="password-wrapper">
+                        <input formControlName="password" [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Enter your password">
+                        <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePasswordVisibility()"></i>
+                    </div>
                 </div>
-
+                
                 <div class="col-12 flex justify-content-center">
-                    <button [disabled]="form.invalid" type="submit">Login</button>
+                    <!-- <app-button [label]="'Login'" [isDisabled]="form.invalid" [type]="'submit'" [severity]="'warning'"></app-button> -->
+                    <button [disabled]="loading || form.invalid" type="submit">
+                        <span *ngIf="!loading">Login</span>
+                        <span *ngIf="loading">
+                            <i class="fa fa-spinner fa-spin"></i> Login...
+                        </span>
+                    </button>
                 </div>
             </div>
         </form>
 
         <!-- Enlace para recuperar la contraseña -->
-        <!-- <div class="col-12 text-center">
-            <a routerLink="/register">Forgot your password?</a>
-        </div> -->
+        <div class="col-12 text-center">
+            <a routerLink="/auth/password-recovery">Forgot your password?</a>
+        </div>
     </div>
 </div>
