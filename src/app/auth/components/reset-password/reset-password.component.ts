@@ -14,6 +14,9 @@ export class ResetPasswordComponent extends BaseComponent {
   form!: FormGroup
   email: string = ""
   loading: boolean = false
+  showPassword: boolean = false
+  showConfirmPassword: boolean = false
+
 
   constructor(
     private fb: FormBuilder,
@@ -47,7 +50,7 @@ export class ResetPasswordComponent extends BaseComponent {
       this.handleResponse(0, "Password don't match")
       return;
     }
-    
+
     this.loading = true;
 
     this.auth.passwordReset(this.email, password).subscribe({
@@ -55,14 +58,14 @@ export class ResetPasswordComponent extends BaseComponent {
         setTimeout(() => {
           this.loading = false;
           this.router.navigate(['/auth/login']);
-        },1000)
+        }, 1000)
         //colocar el loading
       },
       error: (error) => {
         setTimeout(() => {
           this.loading = false;
           this.handleResponse(error.status, error.statusMsg);
-        },1000)
+        }, 1000)
       }
     })
   }
@@ -70,5 +73,14 @@ export class ResetPasswordComponent extends BaseComponent {
   hasError(controlName: string, errorName: string): boolean {
     return this.form.controls[controlName].hasError(errorName) && this.form.controls[controlName].touched;
   }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
 
 }
