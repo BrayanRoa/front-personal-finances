@@ -50,6 +50,8 @@ export class PolarBarChartComponent implements OnChanges {
         };
 
         this.options = {
+            responsive: true,
+            maintainAspectRatio: true,
             aspectRatio: 0.7,
             plugins: {
                 legend: {

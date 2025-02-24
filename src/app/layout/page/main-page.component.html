@@ -1,6 +1,6 @@
 <div class="container-test" #container>
     <div class="barra-lateral" #mini_barra_lateral>
-        <div>
+        <div class="header">
             <div class="name-page">
                 <i class="pi pi-shield" #icon (click)="handleClick()"></i>
                 <span #mySpan>WealthFlow</span>
@@ -14,13 +14,6 @@
                     <span #mySpan>Log out</span>
                 </button>
 
-
-                <!-- <p-dialog header="Create New Wallet" [modal]="true" [(visible)]="visible" (onHide)="closeModal()"
-                    [style]="{ width: '25rem' }">
-                    <app-dynamic-form [fields]="formConfig!" [submitButton]="'save'"
-                        (sendForm)="onSaveNewWallet($event)" (cancel)="closeModal()"></app-dynamic-form>
-
-                </p-dialog> -->
             </div>
             <!-- END BOTON AND MODAL -->
         </div>
@@ -31,14 +24,14 @@
                     [routerLinkActiveOptions]="{ exact: route.exact! }" [pTooltip]="isSmallMenu ? route.label : ''">
                     <a>
                         <i class="{{route.icon}}"></i>
-                        <span #mySpan>{{route.label}}</span>
+                        <span class="movil-span" #mySpan>{{route.label}}</span>
                     </a>
                 </li>
 
             </ul>
         </nav>
 
-        <div>
+        <div class="footer-barra-lateral">
             <div class="linea"></div>
 
             <div class="modo-oscuro">

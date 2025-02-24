@@ -4,14 +4,14 @@
     border-radius: 5px;
 }
 
-span{
+span {
     /* color: var(--text-color); */
     font-size: larger;
     font-weight: bold;
     margin-right: 15px;
 }
 
-.pi-sort-up-fill{
+.pi-sort-up-fill {
     color: green;
 }
 
@@ -28,3 +28,16 @@ span{
     color: var(--text-color-primary);
 }
 
+@media (max-width: 600px) {
+    span {
+        font-size: medium;
+        font-weight: bold;
+        margin-right: 0px;
+    }
+
+    .toolbar{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+}
