@@ -255,6 +255,10 @@
     left: 15px;
 }
 
+.toggle-mobile{
+    display: none;
+}
+
 
 /* USUARIO */
 
@@ -364,6 +368,18 @@
 }
 
 @media (max-width: 600px) {
+
+    .header-mobile{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 10vh;
+        background-color: var(--surface-a);
+        transition: background-color 0.5s ease;
+        padding: 10px;
+    }
+
     .header{
         display: none;
     }
@@ -374,17 +390,17 @@
 
     .main{
         width: 100vw;
-        height: 90%;
+        height: 90vh;
         padding: 5px;
     }
 
     .barra-lateral {
-        border: 2px solid #ccc;
+        border: 2px 0 0 0 solid #ccc;
         position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 10%;
+        height: 10vh;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -413,7 +429,9 @@
 
     .barra-lateral .navegacion li {
         width: 100%;
+        height: 100%;
         display: flex;
+        gap:1px;
         align-items: center;
         justify-content: center;
     }
@@ -440,6 +458,17 @@
 
     .movil-span{
         display: none;
+    }
+
+    .toggle-mobile{
+        margin-left: 5px;
+        display: block;
+    }
+
+    p-button{
+        margin-left: 10px;
+        display: block;
+        margin-bottom: 5px;
     }
 }
 
