@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, signal } from '@angular/core';
 import { FORM_CONFIG_WALLET, FORM_CONFIG_WALLET_UPDATE, TABLE_COLUMNS_WALLET } from '../../statics/wallets.config';
 import { WalletData } from '../../interfaces/wallet.interface';
 import { actionsButton } from '../../../../shared/interfaces/use-common.interfce';
@@ -11,6 +11,8 @@ import { FormFieldConfig } from '../../../../shared/interfaces/generic-component
   styleUrl: './table-wallets.component.css'
 })
 export class TableWalletsComponent {
+
+  isMobile: boolean = false;
 
   // MODAL
   visible: boolean = false;
@@ -49,6 +51,10 @@ export class TableWalletsComponent {
     },
   ];
 
+  ngOnInit(): void {
+    this.checkWindowSize();
+  }
+
   sendEditRow(id: number, wallet: WalletData) {
     this.idWalletSelected = id
     this.walletSelected.set(wallet)
@@ -70,6 +76,15 @@ export class TableWalletsComponent {
     this.formConfig = FORM_CONFIG_WALLET_UPDATE
     this.nameButton = 'update'
     this.resetForm.emit()
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkWindowSize();
+  }
+
+  checkWindowSize(): void {
+    this.isMobile = window.innerWidth < 600; // Umbral de 1100px para móviles
   }
 
   saveOrUpdateTransaction(event: { data: FormGroup, action: string }) {

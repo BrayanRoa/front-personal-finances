@@ -14,7 +14,7 @@ export interface Transaction {
     deleted_at?: string | null;
     date: string;
     amount: number;
-    name:string;
+    name: string;
     description: string;
     type: string;
     repeat: string;
@@ -41,9 +41,22 @@ interface Wallet {
 interface Category {
     id: number;
     name: string;
-    icon: string;
+    colorId: number;
+    iconId: number;
+    color: Color;
+    icon: Icon;
     created_at: string;
     updated_at: string;
     deleted_at: string | null;
     userId: string;
+}
+
+interface Color {
+    id: number;
+    hex: string;
+}
+
+interface Icon {
+    id: number;
+    path: string;
 }

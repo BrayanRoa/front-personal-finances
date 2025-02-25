@@ -338,7 +338,9 @@
 
 }
 
-
+.header-mobile{
+    display: none;
+}
 
 
 .active {
@@ -377,7 +379,7 @@
         height: 10vh;
         background-color: var(--surface-a);
         transition: background-color 0.5s ease;
-        padding: 10px;
+        padding: 20px;
     }
 
     .header{

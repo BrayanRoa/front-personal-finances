@@ -1,3 +1,40 @@
-.col{
-    background-color: aqua;
+.icon {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.item-one {
+    flex: 0 0 auto;
+    /* No crecerá */
+}
+
+.item-two {
+    flex-grow: 1;
+    /* Ocupa el espacio restante */
+    min-width: 0;
+    /* Permite que los elementos internos no crezcan innecesariamente */
+}
+
+.item-one .border-circle {
+    width: 40px;
+    /* Ajusta el tamaño del icono */
+    height: 40px;
+}
+
+
+.dataview {
+    border-bottom: 1px solid #e0e0e0;
+    /* Color gris claro */
+    padding-bottom: 10px;
+    /* Espacio para que la línea no esté pegada */
+}
+
+.dataview:last-child {
+    border-bottom: none;
+    /* Elimina la línea del último elemento */
+}
+
+.dataview:hover{
+    background-color: var(--color-hover-table);
+    /* Color gris claro al pasar el ratón */
 }
