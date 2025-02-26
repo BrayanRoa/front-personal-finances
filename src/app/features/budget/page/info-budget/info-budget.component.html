@@ -32,13 +32,27 @@
         <div class="col-12 w-full">
             <div class="grid header">
 
-                <div class="col-3">
-                    <app-cake-card [percentage]="percentageBudet"></app-cake-card>
+                <div class="col-12 md:col-5 sm:col-12">
+                    <div class="flex justify-content-center m-0 flex-wrap">
+                        <app-cake-card [percentage]="percentageBudet"></app-cake-card>
+                    </div>
                 </div>
-                <div class="col-7 flex flex-nowrap flex-column justify-content-center">
-                    <div class="flex">
-                        <span class="name">Budget Name: {{budget.name | titlecase}}</span>
 
+
+                <div class="sm:col-12 md:col-7  flex flex-nowrap flex-column justify-content-center">
+                    <div class="flex mb-3">
+                        <span class="name">Budget Name: {{budget.name | titlecase}}</span>
+                        <p-button [severity]="'info'" class="ml-2" icon="pi pi-pencil" [rounded]="true"
+                            (onClick)="toggleModal(true)" />
+
+
+                        <p-dialog header="Edit Budget" [modal]="true" [(visible)]="viewModal"
+                            [style]="{ width: '90vw', maxWidth: '50rem' }"
+                            [breakpoints]="{ '960px': '75vw', '640px': '90vw' }">
+                            <app-form-add-update-budget [budget]="budget" (cancel)="toggleModal(false)"
+                                [nameButton]="'Update'"
+                                (sendBudget)="updateBudget($event)"></app-form-add-update-budget>
+                        </p-dialog>
                     </div>
                     <span><i class="pi pi-calendar-minus"></i> Date range: {{budget.date|date:'longDate':'UTC'}} -
                         {{budget.end_date |
@@ -71,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-2 flex justify-content-end align-items-start ">
+                <!-- <div class="col-2 flex justify-content-end align-items-start ">
                     <app-button [icon]="'pi pi-pencil'" [label]="''" [pTooltip]="'Edit budget'"
                         [tooltipPosition]="'left'" [severity]="'info'" (onClick)="toggleModal(true)"></app-button>
 
@@ -79,7 +93,7 @@
                         <app-form-add-update-budget [budget]="budget" (cancel)="toggleModal(false)"
                             [nameButton]="'Update'" (sendBudget)="updateBudget($event)"></app-form-add-update-budget>
                     </p-dialog>
-                </div>
+                </div> -->
             </div>
         </div>
     </ng-template>
@@ -90,7 +104,7 @@
                     <span class="item1 title-panel">Transactions</span>
                 </div>
             </ng-template>
-            <div class="">
+            <div class="" *ngIf="!isMobile">
                 <app-table [columns]="table_columns" [data]="transactions" [cellTemplates]="{
                     name:titleCase,
                     walletName:titleCase,
@@ -112,6 +126,41 @@
                 </ng-template>
 
             </div>
+
+            <div class="transactions-container" *ngIf="isMobile">
+                <div *ngFor="let date of sortedDates">
+                    <h3 class="date-header">
+                        {{ date | date:'longDate':'UTC' }}
+                    </h3>
+
+                    <!-- Contenedor de transacciones -->
+                    <div class="transactions-list">
+                        <div class="transaction-card" *ngFor="let item of groupedTransactions[date]">
+
+                            <!-- Icono de Categoría -->
+                            <div class="transaction-icon" [ngStyle]="{'background-color': item.category?.color?.hex}">
+                                <i class="fa-solid {{ item.category!.icon.path }}"></i>
+                            </div>
+
+                            <!-- Información de la Transacción -->
+                            <div class="transaction-info">
+                                <span class="transaction-name">{{ item.name }}</span>
+                                <span class="transaction-category">{{ item.category!.name }}</span>
+                            </div>
+
+                            <!-- Monto y Repetición -->
+                            <div class="transaction-amount">
+                                <span [ngClass]="item.type === 'OUTFLOW' ? 'outflow' : 'inflow'">
+                                    {{ item.amount | currencyCustom:true }}
+                                </span>
+                                <i *ngIf="item.repeat !== 'NEVER'" class="pi pi-calendar repeat-icon"
+                                    pTooltip="Próxima: {{ item.next_date | date:'longDate':'UTC' }}"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </p-panel>
     </div>
 

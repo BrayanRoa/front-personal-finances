@@ -1,6 +1,8 @@
-<div class="container grid">
-    <div class="col-12">
-        <p class="p-0">Sign in</p>
+<div class="container grid gap-2">
+    <div class="col-12 title">
+        Sign in
+        <!-- <p class="p-0 my-10">
+        </p> -->
     </div>
 
     <!-- Íconos de redes sociales -->
@@ -25,11 +27,13 @@
                 <div class="col-12 password-container">
                     <label for="password">Password</label>
                     <div class="password-wrapper">
-                        <input formControlName="password" [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Enter your password">
-                        <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePasswordVisibility()"></i>
+                        <input formControlName="password" [type]="showPassword ? 'text' : 'password'" id="password"
+                            placeholder="Enter your password">
+                        <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+                            (click)="togglePasswordVisibility()"></i>
                     </div>
                 </div>
-                
+
                 <div class="col-12 flex justify-content-center">
                     <!-- <app-button [label]="'Login'" [isDisabled]="form.invalid" [type]="'submit'" [severity]="'warning'"></app-button> -->
                     <button [disabled]="loading || form.invalid" type="submit">
@@ -46,5 +50,11 @@
         <div class="col-12 text-center">
             <a routerLink="/auth/password-recovery">Forgot your password?</a>
         </div>
+
+        <div class="register text-center">
+            <span>Don't have an account?</span><br>
+            <a routerLink="/auth/register" class="register-btn">Register now</a>
+        </div>
+
     </div>
 </div>

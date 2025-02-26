@@ -7,7 +7,7 @@
                         class="pi pi-plus mr-2"></i> Create new budget</button>
 
                 <p-dialog header="Add New Budget" [modal]="true" [(visible)]="viewModal" (onHide)="toggleModal(false)"
-                    [style]="{ width: ' 50rem' }">
+                    [style]="{ width: '90vw', maxWidth: '50rem' }" [breakpoints]="{ '960px': '75vw', '640px': '90vw' }">
                     <!-- FROMULARIO -->
                     <app-form-add-update-budget [nameButton]="'Save'" (sendBudget)="eventBudget($event)"
                         (cancel)="toggleModal(false)"></app-form-add-update-budget>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { TABLE_COLUMNS_TRANSACTION } from '../../../transactions/statics/transaction.config';
 import { Transaction } from '../../../../shared/interfaces/transactions/getAll.interface';
 import { MetaData } from '../../../../shared/interfaces/common-response.interface';
@@ -25,6 +25,12 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
 
   loading: boolean = true
 
+  isMobile: boolean = false;
+
+  groupedTransactions: Record<string, Transaction[]> = {};
+  sortedDates: string[] = [];
+
+
   @Input()
   metaData: MetaData = {
     totalRecords: 0,
@@ -50,12 +56,14 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkWindowSize()
     // Obtener el parámetro 'id' de la URL
     this.budgetId = +this.route.snapshot.paramMap.get('id')!;
     this.getBudget()
 
     setTimeout(() => {
       this.loading = false;
+      this.groupCategories()
     }, 1000)
   }
 
@@ -70,6 +78,7 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
             this.transactions.push(transaction.transaction)
           }
         })
+        console.log(this.transactions);
         this.available_amount = this.budget.limit_amount! - current_amount
         this.percentageBudet = Math.round((current_amount / response.data.limit_amount) * 100)
       },
@@ -102,6 +111,32 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
         console.error('Error updating budget:', error);
       }
     });
+  }
+
+  groupCategories() {
+    this.groupedTransactions = this.transactions.reduce<Record<string, Transaction[]>>((acc, transaction) => {
+      const dateKey = new Date(transaction.date).toISOString().split('T')[0]; // Convertimos la fecha a string (YYYY-MM-DD)
+
+      if (!acc[dateKey]) {
+        acc[dateKey] = [];  // Inicializamos el array
+      }
+
+      acc[dateKey].push(transaction); // Ahora sí agregamos la transacción
+
+      return acc;
+    }, {});
+
+    // Obtener y ordenar las fechas de mayor a menor
+    this.sortedDates = Object.keys(this.groupedTransactions).sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkWindowSize();
+  }
+
+  checkWindowSize(): void {
+    this.isMobile = window.innerWidth < 800; // Umbral de 1100px para móviles
   }
 
 }

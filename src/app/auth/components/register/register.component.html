@@ -5,8 +5,8 @@
 </ng-template>
 
 <div class="container grid" *ngIf="loading; else loadingScreen">
-    <div class="col-12">
-        <h1>Create Account</h1>
+    <div class="col-12 title">
+        Create Account
     </div>
     <div class="social-icons">
         <a href="#" (click)="onSocialSignUp('github', $event)">
@@ -17,7 +17,7 @@
         </a>
     </div>
     <div class="col-12 flex justify-content-center ">
-        <p class="p-0">Or use your email to create an account:</p>
+        <p class="p-0">Or use your email to create an account</p>
     </div>
     <div class="col-12">
         <form [formGroup]="form" (ngSubmit)="verifyRegister()">
@@ -37,27 +37,27 @@
                     <small class="error" *ngIf="hasError('email', 'required')">Email is required</small>
                     <small class="error" *ngIf="hasError('email', 'email')">Invalid email format</small>
                 </div>
-                
+
                 <!-- Password -->
                 <div class="col-12 md:col-6 password-container">
                     <label for="password">Password</label>
                     <div class="password-wrapper">
                         <input formControlName="password" [type]="showPassword ? 'text' : 'password'" id="password"
-                        placeholder="">
+                            placeholder="">
                         <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
-                        (click)="togglePasswordVisibility()"></i>
+                            (click)="togglePasswordVisibility()"></i>
                     </div>
                     <small class="error" *ngIf="hasError('password', 'required')">Password required</small>
                 </div>
-                
+
                 <!-- Confirm Password -->
                 <div class="col-12 md:col-6">
                     <label for="confirm">Confirm password *</label>
                     <div class="password-wrapper">
                         <input formControlName="confirm" [type]="showConfirmPassword ? 'text' : 'password'"
-                        id="password" placeholder="">
+                            id="password" placeholder="">
                         <i class="fa" [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"
-                        (click)="toggleConfirmPasswordVisibility()"></i>
+                            (click)="toggleConfirmPasswordVisibility()"></i>
                     </div>
                     <small class="error" *ngIf="hasError('confirm', 'required')">Password required</small>
                 </div>
@@ -74,5 +74,9 @@
             </div>
         </form>
 
+    </div>
+
+    <div class="a col-12 flex justify-content-center a">
+        <p class="p-0">Already have an account? <a routerLink="/auth/login">Login</a></p>
     </div>
 </div>

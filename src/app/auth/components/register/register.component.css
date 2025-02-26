@@ -4,10 +4,12 @@
     border-radius: 10px;
 }
 
-.container h1 {
+.title {
     text-align: center;
     color: black;
     font-weight: bold;
+    font-size: 40px;
+    margin-bottom: 20px;
 }
 
 label {
@@ -124,4 +126,36 @@ p {
     font-size: 12px;
     margin-top: 4px;
     display: block;
+}
+
+.login{
+    display: none;
+}
+
+/* @media (min-width: 100px) {
+    .container{
+        padding: 5px;
+    }
+} */
+
+@media (max-width: 700px) {
+    .container {
+        padding: 5px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    input{
+        padding: 5px;
+    }
+
+    .password-wrapper i {
+        font-size: 15px;
+    }
+
+    .login{
+        display: block;
+    }
 }

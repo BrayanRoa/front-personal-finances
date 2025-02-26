@@ -51,39 +51,52 @@
 
 
 <div class="data" *ngIf="isMobile">
+    <!-- Iteramos por cada fecha en orden descendente -->
+    <div *ngFor="let date of sortedDates">
+        <!-- Mostrar la fecha -->
+        <h3 class="text-xl font-bold text-secondary">{{ date | date:'longDate':'UTC' }}</h3>
 
-    <div class="dataview flex flex-nowrap justify-content-between gap-3 p-2 pb-3" *ngFor="let item of transactions">
-        <div class="item-one flex flex-wrap align-content-center ">
-            <div [ngStyle]="{'background-color':item.category?.color?.hex}"
-                class="flex justify-content-center align-items-center p-3 border-circle">
-                <i class="icon fa-solid {{item.category!.icon.path}}" [ngStyle]="{'color': '#fff'}"></i>
-            </div>
-        </div>
-        <div class="item-two flex flex-column gap-2">
-            <div class="item-two-left">
-                <span class="font-medium text-secondary text-sm">
-                    {{ item.date | date:'longDate':'UTC' }}
-                </span>
-                <div class="text-lg font-medium text-900">
-                    {{ item.name }}
-                </div>
-            </div>
-            <div class="item-two-right flex align-content-center gap-2">
-                <div class="flex align-content-center">
-                    <p-tag value="{{item.category!.name}}" severity="secondary" />
-                </div>
+        <!-- Iteramos sobre las transacciones de esa fecha -->
+        <div class="dataview flex flex-nowrap justify-content-between gap-3 p-2 pb-3"
+            *ngFor="let item of groupedTransactions[date]">
 
-                <div *ngIf="item.repeat !== 'NEVER'" class="flex flex-wrap justify-content-center align-content-center">
-                    <i pTooltip="repeat: {{item.repeat}}" class="pi pi-clock"></i>
+            <div class="item-one flex flex-wrap align-content-center ">
+                <div [ngStyle]="{'background-color':item.category?.color?.hex}"
+                    class="flex justify-content-center align-items-center p-3 border-circle">
+                    <i class="icon fa-solid {{item.category!.icon.path}}" [ngStyle]="{'color': '#fff'}"></i>
                 </div>
             </div>
 
-        </div>
-        <div class="item-three flex-wrap flex align-content-center gap-2">
-            <p-button icon="pi pi-trash" severity="danger" (onClick)="deleteRow(item.id!)" [outlined]="true"></p-button>
-            <p-button icon="pi pi-pencil" (onClick)="sendEditRow(item.id!, item)"></p-button>
+            <div class="item-two flex flex-column gap-2">
+                <div class="item-two-left">
+                    <div class="text-lg font-medium text-900">
+                        {{ item.name }}
+                    </div>
+                    <span class="font-medium text-secondary text-sm">
+                        {{ item.amount | currencyCustom:true }}
+                    </span>
+                </div>
+                <div class="item-two-right flex align-content-center gap-2">
+                    <div class="flex align-content-center">
+                        <p-tag value="{{item.category!.name}}" severity="secondary" />
+                    </div>
+
+                    <div *ngIf="item.repeat !== 'NEVER'"
+                        class="flex flex-wrap justify-content-center align-content-center">
+                        <i pTooltip="repeat: {{item.repeat}}" class="pi pi-clock"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-three flex-wrap flex align-content-center gap-2">
+                <p-button icon="pi pi-trash" severity="danger" (onClick)="deleteRow(item.id!)"
+                    [outlined]="true"></p-button>
+                <p-button icon="pi pi-pencil" (onClick)="sendEditRow(item.id!, item)"></p-button>
+            </div>
         </div>
     </div>
 </div>
+
+
 <app-paginator *ngIf="isMobile" [meta]="metaData" (pageSelected)="onPageChange($event)"
     [numberRegistersByDefault]="10"></app-paginator>

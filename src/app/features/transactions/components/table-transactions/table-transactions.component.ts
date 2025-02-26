@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit, HostListener } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, HostListener, OnChanges, SimpleChanges } from '@angular/core';
 import { actionsButton } from '../../../../shared/interfaces/use-common.interfce';
 import { Transaction } from '../../../../shared/interfaces/transactions/getAll.interface';
 import { MetaData } from '../../../../shared/interfaces/common-response.interface';
@@ -9,10 +9,10 @@ import { TABLE_COLUMNS_TRANSACTION } from '../../statics/transaction.config';
   templateUrl: './table-transactions.component.html',
   styleUrl: './table-transactions.component.css'
 })
-export class TableTransactionsComponent implements OnInit {
+export class TableTransactionsComponent implements OnInit, OnChanges {
 
   isMobile: boolean = false;
-  layout: 'list'| 'grid' = 'list';
+  layout: 'list' | 'grid' = 'list';
 
   @Input()
   transactions: Transaction[] = [];
@@ -36,6 +36,8 @@ export class TableTransactionsComponent implements OnInit {
   tableColumns = TABLE_COLUMNS_TRANSACTION
   registersPerPage = 10
 
+  groupedTransactions: Record<string, Transaction[]> = {};
+  sortedDates: string[] = [];
 
   actions: actionsButton<Transaction>[] = [
     {
@@ -58,6 +60,26 @@ export class TableTransactionsComponent implements OnInit {
     this.checkWindowSize();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["transactions"] && changes["transactions"].currentValue && this.isMobile) {
+      // this.updateChart();
+      this.groupedTransactions = this.transactions.reduce<Record<string, Transaction[]>>((acc, transaction) => {
+        const dateKey = new Date(transaction.date).toISOString().split('T')[0]; // Convertimos la fecha a string (YYYY-MM-DD)
+
+        if (!acc[dateKey]) {
+          acc[dateKey] = [];  // Inicializamos el array
+        }
+
+        acc[dateKey].push(transaction); // Ahora sí agregamos la transacción
+
+        return acc;
+      }, {});
+
+      // Obtener y ordenar las fechas de mayor a menor
+      this.sortedDates = Object.keys(this.groupedTransactions).sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
+    }
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.checkWindowSize();
@@ -68,7 +90,7 @@ export class TableTransactionsComponent implements OnInit {
   }
 
   sendEditRow(id: number, transaction: Transaction) {
-    console.log({transaction});
+    console.log({ transaction });
     const transactionPayload: Transaction = {
       ...transaction,
       date: new Date(transaction.date).toISOString().split('T')[0],

@@ -6,12 +6,6 @@
     box-shadow: var(--shadow-2);
 }
 
-.header .name {
-    font-weight: bold;
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-color-primary);
-}
 
 .header span {
     display: flex;
@@ -20,6 +14,15 @@
     font-size: 1rem;
     font-weight: normal;
     color: var(--text-color-secondary);
+}
+
+.header .name {
+    font-weight: bold;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    color: var(--text-color-primary);
 }
 
 .header .pi {
@@ -39,11 +42,11 @@
     color: var(--color-text-card-two);
 }
 
-.header .pi-stopwatch{
+.header .pi-stopwatch {
     color: var(--color-text-card-four)
 }
 
-.header .pi-chart-line{
+.header .pi-chart-line {
     color: var(--cyan-500)
 }
 
@@ -86,25 +89,109 @@
     transition: width 0.3s ease;
 }
 
-/* Panel */
-/* p-panel {
-    margin-bottom: 1rem;
-    box-shadow: var(--shadow-2);
-    border-radius: 8px;
-} */
+.icon {
+    font-size: 1.5rem;
+}
 
-/* .custom-header {
-    font-size: 1.25rem;
+.pi-clock {
+    color: var(--green-500);
     font-weight: bold;
+}
+
+
+.transactions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.date-header {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color-texto);
+    margin-bottom: 8px;
+}
+
+.transactions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.transaction-card {
     display: flex;
     align-items: center;
-    color: var(--text-color-primary);
-} */
+    /* background: var(--color-cards-background); */
+    border-radius: 12px;
+    padding: 12px;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+    width: 100%;
+}
 
-/* General Spans */
-/* span {
-    display: inline-flex;
+.transaction-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
-    margin-bottom: 0.5rem;
-    font-weight: normal;
-} */
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    margin-right: 12px;
+}
+
+.transaction-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.transaction-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-texto-menu);
+}
+
+.transaction-category {
+    font-size: 14px;
+    color: var(--color-texto-menu);
+}
+
+.transaction-amount {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.transaction-amount span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.outflow {
+    color: var(--red-400);
+    /* Rojo para gastos */
+}
+
+.inflow {
+    color: #2a9d8f;
+}
+
+.repeat-icon {
+    font-size: 14px;
+    color: var(--color-texto-menu);
+    margin-top: 4px;
+}
+
+@media (max-width:800) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.transaction-card:hover {
+    background-color: var(--color-hover-table);
+    /* Color gris claro al pasar el ratón */
+}

@@ -17,6 +17,14 @@ label {
     margin-bottom: 5px;
 }
 
+.title{
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
 /* Estilos generales para los inputs */
 input {
     width: 100%;
@@ -147,4 +155,54 @@ button:hover {
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+
+/* Estilos para el enlace de registro */
+.register {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.register span {
+    color: #333;
+    font-size: 14px;
+}
+
+.register-btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    background-color: #ffcc00;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.register-btn:hover {
+    background-color: #e6b800;
+    transform: scale(1.05);
+}
+
+.register{
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .container{
+        padding: 0px;
+    }
+}
+
+
+@media (max-width: 700px) {
+    .container {
+        padding: 0px;
+    }
+
+    .register {
+        display: block;
+    }
 }
