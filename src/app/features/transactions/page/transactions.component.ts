@@ -165,7 +165,6 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     this.transactionService.getTransactions(filters).subscribe({
       next: (transactions: ApiResponse<TransactionData>) => {
         this.transactions = transactions.data.transactions;
-        console.log(this.transactions);
         this.balanceInformation.set({
           totalIncomes: transactions.data.totalIncome,
           totalExpenses: transactions.data.totalExpenses,

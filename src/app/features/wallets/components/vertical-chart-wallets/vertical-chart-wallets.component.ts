@@ -33,22 +33,27 @@ export class VerticalChartWalletsComponent {
   }
 
   updateChart() {
-
     const textColor = this.themeService.colorTextStyle()
     const textColorSecondary = this.themeService.colorLegendStyle()
     const borderColor = this.themeService.colorBorderStyle()
     const blueBar = this.themeService.colorBlueBar()
     const pinkBar = this.themeService.colorPinkBar()
+    const greenBar = this.themeService.colorGreenBar()
 
     this.data = {
       labels: this.datasets.map(data => data.name),
       datasets: [
         {
+          label: 'Initial amount',
+          backgroundColor: greenBar,
+          borderColor: greenBar,
+          data: this.datasets.map(dataset => dataset.initial_balance)
+        },
+        {
           label: 'Incomes',
           backgroundColor: blueBar,
           borderColor: blueBar,
           data: this.datasets.map(dataset => dataset.incomes)
-
         },
         {
           label: 'Expenses',

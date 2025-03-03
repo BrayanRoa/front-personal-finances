@@ -19,7 +19,13 @@
 </ng-template>
 
 <ng-template #balanceTemplate let-value>
-    <td>{{value|currencyCustom:true}}</td>
+    <td>
+        <!-- {{value|currencyCustom:true}} -->
+        <span
+        [ngClass]="{'text-green-500': value >= 0, 'text-red-500': value < 0}"
+        class="font-bold">{{ value | currencyCustom:true }}</span>
+    </td>
+
 </ng-template>
 
 
@@ -39,34 +45,42 @@
 
 
 <div class="data" *ngIf="isMobile">
-
-    <div class="dataview flex flex-nowrap justify-content-between gap-1 p-2 pb-3" *ngFor="let item of data">
-        <div class="item-one flex flex-wrap align-content-center ">
+    <div class="dataview flex flex-nowrap justify-content-between gap-2 p-2 pb-3" *ngFor="let item of data">
+        <!-- Ícono de la Wallet -->
+        <div class="item-one flex flex-wrap align-content-center">
             <div [ngStyle]="{'background-color':'var(--purple-500)'}"
                 class="flex justify-content-center align-items-center p-3 border-circle">
-                <i class="icon fa-solid fa-money-check-dollar"></i>
+                <i class="icon fa-solid fa-wallet text-white text-lg"></i>
             </div>
         </div>
-        <div class="item-two flex flex-column gap-2">
+
+        <!-- Información de la Wallet -->
+        <div class="item-two flex flex-column gap-2 w-full">
             <div class="item-two-left">
                 <span class="font-medium text-secondary text-sm">
                     {{ item.name | titlecase }}
                 </span>
-                <div class="text-lg font-medium text-900">
-                    {{ item.balance | currencyCustom:true }}
+
+                <!-- Contenedor de montos con mejor diseño -->
+                <div class="amount-container">
+                    <span class="text-sm text-500">💰 Initial:
+                        <span class="text-primary">{{ item.initial_balance | currencyCustom:true }}</span>
+                    </span>
+                    <span class="text-sm text-500">➡️ Balance:
+                        <span
+                            [ngClass]="{'text-green-500': (item.incomes - item.expenses) >= 0, 'text-red-500': (item.incomes - item.expenses) < 0}"
+                            class="font-bold">{{ (item.incomes - item.expenses) | currencyCustom:true }}</span>
+                    </span>
                 </div>
             </div>
+
+            <!-- Tipo de cuenta -->
             <div class="item-two-right flex align-content-center gap-2">
-                <div class="flex align-content-center">
-                    <p-tag value="{{item.type_account}}" severity="secondary" />
-                </div>
-
-                <!-- <div *ngIf="item.repeat !== 'NEVER'" class="flex flex-wrap justify-content-center align-content-center">
-                    <i pTooltip="repeat: {{item.repeat}}" class="pi pi-clock"></i>
-                </div> -->
+                <p-tag [value]="item.type_account" severity="secondary"></p-tag>
             </div>
-
         </div>
+
+        <!-- Botones de acción -->
         <div class="item-three flex-wrap flex align-content-center gap-2">
             <p-button icon="pi pi-trash" severity="danger" (onClick)="deleteRow(item.id!)" [outlined]="true"></p-button>
             <p-button icon="pi pi-pencil" (onClick)="sendEditRow(item.id!, item)"></p-button>

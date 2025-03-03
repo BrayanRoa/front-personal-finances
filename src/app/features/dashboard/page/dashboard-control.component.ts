@@ -94,7 +94,6 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
       next: (response) => {
         // this.walletSummary.set(response.data) 
         this.walletSummary.set(response.data)
-        console.log("YO", this.walletSummary());
       },
       error: (error) => this.handleResponse(error, 'Error fetching wallet summary'),
     });
@@ -156,7 +155,10 @@ export class DashboardControlComponent extends BaseComponent implements OnInit {
 
   private loadBankDetails(): void {
     this.coreService.getBanksInformation().subscribe({
-      next: (response) => { this.bankDetails.set(response.data) },
+      next: (response) => { 
+        console.log({response});
+        this.bankDetails.set(response.data) 
+      },
       error: (error) => this.handleResponse(error, 'Error fetching bank details'),
     });
   }

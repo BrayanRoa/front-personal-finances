@@ -52,7 +52,6 @@ export class BudgetCardsComponent {
   ];
 
   ngOnInit(): void {
-    console.log(this.budgetSummary);
     setTimeout(() => {
       this.isLoading = false;
       if (this.budgetSummary) {
@@ -64,7 +63,6 @@ export class BudgetCardsComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["budgetSummary"] && changes["budgetSummary"].currentValue) {
-      console.log("BBB", this.budgetSummary);
       this.updateCardValues();
       this.animateCards()
     }

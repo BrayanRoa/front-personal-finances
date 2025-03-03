@@ -52,6 +52,7 @@ export class BalanceLineChartComponent {
     this.options = {
       maintainAspectRatio: false,
       aspectRatio: 0.8,
+      fill:true,
       plugins: {
         legend: {
           labels: {

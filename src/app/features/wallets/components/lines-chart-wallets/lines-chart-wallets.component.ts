@@ -37,7 +37,6 @@ export class LinesChartWalletsComponent {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['datasets'] && changes['datasets'].currentValue) {
       this.updateChart();
-      console.log('Datasets updated:', changes['datasets'].currentValue);
     }
   }
 
@@ -72,6 +71,7 @@ export class LinesChartWalletsComponent {
 
     this.options = {
       responsive: true,
+      // fill: true,
       aspectRatio: 0.9,
       stacked: false,
       maintainAspectRatio: false,

@@ -78,7 +78,6 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
             this.transactions.push(transaction.transaction)
           }
         })
-        console.log(this.transactions);
         this.available_amount = this.budget.limit_amount! - current_amount
         this.percentageBudet = Math.round((current_amount / response.data.limit_amount) * 100)
       },

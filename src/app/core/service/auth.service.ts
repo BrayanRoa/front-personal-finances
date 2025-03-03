@@ -99,7 +99,6 @@ export class AuthService {
             localStorage.removeItem('token'); // Eliminar token del localStorage
             localStorage.removeItem('email'); // Eliminar token del localStorage
             localStorage.removeItem('name'); // Eliminar token del localStorage
-            console.log('Sesión cerrada correctamente');
         } catch (error) {
             console.error('Error al cerrar sesión:', error);
         }

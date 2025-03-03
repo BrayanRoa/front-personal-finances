@@ -144,7 +144,6 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
   private loadCategories(): void {
     this.coreService.getCategories().subscribe({
       next: (response) => {
-        console.log({ response });
         this.categoryData.set(response.data.filter(category => category.name !== "INITIAL AMOUNT").map(c => {
           return ({
             label: c.name,

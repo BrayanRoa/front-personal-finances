@@ -54,7 +54,13 @@ export class WalletComponent extends BaseComponent implements OnInit {
   getWallets() {
     this.walletService.getWallets().subscribe({
       next: (response) => {
-        this.walletsData = response.data;
+        // this.walletsData = response.data;
+        this.walletsData = response.data.map((wallet) => {
+          return {
+            ...wallet,
+            balance: (wallet.initial_balance + wallet.incomes) - wallet.expenses
+          };
+        })
         this.calculatePercentages()
       },
       error: (error) => console.error('Error fetching wallets', error)
@@ -62,17 +68,19 @@ export class WalletComponent extends BaseComponent implements OnInit {
   }
 
   private calculatePercentages() {
-    let total = 0
-    this.walletsData.forEach((wallet) => {
-      total += wallet.balance
-    })
-    this.percentages = this.walletsData.map(bank => {
-      return {
-        name: bank.name,
-        percentage: Math.round((bank.balance / total) * 100)
-      }
-    })
+    let total = 0;
+    const validWallets = this.walletsData.filter(wallet => (wallet.initial_balance + wallet.incomes - wallet.expenses) > 0);
+
+    validWallets.forEach(wallet => {
+      total += ((wallet.initial_balance + wallet.incomes) - wallet.expenses);
+    });
+
+    this.percentages = validWallets.map(bank => ({
+      name: bank.name,
+      percentage: Math.round((((bank.initial_balance + bank.incomes) - bank.expenses) / total) * 100)
+    }));
   }
+
 
   monthlyBalance(year: number) {
     this.walletService.getMonthlyBalanceByWallet(year).subscribe({

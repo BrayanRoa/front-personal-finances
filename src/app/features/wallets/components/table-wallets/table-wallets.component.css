@@ -34,7 +34,25 @@
     /* Elimina la línea del último elemento */
 }
 
-.dataview:hover{
+.dataview:hover {
     background-color: var(--color-hover-table);
     /* Color gris claro al pasar el ratón */
+}
+
+.amount-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.text-primary {
+    color: var(--blue-400);
+}
+
+.text-green-500 {
+    color: var(--green-400);
+}
+
+.text-red-500 {
+    color: var(--red-400);
 }

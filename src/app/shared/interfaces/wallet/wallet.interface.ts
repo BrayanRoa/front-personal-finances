@@ -1,7 +1,8 @@
-export interface BanksInformation{
+export interface BanksInformation {
     id: number;
     name: string;
-    description:string;
-    balance:number;
-    initial_balance:number;
+    description: string;
+    incomes: number;
+    expenses:number;
+    initial_balance: number;
 }

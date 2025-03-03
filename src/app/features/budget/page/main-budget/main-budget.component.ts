@@ -36,8 +36,6 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
           const limitAmount = Number(budgetData.limit_amount) || 0; // Forzar la conversión a número
           const currentAmount = Number(budgetData.current_amount) || 0; // Usar curren_amount
           const percentage = Math.round((currentAmount / limitAmount) * 100);
-          console.log(currentAmount);
-          console.log(limitAmount - currentAmount);
           return {
             ...budgetData,
             percentage,
@@ -53,7 +51,6 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
     this.budgetService.summaryBudgets().subscribe({
       next: (response) => {
         this.summaryBudget.set(response.data)
-        console.log("AAA",this.summaryBudget());
       },
       error: (error: any) => this.handleError(error),
 
@@ -70,10 +67,12 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
 
   saveBudget(budgetData: BudgetData) {
     this.budgetService.save(budgetData).subscribe({
-      next: (response) => {
-        this.handleResponse(response.status, response.data);
-        this.getBudgets();
+      complete: ()=>{
         this.toggleModal(false);
+      },
+      next: (response) => {
+        this.getBudgets();
+        this.handleResponse(response.status, response.data);
       },
       error: (error: CommonResponse) => {
         this.handleResponse(error.status, error.statusMsg);
@@ -101,7 +100,6 @@ export class MainBudgetComponent extends BaseComponent implements OnInit {
   }
 
   toggleModal(visible: boolean): void {
-    console.log("SI ENTRE");
     this.viewModal = visible;
   }
 }

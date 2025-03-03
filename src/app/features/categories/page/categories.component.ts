@@ -52,7 +52,6 @@ export class CategoriesComponent extends BaseComponent implements OnInit {
           }
         })
     } else {
-      console.log(data.budget);
       this.categoryService.update(this.idCategorySelected(), data.budget).pipe(
         finalize(() => {
           this.toggleModal(false)
