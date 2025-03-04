@@ -40,7 +40,7 @@ export class BanksInformationComponent implements OnChanges {
       labels: this.bankData.map(bankData => { return bankData.name }),
       datasets: [
         {
-          data: this.bankData.map(bankData => { return (bankData.incomes - bankData.expenses) }),
+          data: this.bankData.map(bankData => { return ((bankData.initial_balance + bankData.incomes) - bankData.expenses) }),
           backgroundColor: [
             documentStyle.getPropertyValue('--blue-500'),
             documentStyle.getPropertyValue('--yellow-500'),

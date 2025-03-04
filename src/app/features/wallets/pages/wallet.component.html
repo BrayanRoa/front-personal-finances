@@ -9,8 +9,8 @@
                 <!-- <button pButton label="Add Wallet" class="p-button-success"
                     (click)="toggleModal(true)"></button> -->
 
-                <button pButton [severity]="'success'" (click)="toggleModal(true)"><i
-                        class="pi pi-plus mr-2"></i> Add wallet</button>
+                <button pButton [severity]="'success'" (click)="toggleModal(true)"><i class="pi pi-plus mr-2"></i> Add
+                    wallet</button>
 
                 <p-dialog header="Create new wallet" [modal]="true" [(visible)]="visible" (onHide)="toggleModal(false)"
                     [style]="{ width: '25rem' }">
@@ -52,7 +52,7 @@
         <p-panel [toggleable]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">
-                    <span class="item3 title-panel">Percentage of total income by bank</span>
+                    <span class="item3 title-panel">Percentage of total balance by bank</span>
                 </div>
             </ng-template>
             <div *ngIf="percentages.length > 0; else img">

@@ -16,7 +16,7 @@
 }
 
 
-.container-test {
+.container {
     display: grid;
     grid-template-columns: auto 1fr;
     transition: grid-template-columns 0.3s;
@@ -293,11 +293,16 @@
 }
 
 .barra-lateral .usuario .nombre {
+    display: block;
+    overflow: hidden;;
     font-size: 15px;
     font-weight: 600;
 }
 
 .barra-lateral .usuario .email {
+    display: block;
+    overflow: hidden;
+    width: 100%;
     font-size: 13px;
 }
 

@@ -1,4 +1,4 @@
-<div class="container-test" #container>
+<div class="container" #container>
     <div class="barra-lateral" #mini_barra_lateral>
         <div class="header">
             <div class="name-page">
@@ -7,14 +7,14 @@
             </div>
 
             <!-- BOTON AND MODAL  -->
-            <div class="card flex justify-content-center">
+            <!-- <div class="card flex justify-content-center">
 
                 <button pButton severity="danger" class="boton" pRipple (click)="logout()">
                     <i class="pi pi-power-off" style="font-size: 1.5rem"></i>
                     <span #mySpan>Log out</span>
                 </button>
 
-            </div>
+            </div> -->
             <!-- END BOTON AND MODAL -->
         </div>
 
@@ -54,9 +54,9 @@
                         <span class="nombre" #mySpan>{{info_person.name | titlecase}}</span>
                         <span class="email" #mySpan>{{info_person.email}}</span>
                     </div>
-                    <!-- <p-menu #menu [popup]="true" [model]="items"></p-menu> -->
+                    <p-menu #menu [popup]="true" [model]="items"></p-menu>
 
-                    <!-- <i class="pi pi-ellipsis-v" style="cursor: pointer;"></i> -->
+                    <i class="pi pi-ellipsis-v" style="cursor: pointer;" (click)="menu.toggle($event)"></i>
                 </div>
             </div>
         </div>
@@ -68,8 +68,8 @@
             <div class="text-lg font-bold">WealthFlow</div>
             <p-button (click)="logout()" [rounded]="true" label="Logout" [severity]="'danger'" icon="pi pi-power-off" />
         </div>
-        
-        
+
+
         <router-outlet></router-outlet>
     </div>
 </div>
