@@ -91,7 +91,7 @@ export class TableWalletsComponent {
     // this.showModal()
     const walletPayload: WalletData = {
       ...event.data.value,
-      type_account: event.data.value.type_account,
+      // type_account: event.data.value.type_account,
     }
     this.walletToUpdate.emit({ id: this.idWalletSelected, data: walletPayload });
     this.closeModal()

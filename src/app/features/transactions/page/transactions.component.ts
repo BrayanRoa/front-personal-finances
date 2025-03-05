@@ -209,22 +209,23 @@ export class TransactionsComponent extends BaseComponent implements OnInit {
     return new Promise<void>((resolve, reject) => {
       this.formConfig!.forEach(data => {
         if (data.name === 'walletId') {
-          data.options = [
+          data.custom_options = [
             ...this.walletsData().map(wallet => ({
-              label: wallet.name,
-              value: wallet.id,
+              name: wallet.name,
+              code: wallet.id,
             })),
           ];
         }
         if (data.name === 'categoryId') {
-          data.options = [
+          data.custom_options = [
             ...this.categoryData().map(category => ({
-              label: category.name,
-              value: category.id,
+              name: category.name,
+              code: category.id,
             })),
           ];
         }
       });
+      console.log("VEAMOS",this.formConfig);
       resolve();
     });
   }

@@ -73,7 +73,8 @@ export class InfoBudgetComponent extends BaseComponent implements OnInit {
         this.budget = response.data;
         let current_amount = 0
         this.budget.BudgetTransaction?.forEach(transaction => {
-          if (transaction.transaction.deleted_at === null && transaction.deleted_at === null) {
+          console.log({transaction});
+          if (transaction.transaction.deleted_at === null && transaction.deleted_at === null && this.budget.walletId === transaction.transaction.walletId) {
             current_amount += transaction.transaction.amount
             this.transactions.push(transaction.transaction)
           }

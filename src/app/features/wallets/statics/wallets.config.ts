@@ -5,7 +5,7 @@ export const TABLE_COLUMNS_WALLET = [
     { field: 'initial_balance', header: 'Initial Balance' },
     // { field: 'main_account', header: 'Main Account' },
     { field: 'balance', header: 'Balance' },
-    { field: 'type_account', header: 'Type Account' },
+    // { field: 'type_account', header: 'Type Account' },
 ];
 
 export const FORM_CONFIG_WALLET: FormFieldConfig[] = [
@@ -18,12 +18,12 @@ export const FORM_CONFIG_WALLET: FormFieldConfig[] = [
             thousandSeparator: ','
         },
     },
-    {
-        type: 'select', label: 'Type Account', name: 'type_account', value: "CREDIT", options: [
-            { label: 'Credit', value: 'CREDIT' },
-            { label: 'Debit', value: 'DEBIT' },
-        ], validations: [{ required: true }],
-    }
+    // {
+    //     type: 'select', label: 'Type Account', name: 'type_account', value: "CREDIT", options: [
+    //         { label: 'Credit', value: 'CREDIT' },
+    //         { label: 'Debit', value: 'DEBIT' },
+    //     ], validations: [{ required: true }],
+    // }
 ]
 
 
@@ -38,10 +38,10 @@ export const FORM_CONFIG_WALLET_UPDATE: FormFieldConfig[] = [
         },
         disabled: true
     },
-    {
-        type: 'select', label: 'Type Account', name: 'type_account', value: "CREDIT", options: [
-            { label: 'Credit', value: 'CREDIT' },
-            { label: 'Debit', value: 'DEBIT' },
-        ], validations: [{ required: true }],
-    }
+    // {
+    //     type: 'select', label: 'Type Account', name: 'type_account', value: "CREDIT", options: [
+    //         { label: 'Credit', value: 'CREDIT' },
+    //         { label: 'Debit', value: 'DEBIT' },
+    //     ], validations: [{ required: true }],
+    // }
 ]

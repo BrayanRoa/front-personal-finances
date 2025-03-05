@@ -16,7 +16,7 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
   // DATA FORM
   form!: FormGroup
   recurring_transactions = RECURRING_TRANSACTION_BUDGET
-  walletsData = signal<{ label: string, value: any }[]>([]);
+  walletsData = signal<{ name: string, code: any }[]>([]);
   categoryData = signal<{ label: string, value: any, color: string, icon: string }[]>([]);
 
   selectedCategories: string[] = [];
@@ -164,8 +164,8 @@ export class FormAddUpdateBudgetComponent extends BaseComponent implements OnIni
       next: (response) => {
         this.walletsData.set(response.data.map(w => {
           return ({
-            label: w.name,
-            value: w.id,
+            name: w.name,
+            code: w.id,
           });
         }))
       },

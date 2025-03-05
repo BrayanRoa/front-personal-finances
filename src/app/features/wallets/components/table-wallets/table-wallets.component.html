@@ -10,7 +10,6 @@
 <app-table *ngIf="!isMobile" [columns]="columns" [data]="data" [actions]="actions" [cellTemplates]="{
         name:nameTemplate,
         balance: balanceTemplate,
-        type_account: typeAccountTemplate,
         initial_balance: balanceTemplate,
     }"></app-table>
 
@@ -29,7 +28,7 @@
 </ng-template>
 
 
-<ng-template #typeAccountTemplate let-value>
+<!-- <ng-template #typeAccountTemplate let-value>
     <td *ngIf="value === 'DEBIT'; else credit">
         <div class="center">
             <p-tag icon="pi pi-circle-fill" severity="warning" value="{{value}}" />
@@ -41,7 +40,7 @@
             <p-tag icon="pi pi-circle-fill" severity="success" value="{{value}}" />
         </div>
     </ng-template>
-</ng-template>
+</ng-template> -->
 
 
 <div class="data" *ngIf="isMobile">
@@ -75,9 +74,9 @@
             </div>
 
             <!-- Tipo de cuenta -->
-            <div class="item-two-right flex align-content-center gap-2">
+            <!-- <div class="item-two-right flex align-content-center gap-2">
                 <p-tag [value]="item.type_account" severity="secondary"></p-tag>
-            </div>
+            </div> -->
         </div>
 
         <!-- Botones de acción -->

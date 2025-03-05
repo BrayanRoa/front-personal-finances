@@ -18,10 +18,14 @@
             <label for="repeat">Repeat</label>
             <select formControlName="repeat"
                 class="custom-select text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+
+                <option value="" disabled selected>Select repeat option</option>
+
                 <option *ngFor="let option of recurring_transactions" [value]="option.id">
                     {{ option.name }}
                 </option>
             </select>
+
         </div>
 
 
@@ -50,10 +54,15 @@
             <label for="walletId">Wallet</label>
             <select formControlName="walletId"
                 class="custom-select text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                <option *ngFor="let option of walletsData()" [value]="option.value">
-                    {{ option.label }}
+                <option value="" disabled selected>Select wallet</option>
+                <option *ngFor="let option of walletsData()" [value]="option.code">
+                    {{ option.name }}
                 </option>
             </select>
+
+            <!-- <p-dropdown class="flex flex-column" [filter]="true" filterBy="name" appendTo="body"
+                formControlName="walletId" [options]="walletsData()" optionLabel="name" optionValue="code"
+                [placeholder]="" /> -->
         </div>
 
         <div class="field col-12 md:col-12">

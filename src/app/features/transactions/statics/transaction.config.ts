@@ -20,25 +20,25 @@ export const FORM_CONFIG_TRANSACTION: FormFieldConfig[] = [
         ], validations: [{ required: true }], sizeResponsive: 'md:col-4'
     },
     {
-        type: 'select', label: 'Repeat', name: 'repeat', value: 'NEVER', options: [
-            { label: 'No Repeat', value: 'NEVER' },
-            { label: 'Every Day', value: 'EVERY DAY' },
-            { label: 'Every Two Days', value: 'EVERY TWO DAYS' },
-            { label: 'Every Working Day', value: 'EVERY WORKING DAY' },
-            { label: 'Every Week', value: 'EVERY WEEK' },
-            { label: 'Every Two Weeks', value: 'EVERY TWO WEEKS' },
-            { label: 'Every Month', value: 'EVERY MONTH' },
-            { label: 'Every Two Months', value: 'EVERY TWO MONTHS' },
-            { label: 'Every Three Months', value: 'EVERY THREE MONTHS' },
-            { label: 'Every Six Months', value: 'EVERY SIX MONTHS' },
-            { label: 'Every Year', value: 'EVERY YEAR' },
+        type: 'select', label: 'Repeat', name: 'repeat', value: 'NEVER', custom_options: [
+            { name: 'No Repeat', code: 'NEVER' },
+            { name: 'Every Day', code: 'EVERY DAY' },
+            { name: 'Every Two Days', code: 'EVERY TWO DAYS' },
+            { name: 'Every Working Day', code: 'EVERY WORKING DAY' },
+            { name: 'Every Week', code: 'EVERY WEEK' },
+            { name: 'Every Two Weeks', code: 'EVERY TWO WEEKS' },
+            { name: 'Every Month', code: 'EVERY MONTH' },
+            { name: 'Every Two Months', code: 'EVERY TWO MONTHS' },
+            { name: 'Every Three Months', code: 'EVERY THREE MONTHS' },
+            { name: 'Every Six Months', code: 'EVERY SIX MONTHS' },
+            { name: 'Every Year', code: 'EVERY YEAR' },
         ], validations: [], sizeResponsive: 'md:col-4'
     },
     {
-        type: 'select', label: 'Category', name: 'categoryId', value: "", options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
+        type: 'select', label: 'Category', placeholder:"Select category", name: 'categoryId', value: null, custom_options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
     },
     {
-        type: 'select', label: 'Wallet', name: 'walletId', value: "", options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
+        type: 'select', label: 'Wallet', placeholder:"Select wallet", name: 'walletId', value: null, custom_options: [], validations: [{ required: true }], sizeResponsive: 'md:col-6'
     },    // Más configuraciones...
 ];
 

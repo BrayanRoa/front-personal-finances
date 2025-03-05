@@ -13,6 +13,7 @@ export interface FormFieldConfig {
     },
     sizeResponsive?: 'md:col-6' | 'md:col-4' | 'md:col-3' | 'col-12'; //
     disabled?: boolean;
+    placeholder?:string
 }
 
 export interface SummaryInterface {

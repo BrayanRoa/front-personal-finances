@@ -21,12 +21,16 @@
             <ng-template #dynamicTemplate>
                 <!-- Selector Regular -->
                 <ng-container *ngIf="field.type === 'select'; else selectButtonTemplate">
-                    <select [formControlName]="field.name"
+                    <!-- <select [formControlName]="field.name"
                         class="custom-select text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                         <option *ngFor="let option of field.options" [value]="option.value">
                             {{ option.label }}
                         </option>
-                    </select>
+                    </select> -->
+
+                    <p-dropdown class="flex flex-column" [filter]="true"
+                    filterBy="name"  appendTo="body" [formControlName]="field.name" [options]="field.custom_options" optionLabel="name" optionValue="code"
+                        [placeholder]="field.placeholder" />
                 </ng-container>
 
                 <!-- Selector con SelectButton -->

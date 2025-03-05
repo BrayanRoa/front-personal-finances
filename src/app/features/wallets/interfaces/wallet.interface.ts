@@ -7,7 +7,7 @@ export interface WalletData {
     incomes: number;
     expenses: number;
     balance: number;
-    type_account: string;
+    // type_account: string;
     userId: string;
     // type:string;
 }
